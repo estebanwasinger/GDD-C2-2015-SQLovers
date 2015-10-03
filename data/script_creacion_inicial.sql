@@ -8,16 +8,21 @@ IF NOT EXISTS (SELECT schema_name
         N'CREATE SCHEMA SQLOVERS' 
   END 
 
-/*  
-DROP ALL THE TABLES!!!  
+/*   
+DROP ALL THE TABLES!!!   
 */ 
+IF Object_id('SQLOVERS.Pasaje') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.pasaje; 
+  END; 
+
 IF Object_id('SQLOVERS.Usuario') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.usuario; 
   END; 
 
-/*  
-CREATE TABLES  
+/*   
+CREATE TABLES   
 */ 
 CREATE TABLE sqlovers.usuario 
   ( 
@@ -28,11 +33,20 @@ CREATE TABLE sqlovers.usuario
      cli_telefono  NUMERIC(18, 0), 
      cli_mail      NVARCHAR(255), 
      cli_fecha_nac DATETIME, 
-     CONSTRAINT pk_usuario PRIMARY KEY (cli_nombre, cli_apellido, cli_dni) 
+     CONSTRAINT pk_usuario PRIMARY KEY (cli_dni) 
   ); 
 
-/* 
-FILL TABLES 
+CREATE TABLE sqlovers.pasaje 
+  ( 
+     pasaje_codigo      NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
+     pasaje_precio      NUMERIC(18, 2), 
+     pasaje_fechacompra DATETIME, 
+     cli_dni            NUMERIC(18, 0) FOREIGN KEY REFERENCES 
+     sqlovers.usuario(cli_dni) 
+  ) 
+
+/*  
+FILL TABLES  
 */ 
 INSERT INTO sqlovers.usuario 
             (cli_nombre, 
@@ -42,11 +56,35 @@ INSERT INTO sqlovers.usuario
              cli_telefono, 
              cli_mail, 
              cli_fecha_nac) 
-SELECT DISTINCT cli_nombre, 
-                cli_apellido, 
-                cli_dni, 
-                cli_dir, 
-                cli_telefono, 
-                cli_mail, 
-                cli_fecha_nac 
-FROM   gd_esquema.maestra
+SELECT cli_nombre, 
+       cli_apellido, 
+       cli_dni, 
+       cli_dir, 
+       cli_telefono, 
+       cli_mail, 
+       cli_fecha_nac 
+FROM   (SELECT cli_nombre, 
+               cli_apellido, 
+               cli_dni, 
+               cli_dir, 
+               cli_telefono, 
+               cli_mail, 
+               cli_fecha_nac, 
+               Row_number() 
+                 OVER ( 
+                   partition BY cli_dni 
+                   ORDER BY cli_dni) AS RowNumber 
+        FROM   gd_esquema.maestra) AS a 
+WHERE  a.rownumber = 1 
+
+INSERT INTO sqlovers.pasaje 
+            (pasaje_codigo, 
+             pasaje_precio, 
+             pasaje_fechacompra, 
+             cli_dni) 
+SELECT pasaje_codigo, 
+       pasaje_precio, 
+       pasaje_fechacompra, 
+       cli_dni 
+FROM   gd_esquema.maestra 
+WHERE  pasaje_codigo != 0 
