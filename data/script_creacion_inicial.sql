@@ -8,8 +8,8 @@ IF NOT EXISTS (SELECT schema_name
         N'CREATE SCHEMA SQLOVERS' 
   END 
 
-/*    
-DROP ALL THE TABLES!!!    
+/*     
+DROP ALL THE TABLES!!!     
 */ 
 IF Object_id('SQLOVERS.Pasaje') IS NOT NULL 
   BEGIN 
@@ -26,19 +26,30 @@ IF Object_id('SQLOVERS.Usuario') IS NOT NULL
       DROP TABLE sqlovers.usuario; 
   END; 
 
-IF Object_id('SQLOVERS.Ciudad') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.ciudad; 
-  END; 
-
 IF Object_id('SQLOVERS.Ruta') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.ruta; 
   END; 
 
-/*    
-CREATE TABLES    
+IF Object_id('SQLOVERS.Ciudad') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.ciudad; 
+  END; 
+
+IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.tipo_servicio; 
+  END; 
+
+/*     
+CREATE TABLES     
 */ 
+CREATE TABLE sqlovers.tipo_servicio 
+  ( 
+     tipo_servicio_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
+     tipo_servicio_nombre NVARCHAR(255) 
+  ) 
+
 CREATE TABLE sqlovers.ciudad 
   ( 
      ciudad_id     NUMERIC(6, 0) IDENTITY NOT NULL PRIMARY KEY, 
@@ -79,16 +90,29 @@ CREATE TABLE sqlovers.pasaje
 CREATE TABLE sqlovers.ruta 
   ( 
      ruta_id                NUMERIC(18, 0) NOT NULL IDENTITY PRIMARY KEY, 
-     ruta_ciudad_origen     NVARCHAR(255), 
-     ruta_ciudad_destino    NVARCHAR(255), 
-     ruta_tipo_servicio     NVARCHAR(255), 
+     ruta_ciudad_origen     NUMERIC(6, 0) FOREIGN KEY REFERENCES 
+     sqlovers.ciudad(ciudad_id), 
+     ruta_ciudad_destino    NUMERIC(6, 0) FOREIGN KEY REFERENCES 
+     sqlovers.ciudad(ciudad_id), 
+     ruta_tipo_servicio     NUMERIC(3, 0) FOREIGN KEY REFERENCES 
+     sqlovers.tipo_servicio(tipo_servicio_id), 
      ruta_precio_basepasaje NUMERIC(18, 0), 
      ruta_precio_basekg     NUMERIC(18, 0) 
   ) 
 
-/*   
-FILL TABLES   
+/*    
+FILL TABLES    
 */ 
+INSERT INTO sqlovers.tipo_servicio 
+            (tipo_servicio_nombre) 
+SELECT DISTINCT tipo_servicio 
+FROM   gd_esquema.maestra 
+
+INSERT INTO sqlovers.ciudad 
+            (ciudad_nombre) 
+SELECT DISTINCT ruta_ciudad_origen 
+FROM   gd_esquema.maestra 
+
 INSERT INTO sqlovers.ruta 
             (ruta_precio_basekg, 
              ruta_ciudad_destino, 
@@ -101,22 +125,23 @@ SELECT DISTINCT (SELECT Max(ruta_precio_basekg)
                         AND m2.ruta_ciudad_origen = m1.ruta_ciudad_origen 
                         AND m2.tipo_servicio = m1.tipo_servicio) AS 
                 Ruta_Precio_BaseKG, 
-                ruta_ciudad_destino, 
-                ruta_ciudad_origen, 
+                (SELECT ciudad_id 
+                 FROM   sqlovers.ciudad 
+                 WHERE  ruta_ciudad_destino = ciudad.ciudad_nombre), 
+                (SELECT ciudad_id 
+                 FROM   sqlovers.ciudad 
+                 WHERE  ruta_ciudad_origen = ciudad.ciudad_nombre), 
                 (SELECT Max(ruta_precio_basepasaje) 
                  FROM   gd_esquema.maestra m2 
                  WHERE  m2.ruta_ciudad_destino = m1.ruta_ciudad_destino 
                         AND m2.ruta_ciudad_origen = m1.ruta_ciudad_origen 
                         AND m2.tipo_servicio = m1.tipo_servicio) AS 
                 Ruta_Precio_BasePasaje, 
-                tipo_servicio 
+                (SELECT tipo_servicio_id 
+                 FROM   sqlovers.tipo_servicio 
+                 WHERE  tipo_servicio = tipo_servicio_nombre) 
 FROM   [GD2C2015].[gd_esquema].[maestra] m1 
 WHERE  m1.ruta_ciudad_destino != m1.ruta_ciudad_origen 
-
-INSERT INTO sqlovers.ciudad 
-            (ciudad_nombre) 
-SELECT DISTINCT ruta_ciudad_origen 
-FROM   gd_esquema.maestra 
 
 INSERT INTO sqlovers.usuario 
             (user_username, 
@@ -178,8 +203,8 @@ FROM   (SELECT cli_nombre,
         FROM   gd_esquema.maestra) AS a 
 WHERE  a.rownumber = 1 
 
---INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password) 
---VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7') 
+--INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)  
+--VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')  
 INSERT INTO sqlovers.pasaje 
             (pasaje_codigo, 
              pasaje_precio, 
