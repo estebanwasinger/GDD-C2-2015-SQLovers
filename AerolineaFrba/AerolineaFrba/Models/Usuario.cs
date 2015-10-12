@@ -14,6 +14,7 @@ namespace AerolineaFrba.Models
         public string Password { get; set; }
         public bool Activo { get; set; }
         public decimal CantFallidos { get; set; }
+        public decimal Rol_id { get; set; }
 
         public Usuario() { }
 
@@ -22,14 +23,16 @@ namespace AerolineaFrba.Models
             List<SqlParameter> paramList = new List<SqlParameter>();
             paramList.Add(new SqlParameter("@userName", userName));
 
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT * FROM SQLOVERS.Usuario WHERE name=@userName", "T", paramList);
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * FROM SQLOVERS.Usuario WHERE user_username=@userName", "T", paramList);
             if (lector.HasRows)
             {
                 lector.Read();
                 Name = userName;
-                Password = ((string)lector["pass"]).ToUpper();
-                Activo = (bool)lector["activo"];
-                CantFallidos = (decimal)lector["intentos_login"];
+                Password = ((string)lector["user_password"]).ToUpper();
+                Activo = (bool)lector["user_estado"];
+                CantFallidos = (decimal)lector["user_nro_intentos"];
+                Rol_id = (decimal)lector["user_rol_id"];
+
             }
         }
 
@@ -51,7 +54,7 @@ namespace AerolineaFrba.Models
         {
             List<SqlParameter> paramList = new List<SqlParameter>();
             paramList.Add(new SqlParameter("@nombre", Name));
-             DBAcess.WriteInBase("UPDATE SQLOVERS.Usuario SET intentos_login=0 WHERE name=@nombre", "T", paramList);
+            DBAcess.WriteInBase("UPDATE SQLOVERS.Usuario SET user_nro_intentos=0 WHERE user_username=@nombre", "T", paramList);
         }
 
 
