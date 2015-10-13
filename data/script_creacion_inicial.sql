@@ -8,12 +8,17 @@ IF NOT EXISTS (SELECT schema_name
         N'CREATE SCHEMA SQLOVERS' 
   END 
 
-/*       
-DROP ALL THE TABLES!!!       
+/*          
+DROP ALL THE TABLES!!!          
 */ 
 IF Object_id('SQLOVERS.Pasaje') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.PASAJE; 
+  END; 
+
+IF Object_id('SQLOVERS.Vuelo') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.VUELO; 
   END; 
 
 IF Object_id('SQLOVERS.Cliente') IS NOT NULL 
@@ -51,8 +56,13 @@ IF Object_id('SQLOVERS.aeronave') IS NOT NULL
       DROP TABLE sqlovers.AERONAVE; 
   END; 
 
-/*       
-CREATE TABLES       
+IF Object_id('SQLOVERS.updateIntentos') IS NOT NULL 
+  BEGIN 
+      DROP PROCEDURE sqlovers.updateintentos; 
+  END; 
+
+/*          
+CREATE TABLES          
 */ 
 CREATE TABLE sqlovers.AERONAVE 
   ( 
@@ -89,7 +99,7 @@ CREATE TABLE sqlovers.USUARIO
      user_username     NVARCHAR(255) NOT NULL PRIMARY KEY, 
      user_password     NVARCHAR(255), 
      user_nro_intentos NUMERIC(18, 0), 
-     user_estado       NUMERIC(1, 0), 
+     user_estado       BIT, 
      user_rol_id       NUMERIC(18, 0) 
   ); 
 
@@ -106,15 +116,6 @@ CREATE TABLE sqlovers.CLIENTE
      sqlovers.USUARIO(user_username) 
   ); 
 
-CREATE TABLE sqlovers.PASAJE 
-  ( 
-     pasaje_codigo      NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
-     pasaje_precio      NUMERIC(18, 2), 
-     pasaje_fechacompra DATETIME, 
-     cli_dni            NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CLIENTE(cli_dni) 
-  ) 
-
 CREATE TABLE sqlovers.RUTA 
   ( 
      ruta_id                NUMERIC(18, 0) NOT NULL IDENTITY PRIMARY KEY, 
@@ -128,8 +129,31 @@ CREATE TABLE sqlovers.RUTA
      ruta_precio_basekg     NUMERIC(18, 0) 
   ) 
 
-/*      
-FILL TABLES      
+CREATE TABLE sqlovers.VUELO 
+  ( 
+     vuelo_id                     NUMERIC(18, 0) IDENTITY PRIMARY KEY, 
+     vuelo_fecha_salida           DATETIME, 
+     vuelo_fecha_llegada          DATETIME, 
+     vuelo_fecha_llegada_estimada DATETIME, 
+     vuelo_aeronave_id            NVARCHAR(255) FOREIGN KEY REFERENCES 
+     sqlovers.AERONAVE(aeronave_matricula), 
+     vuelo_ruta_id                NUMERIC(18, 0) FOREIGN KEY REFERENCES 
+     sqlovers.RUTA(ruta_id) 
+  ) 
+
+CREATE TABLE sqlovers.PASAJE 
+  ( 
+     pasaje_codigo      NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
+     pasaje_precio      NUMERIC(18, 2), 
+     pasaje_fechacompra DATETIME, 
+     cli_dni            NUMERIC(18, 0) FOREIGN KEY REFERENCES 
+     sqlovers.CLIENTE(cli_dni), 
+     pasaje_vuelo_id    NUMERIC(18, 0) FOREIGN KEY REFERENCES 
+     sqlovers.VUELO(vuelo_id) 
+  ) 
+
+/*         
+FILL TABLES         
 */ 
 INSERT INTO sqlovers.AERONAVE 
             (aeronave_matricula, 
@@ -203,7 +227,7 @@ INSERT INTO sqlovers.USUARIO
 SELECT Lower(Replace(cli_nombre, ' ', '.') + '.' 
              + Replace(cli_apellido, ' ', '.') 
              + CONVERT(VARCHAR(20), cli_dni)), 
-       Hashbytes('SHA2_256', CONVERT(VARCHAR(20), cli_dni)), 
+       '', 
        0, 
        1, 
        NULL 
@@ -254,16 +278,75 @@ FROM   (SELECT cli_nombre,
         FROM   gd_esquema.MAESTRA) AS a 
 WHERE  a.rownumber = 1 
 
---INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)  
---VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7') 
+--INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)     
+--VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')   
 INSERT INTO sqlovers.PASAJE 
             (pasaje_codigo, 
              pasaje_precio, 
              pasaje_fechacompra, 
-             cli_dni) 
+             cli_dni, 
+             pasaje_vuelo_id) 
 SELECT pasaje_codigo, 
        pasaje_precio, 
        pasaje_fechacompra, 
-       cli_dni 
-FROM   gd_esquema.MAESTRA 
-WHERE  pasaje_codigo != 0 
+       cli_dni, 
+       v.vuelo_id 
+FROM   gd_esquema.MAESTRA m, 
+       sqlovers.VUELO v 
+WHERE  pasaje_precio > 0 
+       AND pasaje_codigo != 0 
+       AND m.aeronave_matricula = v.vuelo_aeronave_id 
+       AND m.fechasalida = v.vuelo_fecha_salida 
+       AND m.fechallegada = v.vuelo_fecha_llegada 
+       AND m.fecha_llegada_estimada = v.vuelo_fecha_llegada_estimada 
+
+INSERT INTO sqlovers.VUELO 
+            (vuelo_fecha_llegada, 
+             vuelo_fecha_llegada_estimada, 
+             vuelo_fecha_salida, 
+             vuelo_aeronave_id, 
+             vuelo_ruta_id) 
+SELECT DISTINCT fechallegada, 
+                fecha_llegada_estimada, 
+                m.fechasalida, 
+                m.aeronave_matricula, 
+                r.ruta_id 
+FROM   [GD2C2015].[gd_esquema].[MAESTRA] m, 
+       sqlovers.RUTA r, 
+       sqlovers.CIUDAD c, 
+       sqlovers.CIUDAD c2 
+WHERE  pasaje_precio > 0 
+       AND pasaje_codigo != 0 
+       AND c.ciudad_id = r.ruta_ciudad_destino 
+       AND c2.ciudad_id = r.ruta_ciudad_origen 
+       AND m.ruta_ciudad_destino = c.ciudad_nombre 
+       AND m.ruta_ciudad_origen = c2.ciudad_nombre 
+
+-- agregar usuario admin con la password ya hasheada   
+INSERT INTO sqlovers.USUARIO 
+VALUES      ('admin', 
+             'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 
+             0, 
+             1, 
+             0); -- el ultimo parametro es 0 xq todaviano no esta definido el id de rol   
+-- SP para actualizar fallidos   
+go 
+
+CREATE PROCEDURE sqlovers.[Updateintentos](@intentos_login NUMERIC(18, 0), 
+                                           @nombre         VARCHAR(25)) 
+AS 
+  BEGIN 
+      IF( @intentos_login = 3 ) 
+        BEGIN 
+            UPDATE sqlovers.USUARIO 
+            SET    user_estado = 0, 
+                   user_nro_intentos = @intentos_login 
+            WHERE  user_username = @nombre 
+        END 
+      ELSE 
+        BEGIN 
+            UPDATE sqlovers.USUARIO 
+            SET    user_nro_intentos = @intentos_login 
+            WHERE  user_username = @nombre 
+        END 
+  END 
