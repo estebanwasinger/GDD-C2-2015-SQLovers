@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Registro_de_Usuario;
-
+using AerolineaFrba.Abm_Aeronave;
+using AerolineaFrba.Models.BO;
 
 namespace AerolineaFrba
 {
@@ -16,9 +17,12 @@ namespace AerolineaFrba
         [STAThread]
         static void Main()
         {
+            Aeronave aeronave = new Aeronave();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormLogin());
+            //Application.Run(new FormLogin());
+            Application.Run(new FormABMAeronave());
+                
         }
     }
 }

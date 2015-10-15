@@ -44,11 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Aeronave\Form1.cs">
+    <Compile Include="Abm Aeronave\AltaAeronave.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Aeronave\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Aeronave\AltaAeronave.Designer.cs">
+      <DependentUpon>AltaAeronave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Aeronave\BajaAeronave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Aeronave\BajaAeronave.Designer.cs">
+      <DependentUpon>BajaAeronave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Aeronave\FormABMAeronave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Aeronave\FormABMAeronave.Designer.cs">
+      <DependentUpon>FormABMAeronave.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Ciudad\Form1.cs">
       <SubType>Form</SubType>
@@ -110,9 +122,15 @@
     <Compile Include="Listado Estadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\BO\Aeronave.cs" />
+    <Compile Include="Models\BO\IBO.cs" />
+    <Compile Include="Models\DAO\DAOAeronave.cs" />
+    <Compile Include="Models\DAO\DAOBase.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Utils\DB.cs" />
+    <Compile Include="Models\Utils\MyException.cs" />
+    <Compile Include="Models\Utils\Utils.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -130,6 +148,15 @@
     <Compile Include="Registro Llegada Destino\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Aeronave\AltaAeronave.resx">
+      <DependentUpon>AltaAeronave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Aeronave\BajaAeronave.resx">
+      <DependentUpon>BajaAeronave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Aeronave\FormABMAeronave.resx">
+      <DependentUpon>FormABMAeronave.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
