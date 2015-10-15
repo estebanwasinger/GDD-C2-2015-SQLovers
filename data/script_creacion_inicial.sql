@@ -8,8 +8,8 @@ IF NOT EXISTS (SELECT schema_name
         N'CREATE SCHEMA SQLOVERS' 
   END 
 
-/*          
-DROP ALL THE TABLES!!!          
+/*           
+DROP ALL THE TABLES!!!           
 */ 
 IF Object_id('SQLOVERS.Pasaje') IS NOT NULL 
   BEGIN 
@@ -31,6 +31,21 @@ IF Object_id('SQLOVERS.Usuario') IS NOT NULL
       DROP TABLE sqlovers.USUARIO; 
   END; 
 
+IF Object_id('SQLOVERS.funcionalidad_rol') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.FUNCIONALIDAD_ROL; 
+  END; 
+
+IF Object_id('SQLOVERS.Rol') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.ROL; 
+  END; 
+
+IF Object_id('SQLOVERS.Funcionalidad') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.FUNCIONALIDAD; 
+  END; 
+
 IF Object_id('SQLOVERS.Ruta') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.RUTA; 
@@ -41,9 +56,9 @@ IF Object_id('SQLOVERS.Ciudad') IS NOT NULL
       DROP TABLE sqlovers.CIUDAD; 
   END; 
 
-IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL 
+IF Object_id('SQLOVERS.aeronave') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.TIPO_SERVICIO; 
+      DROP TABLE sqlovers.AERONAVE; 
   END; 
 
 IF Object_id('SQLOVERS.butaca') IS NOT NULL 
@@ -51,25 +66,53 @@ IF Object_id('SQLOVERS.butaca') IS NOT NULL
       DROP TABLE sqlovers.BUTACA; 
   END; 
 
-IF Object_id('SQLOVERS.aeronave') IS NOT NULL 
+IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.AERONAVE; 
+      DROP TABLE sqlovers.TIPO_SERVICIO; 
   END; 
 
-IF Object_id('SQLOVERS.updateIntentos') IS NOT NULL 
+IF Object_id('SQLOVERS.UpdateIntentos') IS NOT NULL 
   BEGIN 
       DROP PROCEDURE sqlovers.updateintentos; 
   END; 
 
-/*          
-CREATE TABLES          
+/*           
+CREATE TABLES           
 */ 
+CREATE TABLE sqlovers.ROL 
+  ( 
+     rol_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
+     rol_name   NVARCHAR(255), 
+     rol_activo BINARY 
+  ) 
+
+CREATE TABLE sqlovers.FUNCIONALIDAD 
+  ( 
+     funcionalidad_id   NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
+     funcionalidad_desc NVARCHAR(255) 
+  ) 
+
+CREATE TABLE sqlovers.FUNCIONALIDAD_ROL 
+  ( 
+     rol_id           NUMERIC(3, 0) FOREIGN KEY REFERENCES sqlovers.ROL(rol_id), 
+     funcionalidad_id NUMERIC(3, 0) FOREIGN KEY REFERENCES 
+     sqlovers.FUNCIONALIDAD(funcionalidad_id) 
+  ) 
+
+CREATE TABLE sqlovers.TIPO_SERVICIO 
+  ( 
+     tipo_servicio_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
+     tipo_servicio_nombre NVARCHAR(255) 
+  ) 
+
 CREATE TABLE sqlovers.AERONAVE 
   ( 
      aeronave_matricula      NVARCHAR(255) PRIMARY KEY NOT NULL, 
      aeronave_modelo         NVARCHAR(255), 
      aeronave_kg_disponibles NUMERIC(18, 0), 
-     aeronave_fabricante     NVARCHAR(255) 
+     aeronave_fabricante     NVARCHAR(255), 
+     aeronave_tipo_servicio  NUMERIC(3, 0) FOREIGN KEY REFERENCES 
+     sqlovers.TIPO_SERVICIO(tipo_servicio_id) 
   ) 
 
 CREATE TABLE sqlovers.BUTACA 
@@ -80,12 +123,6 @@ CREATE TABLE sqlovers.BUTACA
      butaca_aeronave NVARCHAR(255) FOREIGN KEY REFERENCES 
      sqlovers.AERONAVE(aeronave_matricula), 
      CONSTRAINT pk_butaca_aeronave PRIMARY KEY (butaca_nro, butaca_aeronave) 
-  ) 
-
-CREATE TABLE sqlovers.TIPO_SERVICIO 
-  ( 
-     tipo_servicio_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
-     tipo_servicio_nombre NVARCHAR(255) 
   ) 
 
 CREATE TABLE sqlovers.CIUDAD 
@@ -100,7 +137,7 @@ CREATE TABLE sqlovers.USUARIO
      user_password     NVARCHAR(255), 
      user_nro_intentos NUMERIC(18, 0), 
      user_estado       BIT, 
-     user_rol_id       NUMERIC(18, 0) 
+     user_rol_id       NUMERIC(3, 0) FOREIGN KEY REFERENCES sqlovers.ROL(rol_id) 
   ); 
 
 CREATE TABLE sqlovers.CLIENTE 
@@ -123,10 +160,10 @@ CREATE TABLE sqlovers.RUTA
      sqlovers.CIUDAD(ciudad_id), 
      ruta_ciudad_destino    NUMERIC(6, 0) FOREIGN KEY REFERENCES 
      sqlovers.CIUDAD(ciudad_id), 
-     ruta_tipo_servicio     NUMERIC(3, 0) FOREIGN KEY REFERENCES 
-     sqlovers.TIPO_SERVICIO(tipo_servicio_id), 
      ruta_precio_basepasaje NUMERIC(18, 0), 
-     ruta_precio_basekg     NUMERIC(18, 0) 
+     ruta_precio_basekg     NUMERIC(18, 0), 
+     ruta_tipo_servicio     NUMERIC(3, 0) FOREIGN KEY REFERENCES 
+     sqlovers.TIPO_SERVICIO(tipo_servicio_id) 
   ) 
 
 CREATE TABLE sqlovers.VUELO 
@@ -152,18 +189,30 @@ CREATE TABLE sqlovers.PASAJE
      sqlovers.VUELO(vuelo_id) 
   ) 
 
-/*         
-FILL TABLES         
+/*          
+FILL TABLES          
 */ 
+INSERT INTO sqlovers.ROL 
+            (rol_name, 
+             rol_activo) 
+VALUES     ('Admin', 
+            1), 
+            ('User', 
+             1) 
+
 INSERT INTO sqlovers.AERONAVE 
             (aeronave_matricula, 
              aeronave_modelo, 
              aeronave_fabricante, 
-             aeronave_kg_disponibles) 
+             aeronave_kg_disponibles, 
+             aeronave_tipo_servicio) 
 SELECT DISTINCT aeronave_matricula, 
                 aeronave_modelo, 
                 aeronave_fabricante, 
-                aeronave_kg_disponibles 
+                aeronave_kg_disponibles, 
+                (SELECT tipo_servicio_id 
+                 FROM   sqlovers.TIPO_SERVICIO 
+                 WHERE  tipo_servicio = tipo_servicio_nombre) 
 FROM   [GD2C2015].[gd_esquema].[MAESTRA] 
 
 INSERT INTO sqlovers.BUTACA 
@@ -230,7 +279,7 @@ SELECT Lower(Replace(cli_nombre, ' ', '.') + '.'
        '', 
        0, 
        1, 
-       NULL 
+       2 
 FROM   (SELECT cli_nombre, 
                cli_apellido, 
                cli_dni, 
@@ -278,7 +327,7 @@ FROM   (SELECT cli_nombre,
         FROM   gd_esquema.MAESTRA) AS a 
 WHERE  a.rownumber = 1 
 
---INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)     
+--INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)      
 --VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')   
 INSERT INTO sqlovers.PASAJE 
             (pasaje_codigo, 
@@ -322,14 +371,14 @@ WHERE  pasaje_precio > 0
        AND m.ruta_ciudad_destino = c.ciudad_nombre 
        AND m.ruta_ciudad_origen = c2.ciudad_nombre 
 
--- agregar usuario admin con la password ya hasheada   
+-- agregar usuario admin con la password ya hasheada    
 INSERT INTO sqlovers.USUARIO 
 VALUES      ('admin', 
              'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 
              0, 
              1, 
-             0); -- el ultimo parametro es 0 xq todaviano no esta definido el id de rol   
--- SP para actualizar fallidos   
+             1); 
+
 go 
 
 CREATE PROCEDURE sqlovers.[Updateintentos](@intentos_login NUMERIC(18, 0), 
@@ -349,4 +398,4 @@ AS
             SET    user_nro_intentos = @intentos_login 
             WHERE  user_username = @nombre 
         END 
-  END 
+  END
