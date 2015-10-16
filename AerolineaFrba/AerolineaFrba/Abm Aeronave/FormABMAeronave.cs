@@ -60,7 +60,7 @@ namespace AerolineaFrba.Abm_Aeronave
             colModelo.HeaderText = "Modelo";
             colModelo.Width = 120;
             DataGridViewTextBoxColumn colKGDisp = new DataGridViewTextBoxColumn();
-            colKGDisp.DataPropertyName = "KG Disponibles";
+            colKGDisp.DataPropertyName = "peso_disponible";
             colKGDisp.HeaderText = "KG Disponibles";
             colKGDisp.Width = 120;
             DataGridViewTextBoxColumn colFabricante = new DataGridViewTextBoxColumn();
@@ -77,12 +77,18 @@ namespace AerolineaFrba.Abm_Aeronave
         public void actualizarGrilla()
         {
             if (txtmatricula.Text != "" || txtfabri.Text != "" || txtmodelo.Text != "" || txtPeso.Text != "")
-                lstAeronaves = dao.search(txtmatricula.Text, txtfabri.Text, txtmodelo.SelectedText, txtPeso.SelectedText);
+                lstAeronaves = dao.search(txtmatricula.Text, txtfabri.Text, txtmodelo.Text, txtPeso.Text);
             else
                 lstAeronaves = dao.retrieveAll();
             Aeronave client = new Aeronave();
             client = lstAeronaves[0];
             dtgAeoronave.DataSource = lstAeronaves;
+        }
+
+        private void btnAlta_Click(object sender, EventArgs e)
+        {
+            AltaAeronave aa = new AltaAeronave(new Aeronave());
+            aa.Show();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)

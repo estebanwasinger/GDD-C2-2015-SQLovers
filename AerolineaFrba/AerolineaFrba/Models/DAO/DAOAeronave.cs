@@ -186,7 +186,7 @@ namespace AerolineaFrba.Models.DAO
                 base_query += String.Format(" aeronave_kg_disponibles = '{0}' AND", peso);
             }
 
-            base_query = base_query.Substring(0, base_query.Length - 3);
+            base_query = base_query.Substring(0, base_query.Length -3);
 
             return DB.ExecuteReader<Aeronave>(base_query);
         }
@@ -204,7 +204,6 @@ namespace AerolineaFrba.Models.DAO
                     aeRonave.matricula = (string)lector["aeronave_matricula"];
                     aeRonave.peso_disponible = (int)(decimal)lector["aeronave_kg_disponibles"];
                     aeRonave.modelo = (string)lector["aeronave_modelo"];
-                   
                     aeRonave.fabricante = (string)lector["aeronave_fabricante"];
                    
                    /* try
