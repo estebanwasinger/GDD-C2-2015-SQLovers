@@ -32,7 +32,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.txtMatricula = new System.Windows.Forms.TextBox();
             this.txtFabricante = new System.Windows.Forms.TextBox();
             this.txtCarga = new System.Windows.Forms.TextBox();
@@ -43,6 +42,8 @@
             this.dateTimeFA = new System.Windows.Forms.DateTimePicker();
             this.BAlta = new System.Windows.Forms.Button();
             this.BCancelar = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cmbServicio = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -58,7 +59,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 86);
+            this.label2.Location = new System.Drawing.Point(36, 79);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 1;
@@ -67,7 +68,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 141);
+            this.label3.Location = new System.Drawing.Point(36, 123);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 2;
@@ -76,52 +77,44 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(33, 205);
+            this.label4.Location = new System.Drawing.Point(35, 174);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Fabricante";
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(281, 174);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(8, 4);
-            this.listBox1.TabIndex = 4;
-            // 
             // txtMatricula
             // 
-            this.txtMatricula.Location = new System.Drawing.Point(115, 33);
+            this.txtMatricula.Location = new System.Drawing.Point(160, 29);
             this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.Size = new System.Drawing.Size(100, 20);
+            this.txtMatricula.Size = new System.Drawing.Size(115, 20);
             this.txtMatricula.TabIndex = 5;
             // 
             // txtFabricante
             // 
-            this.txtFabricante.Location = new System.Drawing.Point(115, 198);
+            this.txtFabricante.Location = new System.Drawing.Point(160, 167);
             this.txtFabricante.Name = "txtFabricante";
-            this.txtFabricante.Size = new System.Drawing.Size(100, 20);
+            this.txtFabricante.Size = new System.Drawing.Size(115, 20);
             this.txtFabricante.TabIndex = 6;
             // 
             // txtCarga
             // 
-            this.txtCarga.Location = new System.Drawing.Point(115, 138);
+            this.txtCarga.Location = new System.Drawing.Point(160, 116);
             this.txtCarga.Name = "txtCarga";
-            this.txtCarga.Size = new System.Drawing.Size(100, 20);
+            this.txtCarga.Size = new System.Drawing.Size(115, 20);
             this.txtCarga.TabIndex = 7;
             // 
             // txtModelo
             // 
-            this.txtModelo.Location = new System.Drawing.Point(115, 79);
+            this.txtModelo.Location = new System.Drawing.Point(160, 72);
             this.txtModelo.Name = "txtModelo";
-            this.txtModelo.Size = new System.Drawing.Size(100, 20);
+            this.txtModelo.Size = new System.Drawing.Size(115, 20);
             this.txtModelo.TabIndex = 8;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(33, 257);
+            this.label5.Location = new System.Drawing.Point(35, 218);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 13);
             this.label5.TabIndex = 9;
@@ -130,9 +123,9 @@
             // 
             // txtButacas
             // 
-            this.txtButacas.Location = new System.Drawing.Point(115, 250);
+            this.txtButacas.Location = new System.Drawing.Point(160, 211);
             this.txtButacas.Name = "txtButacas";
-            this.txtButacas.Size = new System.Drawing.Size(100, 20);
+            this.txtButacas.Size = new System.Drawing.Size(121, 20);
             this.txtButacas.TabIndex = 10;
             // 
             // label6
@@ -171,11 +164,30 @@
             this.BCancelar.UseVisualStyleBackColor = true;
             this.BCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(36, 252);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(69, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Tipo Servicio";
+            // 
+            // cmbServicio
+            // 
+            this.cmbServicio.FormattingEnabled = true;
+            this.cmbServicio.Location = new System.Drawing.Point(160, 243);
+            this.cmbServicio.Name = "cmbServicio";
+            this.cmbServicio.Size = new System.Drawing.Size(121, 21);
+            this.cmbServicio.TabIndex = 17;
+            // 
             // AltaAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(409, 431);
+            this.Controls.Add(this.cmbServicio);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.BCancelar);
             this.Controls.Add(this.BAlta);
             this.Controls.Add(this.dateTimeFA);
@@ -186,7 +198,6 @@
             this.Controls.Add(this.txtCarga);
             this.Controls.Add(this.txtFabricante);
             this.Controls.Add(this.txtMatricula);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -205,7 +216,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TextBox txtMatricula;
         private System.Windows.Forms.TextBox txtFabricante;
         private System.Windows.Forms.TextBox txtCarga;
@@ -216,5 +226,7 @@
         private System.Windows.Forms.DateTimePicker dateTimeFA;
         private System.Windows.Forms.Button BAlta;
         private System.Windows.Forms.Button BCancelar;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cmbServicio;
     }
 }

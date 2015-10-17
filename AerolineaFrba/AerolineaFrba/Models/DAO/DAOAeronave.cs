@@ -29,8 +29,8 @@ namespace AerolineaFrba.Models.DAO
             try
             {
                 int bit = 0;
-                string comando = "INSERT INTO SQLOVERS.AERONAVE(aeronave_matricula, aeronave_modelo, aeronave_kg_disponibles, aeronave_fabricante)"
-                                    + "VALUES ({0},{1},{2},{3})";
+                string comando = "INSERT INTO SQLOVERS.AERONAVE(aeronave_matricula, aeronave_modelo, aeronave_kg_disponibles, aeronave_fabricante, aeronave_tipo_servicio)"
+                                    + "VALUES ({0},{1},{2},{3},{4})";
                                    // + "SELECT SCOPE_IDENTITY();";
                /* if (_Aeronave.usuario == null || _Aeronave.usuario == "")
                 {
@@ -46,7 +46,7 @@ namespace AerolineaFrba.Models.DAO
                 {
                     bit = 1;
                 }*/
-                comando = String.Format(comando, stringQuereable(_Aeronave.matricula), stringQuereable(_Aeronave.modelo), _Aeronave.peso_disponible, stringQuereable(_Aeronave.fabricante));
+                comando = String.Format(comando, stringQuereable(_Aeronave.matricula), stringQuereable(_Aeronave.modelo), _Aeronave.peso_disponible, stringQuereable(_Aeronave.fabricante), _Aeronave.aeronave_tipo_servicio);
                 int insertado = DB.ExecuteCardinal(comando);
 
                 Console.WriteLine(insertado);
@@ -67,7 +67,8 @@ namespace AerolineaFrba.Models.DAO
                 ListaParametros.Add(new SqlParameter("@aeronave_matricula", aero.matricula));
                 ListaParametros.Add(new SqlParameter("@aeronave_modelo", aero.modelo));
                 ListaParametros.Add(new SqlParameter("@aeronave_kg_disponibles", (int)aero.peso_disponible));
-                ListaParametros.Add(new SqlParameter("@aeronave_fabricante", aero.fabricante));   
+                ListaParametros.Add(new SqlParameter("@aeronave_fabricante", aero.fabricante));
+                ListaParametros.Add(new SqlParameter("@aeronave_tipo_servicio", (int)aero.aeronave_tipo_servicio));
              
                 /*ListaParametros.Add(new SqlParameter("@dom_nro", aero.dom_nro));
                 ListaParametros.Add(new SqlParameter("@dom_piso", aero.dom_piso));
@@ -80,7 +81,7 @@ namespace AerolineaFrba.Models.DAO
 
 
                 return DBAcess.WriteInBase("update SQLOVERS.aeronave set aeronave_matricula =@aeronave_matricula, aeronave_modelo=@aeronave_modelo, aeronave_kg_disponibles=@aeronave_kg_disponibles," +
-                    "aeronave_fabricante=@aeronave_fabricante", "T", ListaParametros);
+                    "aeronave_fabricante=@aeronave_fabricante,aeronave_tipo_servicio=@aeronave_tipo_servicio", "T", ListaParametros);
             }
             catch { return false; }
         }

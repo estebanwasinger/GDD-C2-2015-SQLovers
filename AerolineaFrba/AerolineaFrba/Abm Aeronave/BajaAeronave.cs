@@ -7,14 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AerolineaFrba.Models.BO;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
-    public partial class BajaAeronave : Form
+    public partial class BajaAeronaveD : Form
     {
-        public BajaAeronave()
+        public BajaAeronaveD( Aeronave aer)
         {
+
             InitializeComponent();
         }
+
+
     }
 }

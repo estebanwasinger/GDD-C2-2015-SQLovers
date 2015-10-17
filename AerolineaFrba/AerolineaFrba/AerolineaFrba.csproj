@@ -124,8 +124,10 @@
     </Compile>
     <Compile Include="Models\BO\Aeronave.cs" />
     <Compile Include="Models\BO\IBO.cs" />
+    <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\DAO\DAOAeronave.cs" />
     <Compile Include="Models\DAO\DAOBase.cs" />
+    <Compile Include="Models\DAO\DAOServicio.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Utils\DB.cs" />

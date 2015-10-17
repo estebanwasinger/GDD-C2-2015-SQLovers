@@ -31,8 +31,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtPeso = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_bDeft = new System.Windows.Forms.Button();
+            this.btn_bTecnica = new System.Windows.Forms.Button();
             this.btnAlta = new System.Windows.Forms.Button();
             this.txtfabri = new System.Windows.Forms.TextBox();
             this.txtmodelo = new System.Windows.Forms.TextBox();
@@ -42,7 +42,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dtgAeoronave = new System.Windows.Forms.DataGridView();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAeoronave)).BeginInit();
             this.SuspendLayout();
@@ -51,8 +51,8 @@
             // 
             this.groupBox1.Controls.Add(this.txtPeso);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.btn_bDeft);
+            this.groupBox1.Controls.Add(this.btn_bTecnica);
             this.groupBox1.Controls.Add(this.btnAlta);
             this.groupBox1.Controls.Add(this.txtfabri);
             this.groupBox1.Controls.Add(this.txtmodelo);
@@ -85,29 +85,30 @@
             this.label4.Text = "Peso Disp";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
-            // button3
+            // btn_bDeft
             // 
-            this.button3.Location = new System.Drawing.Point(323, 138);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Modificar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_bDeft.Location = new System.Drawing.Point(323, 124);
+            this.btn_bDeft.Name = "btn_bDeft";
+            this.btn_bDeft.Size = new System.Drawing.Size(75, 37);
+            this.btn_bDeft.TabIndex = 8;
+            this.btn_bDeft.Text = "Baja Definitiva";
+            this.btn_bDeft.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btn_bTecnica
             // 
-            this.button2.Location = new System.Drawing.Point(186, 138);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Baja";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_bTecnica.Location = new System.Drawing.Point(186, 124);
+            this.btn_bTecnica.Name = "btn_bTecnica";
+            this.btn_bTecnica.Size = new System.Drawing.Size(75, 37);
+            this.btn_bTecnica.TabIndex = 7;
+            this.btn_bTecnica.Text = "Baja Tecnica";
+            this.btn_bTecnica.UseVisualStyleBackColor = true;
+            this.btn_bTecnica.Click += new System.EventHandler(this.btn_bTecnica_Click);
             // 
             // btnAlta
             // 
-            this.btnAlta.Location = new System.Drawing.Point(46, 138);
+            this.btnAlta.Location = new System.Drawing.Point(46, 124);
             this.btnAlta.Name = "btnAlta";
-            this.btnAlta.Size = new System.Drawing.Size(75, 23);
+            this.btnAlta.Size = new System.Drawing.Size(75, 37);
             this.btnAlta.TabIndex = 6;
             this.btnAlta.Text = "Alta";
             this.btnAlta.UseVisualStyleBackColor = true;
@@ -179,21 +180,22 @@
             this.button4.Text = "Limpiar";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnBuscar
             // 
-            this.button5.Location = new System.Drawing.Point(364, 222);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "Buscar";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnBuscar.Location = new System.Drawing.Point(364, 222);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 3;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // FormABMAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 444);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.dtgAeoronave);
             this.Controls.Add(this.groupBox1);
@@ -210,8 +212,8 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_bDeft;
+        private System.Windows.Forms.Button btn_bTecnica;
         private System.Windows.Forms.Button btnAlta;
         private System.Windows.Forms.TextBox txtfabri;
         private System.Windows.Forms.TextBox txtmodelo;
@@ -221,7 +223,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dtgAeoronave;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.TextBox txtPeso;
         private System.Windows.Forms.Label label4;
     }

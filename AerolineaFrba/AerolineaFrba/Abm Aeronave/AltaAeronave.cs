@@ -23,6 +23,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             aeronave = aero;
             InitializeComponent();
+            cargarCombos();
             
         }
 
@@ -84,6 +85,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 aeronave.fabricante = txtFabricante.Text;
                 aeronave.cant_butacas = (int?)Convert.ToInt32(txtButacas.Text);
                 aeronave.fecha_alta = dateTimeFA.Value.Date;
+                aeronave.aeronave_tipo_servicio = ((Servicio)cmbServicio.SelectedItem).tipo_servicio_id;
                 
 
 
@@ -171,22 +173,10 @@ namespace AerolineaFrba.Abm_Aeronave
             this.Close();
         }
 
-       /* private void cargarCombos()
+        private void cargarCombos()
         {
-            cbNacionalidad.Items.AddRange(daoPais.retrieveBase().ToArray());
-            
-            lstTipos = TipoDocumento.ObtenerTiposDocumento();
-
-            if (lstTipos.Count > 0)
-            {
-                cmbTipo.Visible = true;
-                cmbTipo.DataSource = lstTipos;
-                cmbTipo.DisplayMember = "descripcion";
-                cmbTipo.ValueMember = "id";
-                cmbTipo.SelectedIndex = -1;
-
-            }
-        }*/
+            cmbServicio.Items.AddRange(new DAOServicio().retrieveBase().ToArray());
+        }
 
        /* private void FormAltaCliente_Load(object sender, EventArgs e)
         {                       

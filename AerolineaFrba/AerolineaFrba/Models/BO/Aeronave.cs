@@ -27,6 +27,7 @@ namespace AerolineaFrba.Models.BO
         public int? cant_butacas { get; set; }
         public string fabricante { get; set; }
         public bool? activo { get; set; }
+        public int? aeronave_tipo_servicio { get; set; }
 
 
         public Aeronave initialize(DataRow _dr)
@@ -45,6 +46,10 @@ namespace AerolineaFrba.Models.BO
            
             if (dcc.Contains("aeronave_fabricante"))
                 fabricante = (dr["aeronave_fabricante"] == DBNull.Value) ? null : dr["aeronave_fabricante"].ToString();
+
+            if (dcc.Contains("aeronave_tipo_servicio"))
+                aeronave_tipo_servicio = (dr["aeronave_tipo_servicio"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_tipo_servicio"]);
+
 
             return this;
         }

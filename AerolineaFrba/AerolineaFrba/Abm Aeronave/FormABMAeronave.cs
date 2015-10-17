@@ -91,6 +91,26 @@ namespace AerolineaFrba.Abm_Aeronave
             aa.Show();
         }
 
+        private void btn_bTecnica_Click(object sender, EventArgs e)
+        {
+            Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
+            BajaAeronaveD bad = new BajaAeronaveD(aer);
+            bad.Show();
+        }
+
+        private void btn_bDeft_Click(object sender, EventArgs e)
+        {
+
+
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try { actualizarGrilla(); }
+            catch { MessageBox.Show("No existe cliente con esas caracteristicas", "Error!", MessageBoxButtons.OK); }
+        }
+
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
