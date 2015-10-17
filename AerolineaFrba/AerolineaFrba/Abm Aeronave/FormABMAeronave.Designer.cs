@@ -91,7 +91,7 @@
             this.btn_bDeft.Name = "btn_bDeft";
             this.btn_bDeft.Size = new System.Drawing.Size(75, 37);
             this.btn_bDeft.TabIndex = 8;
-            this.btn_bDeft.Text = "Baja Definitiva";
+            this.btn_bDeft.Text = "Baja";
             this.btn_bDeft.UseVisualStyleBackColor = true;
             // 
             // btn_bTecnica
@@ -100,9 +100,9 @@
             this.btn_bTecnica.Name = "btn_bTecnica";
             this.btn_bTecnica.Size = new System.Drawing.Size(75, 37);
             this.btn_bTecnica.TabIndex = 7;
-            this.btn_bTecnica.Text = "Baja Tecnica";
+            this.btn_bTecnica.Text = "Baja Definitiva";
             this.btn_bTecnica.UseVisualStyleBackColor = true;
-            this.btn_bTecnica.Click += new System.EventHandler(this.btn_bTecnica_Click);
+            this.btn_bTecnica.Click += new System.EventHandler(this.btn_bDeft_Click);
             // 
             // btnAlta
             // 

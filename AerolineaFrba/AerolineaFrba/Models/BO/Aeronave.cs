@@ -63,12 +63,14 @@ namespace AerolineaFrba.Models.BO
             return this;
         }
 
-        //public string get_pais()
-        //{
-        //    DAOPais dao = new DAOPais();
-        //    Pais pais = dao.retrieveBy_id(this.nacionalidad);
-        //    return pais.descripcion;
-        //}
+
+
+        public string get_service()
+        {
+            DAOServicio daoServ = new DAOServicio();
+            Servicio serv = daoServ.retrieveBy_id_serv(this.aeronave_tipo_servicio);
+            return serv.tipo_servicio_nombre;
+        }
 
        /* public List<Tarjeta> get_tarjetas()
         {

@@ -50,11 +50,11 @@
     <Compile Include="Abm Aeronave\AltaAeronave.Designer.cs">
       <DependentUpon>AltaAeronave.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Aeronave\BajaAeronave.cs">
+    <Compile Include="Abm Aeronave\BajaAeronaveDefinitiva.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Aeronave\BajaAeronave.Designer.cs">
-      <DependentUpon>BajaAeronave.cs</DependentUpon>
+    <Compile Include="Abm Aeronave\BajaAeronaveDefinitiva.Designer.cs">
+      <DependentUpon>BajaAeronaveDefinitiva.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Aeronave\FormABMAeronave.cs">
       <SubType>Form</SubType>
@@ -125,9 +125,11 @@
     <Compile Include="Models\BO\Aeronave.cs" />
     <Compile Include="Models\BO\IBO.cs" />
     <Compile Include="Models\BO\Servicio.cs" />
+    <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOAeronave.cs" />
     <Compile Include="Models\DAO\DAOBase.cs" />
     <Compile Include="Models\DAO\DAOServicio.cs" />
+    <Compile Include="Models\DAO\DAOVuelo.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Utils\DB.cs" />
@@ -153,8 +155,8 @@
     <EmbeddedResource Include="Abm Aeronave\AltaAeronave.resx">
       <DependentUpon>AltaAeronave.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Aeronave\BajaAeronave.resx">
-      <DependentUpon>BajaAeronave.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Aeronave\BajaAeronaveDefinitiva.resx">
+      <DependentUpon>BajaAeronaveDefinitiva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Aeronave\FormABMAeronave.resx">
       <DependentUpon>FormABMAeronave.cs</DependentUpon>

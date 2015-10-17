@@ -35,9 +35,9 @@ namespace AerolineaFrba.Models.DAO {
             DB.ExecuteNonQuery("DELETE FROM" + tabla + " WHERE tipo = @1", Servicio_id);
         }
 
-        public Servicio retrieveBy_id(object _value)
+        public Servicio retrieveBy_id_serv(object _value)
         {
-            return DB.ExecuteReaderSingle<Servicio>("SELECT * FROM " + tabla + " WHERE tipo = @1", _value);
+            return DB.ExecuteReaderSingle<Servicio>("SELECT * FROM " + tabla + " WHERE tipo_servicio_id = @1", _value);
 		}
     }
 }
