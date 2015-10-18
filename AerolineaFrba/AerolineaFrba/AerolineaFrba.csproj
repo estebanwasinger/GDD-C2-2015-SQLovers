@@ -62,11 +62,11 @@
     <Compile Include="Abm Aeronave\FormABMAeronave.Designer.cs">
       <DependentUpon>FormABMAeronave.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Ciudad\Form1.cs">
+    <Compile Include="Abm Ciudad\ABMCiudad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Ciudad\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Ciudad\ABMCiudad.Designer.cs">
+      <DependentUpon>ABMCiudad.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\Form1.cs">
       <SubType>Form</SubType>
@@ -123,11 +123,13 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BO\Aeronave.cs" />
+    <Compile Include="Models\BO\Ciudad.cs" />
     <Compile Include="Models\BO\IBO.cs" />
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOAeronave.cs" />
     <Compile Include="Models\DAO\DAOBase.cs" />
+    <Compile Include="Models\DAO\DAOCiudad.cs" />
     <Compile Include="Models\DAO\DAOServicio.cs" />
     <Compile Include="Models\DAO\DAOVuelo.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
@@ -160,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Aeronave\FormABMAeronave.resx">
       <DependentUpon>FormABMAeronave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ciudad\ABMCiudad.resx">
+      <DependentUpon>ABMCiudad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -128,7 +128,8 @@ CREATE TABLE sqlovers.BUTACA
 CREATE TABLE sqlovers.CIUDAD 
   ( 
      ciudad_id     NUMERIC(6, 0) IDENTITY NOT NULL PRIMARY KEY, 
-     ciudad_nombre NVARCHAR(255) 
+     ciudad_nombre NVARCHAR(255),
+	 ciudad_estado bit 
   ) 
 
 CREATE TABLE sqlovers.USUARIO 
@@ -233,8 +234,8 @@ SELECT DISTINCT tipo_servicio
 FROM   gd_esquema.MAESTRA 
 
 INSERT INTO sqlovers.CIUDAD 
-            (ciudad_nombre) 
-SELECT DISTINCT ruta_ciudad_origen 
+            (ciudad_nombre, ciudad_estado) 
+SELECT DISTINCT ruta_ciudad_origen, 1 
 FROM   gd_esquema.MAESTRA 
 
 INSERT INTO sqlovers.RUTA 
