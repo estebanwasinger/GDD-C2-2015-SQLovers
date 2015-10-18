@@ -19,7 +19,8 @@ namespace AerolineaFrba.Models.BO
         }
 
         public Int32 id { get; set; }
-        public string nombre { get; set; }  
+        public string nombre { get; set; }
+        public Boolean estado { get; set; }
 
         public Ciudad initialize(System.Data.DataRow _dr)
         {
@@ -30,6 +31,8 @@ namespace AerolineaFrba.Models.BO
                 id = (dr["ciudad_id"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["ciudad_id"]);
             if (dcc.Contains("ciudad_nombre"))
                 nombre = (dr["ciudad_nombre"] == DBNull.Value) ? null : dr["ciudad_nombre"].ToString();
+            if (dcc.Contains("ciudad_estado"))
+                estado = (dr["ciudad_estado"] == DBNull.Value) ? false : Convert.ToBoolean(dr["ciudad_estado"]);
             return this;
         }
 

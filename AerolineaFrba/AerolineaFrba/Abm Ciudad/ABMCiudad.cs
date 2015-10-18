@@ -45,19 +45,26 @@ namespace AerolineaFrba.Abm_Ciudad
         private void createColumns()
         {
             DataGridViewTextBoxColumn colId = new DataGridViewTextBoxColumn();
-            colId.DataPropertyName = "Id";
+            colId.DataPropertyName = "id";
             colId.HeaderText = "Id";
-            colId.Width = 120;
+            colId.Width = 70;
             colId.ReadOnly = true;
 
             DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn();
-            colNombre.DataPropertyName = "Nombre";
+            colNombre.DataPropertyName = "nombre";
             colNombre.HeaderText = "Nombre";
             colNombre.Width = 120;
             colNombre.ReadOnly = true;
 
+            DataGridViewTextBoxColumn colEstado = new DataGridViewTextBoxColumn();
+            colEstado.DataPropertyName = "estado";
+            colEstado.HeaderText = "Estado";
+            colEstado.Width = 50;
+            colEstado.ReadOnly = true;
+
             dataGridViewCiudad.Columns.Add(colId);
             dataGridViewCiudad.Columns.Add(colNombre);
+            dataGridViewCiudad.Columns.Add(colEstado);
             dataGridViewCiudad.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
@@ -78,13 +85,17 @@ namespace AerolineaFrba.Abm_Ciudad
         private void modificarButton_Click(object sender, EventArgs e)
         {
             selectedCiudad = (Ciudad)dataGridViewCiudad.CurrentRow.DataBoundItem;
-            System.Windows.Forms.MessageBox.Show("Ciudad Nombre: " + selectedCiudad.nombre + " Ciudad Id: " + selectedCiudad.id);
+            UpdateOrCreateView view = new UpdateOrCreateView(selectedCiudad, daoCiudad, false);
+            view.ShowDialog();
+            fillDataGridView();
         }
 
         private void crearButton_Click(object sender, EventArgs e)
         {
-            selectedCiudad = (Ciudad)dataGridViewCiudad.CurrentRow.DataBoundItem;
-            System.Windows.Forms.MessageBox.Show("Ciudad Nombre: " + selectedCiudad.nombre + " Ciudad Id: " + selectedCiudad.id);
+            Ciudad newCiudad = new Ciudad();
+            UpdateOrCreateView view = new UpdateOrCreateView(newCiudad, daoCiudad, true);
+            view.ShowDialog();
+            fillDataGridView();
         }
 
     }

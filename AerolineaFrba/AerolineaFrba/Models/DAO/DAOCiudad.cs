@@ -18,8 +18,42 @@ namespace AerolineaFrba.Models.DAO
 
         public int deleteCiudad(int key)
         {
-            return this.deleteBase(key);
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@ciudad_id", key));
+            listaParametros.Add(new SqlParameter("@ciudad_estado", false));
+           
+            return Convert.ToInt32(DBAcess.WriteInBase("update SQLOVERS.ciudad set ciudad_estado=@ciudad_estado where ciudad_id=@ciudad_id","T", listaParametros));
         }
+
+        public bool create(Ciudad ciudad) 
+        {
+            try
+            {
+                List<SqlParameter> ListaParametros = new List<SqlParameter>();
+
+                ListaParametros.Add(new SqlParameter("@ciudad_nombre", ciudad.nombre));
+                ListaParametros.Add(new SqlParameter("@ciudad_estado", ciudad.estado));
+
+                return DBAcess.WriteInBase("insert into SQLOVERS.ciudad (ciudad_nombre, ciudad_estado) VALUES(@ciudad_nombre, @ciudad_estado)", "T", ListaParametros);
+            }
+            catch { return false; }
+        }
+
+        public bool update(Ciudad ciudad)
+        {
+            try
+            {
+                List<SqlParameter> ListaParametros = new List<SqlParameter>();
+
+                ListaParametros.Add(new SqlParameter("@ciudad_id", ciudad.id));
+                ListaParametros.Add(new SqlParameter("@ciudad_nombre", ciudad.nombre));
+                ListaParametros.Add(new SqlParameter("@ciudad_estado", ciudad.estado));
+
+                return DBAcess.WriteInBase("update SQLOVERS.ciudad set ciudad_nombre=@ciudad_nombre, ciudad_estado=@ciudad_estado where ciudad_id = @ciudad_id ", "T", ListaParametros);
+            }
+            catch { return false; }
+        }
+
 
         public List<Ciudad> retrieveAll()
         {
@@ -33,6 +67,7 @@ namespace AerolineaFrba.Models.DAO
                     Ciudad ciudad = new Ciudad();
                     ciudad.nombre = (string)lector["ciudad_nombre"];
                     ciudad.id = (int)(decimal)lector["ciudad_id"];
+                    ciudad.estado = (Boolean)lector["ciudad_estado"];
 
                     ciudadList.Add(ciudad);
                 }
