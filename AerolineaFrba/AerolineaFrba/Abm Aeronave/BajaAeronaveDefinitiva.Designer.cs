@@ -42,6 +42,8 @@
             this.cmbServicio = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtgVuelos = new System.Windows.Forms.DataGridView();
+            this.btnReempV = new System.Windows.Forms.Button();
+            this.btnCancelarV = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgVuelos)).BeginInit();
             this.SuspendLayout();
@@ -161,11 +163,32 @@
             this.dtgVuelos.Size = new System.Drawing.Size(388, 111);
             this.dtgVuelos.TabIndex = 0;
             // 
+            // btnReempV
+            // 
+            this.btnReempV.Location = new System.Drawing.Point(503, 171);
+            this.btnReempV.Name = "btnReempV";
+            this.btnReempV.Size = new System.Drawing.Size(104, 23);
+            this.btnReempV.TabIndex = 16;
+            this.btnReempV.Text = "Reemplazar Vuelo";
+            this.btnReempV.UseVisualStyleBackColor = true;
+            this.btnReempV.Click += new System.EventHandler(this.btn_Reemplazar_Click);
+            // 
+            // btnCancelarV
+            // 
+            this.btnCancelarV.Location = new System.Drawing.Point(503, 221);
+            this.btnCancelarV.Name = "btnCancelarV";
+            this.btnCancelarV.Size = new System.Drawing.Size(104, 23);
+            this.btnCancelarV.TabIndex = 17;
+            this.btnCancelarV.Text = "Cancelar Vuelo";
+            this.btnCancelarV.UseVisualStyleBackColor = true;
+            // 
             // BajaAeronaveD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 371);
+            this.Controls.Add(this.btnCancelarV);
+            this.Controls.Add(this.btnReempV);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmbServicio);
             this.Controls.Add(this.dateBaja);
@@ -205,6 +228,8 @@
         private System.Windows.Forms.ComboBox cmbServicio;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dtgVuelos;
+        private System.Windows.Forms.Button btnReempV;
+        private System.Windows.Forms.Button btnCancelarV;
 
     }
 }

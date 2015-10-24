@@ -32,7 +32,7 @@
             this.txtPeso = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_bDeft = new System.Windows.Forms.Button();
-            this.btn_bTecnica = new System.Windows.Forms.Button();
+            this.btn_bdef = new System.Windows.Forms.Button();
             this.btnAlta = new System.Windows.Forms.Button();
             this.txtfabri = new System.Windows.Forms.TextBox();
             this.txtmodelo = new System.Windows.Forms.TextBox();
@@ -52,7 +52,7 @@
             this.groupBox1.Controls.Add(this.txtPeso);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.btn_bDeft);
-            this.groupBox1.Controls.Add(this.btn_bTecnica);
+            this.groupBox1.Controls.Add(this.btn_bdef);
             this.groupBox1.Controls.Add(this.btnAlta);
             this.groupBox1.Controls.Add(this.txtfabri);
             this.groupBox1.Controls.Add(this.txtmodelo);
@@ -94,15 +94,15 @@
             this.btn_bDeft.Text = "Baja";
             this.btn_bDeft.UseVisualStyleBackColor = true;
             // 
-            // btn_bTecnica
+            // btn_bdef
             // 
-            this.btn_bTecnica.Location = new System.Drawing.Point(186, 124);
-            this.btn_bTecnica.Name = "btn_bTecnica";
-            this.btn_bTecnica.Size = new System.Drawing.Size(75, 37);
-            this.btn_bTecnica.TabIndex = 7;
-            this.btn_bTecnica.Text = "Baja Definitiva";
-            this.btn_bTecnica.UseVisualStyleBackColor = true;
-            this.btn_bTecnica.Click += new System.EventHandler(this.btn_bDeft_Click);
+            this.btn_bdef.Location = new System.Drawing.Point(186, 124);
+            this.btn_bdef.Name = "btn_bdef";
+            this.btn_bdef.Size = new System.Drawing.Size(75, 37);
+            this.btn_bdef.TabIndex = 7;
+            this.btn_bdef.Text = "Baja Definitiva";
+            this.btn_bdef.UseVisualStyleBackColor = true;
+            this.btn_bdef.Click += new System.EventHandler(this.btn_bDef_Click);
             // 
             // btnAlta
             // 
@@ -213,7 +213,7 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btn_bDeft;
-        private System.Windows.Forms.Button btn_bTecnica;
+        private System.Windows.Forms.Button btn_bdef;
         private System.Windows.Forms.Button btnAlta;
         private System.Windows.Forms.TextBox txtfabri;
         private System.Windows.Forms.TextBox txtmodelo;

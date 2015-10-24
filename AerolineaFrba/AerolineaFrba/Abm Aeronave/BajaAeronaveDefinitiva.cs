@@ -120,6 +120,15 @@ namespace AerolineaFrba.Abm_Aeronave
             dtgVuelos.DataSource = lstVuelo;
         }
 
+        private void btn_Reemplazar_Click(object sender, EventArgs e)
+        {
+
+            Vuelo vue = (Vuelo)dtgVuelos.CurrentRow.DataBoundItem;
+            Reemplazar rem = new Reemplazar(vue);
+            rem.Show();
+
+
+        }
 
     }
 }

@@ -100,8 +100,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
 
         }
-
-        private void btn_bDeft_Click(object sender, EventArgs e)
+        
+        private void btn_bDef_Click(object sender, EventArgs e)
         {
 
             Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
