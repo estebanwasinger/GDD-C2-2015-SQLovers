@@ -93,10 +93,10 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void btn_bTecnica_Click(object sender, EventArgs e)
         {
-           /* Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
-            BajaAeronaveD bad = new BajaAeronaveD(aer);
-            bad.Show();
-            */
+           Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
+           BajaFueraServicio bafs = new BajaFueraServicio(aer);
+            bafs.Show();
+            
 
 
         }

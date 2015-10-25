@@ -43,8 +43,7 @@ namespace AerolineaFrba.Abm_Aeronave
             if (aeronave.matricula != null)
             {
                 txtmatricula.Enabled = false;
-                fechaAlta.Enabled = false;
-                dateTimePicker1.Enabled = false;
+                
                 update = true;
                 cargarDatosAeronave();                
                           }

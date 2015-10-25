@@ -89,8 +89,12 @@ namespace AerolineaFrba.Models.DAO
         public void bajaDef(string matricula) {
 
             string comando = "update SQLOVERS.AERONAVE set aeronave_baja = 1 where " + String.Format(" aeronave_matricula like '{0}%' ", matricula);
+                        DB.ExecuteNonQuery(comando);
+        }
 
+        public void bajaFueraServicio(string matricula) {
 
+            string comando = "update SQLOVERS.AERONAVE set aeronave_fuera_servicio = 1 where " + String.Format(" aeronave_matricula like '{0}%' ", matricula);
             DB.ExecuteNonQuery(comando);
         }
 

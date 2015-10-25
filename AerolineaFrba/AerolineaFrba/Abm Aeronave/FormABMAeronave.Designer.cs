@@ -93,6 +93,7 @@
             this.btn_fueraServ.TabIndex = 8;
             this.btn_fueraServ.Text = "Baja";
             this.btn_fueraServ.UseVisualStyleBackColor = true;
+            this.btn_fueraServ.Click += new System.EventHandler(this.btn_bTecnica_Click);
             // 
             // btn_bdef
             // 
