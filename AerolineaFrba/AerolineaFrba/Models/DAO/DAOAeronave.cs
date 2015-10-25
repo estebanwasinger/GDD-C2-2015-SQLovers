@@ -86,6 +86,14 @@ namespace AerolineaFrba.Models.DAO
             catch { return false; }
         }
 
+        public void bajaDef(string matricula) {
+
+            string comando = "update SQLOVERS.AERONAVE set aeronave_baja = 1 where " + String.Format(" aeronave_matricula like '{0}%' ", matricula);
+
+
+            DB.ExecuteNonQuery(comando);
+        }
+
         public void delete(int Cliente_id)
         {
             string update = String.Format("UPDATE " + tabla + " SET activo = 0 WHERE id = {0}", Cliente_id);
@@ -220,6 +228,33 @@ namespace AerolineaFrba.Models.DAO
                 }
             }
             return l;
+        }
+
+        public List<Aeronave> listaAero(string aeronave)
+        {
+
+            string comando =
+"DECLARE @var1 nvarchar(255);DECLARE @var2 nvarchar(30);DECLARE @var3 numeric(3,0);" +
+
+"SELECT @var1 = aeronave_modelo, @var2=aeronave_fabricante, @var3=aeronave_tipo_servicio " +
+"FROM SQLOVERS.AERONAVE WHERE" + String.Format(" aeronave_matricula like '{0}%' ", aeronave) +
+
+"SELECT aeronave_matricula,aeronave_modelo,aeronave_fabricante,aeronave_tipo_servicio from SQLOVERS.AERONAVE " +
+"where aeronave_modelo=@var1 and aeronave_fabricante=@var2 and aeronave_tipo_servicio=@var3 and "+ String.Format(" aeronave_matricula not like '{0}%' ", aeronave);
+
+            //List<Aeronave> cl = DB.ExecuteReader<Aeronave>(comando);
+            return DB.ExecuteReader<Aeronave>(comando);
+           // return cl;
+
+        }
+
+        public void reemplazoAeronave(string matriculaReemplazo, int vuelo_id)
+        {
+          
+
+            string comando = "UPDATE SQLOVERS.VUELO set " + String.Format(" vuelo_aeronave_id = '{0}' ", matriculaReemplazo) +
+                "where vuelo_id = " + vuelo_id;
+            DB.ExecuteNonQuery(comando);
         }
 
        /* public List<Cliente> topInhabilitados(int anio, int min, int max)

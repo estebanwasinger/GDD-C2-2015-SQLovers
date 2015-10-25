@@ -44,6 +44,9 @@
             this.dtgVuelos = new System.Windows.Forms.DataGridView();
             this.btnReempV = new System.Windows.Forms.Button();
             this.btnCancelarV = new System.Windows.Forms.Button();
+            this.btnBaja = new System.Windows.Forms.Button();
+            this.fechaAlta = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgVuelos)).BeginInit();
             this.SuspendLayout();
@@ -181,12 +184,43 @@
             this.btnCancelarV.TabIndex = 17;
             this.btnCancelarV.Text = "Cancelar Vuelo";
             this.btnCancelarV.UseVisualStyleBackColor = true;
+            this.btnCancelarV.Click += new System.EventHandler(this.btn_Cancelar_Vuelo);
+            // 
+            // btnBaja
+            // 
+            this.btnBaja.Location = new System.Drawing.Point(503, 270);
+            this.btnBaja.Name = "btnBaja";
+            this.btnBaja.Size = new System.Drawing.Size(104, 23);
+            this.btnBaja.TabIndex = 18;
+            this.btnBaja.Text = "Baja";
+            this.btnBaja.UseVisualStyleBackColor = true;
+            this.btnBaja.Click += new System.EventHandler(this.btn_darBajaDefinitiva);
+            // 
+            // fechaAlta
+            // 
+            this.fechaAlta.AutoSize = true;
+            this.fechaAlta.Location = new System.Drawing.Point(482, 128);
+            this.fechaAlta.Name = "fechaAlta";
+            this.fechaAlta.Size = new System.Drawing.Size(58, 13);
+            this.fechaAlta.TabIndex = 19;
+            this.fechaAlta.Text = "Fecha Alta";
+            this.fechaAlta.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(567, 121);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 20;
             // 
             // BajaAeronaveD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 371);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.fechaAlta);
+            this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnCancelarV);
             this.Controls.Add(this.btnReempV);
             this.Controls.Add(this.groupBox1);
@@ -230,6 +264,9 @@
         private System.Windows.Forms.DataGridView dtgVuelos;
         private System.Windows.Forms.Button btnReempV;
         private System.Windows.Forms.Button btnCancelarV;
+        private System.Windows.Forms.Button btnBaja;
+        private System.Windows.Forms.Label fechaAlta;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
 
     }
 }

@@ -39,8 +39,9 @@ namespace AerolineaFrba.Abm_Aeronave
             if (vuelo.id != null)
             {
                 txtVuelo.Enabled = false;
+                txtAeron.Enabled = false;
                 update = true;
-                cargarDatosClientes();
+                cargarDatosVuelo();
 
             }
 
@@ -56,7 +57,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         }
 
-        private void cargarDatosClientes()
+        private void cargarDatosVuelo()
         {
 
             txtVuelo.Text = vuelo.id.ToString();
@@ -92,6 +93,12 @@ namespace AerolineaFrba.Abm_Aeronave
             colTipoServ.HeaderText = "Tipo Servicio";
             colTipoServ.Width = 120;
 
+            DataGridViewTextBoxColumn colMatricula = new DataGridViewTextBoxColumn();
+            colMatricula.DataPropertyName = "matricula";
+            colMatricula.HeaderText = "Matricula";
+            colMatricula.Width = 120;
+
+            dtgAeronaves.Columns.Add(colMatricula);
             dtgAeronaves.Columns.Add(colTipoServ);
             dtgAeronaves.Columns.Add(colModelo);
             dtgAeronaves.Columns.Add(colFabri);
@@ -106,7 +113,29 @@ namespace AerolineaFrba.Abm_Aeronave
             //    lstAeronaves = dao.retrieveAll();
             //Vuelo vuelo = new Vuelo();
             //vuelo = lstVuelo[0];
+
+            if (lstAer.Count == 0) {
+
+                MessageBox.Show("no hay aeronaves para reemplazo", "Notificacion", MessageBoxButtons.OK);
+                btnReemp.Enabled = false;
+            }
+
             dtgAeronaves.DataSource = lstAer;
+            
+        }
+
+        public void btnReemp_click(object sender, EventArgs e)
+        {
+            Aeronave aer = (Aeronave)dtgAeronaves.CurrentRow.DataBoundItem;
+            daoAeronave.reemplazoAeronave(aer.matricula, (int)vuelo.id);
+            MessageBox.Show("Aeronave asignada", "Notificacion", MessageBoxButtons.OK);
+
+        }
+
+        public void btnNvaAero_click(object sender, EventArgs e) {
+
+            AltaAeronave aa = new AltaAeronave(new Aeronave());
+            aa.Show();
         }
 
     }

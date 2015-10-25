@@ -38,20 +38,34 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void FormBajaDefinitiva_Load(object sender, EventArgs e)
         {
+            int NO_tiene_vuelos;
             cargarCombos();
             if (aeronave.matricula != null)
             {
                 txtmatricula.Enabled = false;
+                fechaAlta.Enabled = false;
+                dateTimePicker1.Enabled = false;
                 update = true;
-                cargarDatosClientes();                
-               
-           }
+                cargarDatosAeronave();                
+                          }
 
             cargarGrilla();
-            actualizarGrilla();
+            NO_tiene_vuelos=actualizarGrilla();
+
+            if (NO_tiene_vuelos==1) {
+
+                txtFabri.Enabled = false;
+                txtModelo.Enabled = false;
+                txtPeso.Enabled = false;
+                btnReempV.Enabled = false;
+                btnCancelarV.Enabled = false;
+                cmbServicio.Enabled = false;
+               
+            }
+
         }
 
-        private void cargarDatosClientes()
+        private void cargarDatosAeronave()
         {
             txtmatricula.Text = aeronave.matricula;
 
@@ -109,8 +123,10 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
-        public void actualizarGrilla()
+        public int actualizarGrilla()
         {
+
+            int var=0;
             if (txtmatricula.Text != "")
                 lstVuelo = daoVuelo.search(txtmatricula.Text);
            // else
@@ -118,6 +134,10 @@ namespace AerolineaFrba.Abm_Aeronave
             //Vuelo vuelo = new Vuelo();
             //vuelo = lstVuelo[0];
             dtgVuelos.DataSource = lstVuelo;
+
+            if (lstVuelo.Count == 0) { var = 1; }
+            return var;
+            
         }
 
         private void btn_Reemplazar_Click(object sender, EventArgs e)
@@ -126,7 +146,28 @@ namespace AerolineaFrba.Abm_Aeronave
             Vuelo vue = (Vuelo)dtgVuelos.CurrentRow.DataBoundItem;
             Reemplazar rem = new Reemplazar(vue);
             rem.Show();
+                                }
 
+        private void btn_Cancelar_Vuelo(object sender, EventArgs e) {
+
+            Vuelo vuelo = (Vuelo)dtgVuelos.CurrentRow.DataBoundItem;
+            daoVuelo.cancelarVuelo((int)vuelo.id);
+
+            MessageBox.Show("Vuelo Cancelado", "Notificacion", MessageBoxButtons.OK);
+
+        }
+
+        private void btn_darBajaDefinitiva(object sender, EventArgs e) {
+
+            DAOAeronave daoA = new DAOAeronave();
+
+            daoA.bajaDef(txtmatricula.Text);
+            MessageBox.Show("Baja Definitiva", "Notificacion", MessageBoxButtons.OK);
+        
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
 
         }
 

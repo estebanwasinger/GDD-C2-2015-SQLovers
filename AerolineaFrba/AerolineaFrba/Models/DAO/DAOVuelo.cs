@@ -164,6 +164,12 @@ namespace AerolineaFrba.Models.DAO
             return DB.ExecuteReader<Vuelo>(base_query);
         }
 
+        public void cancelarVuelo(int vuelo_id) {
+
+            string comando = "update SQLOVERS.VUELO set vuelo_cancelado = 1 where vuelo_id= " + vuelo_id;
+            DB.ExecuteNonQuery(comando);
+        }
+
         /*public List<Cliente> retrieveAll()
         {
             List<Cliente> l = new List<Cliente>();

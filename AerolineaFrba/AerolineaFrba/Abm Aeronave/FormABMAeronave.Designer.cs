@@ -31,7 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtPeso = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btn_bDeft = new System.Windows.Forms.Button();
+            this.btn_fueraServ = new System.Windows.Forms.Button();
             this.btn_bdef = new System.Windows.Forms.Button();
             this.btnAlta = new System.Windows.Forms.Button();
             this.txtfabri = new System.Windows.Forms.TextBox();
@@ -51,7 +51,7 @@
             // 
             this.groupBox1.Controls.Add(this.txtPeso);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.btn_bDeft);
+            this.groupBox1.Controls.Add(this.btn_fueraServ);
             this.groupBox1.Controls.Add(this.btn_bdef);
             this.groupBox1.Controls.Add(this.btnAlta);
             this.groupBox1.Controls.Add(this.txtfabri);
@@ -85,14 +85,14 @@
             this.label4.Text = "Peso Disp";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
-            // btn_bDeft
+            // btn_fueraServ
             // 
-            this.btn_bDeft.Location = new System.Drawing.Point(323, 124);
-            this.btn_bDeft.Name = "btn_bDeft";
-            this.btn_bDeft.Size = new System.Drawing.Size(75, 37);
-            this.btn_bDeft.TabIndex = 8;
-            this.btn_bDeft.Text = "Baja";
-            this.btn_bDeft.UseVisualStyleBackColor = true;
+            this.btn_fueraServ.Location = new System.Drawing.Point(323, 124);
+            this.btn_fueraServ.Name = "btn_fueraServ";
+            this.btn_fueraServ.Size = new System.Drawing.Size(75, 37);
+            this.btn_fueraServ.TabIndex = 8;
+            this.btn_fueraServ.Text = "Baja";
+            this.btn_fueraServ.UseVisualStyleBackColor = true;
             // 
             // btn_bdef
             // 
@@ -212,7 +212,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btn_bDeft;
+        private System.Windows.Forms.Button btn_fueraServ;
         private System.Windows.Forms.Button btn_bdef;
         private System.Windows.Forms.Button btnAlta;
         private System.Windows.Forms.TextBox txtfabri;

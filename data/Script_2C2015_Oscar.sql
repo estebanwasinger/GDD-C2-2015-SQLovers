@@ -45,5 +45,9 @@ END
 
 GO
 
+--agrego columna a la tabla aeronaves para la baja
 
+alter table SQLOVERS.VUELO ADD vuelo_estado bit NULL
+
+alter table SQLOVERS.AERONAVE ADD aeronave_baja bit NULL
 

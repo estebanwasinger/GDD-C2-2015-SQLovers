@@ -35,6 +35,7 @@
             this.btnReemp = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtAeron = new System.Windows.Forms.TextBox();
+            this.btn_nvAer = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAeronaves)).BeginInit();
             this.SuspendLayout();
@@ -81,6 +82,7 @@
             this.btnReemp.TabIndex = 4;
             this.btnReemp.Text = "Reemplazar";
             this.btnReemp.UseVisualStyleBackColor = true;
+            this.btnReemp.Click += new System.EventHandler(this.btnReemp_click);
             // 
             // label2
             // 
@@ -98,11 +100,22 @@
             this.txtAeron.Size = new System.Drawing.Size(100, 20);
             this.txtAeron.TabIndex = 6;
             // 
+            // btn_nvAer
+            // 
+            this.btn_nvAer.Location = new System.Drawing.Point(312, 304);
+            this.btn_nvAer.Name = "btn_nvAer";
+            this.btn_nvAer.Size = new System.Drawing.Size(125, 23);
+            this.btn_nvAer.TabIndex = 7;
+            this.btn_nvAer.Text = "Nueva Aeronave";
+            this.btn_nvAer.UseVisualStyleBackColor = true;
+            this.btn_nvAer.Click += new System.EventHandler(this.btnNvaAero_click);
+            // 
             // Reemplazar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 361);
+            this.Controls.Add(this.btn_nvAer);
             this.Controls.Add(this.txtAeron);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnReemp);
@@ -128,5 +141,6 @@
         private System.Windows.Forms.Button btnReemp;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtAeron;
+        private System.Windows.Forms.Button btn_nvAer;
     }
 }
