@@ -55,15 +55,15 @@ IF Object_id('SQLOVERS.Ciudad') IS NOT NULL
   BEGIN 
       DROP TABLE sqlovers.CIUDAD; 
   END; 
+  
+IF Object_id('SQLOVERS.butaca') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.BUTACA; 
+  END; 
 
 IF Object_id('SQLOVERS.aeronave') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.AERONAVE; 
-  END; 
-
-IF Object_id('SQLOVERS.butaca') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.BUTACA; 
   END; 
 
 IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL 
@@ -201,6 +201,11 @@ VALUES     ('Admin',
             ('User', 
              1) 
 
+INSERT INTO sqlovers.TIPO_SERVICIO 
+            (tipo_servicio_nombre) 
+SELECT DISTINCT tipo_servicio 
+FROM   gd_esquema.MAESTRA 
+
 INSERT INTO sqlovers.AERONAVE 
             (aeronave_matricula, 
              aeronave_modelo, 
@@ -211,10 +216,9 @@ SELECT DISTINCT aeronave_matricula,
                 aeronave_modelo, 
                 aeronave_fabricante, 
                 aeronave_kg_disponibles, 
-                (SELECT tipo_servicio_id 
-                 FROM   sqlovers.TIPO_SERVICIO 
-                 WHERE  tipo_servicio = tipo_servicio_nombre) 
-FROM   [GD2C2015].[gd_esquema].[MAESTRA] 
+                ts.tipo_servicio_id
+FROM   [GD2C2015].[gd_esquema].[MAESTRA], SQLOVERS.TIPO_SERVICIO ts 
+Where Tipo_Servicio = ts.tipo_servicio_nombre
 
 INSERT INTO sqlovers.BUTACA 
             (butaca_nro, 
@@ -228,11 +232,6 @@ SELECT DISTINCT butaca_nro,
 FROM   [GD2C2015].[gd_esquema].[MAESTRA] 
 WHERE  butaca_nro != 0 
 
-INSERT INTO sqlovers.TIPO_SERVICIO 
-            (tipo_servicio_nombre) 
-SELECT DISTINCT tipo_servicio 
-FROM   gd_esquema.MAESTRA 
-
 INSERT INTO sqlovers.CIUDAD 
             (ciudad_nombre, ciudad_estado) 
 SELECT DISTINCT ruta_ciudad_origen, 1 
@@ -244,29 +243,17 @@ INSERT INTO sqlovers.RUTA
              ruta_ciudad_origen, 
              ruta_precio_basepasaje, 
              ruta_tipo_servicio) 
-SELECT DISTINCT (SELECT Max(ruta_precio_basekg) 
-                 FROM   gd_esquema.MAESTRA m2 
-                 WHERE  m2.ruta_ciudad_destino = m1.ruta_ciudad_destino 
-                        AND m2.ruta_ciudad_origen = m1.ruta_ciudad_origen 
-                        AND m2.tipo_servicio = m1.tipo_servicio) AS 
-                Ruta_Precio_BaseKG, 
-                (SELECT ciudad_id 
-                 FROM   sqlovers.CIUDAD 
-                 WHERE  ruta_ciudad_destino = CIUDAD.ciudad_nombre), 
-                (SELECT ciudad_id 
-                 FROM   sqlovers.CIUDAD 
-                 WHERE  ruta_ciudad_origen = CIUDAD.ciudad_nombre), 
-                (SELECT Max(ruta_precio_basepasaje) 
-                 FROM   gd_esquema.MAESTRA m2 
-                 WHERE  m2.ruta_ciudad_destino = m1.ruta_ciudad_destino 
-                        AND m2.ruta_ciudad_origen = m1.ruta_ciudad_origen 
-                        AND m2.tipo_servicio = m1.tipo_servicio) AS 
-                Ruta_Precio_BasePasaje, 
-                (SELECT tipo_servicio_id 
-                 FROM   sqlovers.TIPO_SERVICIO 
-                 WHERE  tipo_servicio = tipo_servicio_nombre) 
-FROM   [GD2C2015].[gd_esquema].[MAESTRA] m1 
+SELECT Max(m1.ruta_precio_basekg), 
+                c1.ciudad_id,
+                c2.ciudad_id, 
+                Max(m1.ruta_precio_basepasaje), 
+                ts.tipo_servicio_id 
+FROM   [GD2C2015].[gd_esquema].[MAESTRA] m1, SQLOVERS.CIUDAD c1, SQLOVERS.CIUDAD c2, SQLOVERS.TIPO_SERVICIO ts
 WHERE  m1.ruta_ciudad_destino != m1.ruta_ciudad_origen 
+AND c1.ciudad_nombre = m1.Ruta_Ciudad_Destino
+AND c2.ciudad_nombre = m1.Ruta_Ciudad_Origen
+AND ts.tipo_servicio_nombre = m1.Tipo_Servicio
+GROUP BY c1.ciudad_id, c2.ciudad_id, m1.Ruta_Ciudad_Destino, m1.Ruta_Ciudad_Origen, m1.Tipo_Servicio, ts.tipo_servicio_id
 
 INSERT INTO sqlovers.USUARIO 
             (user_username, 
