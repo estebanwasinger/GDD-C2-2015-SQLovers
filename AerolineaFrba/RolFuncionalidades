@@ -1,0 +1,61 @@
+USE [GD2C2015]
+GO
+/****** Object:  Table [dbo].[SQLOVERS.Funcionalidad]    Script Date: 18/10/2015 17:02:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[SQLOVERS.Funcionalidad](
+	[Id_Funcionalidad] [int] NOT NULL,
+	[Descripcion] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_SQLOVERS.Funcionalidad] PRIMARY KEY CLUSTERED 
+(
+	[Id_Funcionalidad] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[SQLOVERS.Rol]    Script Date: 18/10/2015 17:02:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[SQLOVERS.Rol](
+	[Id_Rol] [int] NOT NULL,
+	[Nombre] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_SQLOVERS.Rol] PRIMARY KEY CLUSTERED 
+(
+	[Id_Rol] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[SQLOVERS.Rol_Funcionalidad]    Script Date: 18/10/2015 17:02:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SQLOVERS.Rol_Funcionalidad](
+	[Id_Rol] [int] NOT NULL,
+	[Id_Funcionalidad] [int] NOT NULL
+) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[SQLOVERS.Rol_Funcionalidad]  WITH CHECK ADD  CONSTRAINT [FK_SQLOVERS.Rol_Funcionalidad_SQLOVERS.Funcionalidad] FOREIGN KEY([Id_Funcionalidad])
+REFERENCES [dbo].[SQLOVERS.Funcionalidad] ([Id_Funcionalidad])
+GO
+ALTER TABLE [dbo].[SQLOVERS.Rol_Funcionalidad] CHECK CONSTRAINT [FK_SQLOVERS.Rol_Funcionalidad_SQLOVERS.Funcionalidad]
+GO
+ALTER TABLE [dbo].[SQLOVERS.Rol_Funcionalidad]  WITH CHECK ADD  CONSTRAINT [FK_SQLOVERS.Rol_Funcionalidad_SQLOVERS.Rol] FOREIGN KEY([Id_Rol])
+REFERENCES [dbo].[SQLOVERS.Rol] ([Id_Rol])
+GO
+ALTER TABLE [dbo].[SQLOVERS.Rol_Funcionalidad] CHECK CONSTRAINT [FK_SQLOVERS.Rol_Funcionalidad_SQLOVERS.Rol]
+GO
