@@ -20,7 +20,7 @@ namespace AerolineaFrba.Models.BO
         }
 
         public int? id { get; set; }
-        public string nombre { get; set; }
+        public string name { get; set; }
         public bool? activo { get; set; }
 
         public Rol initialize(DataRow _dr)
@@ -31,8 +31,8 @@ namespace AerolineaFrba.Models.BO
 
             if (dcc.Contains("id"))
                 id = (dr["id"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["id"]);
-            if (dcc.Contains("nombre"))
-                nombre = (dr["nombre"] == DBNull.Value) ? null : dr["nombre"].ToString();
+            if (dcc.Contains("name"))
+                nombre = (dr["name"] == DBNull.Value) ? null : dr["name"].ToString();
             if (dcc.Contains("activo"))
                 activo = (dr["activo"] == DBNull.Value) ? null : (bool?)Convert.ToBoolean(dr["activo"]);
 
@@ -48,36 +48,5 @@ namespace AerolineaFrba.Models.BO
             return this;
         }
 
-        public void setById(object _id)
-        {
-            initialize(new DAORol().retrieveBy_id(_id).dr);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-
-            Rol aux = obj as Rol;
-            if ((object)aux == null)
-                return false;
-
-            return aux.id == id;
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-
-        #region Miembros de IBO<Rol>
-
-        Rol IBO<Rol>.setData(DataRow dr)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }
