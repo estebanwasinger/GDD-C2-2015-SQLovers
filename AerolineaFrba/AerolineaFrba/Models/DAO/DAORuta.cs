@@ -33,9 +33,9 @@ namespace AerolineaFrba.Models.DAO
 
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = DBAcess.GetConnection();
-                sqlCommand.Parameters.AddWithValue("@ruta_ciudad_destino", ruta.ciudadDestino);
-                sqlCommand.Parameters.AddWithValue("@ruta_ciudad_origen", ruta.ciudadOrigen);
-                sqlCommand.Parameters.AddWithValue("@ruta_tipo_servicio", ruta.tipoServicio);
+                sqlCommand.Parameters.AddWithValue("@ruta_ciudad_destino", ruta.ciudadDestinoId);
+                sqlCommand.Parameters.AddWithValue("@ruta_ciudad_origen", ruta.ciudadOrigenId);
+                sqlCommand.Parameters.AddWithValue("@ruta_tipo_servicio", ruta.tipoServicioId);
                 sqlCommand.Parameters.AddWithValue("@ruta_precio_basepasaje", ruta.precioBasePasaje);
                 sqlCommand.Parameters.AddWithValue("@ruta_precio_basekg", ruta.precioBaseKg);
                 sqlCommand.CommandText = "INSERT INTO SQLOVERS.RUTA (ruta_ciudad_origen, ruta_ciudad_destino, ruta_tipo_servicio, ruta_precio_basepasaje, ruta_precio_basekg) VALUES (@ruta_ciudad_origen, @ruta_ciudad_destino, @ruta_tipo_servicio, @ruta_precio_basepasaje, @ruta_precio_basekg)";
@@ -65,7 +65,8 @@ namespace AerolineaFrba.Models.DAO
         public List<Ruta> retrieveAll()
         {
             List<Ruta> rutaList = new List<Ruta>();
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT ruta_id, c1.ciudad_nombre as ciudad_origen, c2.ciudad_nombre as ciudad_destino, ruta_precio_basepasaje, ruta_precio_basekg, tipo_servicio_nombre as ruta_tipo_servicio FROM SQLOVERS.RUTA, SQLOVERS.TIPO_SERVICIO, SQLOVERS.CIUDAD c1, SQLOVERS.CIUDAD c2 WHERE ruta_tipo_servicio =  tipo_servicio_id AND ruta_ciudad_origen= c1.ciudad_id AND ruta_ciudad_destino=c2.ciudad_id", "T", new List<SqlParameter>());
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT ruta_id, c1.ciudad_id as ciudad_origen_id, c1.ciudad_nombre as ciudad_origen,c2.ciudad_id as ciudad_destino_id, c2.ciudad_nombre as ciudad_destino, ruta_precio_basepasaje, ruta_precio_basekg, tipo_servicio_id, tipo_servicio_nombre as ruta_tipo_servicio FROM SQLOVERS.RUTA, SQLOVERS.TIPO_SERVICIO, SQLOVERS.CIUDAD c1, SQLOVERS.CIUDAD c2" 
+            + " WHERE ruta_tipo_servicio =  tipo_servicio_id AND ruta_ciudad_origen= c1.ciudad_id AND ruta_ciudad_destino=c2.ciudad_id", "T", new List<SqlParameter>());
 
             if (lector.HasRows)
             {
@@ -73,9 +74,12 @@ namespace AerolineaFrba.Models.DAO
                 {
                     Ruta ruta = new Ruta();
                     ruta.id = (int)(decimal)lector["ruta_id"];
-                    ruta.tipoServicio = (int)(decimal)lector["ruta_tipo_servicio"];
-                    ruta.ciudadOrigen = (int)(decimal)lector["ciudad_origen"];
-                    ruta.ciudadDestino = (int)(decimal)lector["ciudad_destino"];
+                    ruta.tipoServicioId = (int)(decimal)lector["tipo_servicio_id"];
+                    ruta.tipoServicioNombre = (String)lector["ruta_tipo_servicio"];
+                    ruta.ciudadOrigenId = (int)(decimal)lector["ciudad_origen_id"];
+                    ruta.ciudadOrigenNombre = (String)lector["ciudad_origen"];
+                    ruta.ciudadDestinoId = (int)(decimal)lector["ciudad_destino_id"];
+                    ruta.ciudadDestinoNombre = (String)lector["ciudad_destino"];
                     ruta.precioBasePasaje = (int)(decimal)lector["ruta_precio_basepasaje"];
                     ruta.precioBaseKg = (int)(decimal)lector["ruta_precio_basekg"];
 

@@ -52,9 +52,9 @@ namespace AerolineaFrba.Abm_Ruta
 
             Ruta ruta = new Ruta();
           
-            ruta.ciudadDestino = selectedCiudadDestino.id;
-            ruta.ciudadOrigen = selectedCiudadOrigen.id;
-            ruta.tipoServicio = selectedServicio.tipo_servicio_id;
+            ruta.ciudadDestinoId = selectedCiudadDestino.id;
+            ruta.ciudadOrigenId = selectedCiudadOrigen.id;
+            ruta.tipoServicioId = selectedServicio.tipo_servicio_id;
             ruta.precioBaseKg = Convert.ToInt32(textBoxPrecioBaseKG.Text);
             ruta.precioBasePasaje = Convert.ToInt32(textBoxPrecioBasePasaje.Text);
 

@@ -45,19 +45,19 @@ namespace AerolineaFrba.Abm_Ruta
             colId.ReadOnly = true;
 
             DataGridViewTextBoxColumn colTipoServicio = new DataGridViewTextBoxColumn();
-            colTipoServicio.DataPropertyName = "tipoServicio";
+            colTipoServicio.DataPropertyName = "tipoServicioNombre";
             colTipoServicio.HeaderText = "Tipo Servicio";
             colTipoServicio.Width = 100;
             colTipoServicio.ReadOnly = true;
 
             DataGridViewTextBoxColumn colCiudadOrigen = new DataGridViewTextBoxColumn();
-            colCiudadOrigen.DataPropertyName = "ciudadOrigen";
+            colCiudadOrigen.DataPropertyName = "ciudadOrigenNombre";
             colCiudadOrigen.HeaderText = "Ciudad origen";
             colCiudadOrigen.Width = 100;
             colCiudadOrigen.ReadOnly = true;
 
             DataGridViewTextBoxColumn colCiudadDestino = new DataGridViewTextBoxColumn();
-            colCiudadDestino.DataPropertyName = "ciudadDestino";
+            colCiudadDestino.DataPropertyName = "ciudadDestinoNombre";
             colCiudadDestino.HeaderText = "Ciudad Destino";
             colCiudadDestino.Width = 100;
             colCiudadDestino.ReadOnly = true;
@@ -108,6 +108,12 @@ namespace AerolineaFrba.Abm_Ruta
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void CrearButtonRuta_Click(object sender, EventArgs e)
+        {
+            NuevaRuta view = new NuevaRuta();
+            view.ShowDialog();
         }
     }
 }

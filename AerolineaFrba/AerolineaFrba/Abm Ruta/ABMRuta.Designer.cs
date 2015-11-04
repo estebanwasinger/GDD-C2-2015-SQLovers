@@ -44,6 +44,7 @@
             this.CrearButtonRuta.TabIndex = 0;
             this.CrearButtonRuta.Text = "Crear";
             this.CrearButtonRuta.UseVisualStyleBackColor = true;
+            this.CrearButtonRuta.Click += new System.EventHandler(this.CrearButtonRuta_Click);
             // 
             // label2
             // 
