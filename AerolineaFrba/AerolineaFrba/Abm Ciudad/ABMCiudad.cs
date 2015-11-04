@@ -37,7 +37,7 @@ namespace AerolineaFrba.Abm_Ciudad
 
         private void fillDataGridView()
         {
-            ciudadList = daoCiudad.retrieveAll();
+            ciudadList = DAOCiudad.retrieveAll();
 
             dataGridViewCiudad.DataSource = ciudadList;
         }

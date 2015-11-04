@@ -86,17 +86,17 @@
     <Compile Include="Abm Ciudad\UpdateOrCreateView.Designer.cs">
       <DependentUpon>UpdateOrCreateView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rol\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Ruta\ABMRuta.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Ruta\ABMRuta.Designer.cs">
       <DependentUpon>ABMRuta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Ruta\NuevaRuta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Ruta\NuevaRuta.Designer.cs">
+      <DependentUpon>NuevaRuta.cs</DependentUpon>
     </Compile>
     <Compile Include="Canje Millas\Form1.cs">
       <SubType>Form</SubType>
@@ -198,6 +198,9 @@
     <EmbeddedResource Include="Abm Ruta\ABMRuta.resx">
       <DependentUpon>ABMRuta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Ruta\NuevaRuta.resx">
+      <DependentUpon>NuevaRuta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -233,6 +236,7 @@
     <Content Include="obj\Debug\AerolineaFrba.csproj.FileListAbsolute.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Abm Rol\" />
     <Folder Include="bin\Release\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>

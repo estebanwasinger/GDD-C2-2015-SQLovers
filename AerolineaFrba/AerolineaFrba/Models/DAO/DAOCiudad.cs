@@ -55,7 +55,7 @@ namespace AerolineaFrba.Models.DAO
         }
 
 
-        public List<Ciudad> retrieveAll()
+        public static List<Ciudad> retrieveAll()
         {
             List<Ciudad> ciudadList = new List<Ciudad>();
             SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.CIUDAD", "T", new List<SqlParameter>());

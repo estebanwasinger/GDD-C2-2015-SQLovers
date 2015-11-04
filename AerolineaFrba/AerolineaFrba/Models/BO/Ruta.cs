@@ -19,9 +19,9 @@ namespace AerolineaFrba.Models.BO
         }
 
         public Int32 id { get; set; }
-        public string tipoServicio { get; set; }
-        public string ciudadOrigen { get; set; }
-        public string ciudadDestino { get; set; }
+        public Int32 tipoServicio { get; set; }
+        public Int32 ciudadOrigen { get; set; }
+        public Int32 ciudadDestino { get; set; }
         public Int32 precioBasePasaje { get; set; }
         public Int32 precioBaseKg { get; set; }
 
@@ -33,11 +33,11 @@ namespace AerolineaFrba.Models.BO
             if (dcc.Contains("ruta_id"))
                 id = (dr["ruta_id"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["ruta_id"]);
             if (dcc.Contains("ruta_tipo_servicio"))
-                tipoServicio = (dr["ruta_tipo_servicio"] == DBNull.Value) ? null : dr["ruta_tipo_servicio"].ToString();
+                tipoServicio = (dr["ruta_tipo_servicio"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["ruta_tipo_servicio"]);
             if (dcc.Contains("ciudad_origen"))
-                ciudadOrigen = (dr["ciudad_origen"] == DBNull.Value) ? null : dr["ciudad_origen"].ToString();
+                ciudadOrigen = (dr["ciudad_origen"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["ciudad_origen"]);
             if (dcc.Contains("ciudad_destino"))
-                ciudadDestino = (dr["ciudad_destino"] == DBNull.Value) ? null : dr["ciudad_destino"].ToString();
+                ciudadDestino = (dr["ciudad_destino"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["ciudad_destino"]);
             if (dcc.Contains("ruta_precio_basepasaje"))
                 precioBasePasaje = (dr["ruta_precio_basepasaje"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["ruta_precio_basepasaje"]);
             if (dcc.Contains("ruta_precio_basekg"))
