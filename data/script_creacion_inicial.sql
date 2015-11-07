@@ -71,10 +71,19 @@ IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL
       DROP TABLE sqlovers.TIPO_SERVICIO; 
   END; 
 
+IF Object_id('SQLOVERS.LLEGADA_DESTINO') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.LLEGADA_DESTINO; 
+  END; 
+
+
 IF Object_id('SQLOVERS.UpdateIntentos') IS NOT NULL 
   BEGIN 
       DROP PROCEDURE sqlovers.updateintentos; 
   END; 
+
+
+
 
 /*           
 CREATE TABLES           
@@ -189,6 +198,18 @@ CREATE TABLE sqlovers.PASAJE
      pasaje_vuelo_id    NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.VUELO(vuelo_id) 
   ) 
+
+CREATE TABLE sqlovers.LLEGADA_DESTINO 
+  ( 
+     llegada_codigo      NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
+     llegada_matricula   NVARCHAR(255) FOREIGN KEY REFERENCES 
+     sqlovers.AERONAVE(aeronave_matricula),      
+     llegada_horaArrivo  DATETIME,
+     llegada_origen      NUMERIC(6, 0) FOREIGN KEY REFERENCES 
+     sqlovers.CIUDAD(ciudad_id),
+     llegada_destino     NUMERIC(6, 0) FOREIGN KEY REFERENCES 
+     sqlovers.CIUDAD(ciudad_id)  
+  )
 
 /*          
 FILL TABLES          
