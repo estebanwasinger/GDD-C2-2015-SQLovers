@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using AerolineaFrba.Registro_de_Usuario;
 using AerolineaFrba.Abm_Aeronave;
 using AerolineaFrba.Models.BO;
+using AerolineaFrba.Abm_Ruta;
+using AerolineaFrba.Models;
 
 namespace AerolineaFrba
 {
@@ -21,7 +23,7 @@ namespace AerolineaFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new FormLogin());
-            Application.Run(new FormABMAeronave());
+            Application.Run(new FormPrincipal(new Usuario()));
                 
         }
     }
