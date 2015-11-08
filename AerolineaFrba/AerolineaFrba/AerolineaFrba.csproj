@@ -120,11 +120,17 @@
     <Compile Include="Canje Millas\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra\Form1.cs">
+    <Compile Include="Compra\CompraForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Compra\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Compra\CompraForm.Designer.cs">
+      <DependentUpon>CompraForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra\CrearDatosPasajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\CrearDatosPasajero.Designer.cs">
+      <DependentUpon>CrearDatosPasajero.cs</DependentUpon>
     </Compile>
     <Compile Include="Consulta Millas\Form1.cs">
       <SubType>Form</SubType>
@@ -158,11 +164,13 @@
     </Compile>
     <Compile Include="Models\BO\Aeronave.cs" />
     <Compile Include="Models\BO\Ciudad.cs" />
+    <Compile Include="Models\BO\Compra.cs" />
     <Compile Include="Models\BO\Rol.cs" />
     <Compile Include="Models\BO\Ruta.cs" />
     <Compile Include="Models\BO\IBO.cs" />
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
+    <Compile Include="Models\DAO\DAOCompra.cs" />
     <Compile Include="Models\DAO\DAORol.cs" />
     <Compile Include="Models\DAO\DAORuta.cs" />
     <Compile Include="Models\DAO\DAOAeronave.cs" />
@@ -222,6 +230,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\CrearOModificarRuta.resx">
       <DependentUpon>CrearOModificarRuta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\CompraForm.resx">
+      <DependentUpon>CompraForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\CrearDatosPasajero.resx">
+      <DependentUpon>CrearDatosPasajero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

@@ -12,6 +12,7 @@ using AerolineaFrba.Abm_Ruta;
 using AerolineaFrba.Abm_Aeronave;
 using AerolineaFrba.Abm_Ciudad;
 using AerolineaFrba.Abm_Rol;
+using AerolineaFrba.Compra;
 
 namespace AerolineaFrba
 {
@@ -51,7 +52,8 @@ namespace AerolineaFrba
 
         private void buttonCompra_Click(object sender, EventArgs e)
         {
-
+            CompraForm comp = new CompraForm();
+            comp.ShowDialog();
         }
 
         private void buttonMillas_Click(object sender, EventArgs e)

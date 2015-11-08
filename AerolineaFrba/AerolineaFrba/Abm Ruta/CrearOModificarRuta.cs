@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
+using System.Diagnostics;
 
 namespace AerolineaFrba.Abm_Ruta
 {
@@ -147,6 +148,7 @@ namespace AerolineaFrba.Abm_Ruta
             {
                 return false;
             }
+            EventLog.WriteEntry("Algo", "text");
 
             if (((Ciudad)comboBoxCiudadDestino.SelectedItem).id.Equals(((Ciudad)comboBoxCiudadOrigen.SelectedItem).id))
             {

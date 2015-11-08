@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Compra
 {
-    public partial class Form1 : Form
+    public partial class CrearDatosPasajero : Form
     {
-        public Form1()
+        public CrearDatosPasajero()
         {
             InitializeComponent();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DatosPasajero_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
