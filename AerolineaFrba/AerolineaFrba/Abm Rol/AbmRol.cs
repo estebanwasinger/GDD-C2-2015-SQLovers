@@ -85,7 +85,7 @@ namespace AerolineaFrba.Abm_Rol
         private void modificarButton_Click(object sender, EventArgs e)
         {
             selectedRol = (Rol)dataGridViewRol.CurrentRow.DataBoundItem;
-            UpdateOrCreateView view = new UpdateOrCreateView(selectedRol, daoRol, false);
+            CrearOModificarRol view = new CrearOModificarRol(selectedRol, daoRol, false);
             view.ShowDialog();
             fillDataGridView();
         }
@@ -93,7 +93,7 @@ namespace AerolineaFrba.Abm_Rol
         private void crearButton_Click(object sender, EventArgs e)
         {
             Rol newRol = new Rol();
-            UpdateOrCreateView view = new UpdateOrCreateView(newRol, daoRol, true);
+            CrearOModificarRol view = new CrearOModificarRol(newRol, daoRol, true);
             view.ShowDialog();
             fillDataGridView();
         }

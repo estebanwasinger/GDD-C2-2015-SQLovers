@@ -1,6 +1,6 @@
 namespace AerolineaFrba.Abm_Rol
 {
-    partial class UpdateOrCreateView
+    partial class CrearOModificarRol
     {
         /// <summary>
         /// Variable del diseñador requerida.

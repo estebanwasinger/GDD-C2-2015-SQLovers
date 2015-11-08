@@ -92,17 +92,11 @@
     <Compile Include="Abm Rol\ABMRol.Designer.cs">
       <DependentUpon>ABMRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rol\UpdateOrCreateView.cs">
+    <Compile Include="Abm Rol\CrearOModificarRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Rol\UpdateOrCreateView.Designer.cs">
-      <DependentUpon>UpdateOrCreateView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Ruta\ABMRuta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Ruta\ABMRuta.Designer.cs">
-      <DependentUpon>ABMRuta.cs</DependentUpon>
+    <Compile Include="Abm Rol\CrearOModificarRol.Designer.cs">
+      <DependentUpon>CrearOModificarRol.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Ruta\ABMRuta.cs">
       <SubType>Form</SubType>
@@ -217,15 +211,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\ABMRol.resx">
       <DependentUpon>ABMRol.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rol\UpdateOrCreateView.resx">
-      <DependentUpon>UpdateOrCreateView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\ABMRuta.resx">
       <DependentUpon>ABMRuta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\NuevaRuta.resx">
       <DependentUpon>NuevaRuta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrincipal.resx">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

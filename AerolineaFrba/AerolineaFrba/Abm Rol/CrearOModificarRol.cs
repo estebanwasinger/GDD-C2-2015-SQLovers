@@ -1,4 +1,4 @@
-using AerolineaFrba.Models.BO;
+﻿using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
 using System;
 using System.Collections.Generic;
@@ -13,18 +13,18 @@ using System.Windows.Forms;
 
 namespace AerolineaFrba.Abm_Rol
 {
-    public partial class UpdateOrCreateView : Form
+    public partial class CrearOModificarRol : Form
     {
         private Rol rol;
         private DAORol daoRol;
         private Boolean create;
 
-        private UpdateOrCreateView()
+        private CrearOModificarRol()
         {
             InitializeComponent();
         }
 
-        public UpdateOrCreateView(Rol rol, DAORol dao, Boolean create) : this()
+        public CrearOModificarRol(Rol rol, DAORol dao, Boolean create) : this()
         { 
             this.rol = rol;
             this.daoRol = dao;
@@ -44,9 +44,9 @@ namespace AerolineaFrba.Abm_Rol
             rol.activo = activoRolCheckBox.Checked;
             if (create)
             {
-                daoRol.create(rol);
+               // daoRol.create(rol);
             }
-            else { daoRol.update(rol); }
+           // else { daoRol.update(rol); }
             
             this.Close();
         }
