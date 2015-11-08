@@ -57,5 +57,23 @@ namespace AerolineaFrba.Models.BO
             return this;
         }
 
+        public int getRuta(string origen, string destino) {
+
+
+            DAORuta daoRuta = new DAORuta();
+            List<Ruta> lRuta = new List<Ruta>();
+            int ruta_id = 0;
+            lRuta = daoRuta.retrieveAll();
+            foreach (Ruta ruta in lRuta)
+            { 
+            
+                if(ruta.ciudadOrigenNombre.Equals(origen) && ruta.ciudadDestinoNombre.Equals(destino)){
+                    ruta_id = ruta.id;
+                }
+            }
+
+            return ruta_id;
+        }
+
     }
 }
