@@ -32,7 +32,7 @@ namespace AerolineaFrba.Models.BO
             if (dcc.Contains("id"))
                 id = (dr["id"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["id"]);
             if (dcc.Contains("name"))
-                nombre = (dr["name"] == DBNull.Value) ? null : dr["name"].ToString();
+                name = (dr["name"] == DBNull.Value) ? null : dr["name"].ToString();
             if (dcc.Contains("activo"))
                 activo = (dr["activo"] == DBNull.Value) ? null : (bool?)Convert.ToBoolean(dr["activo"]);
 
