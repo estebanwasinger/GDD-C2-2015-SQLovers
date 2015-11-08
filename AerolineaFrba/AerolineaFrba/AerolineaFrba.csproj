@@ -86,6 +86,24 @@
     <Compile Include="Abm Ciudad\UpdateOrCreateView.Designer.cs">
       <DependentUpon>UpdateOrCreateView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rol\ABMRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\ABMRol.Designer.cs">
+      <DependentUpon>ABMRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Rol\UpdateOrCreateView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\UpdateOrCreateView.Designer.cs">
+      <DependentUpon>UpdateOrCreateView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Ruta\ABMRuta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Ruta\ABMRuta.Designer.cs">
+      <DependentUpon>ABMRuta.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Ruta\ABMRuta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,10 +160,12 @@
     </Compile>
     <Compile Include="Models\BO\Aeronave.cs" />
     <Compile Include="Models\BO\Ciudad.cs" />
+    <Compile Include="Models\BO\Rol.cs" />
     <Compile Include="Models\BO\Ruta.cs" />
     <Compile Include="Models\BO\IBO.cs" />
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
+    <Compile Include="Models\DAO\DAORol.cs" />
     <Compile Include="Models\DAO\DAORuta.cs" />
     <Compile Include="Models\DAO\DAOAeronave.cs" />
     <Compile Include="Models\DAO\DAOBase.cs" />
@@ -195,6 +215,12 @@
     <EmbeddedResource Include="Abm Ciudad\UpdateOrCreateView.resx">
       <DependentUpon>UpdateOrCreateView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\ABMRol.resx">
+      <DependentUpon>ABMRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\UpdateOrCreateView.resx">
+      <DependentUpon>UpdateOrCreateView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\ABMRuta.resx">
       <DependentUpon>ABMRuta.cs</DependentUpon>
     </EmbeddedResource>
@@ -236,7 +262,6 @@
     <Content Include="obj\Debug\AerolineaFrba.csproj.FileListAbsolute.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Abm Rol\" />
     <Folder Include="bin\Release\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
