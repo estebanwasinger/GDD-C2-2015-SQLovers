@@ -1,6 +1,6 @@
 ﻿namespace AerolineaFrba.Abm_Ruta
 {
-    partial class NuevaRuta
+    partial class CrearOModificarRuta
     {
         /// <summary>
         /// Required designer variable.
@@ -40,6 +40,7 @@
             this.labelPrecioBasePasaje = new System.Windows.Forms.Label();
             this.buttonCancelar = new System.Windows.Forms.Button();
             this.buttonAceptar = new System.Windows.Forms.Button();
+            this.checkBoxActivo = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // comboBoxCiudadOrigen
@@ -142,6 +143,7 @@
             this.buttonCancelar.TabIndex = 10;
             this.buttonCancelar.Text = "Cancelar";
             this.buttonCancelar.UseVisualStyleBackColor = true;
+            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
             // 
             // buttonAceptar
             // 
@@ -153,11 +155,26 @@
             this.buttonAceptar.UseVisualStyleBackColor = true;
             this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
+            // checkBoxActivo
+            // 
+            this.checkBoxActivo.AutoSize = true;
+            this.checkBoxActivo.Checked = true;
+            this.checkBoxActivo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxActivo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.checkBoxActivo.Location = new System.Drawing.Point(269, 133);
+            this.checkBoxActivo.Name = "checkBoxActivo";
+            this.checkBoxActivo.Size = new System.Drawing.Size(54, 17);
+            this.checkBoxActivo.TabIndex = 12;
+            this.checkBoxActivo.Text = "Activo";
+            this.checkBoxActivo.UseVisualStyleBackColor = true;
+            this.checkBoxActivo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // NuevaRuta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 319);
+            this.Controls.Add(this.checkBoxActivo);
             this.Controls.Add(this.buttonAceptar);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.textBoxPrecioBasePasaje);
@@ -192,5 +209,6 @@
         private System.Windows.Forms.Label labelPrecioBasePasaje;
         private System.Windows.Forms.Button buttonCancelar;
         private System.Windows.Forms.Button buttonAceptar;
+        private System.Windows.Forms.CheckBox checkBoxActivo;
     }
 }

@@ -12,11 +12,24 @@ using AerolineaFrba.Models.DAO;
 
 namespace AerolineaFrba.Abm_Ruta
 {
-    public partial class NuevaRuta : Form
+    public partial class CrearOModificarRuta : Form
     {
-        public NuevaRuta()
+        private bool crear;
+        private Ruta ruta;
+
+        public CrearOModificarRuta()
         {
+            this.crear = true;
             InitializeComponent();
+        }
+
+        public CrearOModificarRuta(Ruta ruta)
+        {
+            this.crear = false;
+            this.ruta = ruta;
+            
+            InitializeComponent();
+
         }
 
         private void NuevaRuta_Load(object sender, EventArgs e)
@@ -36,6 +49,42 @@ namespace AerolineaFrba.Abm_Ruta
             comboBoxTipoDeServicio.Text = "(Seleccionar tipo de servicio)";
             comboBoxTipoDeServicio.Items.AddRange(servicioList.ToArray());
             comboBoxTipoDeServicio.DisplayMember = "tipo_servicio_nomre";
+
+            if (!crear)
+            {
+                checkBoxActivo.Checked = ruta.estado;
+                textBoxPrecioBaseKG.Text = (ruta.precioBaseKg.ToString());
+                textBoxPrecioBasePasaje.Text = ruta.precioBasePasaje.ToString();
+                comboBoxCiudadDestino.SelectedIndex = getIndexOfCity(comboBoxCiudadDestino.Items, ruta.ciudadDestinoId);
+                comboBoxCiudadOrigen.SelectedIndex = getIndexOfCity(comboBoxCiudadOrigen.Items, ruta.ciudadOrigenId);
+                comboBoxTipoDeServicio.SelectedIndex = getIndexOfTipoServicio(comboBoxTipoDeServicio.Items, ruta.tipoServicioId);
+            }
+        }
+
+        private int getIndexOfTipoServicio(ComboBox.ObjectCollection objectCollection, int p)
+        {
+
+            foreach (Servicio servicio in objectCollection)
+            {
+                if (servicio.tipo_servicio_id.Equals(p))
+                {
+                    return objectCollection.IndexOf(servicio);
+                }
+            }
+            return 0;
+        }
+
+        private int getIndexOfCity(ComboBox.ObjectCollection objectCollection, int p)
+        {
+
+           foreach (Ciudad ciudad in objectCollection)
+           {
+               if (ciudad.id.Equals(p))
+               {
+                   return objectCollection.IndexOf(ciudad);
+               }
+           }
+            return 0;
         }
 
         private void labelTipoDeServicio_Click(object sender, EventArgs e)
@@ -57,9 +106,19 @@ namespace AerolineaFrba.Abm_Ruta
             ruta.tipoServicioId = selectedServicio.tipo_servicio_id;
             ruta.precioBaseKg = Convert.ToInt32(textBoxPrecioBaseKG.Text);
             ruta.precioBasePasaje = Convert.ToInt32(textBoxPrecioBasePasaje.Text);
+            ruta.estado = checkBoxActivo.Checked;
 
-            DAORuta.create(ruta);
-
+            if (crear)
+            {
+                DAORuta.create(ruta);
+            }
+            else
+            {
+                ruta.id = this.ruta.id;
+                DAORuta.update(ruta);
+            }
+            
+            this.Close();
         }
 
         private bool checkRequiredValues()
@@ -89,6 +148,10 @@ namespace AerolineaFrba.Abm_Ruta
                 return false;
             }
 
+            if (((Ciudad)comboBoxCiudadDestino.SelectedItem).id.Equals(((Ciudad)comboBoxCiudadOrigen.SelectedItem).id))
+            {
+                return false;
+            }
             return true;
 
         }
@@ -127,6 +190,16 @@ namespace AerolineaFrba.Abm_Ruta
         private void comboBoxTipoDeServicio_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonAceptar.Enabled = checkRequiredValues();
+        }
+
+        private void buttonCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

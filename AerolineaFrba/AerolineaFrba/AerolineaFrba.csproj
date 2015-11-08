@@ -104,11 +104,15 @@
     <Compile Include="Abm Ruta\ABMRuta.Designer.cs">
       <DependentUpon>ABMRuta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Ruta\NuevaRuta.cs">
+    <Compile Include="Abm Ruta\filter\NoneFilter.cs" />
+    <Compile Include="Abm Ruta\filter\OnlyActiveFilter.cs" />
+    <Compile Include="Abm Ruta\filter\OnlyInactiveFilter.cs" />
+    <Compile Include="Abm Ruta\filter\RutaFilter.cs" />
+    <Compile Include="Abm Ruta\CrearOModificarRuta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Ruta\NuevaRuta.Designer.cs">
-      <DependentUpon>NuevaRuta.cs</DependentUpon>
+    <Compile Include="Abm Ruta\CrearOModificarRuta.Designer.cs">
+      <DependentUpon>CrearOModificarRuta.cs</DependentUpon>
     </Compile>
     <Compile Include="Canje Millas\Form1.cs">
       <SubType>Form</SubType>
@@ -216,8 +220,8 @@
     <EmbeddedResource Include="Abm Ruta\ABMRuta.resx">
       <DependentUpon>ABMRuta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Ruta\NuevaRuta.resx">
-      <DependentUpon>NuevaRuta.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Ruta\CrearOModificarRuta.resx">
+      <DependentUpon>CrearOModificarRuta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

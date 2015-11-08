@@ -1,4 +1,5 @@
-﻿using AerolineaFrba.Models.BO;
+﻿using AerolineaFrba.Abm_Ruta.filter;
+using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
 using System;
 using System.Collections.Generic;
@@ -33,54 +34,62 @@ namespace AerolineaFrba.Abm_Ruta
             ModificarButtonRuta.Enabled = false;
             BajaButtonRuta.Enabled = false;
             createColumns();
-            fillDataGridView();
+            loadFilterComboBox();
+            fillDataGridView((RutaFilter) comboBoxFiltros.SelectedItem);
+            
+        }
+
+        private void fillDataGridView(RutaFilter rutaFilter)
+        {
+            rutaList = daoRuta.retrieveAll();
+            List<Ruta> filteredRutaList = new List<Ruta>();
+            foreach ( Ruta ruta in rutaList){
+                if (rutaFilter.accept(ruta)){
+                    filteredRutaList.Add(ruta);
+                }
+            }
+
+            dataGridViewRuta.DataSource = filteredRutaList;
+        }
+
+        private void loadFilterComboBox()
+        {
+            List<RutaFilter> filterList = new List<RutaFilter>();
+            filterList.Add(new NoneFilter());
+            filterList.Add(new OnlyActiveFilter());
+            filterList.Add(new OnlyInactiveFilter());
+            comboBoxFiltros.Items.AddRange(filterList.ToArray());
+            comboBoxFiltros.DisplayMember = "nombre";
+            comboBoxFiltros.SelectedIndex = 0;
         }
 
         private void createColumns()
         {
-            DataGridViewTextBoxColumn colId = new DataGridViewTextBoxColumn();
-            colId.DataPropertyName = "id";
-            colId.HeaderText = "Id";
-            colId.Width = 40;
-            colId.ReadOnly = true;
 
-            DataGridViewTextBoxColumn colTipoServicio = new DataGridViewTextBoxColumn();
-            colTipoServicio.DataPropertyName = "tipoServicioNombre";
-            colTipoServicio.HeaderText = "Tipo Servicio";
-            colTipoServicio.Width = 100;
-            colTipoServicio.ReadOnly = true;
+            DataGridViewCheckBoxColumn colEstado = new DataGridViewCheckBoxColumn();
+            colEstado.DataPropertyName = "estado";
+            colEstado.HeaderText = "Activo";
+            colEstado.Width = 60;
+            colEstado.ReadOnly = true;
 
-            DataGridViewTextBoxColumn colCiudadOrigen = new DataGridViewTextBoxColumn();
-            colCiudadOrigen.DataPropertyName = "ciudadOrigenNombre";
-            colCiudadOrigen.HeaderText = "Ciudad origen";
-            colCiudadOrigen.Width = 100;
-            colCiudadOrigen.ReadOnly = true;
-
-            DataGridViewTextBoxColumn colCiudadDestino = new DataGridViewTextBoxColumn();
-            colCiudadDestino.DataPropertyName = "ciudadDestinoNombre";
-            colCiudadDestino.HeaderText = "Ciudad Destino";
-            colCiudadDestino.Width = 100;
-            colCiudadDestino.ReadOnly = true;
-
-            DataGridViewTextBoxColumn colPrecio_BasePasaje = new DataGridViewTextBoxColumn();
-            colPrecio_BasePasaje.DataPropertyName = "precioBasePasaje";
-            colPrecio_BasePasaje.HeaderText = "Precio Base Pasaje";
-            colPrecio_BasePasaje.Width = 40;
-            colPrecio_BasePasaje.ReadOnly = true;
-
-            DataGridViewTextBoxColumn colPrecio_BaseKg = new DataGridViewTextBoxColumn();
-            colPrecio_BaseKg.DataPropertyName = "precioBaseKg";
-            colPrecio_BaseKg.HeaderText = "Precio Base KG";
-            colPrecio_BaseKg.Width = 40;
-            colPrecio_BaseKg.ReadOnly = true;
-
-            dataGridViewRuta.Columns.Add(colId);
-            dataGridViewRuta.Columns.Add(colTipoServicio);
-            dataGridViewRuta.Columns.Add(colCiudadOrigen);
-            dataGridViewRuta.Columns.Add(colCiudadDestino);
-            dataGridViewRuta.Columns.Add(colPrecio_BasePasaje);
-            dataGridViewRuta.Columns.Add(colPrecio_BaseKg);
+            dataGridViewRuta.Columns.Add(crearColumna("id", "Id", 40, true));
+            dataGridViewRuta.Columns.Add(crearColumna("tipoServicioNombre", "Tipo Servicio", 100, true));
+            dataGridViewRuta.Columns.Add(crearColumna("ciudadOrigenNombre", "Ciudad origen", 100, true));
+            dataGridViewRuta.Columns.Add(crearColumna("ciudadDestinoNombre", "Ciudad Destino", 100, true));
+            dataGridViewRuta.Columns.Add(crearColumna("precioBasePasaje", "Precio Base Pasaje", 40, true));
+            dataGridViewRuta.Columns.Add(crearColumna("precioBaseKg", "Precio Base KG", 40, true));
+            dataGridViewRuta.Columns.Add(colEstado);
             dataGridViewRuta.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+
+        private static DataGridViewTextBoxColumn crearColumna(String dataPropertyName, String headerText, int width, bool readOnly)
+        {
+            DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
+            columna.DataPropertyName = dataPropertyName;
+            columna.HeaderText = headerText;
+            columna.Width = width;
+            columna.ReadOnly = readOnly;
+            return columna;
         }
 
         private void fillDataGridView()
@@ -90,30 +99,46 @@ namespace AerolineaFrba.Abm_Ruta
             dataGridViewRuta.DataSource = rutaList;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void CrearButtonRuta_Click(object sender, EventArgs e)
         {
-            NuevaRuta view = new NuevaRuta();
+            CrearOModificarRuta view = new CrearOModificarRuta();
             view.ShowDialog();
+            fillDataGridView();
+        }
+
+        private void BajaButtonRuta_Click(object sender, EventArgs e)
+        {
+            Ruta ruta = (Ruta)dataGridViewRuta.CurrentRow.DataBoundItem;
+            DAORuta.baja(ruta);
+            updateDataGridView();
+        }
+
+        private void dataGridViewRuta_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            BajaButtonRuta.Enabled = true;
+            ModificarButtonRuta.Enabled = true;
+        }
+
+        private void ModificarButtonRuta_Click(object sender, EventArgs e)
+        {
+            CrearOModificarRuta form = new CrearOModificarRuta((Ruta)dataGridViewRuta.CurrentRow.DataBoundItem);
+            form.ShowDialog();
+            updateDataGridView();
+        }
+
+        private void comboBoxFiltros_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fillDataGridView((RutaFilter)comboBoxFiltros.SelectedItem);
+        }
+
+        private void updateDataGridView()
+        {
+            int pos = dataGridViewRuta.CurrentRow.Index;
+            fillDataGridView((RutaFilter)comboBoxFiltros.SelectedItem);
+            if (dataGridViewRuta.Rows.Count != 0)
+            {
+                dataGridViewRuta.Rows[pos].Selected = true;
+            }
         }
     }
 }

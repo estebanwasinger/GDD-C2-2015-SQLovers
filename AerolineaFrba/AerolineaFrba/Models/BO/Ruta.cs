@@ -27,6 +27,7 @@ namespace AerolineaFrba.Models.BO
         public String ciudadDestinoNombre { get; set; }
         public Int32 precioBasePasaje { get; set; }
         public Int32 precioBaseKg { get; set; }
+        public bool estado { get; set; }
 
         public Ruta initialize(System.Data.DataRow _dr)
         {
@@ -74,6 +75,8 @@ namespace AerolineaFrba.Models.BO
 
             return ruta_id;
         }
+
+
 
     }
 }

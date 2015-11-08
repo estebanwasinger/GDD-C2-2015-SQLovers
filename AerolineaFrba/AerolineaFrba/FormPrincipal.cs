@@ -39,8 +39,8 @@ namespace AerolineaFrba
 
         private void buttonRoles_Click(object sender, EventArgs e)
         {
-         //   ABMRol abmRol = new ABMRol();
-         //   abmRol.ShowDialog();
+            ABMRol abmRol = new ABMRol();
+            abmRol.ShowDialog();
         }
 
         private void buttonRutas_Click(object sender, EventArgs e)

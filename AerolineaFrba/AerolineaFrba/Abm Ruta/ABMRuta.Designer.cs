@@ -33,6 +33,8 @@
             this.ModificarButtonRuta = new System.Windows.Forms.Button();
             this.BajaButtonRuta = new System.Windows.Forms.Button();
             this.dataGridViewRuta = new System.Windows.Forms.DataGridView();
+            this.comboBoxFiltros = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRuta)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,7 +42,7 @@
             // 
             this.CrearButtonRuta.Location = new System.Drawing.Point(12, 55);
             this.CrearButtonRuta.Name = "CrearButtonRuta";
-            this.CrearButtonRuta.Size = new System.Drawing.Size(141, 30);
+            this.CrearButtonRuta.Size = new System.Drawing.Size(167, 44);
             this.CrearButtonRuta.TabIndex = 0;
             this.CrearButtonRuta.Text = "Crear";
             this.CrearButtonRuta.UseVisualStyleBackColor = true;
@@ -55,37 +57,61 @@
             this.label2.Size = new System.Drawing.Size(198, 31);
             this.label2.TabIndex = 1;
             this.label2.Text = "RUTA AEREA";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // ModificarButtonRuta
             // 
             this.ModificarButtonRuta.Location = new System.Drawing.Point(194, 55);
             this.ModificarButtonRuta.Name = "ModificarButtonRuta";
-            this.ModificarButtonRuta.Size = new System.Drawing.Size(141, 30);
+            this.ModificarButtonRuta.Size = new System.Drawing.Size(167, 44);
             this.ModificarButtonRuta.TabIndex = 2;
             this.ModificarButtonRuta.Text = "Modificar";
             this.ModificarButtonRuta.UseVisualStyleBackColor = true;
+            this.ModificarButtonRuta.Click += new System.EventHandler(this.ModificarButtonRuta_Click);
             // 
             // BajaButtonRuta
             // 
-            this.BajaButtonRuta.Location = new System.Drawing.Point(367, 55);
+            this.BajaButtonRuta.Location = new System.Drawing.Point(376, 55);
             this.BajaButtonRuta.Name = "BajaButtonRuta";
-            this.BajaButtonRuta.Size = new System.Drawing.Size(141, 30);
+            this.BajaButtonRuta.Size = new System.Drawing.Size(167, 44);
             this.BajaButtonRuta.TabIndex = 3;
             this.BajaButtonRuta.Text = "Baja";
             this.BajaButtonRuta.UseVisualStyleBackColor = true;
+            this.BajaButtonRuta.Click += new System.EventHandler(this.BajaButtonRuta_Click);
             // 
             // dataGridViewRuta
             // 
             this.dataGridViewRuta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRuta.Location = new System.Drawing.Point(12, 109);
+            this.dataGridViewRuta.Location = new System.Drawing.Point(12, 105);
             this.dataGridViewRuta.Name = "dataGridViewRuta";
-            this.dataGridViewRuta.Size = new System.Drawing.Size(496, 173);
+            this.dataGridViewRuta.Size = new System.Drawing.Size(533, 290);
             this.dataGridViewRuta.TabIndex = 4;
+            this.dataGridViewRuta.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRuta_CellClick);
+            // 
+            // comboBoxFiltros
+            // 
+            this.comboBoxFiltros.AccessibleName = "";
+            this.comboBoxFiltros.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFiltros.FormattingEnabled = true;
+            this.comboBoxFiltros.Location = new System.Drawing.Point(273, 404);
+            this.comboBoxFiltros.Name = "comboBoxFiltros";
+            this.comboBoxFiltros.Size = new System.Drawing.Size(270, 21);
+            this.comboBoxFiltros.TabIndex = 5;
+            this.comboBoxFiltros.SelectedIndexChanged += new System.EventHandler(this.comboBoxFiltros_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(223, 407);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Filtros";
             // 
             // ABMRuta
             // 
-            this.ClientSize = new System.Drawing.Size(538, 294);
+            this.ClientSize = new System.Drawing.Size(557, 437);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBoxFiltros);
             this.Controls.Add(this.dataGridViewRuta);
             this.Controls.Add(this.BajaButtonRuta);
             this.Controls.Add(this.ModificarButtonRuta);
@@ -111,5 +137,7 @@
         private System.Windows.Forms.Button ModificarButtonRuta;
         private System.Windows.Forms.Button BajaButtonRuta;
         private System.Windows.Forms.DataGridView dataGridViewRuta;
+        private System.Windows.Forms.ComboBox comboBoxFiltros;
+        private System.Windows.Forms.Label label3;
     }
 }
