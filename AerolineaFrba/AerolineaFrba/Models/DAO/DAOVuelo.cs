@@ -170,42 +170,57 @@ namespace AerolineaFrba.Models.DAO
             DB.ExecuteNonQuery(comando);
         }
 
-        /*public List<Cliente> retrieveAll()
+        public static List<Vuelo> retrieveWithOriginDestinyAndDate(Ciudad ciudadOrigen, Ciudad ciudadDestino, DateTime fechaSalida)
         {
-            List<Cliente> l = new List<Cliente>();
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from VIDA_ESTATICA.Cliente", "T", new List<SqlParameter>());
+            List<Vuelo> l = new List<Vuelo>();
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@ruta_ciudad_destino_id",ciudadDestino.id));
+            parameterList.Add(new SqlParameter("@ruta_ciudad_origen_id",ciudadOrigen.id));
+            parameterList.Add(new SqlParameter("@vuelo_fecha_salida", fechaSalida));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.VUELO, SQLOVERS.RUTA where vuelo_ruta_id = ruta_id and ruta_ciudad_destino = @ruta_ciudad_destino_id and ruta_ciudad_origen = @ruta_ciudad_origen_id and CAST(vuelo_fecha_salida as date) = CAST(@vuelo_fecha_salida as date)", "T", parameterList);
 
             if (lector.HasRows)
             {
                 while (lector.Read())
                 {
-                    Cliente unCliente = new Cliente();
-                    unCliente.nombre = (string)lector["nombre"];
-                    unCliente.id = (int)(decimal)lector["id"];
-                    unCliente.apellido = (string)lector["apellido"];
-                    unCliente.documento = (int)(decimal)lector["documento"];
-                    unCliente.dom_calle = (string)lector["dom_calle"];
-                    unCliente.dom_dpto = (string)lector["dom_dpto"];
-                    unCliente.dom_nro = (int)(decimal)lector["dom_nro"];
-                    unCliente.dom_piso = (int)(decimal)lector["dom_piso"];
-                    unCliente.mail = (string)lector["mail"];
-                    unCliente.nacionalidad = (int)(decimal)lector["nacionalidad"];
-                    unCliente.fecha_nac = (DateTime?)lector["fecha_nac"];
-                    unCliente.activo = (bool?)lector["activo"];
-                    try
-                    {
-                        unCliente.usuario = (string)lector["usuario"];
-                    }
-                    catch
-                    {
-                        unCliente.usuario = "";
-                    }
-                    unCliente.tipo_documento = (int)(decimal)lector["tipo_documento"];
+                    Vuelo unCliente = new Vuelo();
+                    unCliente.id = (int)(decimal)lector["vuelo_id"];
+                    unCliente.aeronave = (String)lector["vuelo_aeronave_id"];
+                    unCliente.ruta = (int)(decimal)lector["vuelo_ruta_id"];
+                    unCliente.fechaLlegada = (DateTime)lector["vuelo_fecha_llegada"];
+                    unCliente.fechaLlegadaEstimada = (DateTime)lector["vuelo_fecha_llegada_estimada"];
+                    unCliente.fechaSalida = (DateTime)lector["vuelo_fecha_salida"];
+
+                    l.Add(unCliente);
+                }
+            }
+
+            return l;
+
+        }
+
+        public static List<Vuelo> retrieveAll()
+        {
+            List<Vuelo> l = new List<Vuelo>();
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.VUELO", "T", new List<SqlParameter>());
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    Vuelo unCliente = new Vuelo();
+                    unCliente.id = (int)(decimal)lector["vuelo_id"];
+                    unCliente.aeronave = (String)lector["vuelo_aeronave_id"];
+                    unCliente.ruta = (int)(decimal)lector["vuelo_ruta_id"];
+                    unCliente.fechaLlegada = (DateTime)lector["vuelo_fecha_llegada"];
+                    unCliente.fechaLlegadaEstimada = (DateTime)lector["vuelo_fecha_llegada_estimada"];
+                    unCliente.fechaSalida = (DateTime)lector["vuelo_fecha_salida"];
+
                     l.Add(unCliente);
                 }
             }
             return l;
-        }*/
+        }
 
       
 

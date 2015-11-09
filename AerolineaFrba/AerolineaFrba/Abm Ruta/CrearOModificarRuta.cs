@@ -204,5 +204,10 @@ namespace AerolineaFrba.Abm_Ruta
 
         }
 
+        private void textBoxPrecioBasePasaje_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

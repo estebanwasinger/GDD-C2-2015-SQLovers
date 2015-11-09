@@ -16,15 +16,34 @@ namespace AerolineaFrba.Models.DAO
             : base("SQLOVERS.RUTA", "ruta_id")
         { }
 
-        /*  public int deleteRuta(int key)
-          {
-              List<SqlParameter> listaParametros = new List<SqlParameter>();
-              listaParametros.Add(new SqlParameter("@ciudad_id", key));
-              listaParametros.Add(new SqlParameter("@ciudad_estado", false));
+        public static Ruta getRuta(int id)
+        {
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@ruta_id", id));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT ruta_id, c1.ciudad_id as ciudad_origen_id, c1.ciudad_nombre as ciudad_origen,c2.ciudad_id as ciudad_destino_id, c2.ciudad_nombre as ciudad_destino, ruta_precio_basepasaje, ruta_precio_basekg, tipo_servicio_id, tipo_servicio_nombre as ruta_tipo_servicio, ruta_estado FROM SQLOVERS.RUTA, SQLOVERS.TIPO_SERVICIO, SQLOVERS.CIUDAD c1, SQLOVERS.CIUDAD c2"
+            + " WHERE ruta_tipo_servicio =  tipo_servicio_id AND ruta_ciudad_origen= c1.ciudad_id AND ruta_ciudad_destino=c2.ciudad_id and ruta_id=@ruta_id", "T", parameterList);
 
-              return Convert.ToInt32(DBAcess.WriteInBase("update SQLOVERS.ciudad set ciudad_estado=@ciudad_estado where ciudad_id=@ciudad_id", "T", listaParametros));
-          }
-*/
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    Ruta ruta = new Ruta();
+                    ruta.id = (int)(decimal)lector["ruta_id"];
+                    ruta.tipoServicioId = (int)(decimal)lector["tipo_servicio_id"];
+                    ruta.tipoServicioNombre = (String)lector["ruta_tipo_servicio"];
+                    ruta.ciudadOrigenId = (int)(decimal)lector["ciudad_origen_id"];
+                    ruta.ciudadOrigenNombre = (String)lector["ciudad_origen"];
+                    ruta.ciudadDestinoId = (int)(decimal)lector["ciudad_destino_id"];
+                    ruta.ciudadDestinoNombre = (String)lector["ciudad_destino"];
+                    ruta.precioBasePasaje = (int)(decimal)lector["ruta_precio_basepasaje"];
+                    ruta.precioBaseKg = (int)(decimal)lector["ruta_precio_basekg"];
+                    ruta.estado = (bool)lector["ruta_estado"];
+
+                    return ruta;
+                }
+            }
+            return new Ruta();
+        }
         public static void baja(Ruta ruta)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();

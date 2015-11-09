@@ -24,7 +24,9 @@ namespace AerolineaFrba.Models.BO
 
         public string aeronave { get; set; }   
     
-       // public DateTime? fecha_alta { get; set; }
+        public DateTime fechaLlegada { get; set; }
+        public DateTime fechaSalida { get; set; }
+        public DateTime fechaLlegadaEstimada { get; set; }
 
         public int? ruta { get; set; }
       

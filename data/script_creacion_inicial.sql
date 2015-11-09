@@ -51,15 +51,16 @@ IF Object_id('SQLOVERS.Ruta') IS NOT NULL
       DROP TABLE sqlovers.RUTA; 
   END; 
 
+  IF Object_id('SQLOVERS.butaca') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.BUTACA; 
+  END; 
+
 IF Object_id('SQLOVERS.Ciudad') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.CIUDAD; 
   END; 
-  
-IF Object_id('SQLOVERS.butaca') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.BUTACA; 
-  END; 
+ 
 
 IF Object_id('SQLOVERS.aeronave') IS NOT NULL 
   BEGIN 
@@ -172,7 +173,8 @@ CREATE TABLE sqlovers.RUTA
      sqlovers.CIUDAD(ciudad_id), 
      ruta_precio_basepasaje NUMERIC(18, 0), 
      ruta_precio_basekg     NUMERIC(18, 0), 
-     ruta_tipo_servicio     NUMERIC(3, 0) FOREIGN KEY REFERENCES 
+	 ruta_estado BIT,
+     ruta_tipo_servicio     NUMERIC(3, 0) FOREIGN KEY REFERENCES
      sqlovers.TIPO_SERVICIO(tipo_servicio_id) 
   ) 
 
@@ -263,12 +265,14 @@ INSERT INTO sqlovers.RUTA
              ruta_ciudad_destino, 
              ruta_ciudad_origen, 
              ruta_precio_basepasaje, 
-             ruta_tipo_servicio) 
+             ruta_tipo_servicio,
+			 ruta_estado) 
 SELECT Max(m1.ruta_precio_basekg), 
                 c1.ciudad_id,
                 c2.ciudad_id, 
                 Max(m1.ruta_precio_basepasaje), 
-                ts.tipo_servicio_id 
+                ts.tipo_servicio_id,
+				1 
 FROM   [GD2C2015].[gd_esquema].[MAESTRA] m1, SQLOVERS.CIUDAD c1, SQLOVERS.CIUDAD c2, SQLOVERS.TIPO_SERVICIO ts
 WHERE  m1.ruta_ciudad_destino != m1.ruta_ciudad_origen 
 AND c1.ciudad_nombre = m1.Ruta_Ciudad_Destino

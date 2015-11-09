@@ -25,6 +25,27 @@ namespace AerolineaFrba.Models.DAO
             return Convert.ToInt32(DBAcess.WriteInBase("update SQLOVERS.ciudad set ciudad_estado=@ciudad_estado where ciudad_id=@ciudad_id","T", listaParametros));
         }
 
+        public static Ciudad getCiudad(int id)
+        {
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@ciudad_id", id));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.CIUDAD where ciudad_id=@ciudad_id", "T", parameterList);
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    Ciudad ciudad = new Ciudad();
+                    ciudad.nombre = (string)lector["ciudad_nombre"];
+                    ciudad.id = (int)(decimal)lector["ciudad_id"];
+                    ciudad.estado = (Boolean)lector["ciudad_estado"];
+
+                    return ciudad;
+                }
+            }
+            return new Ciudad();
+        }
+
         public bool create(Ciudad ciudad) 
         {
             try

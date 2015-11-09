@@ -124,6 +124,7 @@
             this.textBoxPrecioBasePasaje.Name = "textBoxPrecioBasePasaje";
             this.textBoxPrecioBasePasaje.Size = new System.Drawing.Size(194, 20);
             this.textBoxPrecioBasePasaje.TabIndex = 9;
+            this.textBoxPrecioBasePasaje.TextChanged += new System.EventHandler(this.textBoxPrecioBasePasaje_TextChanged);
             this.textBoxPrecioBasePasaje.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPrecioBasePasaje_KeyPress);
             // 
             // labelPrecioBasePasaje
@@ -169,7 +170,7 @@
             this.checkBoxActivo.UseVisualStyleBackColor = true;
             this.checkBoxActivo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // NuevaRuta
+            // CrearOModificarRuta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -187,7 +188,7 @@
             this.Controls.Add(this.comboBoxCiudadDestino);
             this.Controls.Add(this.ciudadOrigenLabel);
             this.Controls.Add(this.comboBoxCiudadOrigen);
-            this.Name = "NuevaRuta";
+            this.Name = "CrearOModificarRuta";
             this.Text = "NuevaRuta";
             this.Load += new System.EventHandler(this.NuevaRuta_Load);
             this.ResumeLayout(false);
