@@ -23,20 +23,12 @@ namespace AerolineaFrba.Models.BO
         public int? id { get; set; }
 
         public string aeronave { get; set; }   
-<<<<<<< Updated upstream
     
         public DateTime fechaLlegada { get; set; }
         public DateTime fechaSalida { get; set; }
         public DateTime fechaLlegadaEstimada { get; set; }
 
         public int? ruta { get; set; }
-=======
-        
-       public DateTime? fecha_Salida { get; set; }
-       public DateTime? fecha_Llegada { get; set; }
-       public int? ruta { get; set; }
->>>>>>> Stashed changes
-      
 
         public Vuelo initialize(DataRow _dr)
         {
@@ -57,10 +49,10 @@ namespace AerolineaFrba.Models.BO
                 ruta = (dr["vuelo_ruta_id"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["vuelo_ruta_id"]);
 
             if (dcc.Contains("vuelo_fecha_salida"))
-                fecha_Salida = Convert.ToDateTime(dr["vuelo_fecha_salida"]);
+                fechaSalida = Convert.ToDateTime(dr["vuelo_fecha_salida"]);
 
             if (dcc.Contains("vuelo_fecha_llegada"))
-                fecha_Llegada = Convert.ToDateTime(dr["vuelo_fecha_llegada"]);
+                fechaLlegada = Convert.ToDateTime(dr["vuelo_fecha_llegada"]);
 
             return this;
         }

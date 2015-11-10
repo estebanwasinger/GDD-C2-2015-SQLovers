@@ -49,8 +49,8 @@ namespace AerolineaFrba.Generacion_Viaje
 
         public void cargarDatosVueloAGuardar() {
 
-            vuelo.fecha_Salida = new DateTime(dateSalida.Value.Year, dateSalida.Value.Month, dateSalida.Value.Day, horaSalida.Value.Hour, horaSalida.Value.Minute, horaSalida.Value.Second);
-            vuelo.fecha_Llegada = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
+            vuelo.fechaSalida = new DateTime(dateSalida.Value.Year, dateSalida.Value.Month, dateSalida.Value.Day, horaSalida.Value.Hour, horaSalida.Value.Minute, horaSalida.Value.Second);
+            vuelo.fechaLlegada = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
 
             Aeronave aer_seleccionada = (Aeronave)dtgAeronavesPosibles.CurrentRow.DataBoundItem;
             vuelo.aeronave = aer_seleccionada.matricula;

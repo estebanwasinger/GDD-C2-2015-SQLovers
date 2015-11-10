@@ -94,9 +94,10 @@ namespace AerolineaFrba.Models.BO
              
             foreach(Vuelo velo in LsVuelos){
 
-                
-                    if(velo.fecha_Salida.Equals(fecha_sal)){
-                        System.Console.WriteLine("la fecha de la tabla vuelo es:" + velo.fecha_Salida);
+
+                if (velo.fechaSalida.Equals(fecha_sal))
+                {
+                        System.Console.WriteLine("la fecha de la tabla vuelo es:" + velo.fechaSalida);
                         disponible = false;
                         aviones_con_misma_fsalida++;
                     }

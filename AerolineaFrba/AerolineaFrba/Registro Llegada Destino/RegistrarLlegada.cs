@@ -96,7 +96,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
             foreach (Vuelo velo in LsVuelos)
             {
-                if (velo.fecha_Llegada.Equals(fecha_llegada_form))
+                if (velo.fechaLlegada.Equals(fecha_llegada_form))
                 {
                     //System.Console.WriteLine("la fecha de la tabla vuelo es:" + velo.fecha_Llegada);
                     //System.Console.WriteLine("la fecha de la tabla vuelo es:" + fecha_llegada_form);

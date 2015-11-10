@@ -184,11 +184,8 @@
     <Compile Include="Models\BO\Ciudad.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\Compra.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Models\BO\Pasaje.cs" />
-=======
     <Compile Include="Models\BO\LlegadaDestino.cs" />
->>>>>>> Stashed changes
     <Compile Include="Models\BO\Rol.cs" />
     <Compile Include="Models\BO\Ruta.cs" />
     <Compile Include="Models\BO\IBO.cs" />
