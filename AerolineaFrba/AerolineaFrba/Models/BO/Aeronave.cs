@@ -1,5 +1,5 @@
 ﻿using System;
-using System;
+
 using System.Text;
 using System.Linq;
 using System.Web;
@@ -29,6 +29,8 @@ namespace AerolineaFrba.Models.BO
         public bool? activo { get; set; }
         public int? aeronave_tipo_servicio { get; set; }
 
+        public string descripcion_tipoServicio { get; set; }
+        
 
         public Aeronave initialize(DataRow _dr)
         {
@@ -71,6 +73,37 @@ namespace AerolineaFrba.Models.BO
             Servicio serv = daoServ.retrieveBy_id_serv(this.aeronave_tipo_servicio);
             return serv.tipo_servicio_nombre;
         }
+
+        public int getCantidadButacas() {
+
+            DAOAeronave daoAer = new DAOAeronave();
+            cant_butacas = daoAer.retrieveButacas(this.matricula);
+            return (int)cant_butacas;
+        
+        }
+
+        public bool estaDisponible(DateTime fecha_sal) {
+
+            bool disponible = true;
+            int aviones_con_misma_fsalida = 0;
+
+            DAOVuelo daoVuelo = new DAOVuelo();
+            List<Vuelo> LsVuelos = new List<Vuelo>();
+
+            LsVuelos = daoVuelo.search(this.matricula);
+             
+            foreach(Vuelo velo in LsVuelos){
+
+                
+                    if(velo.fecha_Salida.Equals(fecha_sal)){
+                        System.Console.WriteLine("la fecha de la tabla vuelo es:" + velo.fecha_Salida);
+                        disponible = false;
+                        aviones_con_misma_fsalida++;
+                    }
+            }
+            return disponible;   
+        }
+
 
        /* public List<Tarjeta> get_tarjetas()
         {

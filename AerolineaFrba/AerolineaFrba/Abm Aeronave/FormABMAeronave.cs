@@ -103,18 +103,21 @@ namespace AerolineaFrba.Abm_Aeronave
         
         private void btn_bDef_Click(object sender, EventArgs e)
         {
+            if(txtmatricula.Text==""){
 
+                MessageBox.Show("Ingrese Matricula y luego presione Buscar", "Error!", MessageBoxButtons.OK);
+            }else{
             Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
             BajaAeronaveD bad = new BajaAeronaveD(aer);
             bad.Show();
-
+            }
 
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try { actualizarGrilla(); }
-            catch { MessageBox.Show("No existe cliente con esas caracteristicas", "Error!", MessageBoxButtons.OK); }
+            catch { MessageBox.Show("No existe Aeronave con esas caracteristicas", "Error!", MessageBoxButtons.OK); }
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -130,6 +133,11 @@ namespace AerolineaFrba.Abm_Aeronave
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

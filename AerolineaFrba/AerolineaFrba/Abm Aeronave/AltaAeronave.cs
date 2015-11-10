@@ -16,7 +16,7 @@ namespace AerolineaFrba.Abm_Aeronave
     {
         private Aeronave aeronave{ get; set; }       
         private DAOAeronave daoaeronave = new DAOAeronave(); 
-        private bool update;
+        private bool update=false;
        
 
         public AltaAeronave(Aeronave aero)
@@ -65,7 +65,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private bool validateCamps()
         {
-            if (txtMatricula.Text == "" || txtModelo.Text == "" || txtCarga.Text == "" || txtFabricante.Text == "" || txtButacas.Text == "")
+            if (txtMatricula.Text == "" || txtModelo.Text == "" || txtCarga.Text == "" || txtFabricante.Text == "" || txtButacas.Text == "" || ((Servicio)cmbServicio.SelectedItem == null))
                 
             {
                 MessageBox.Show("Hay campos vacios");
@@ -81,13 +81,32 @@ namespace AerolineaFrba.Abm_Aeronave
                
                 aeronave.matricula = txtMatricula.Text;
                 aeronave.modelo = txtModelo.Text;
-                aeronave.peso_disponible = (int?)Convert.ToInt32(txtCarga.Text);
+                try
+                {
+                    aeronave.peso_disponible = (int?)Convert.ToInt32(txtCarga.Text);
+                }
+                catch (Exception h)
+                {
+                    MessageBox.Show("Ingresar un Numero en KG de Carga");
+                }
                 aeronave.fabricante = txtFabricante.Text;
-                aeronave.cant_butacas = (int?)Convert.ToInt32(txtButacas.Text);
-                aeronave.fecha_alta = dateTimeFA.Value.Date;
-                aeronave.aeronave_tipo_servicio = ((Servicio)cmbServicio.SelectedItem).tipo_servicio_id;
-                
 
+                try
+                {
+                    aeronave.cant_butacas = (int?)Convert.ToInt32(txtButacas.Text);
+                }
+                catch (Exception h)
+                {
+                    MessageBox.Show("Ingresar un Numero en Cantidad Butacas");
+                }
+                aeronave.aeronave_tipo_servicio = ((Servicio)cmbServicio.SelectedItem).tipo_servicio_id;
+                DateTime fecha_alta = new DateTime(dateTimeFA.Value.Year, dateTimeFA.Value.Month, dateTimeFA.Value.Day, dateTimeFA.Value.Hour, dateTimeFA.Value.Minute, dateTimeFA.Value.Second);
+
+                if (validar_fecha_Alta() >= 0)
+                {
+                    aeronave.fecha_alta = fecha_alta;
+                }
+                else { MessageBox.Show("fecha de Alta invalida"); }
 
                 if (update)
                 {
@@ -119,7 +138,20 @@ namespace AerolineaFrba.Abm_Aeronave
             }
              
         }
-        
+
+        public int validar_fecha_Alta()
+        {
+
+
+            DateTime fecha_alta = new DateTime(dateTimeFA.Value.Year, dateTimeFA.Value.Month, dateTimeFA.Value.Day, dateTimeFA.Value.Hour, dateTimeFA.Value.Minute, dateTimeFA.Value.Second);
+
+            int result = DateTime.Compare(fecha_alta, DateTime.Now);
+
+            return result;
+
+        }
+
+
         /*private void cargarGrilla()
         {
 

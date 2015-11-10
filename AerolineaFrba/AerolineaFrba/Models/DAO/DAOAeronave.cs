@@ -98,10 +98,38 @@ namespace AerolineaFrba.Models.DAO
             DB.ExecuteNonQuery(comando);
         }
 
+        public List<Aeronave> aeronave_servicio()
+        {
+
+            string comando = "select A.aeronave_matricula,TS.tipo_servicio_nombre from SQLOVERS.AERONAVE A inner join SQLOVERS.TIPO_SERVICIO TS on "+
+                             " A.aeronave_tipo_servicio = TS.tipo_servicio_id";
+
+           // string comando = "select aeronave_matricula,aeronave_tipo_servicio from SQLOVERS.AERONAVE";
+
+            List<Aeronave> LA = DB.ExecuteReader<Aeronave>(comando);
+
+            foreach(Aeronave aer in LA){
+            
+                string command = "select TS.tipo_servicio_nombre from SQLOVERS.AERONAVE A inner join SQLOVERS.TIPO_SERVICIO TS on "
++" A.aeronave_tipo_servicio = TS.tipo_servicio_id where " + String.Format("  A.aeronave_matricula like '{0}%' ", aer.matricula);
+                Servicio serv = DB.ExecuteReaderSingle<Servicio>(command);
+                aer.descripcion_tipoServicio = serv.tipo_servicio_nombre;
+
+            }
+
+            return LA;
+        } 
+
         public void delete(int Cliente_id)
         {
             string update = String.Format("UPDATE " + tabla + " SET activo = 0 WHERE id = {0}", Cliente_id);
             DB.ExecuteNonQuery(update);
+        }
+
+        public int retrieveButacas(string matricula) {
+
+            string command = "select count(*) from SQLOVERS.BUTACA where " + String.Format("  butaca_aeronave like '{0}%' ", matricula);
+            return DB.ExecuteCardinal(command);
         }
 
        /* public Cliente retrieveBy_id(object _value)

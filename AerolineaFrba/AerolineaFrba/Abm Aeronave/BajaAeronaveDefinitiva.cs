@@ -67,31 +67,20 @@ namespace AerolineaFrba.Abm_Aeronave
         private void cargarDatosAeronave()
         {
             txtmatricula.Text = aeronave.matricula;
-
             txtModelo.Text = aeronave.modelo;
-
             txtFabri.Text = aeronave.fabricante;
-
             txtPeso.Text = aeronave.peso_disponible.ToString();
 
             string serv = (string)aeronave.get_service();
             cmbServicio.SelectedIndex = cmbServicio.FindStringExact(serv);
 
+            txtmatricula.Enabled = false;
+            txtModelo.Enabled = false;
+            txtPeso.Enabled = false;
+            txtFabri.Enabled = false;
+            cmbServicio.Enabled = false;
 
-            //dateBaja.Value = (DateTime)aeronave.fecha_alta;
 
-            /*txtPiso.Text = cliente.dom_piso.ToString();
-            txtMail.Text = cliente.mail;
-            txtNumero.Text = cliente.dom_nro.ToString();
-            txtNumID.Text = cliente.documento.ToString();
-            dateNacimiento.Value = (DateTime)cliente.fecha_nac;
-
-            string pa = (string)cliente.get_pais().Substring(1);
-            cbNacionalidad.SelectedIndex = cbNacionalidad.FindStringExact(pa);
-
-            string tip = ((TipoDocumento)daoTipoDoc.retrieveBy_id(cliente.tipo_documento)).descripcion;
-            cmbTipo.SelectedIndex = cmbTipo.FindStringExact(tip);
-            checkActivo.Checked = (bool)cliente.activo;*/
         }
 
         private void cargarCombos()
@@ -160,9 +149,21 @@ namespace AerolineaFrba.Abm_Aeronave
 
             DAOAeronave daoA = new DAOAeronave();
 
+            if(tieneVuelos(txtmatricula.Text)){
+                MessageBox.Show("La Aeronave tiene Vuelos asignados", "Notificacion", MessageBoxButtons.OK);
+            }else{
             daoA.bajaDef(txtmatricula.Text);
-            MessageBox.Show("Baja Definitiva", "Notificacion", MessageBoxButtons.OK);
+            MessageBox.Show("Baja Definitiva completa", "Notificacion", MessageBoxButtons.OK);}
         
+        }
+
+        public bool tieneVuelos(string matricula){
+
+            bool tieneVuelos=false;
+            lstVuelo=daoVuelo.search(matricula);
+            if (lstVuelo.Count > 0) { tieneVuelos = true; }
+
+            return tieneVuelos;
         }
 
         private void label3_Click(object sender, EventArgs e)

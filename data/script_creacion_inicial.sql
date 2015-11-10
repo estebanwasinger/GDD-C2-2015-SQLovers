@@ -120,9 +120,10 @@ CREATE TABLE sqlovers.AERONAVE
      aeronave_matricula      NVARCHAR(255) PRIMARY KEY NOT NULL, 
      aeronave_modelo         NVARCHAR(255), 
      aeronave_kg_disponibles NUMERIC(18, 0), 
+     aeronave_fecha_alta     DATETIME NULL,
      aeronave_fabricante     NVARCHAR(255), 
      aeronave_tipo_servicio  NUMERIC(3, 0) FOREIGN KEY REFERENCES 
-     sqlovers.TIPO_SERVICIO(tipo_servicio_id) 
+     sqlovers.TIPO_SERVICIO(tipo_servicio_id)
   ) 
 
 CREATE TABLE sqlovers.BUTACA 

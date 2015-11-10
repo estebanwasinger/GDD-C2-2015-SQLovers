@@ -104,7 +104,7 @@ namespace AerolineaFrba.Abm_Ruta
           
             ruta.ciudadDestinoId = selectedCiudadDestino.id;
             ruta.ciudadOrigenId = selectedCiudadOrigen.id;
-            ruta.tipoServicioId = selectedServicio.tipo_servicio_id;
+            ruta.tipoServicioId = (int)selectedServicio.tipo_servicio_id;
             ruta.precioBaseKg = Convert.ToInt32(textBoxPrecioBaseKG.Text);
             ruta.precioBasePasaje = Convert.ToInt32(textBoxPrecioBasePasaje.Text);
             ruta.estado = checkBoxActivo.Checked;

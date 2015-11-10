@@ -24,36 +24,23 @@ namespace AerolineaFrba.Models.DAO
             return "'" + cadena + "'";
         }
 
-       /* public bool create(Vuelo _Vuelo)
+        public bool create(Vuelo _Vuelo)
         {
             try
             {
                 int bit = 0;
-                string comando = "INSERT INTO VIDA_ESTATICA.Cliente(nombre, apellido, documento, dom_calle, dom_nro, dom_piso, dom_dpto, fecha_nac, mail, nacionalidad, tipo_documento, usuario, activo)"
-                                    + "VALUES ({0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12});"
+                string comando = "INSERT INTO SQLOVERS.VUELO(vuelo_fecha_salida, vuelo_fecha_llegada, vuelo_fecha_llegada_estimada, vuelo_aeronave_id, vuelo_ruta_id, vuelo_cancelado)"
+                                    + "VALUES ({0},{1},{2},{3},{4},{5});"
                                     + "SELECT SCOPE_IDENTITY();";
-                if (_Vuelo.usuario == null || _Vuelo.usuario == "")
-                {
-                    _Vuelo.usuario = "NULL";
-                }
-                else
-                {
-                    if (!existsUser(_Vuelo.usuario)) { MessageBox.Show("Usuario ingresado incorrecto"); return false;};
-                    _Vuelo.usuario = stringQuereable(_Vuelo.usuario);
-                }
-
-                if (_Vuelo.activo == true)
-                {
-                    bit = 1;
-                }
-                comando = String.Format(comando, stringQuereable(_Vuelo.nombre), stringQuereable(_Vuelo.apellido), _Vuelo.documento, stringQuereable(_Vuelo.dom_calle), _Vuelo.dom_nro, _Vuelo.dom_piso, stringQuereable(_Vuelo.dom_dpto), fechaQuereable(_Vuelo.fecha_nac), stringQuereable(_Vuelo.mail), _Vuelo.nacionalidad, _Vuelo.tipo_documento, _Vuelo.usuario, bit);
+                
+                comando = String.Format(comando, fechaQuereable(_Vuelo.fecha_Salida), fechaQuereable(_Vuelo.fecha_Llegada), fechaQuereable(_Vuelo.fecha_Llegada), stringQuereable(_Vuelo.aeronave),_Vuelo.ruta ,1);
                 int insertado = DB.ExecuteCardinal(comando);
                 return true;
 
             }
             catch { return false; }
 
-        }*/
+        }
 
        /* public bool update(Cliente cliente)
         {

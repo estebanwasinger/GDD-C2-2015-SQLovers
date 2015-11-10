@@ -15,7 +15,7 @@ namespace AerolineaFrba.Abm_Aeronave
     public partial class BajaFueraServicio : Form
     {
 
-        private DAOServicio daoPais = new DAOServicio();
+        private DAOServicio daoServicio = new DAOServicio();
         private DAOVuelo daoVuelo = new DAOVuelo();
 
 
@@ -96,7 +96,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void cargarCombos()
         {
-            cmbServicio.Items.AddRange(daoPais.retrieveBase().ToArray());
+            cmbServicio.Items.AddRange(daoServicio.retrieveBase().ToArray());
 
         }
 

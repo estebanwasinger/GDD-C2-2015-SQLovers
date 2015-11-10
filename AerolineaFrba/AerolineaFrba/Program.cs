@@ -8,6 +8,8 @@ using AerolineaFrba.Abm_Aeronave;
 using AerolineaFrba.Models.BO;
 using AerolineaFrba.Abm_Ruta;
 using AerolineaFrba.Models;
+using AerolineaFrba.Generacion_Viaje;
+using AerolineaFrba.Registro_Llegada_Destino;
 
 namespace AerolineaFrba
 {
@@ -23,7 +25,8 @@ namespace AerolineaFrba
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new FormLogin());
-            Application.Run(new FormPrincipal(new Usuario()));
+            //Application.Run(new FormPrincipal(new Usuario()));
+              Application.Run(new RegistrarLlegada());
                 
         }
     }

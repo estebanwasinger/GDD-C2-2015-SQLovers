@@ -168,11 +168,11 @@
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generacion Viaje\Form1.cs">
+    <Compile Include="Generacion Viaje\GenerarViaje.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generacion Viaje\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generacion Viaje\GenerarViaje.Designer.cs">
+      <DependentUpon>GenerarViaje.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
@@ -184,13 +184,18 @@
     <Compile Include="Models\BO\Ciudad.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\Compra.cs" />
+<<<<<<< Updated upstream
     <Compile Include="Models\BO\Pasaje.cs" />
+=======
+    <Compile Include="Models\BO\LlegadaDestino.cs" />
+>>>>>>> Stashed changes
     <Compile Include="Models\BO\Rol.cs" />
     <Compile Include="Models\BO\Ruta.cs" />
     <Compile Include="Models\BO\IBO.cs" />
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
+    <Compile Include="Models\DAO\DAOLlegadaDestino.cs" />
     <Compile Include="Models\DAO\DAORol.cs" />
     <Compile Include="Models\DAO\DAORuta.cs" />
     <Compile Include="Models\DAO\DAOAeronave.cs" />
@@ -204,9 +209,6 @@
     <Compile Include="Models\Utils\DB.cs" />
     <Compile Include="Models\Utils\MyException.cs" />
     <Compile Include="Models\Utils\Utils.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro de Usuario\FormLogin.cs">
@@ -215,11 +217,11 @@
     <Compile Include="Registro de Usuario\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro Llegada Destino\Form1.cs">
+    <Compile Include="Registro Llegada Destino\RegistrarLlegada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Llegada Destino\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Llegada Destino\RegistrarLlegada.Designer.cs">
+      <DependentUpon>RegistrarLlegada.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Abm Aeronave\AltaAeronave.resx">
       <DependentUpon>AltaAeronave.cs</DependentUpon>
@@ -270,6 +272,9 @@
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Generacion Viaje\GenerarViaje.resx">
+      <DependentUpon>GenerarViaje.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -282,11 +287,12 @@
     <EmbeddedResource Include="Registro de Usuario\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registro Llegada Destino\RegistrarLlegada.resx">
+      <DependentUpon>RegistrarLlegada.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="bin\Debug\AerolineaFrba.exe.config" />
     <None Include="bin\Debug\AerolineaFrba.vshost.exe.config" />
     <None Include="bin\Debug\AerolineaFrba.vshost.exe.manifest" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -302,11 +308,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\AerolineaFrba.vshost.exe" />
-    <Content Include="obj\Debug\AerolineaFrba.csproj.FileListAbsolute.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />
-    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
