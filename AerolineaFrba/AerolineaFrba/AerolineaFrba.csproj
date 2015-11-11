@@ -144,12 +144,6 @@
     <Compile Include="Compra\DatosVuelo.Designer.cs">
       <DependentUpon>DatosVuelo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Compra\ElegirUsuario.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Compra\ElegirUsuario.Designer.cs">
-      <DependentUpon>ElegirUsuario.cs</DependentUpon>
-    </Compile>
     <Compile Include="Consulta Millas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +187,7 @@
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
     <Compile Include="Models\DAO\DAOLlegadaDestino.cs" />
+    <Compile Include="Models\DAO\DAOPasaje.cs" />
     <Compile Include="Models\DAO\DAORol.cs" />
     <Compile Include="Models\DAO\DAORuta.cs" />
     <Compile Include="Models\DAO\DAOAeronave.cs" />
@@ -202,7 +197,7 @@
     <Compile Include="Models\DAO\DAOCliente.cs" />
     <Compile Include="Models\DAO\DAOVuelo.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\BO\Usuario.cs" />
     <Compile Include="Models\Utils\DB.cs" />
     <Compile Include="Models\Utils\MyException.cs" />
     <Compile Include="Models\Utils\Utils.cs" />
@@ -220,6 +215,7 @@
     <Compile Include="Registro Llegada Destino\RegistrarLlegada.Designer.cs">
       <DependentUpon>RegistrarLlegada.cs</DependentUpon>
     </Compile>
+    <Compile Include="ValidationUtils\Validation.cs" />
     <EmbeddedResource Include="Abm Aeronave\AltaAeronave.resx">
       <DependentUpon>AltaAeronave.cs</DependentUpon>
     </EmbeddedResource>
@@ -262,9 +258,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\DatosVuelo.resx">
       <DependentUpon>DatosVuelo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Compra\ElegirUsuario.resx">
-      <DependentUpon>ElegirUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

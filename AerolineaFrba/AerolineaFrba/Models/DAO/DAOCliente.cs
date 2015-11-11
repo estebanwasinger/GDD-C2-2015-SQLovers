@@ -37,5 +37,21 @@ namespace AerolineaFrba.Models.DAO
             }
             return clienteList;
         }
+
+        public static bool create(Cliente cliente)
+        {
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@cli_nombre", cliente.nombre));
+            parameterList.Add(new SqlParameter("@cli_apellido", cliente.apellido));
+            parameterList.Add(new SqlParameter("@cli_dni", cliente.dni));
+            parameterList.Add(new SqlParameter("@cli_dir", cliente.direccion));
+            parameterList.Add(new SqlParameter("@cli_telefono", cliente.telefono));
+            parameterList.Add(new SqlParameter("@cli_mail", cliente.mail));
+            parameterList.Add(new SqlParameter("@cli_fecha_nac", cliente.fechaNacimiento));
+            parameterList.Add(new SqlParameter("@cli_username", cliente.username));
+            
+            return DBAcess.WriteInBase("INSERT INTO sqlovers.CLIENTE (cli_nombre, cli_apellido, cli_dni, cli_dir, cli_telefono, cli_mail, cli_fecha_nac, cli_username) " + 
+                                                " VALUES (@cli_nombre, @cli_apellido, @cli_dni, @cli_dir, @cli_telefono, @cli_mail, @cli_fecha_nac, @cli_username)", "T", parameterList );
+        }
     }
 }

@@ -82,6 +82,8 @@ namespace AerolineaFrba.Compra
             CrearDatosPasajero form = new CrearDatosPasajero();
             form.ShowDialog();
             form.Close();
+            this.cliente = form.cliente;
+            this.Close();
         }
 
     }

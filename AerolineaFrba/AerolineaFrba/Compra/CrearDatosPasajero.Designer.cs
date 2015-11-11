@@ -42,8 +42,7 @@
             this.dateTimePickerFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.textBoxApellidoPasajero = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonConfirmar = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -161,23 +160,15 @@
             this.label7.TabIndex = 12;
             this.label7.Text = "Apellido";
             // 
-            // button1
+            // buttonConfirmar
             // 
-            this.button1.Location = new System.Drawing.Point(272, 251);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Confirmar";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(169, 251);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Anterior";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonConfirmar.Location = new System.Drawing.Point(272, 251);
+            this.buttonConfirmar.Name = "buttonConfirmar";
+            this.buttonConfirmar.Size = new System.Drawing.Size(75, 23);
+            this.buttonConfirmar.TabIndex = 14;
+            this.buttonConfirmar.Text = "Confirmar";
+            this.buttonConfirmar.UseVisualStyleBackColor = true;
+            this.buttonConfirmar.Click += new System.EventHandler(this.buttonConfirmar_Click);
             // 
             // button3
             // 
@@ -198,15 +189,14 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "Datos pasajero";
             // 
-            // DatosPasajero
+            // CrearDatosPasajero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 300);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonConfirmar);
             this.Controls.Add(this.textBoxApellidoPasajero);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dateTimePickerFechaNacimiento);
@@ -221,7 +211,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxNombrePasajero);
             this.Controls.Add(this.label1);
-            this.Name = "DatosPasajero";
+            this.Name = "CrearDatosPasajero";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.DatosPasajero_Load);
             this.ResumeLayout(false);
@@ -245,8 +235,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerFechaNacimiento;
         private System.Windows.Forms.TextBox textBoxApellidoPasajero;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonConfirmar;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label8;
     }

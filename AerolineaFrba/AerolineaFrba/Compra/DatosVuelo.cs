@@ -28,11 +28,6 @@ namespace AerolineaFrba.Compra
             textBoxCiudadOrigen.Text = ruta.ciudadOrigenNombre;
         }
 
-        private void buttonPasaje_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void buttonBuscarCliente_Click(object sender, EventArgs e)
         {
             BuscarCliente buscarClienteForm = new BuscarCliente();
@@ -44,6 +39,14 @@ namespace AerolineaFrba.Compra
                 textBoxDni.Text = buscarClienteForm.cliente.dni.ToString() ;
                 textBoxUsuario.Text = buscarClienteForm.cliente.username;
                 pasaje.usuario = buscarClienteForm.cliente;
+                
+            }
+        }
+
+        private void buttonPasaje_Click(object sender, EventArgs e)
+        {
+            if (!DAOPasaje.create(this.pasaje)) {
+                throw new Exception("ERROR");
             }
         }
     }
