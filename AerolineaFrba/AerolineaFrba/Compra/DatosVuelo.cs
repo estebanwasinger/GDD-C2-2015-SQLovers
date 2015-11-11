@@ -14,15 +14,37 @@ namespace AerolineaFrba.Compra
 {
     public partial class DatosVuelo : Form
     {
-        public DatosVuelo(Vuelo vuelo)
+        private Pasaje pasaje;
+
+        public DatosVuelo(Pasaje pasaje)
         {
+            this.pasaje = pasaje;
             InitializeComponent();
-            textBoxAvion.Text = vuelo.aeronave;
-            textBoxFechaSalida.Text = vuelo.fechaSalida.ToString();
-            textBoxFechaLlegada.Text = vuelo.fechaLlegada.ToString();
-            Ruta ruta = DAORuta.getRuta((int) vuelo.ruta);
+            textBoxAvion.Text = pasaje.vuelo.aeronave;
+            textBoxFechaSalida.Text = pasaje.vuelo.fechaSalida.ToString();
+            textBoxFechaLlegada.Text = pasaje.vuelo.fechaLlegada.ToString();
+            Ruta ruta = DAORuta.getRuta((int) pasaje.vuelo.ruta);
             textBoxCiudadDestino.Text = ruta.ciudadDestinoNombre;
             textBoxCiudadOrigen.Text = ruta.ciudadOrigenNombre;
+        }
+
+        private void buttonPasaje_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void buttonBuscarCliente_Click(object sender, EventArgs e)
+        {
+            BuscarCliente buscarClienteForm = new BuscarCliente();
+            buscarClienteForm.ShowDialog();
+            if (buscarClienteForm.cliente != null)
+            {
+                textBoxApellidoCliente.Text = buscarClienteForm.cliente.apellido;
+                textBoxNombreCliente.Text = buscarClienteForm.cliente.nombre;
+                textBoxDni.Text = buscarClienteForm.cliente.dni.ToString() ;
+                textBoxUsuario.Text = buscarClienteForm.cliente.username;
+                pasaje.usuario = buscarClienteForm.cliente;
+            }
         }
     }
 }

@@ -100,7 +100,9 @@ namespace AerolineaFrba.Compra
 
         private void buttonContinuar_Click(object sender, EventArgs e)
         {
-            DatosVuelo datosVuelo = new DatosVuelo(selectedVuelo());
+            Pasaje nuevoPasaje = new Pasaje();
+            nuevoPasaje.vuelo = selectedVuelo();
+            DatosVuelo datosVuelo = new DatosVuelo(nuevoPasaje);
             datosVuelo.ShowDialog();
         }
 

@@ -58,5 +58,31 @@ namespace AerolineaFrba.Compra
             this.Close();
         }
 
+        private void buttonBuscar_Click(object sender, EventArgs e)
+        {
+            if (textBoxBusqueda.Text != null)
+            {
+                List<Cliente> clienteList = DAOCliente.retrieveAll();
+                List<Cliente> filteredClienteList = new List<Cliente>();
+                foreach (Cliente cliente in clienteList)
+                {
+                    if (cliente.dni.ToString().StartsWith(textBoxBusqueda.Text))
+                    {
+                        filteredClienteList.Add(cliente);
+                    }
+                }
+
+                dataGridViewClientes.DataSource = filteredClienteList;
+            }
+            
+        }
+
+        private void buttonCrearUsuario_Click(object sender, EventArgs e)
+        {
+            CrearDatosPasajero form = new CrearDatosPasajero();
+            form.ShowDialog();
+            form.Close();
+        }
+
     }
 }
