@@ -29,18 +29,53 @@ namespace AerolineaFrba.Abm_Rol
         {
             dataGridViewRol.AutoGenerateColumns = false;
             dataGridViewRol.MultiSelect = false;
-            modificarButton.Enabled = false;
-            borrarButton.Enabled = false;
-            createColumns();
+            //modificarButton.Enabled = false;
+            //borrarButton.Enabled = false;
+            //createColumns();
+            SetDgv();
             fillDataGridView();
         }
 
-        private void fillDataGridView()
+        public void fillDataGridView()
         {
             rolList = daoRol.retrieveAll();
 
             dataGridViewRol.DataSource = rolList;
         }
+        
+               private void SetDgv()
+        {
+            dataGridViewRol.ColumnCount = 3;
+            dataGridViewRol.AllowUserToAddRows = false;
+
+            dataGridViewRol.Columns[0].Name = "ID";
+            dataGridViewRol.Columns[0].DataPropertyName = "id";
+            dataGridViewRol.Columns[0].Visible = false;
+
+            dataGridViewRol.Columns[1].Name = "Nombre";
+            dataGridViewRol.Columns[1].DataPropertyName = "name";
+            dataGridViewRol.Columns[1].ReadOnly = true;
+
+            dataGridViewRol.Columns[2].Name = "Activo";
+            dataGridViewRol.Columns[2].DataPropertyName = "activo";
+            dataGridViewRol.Columns[2].ReadOnly = true;
+            dataGridViewRol.Columns[2].Width = 40;
+
+            DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+            dataGridViewRol.Columns.Add(btn);
+            btn.HeaderText = "Modificar";
+            btn.Text = "Modificar";
+            btn.Name = "btnModificar";
+            btn.UseColumnTextForButtonValue = true;
+
+            btn = new DataGridViewButtonColumn();
+            dataGridViewRol.Columns.Add(btn);
+            btn.HeaderText = "Eliminar";
+            btn.Text = "Eliminar";
+            btn.Name = "btnEliminar";
+            btn.UseColumnTextForButtonValue = true;
+        }
+
 
         private void createColumns()
         {
@@ -70,8 +105,8 @@ namespace AerolineaFrba.Abm_Rol
 
         private void dataGridViewRol_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            borrarButton.Enabled = true;
-            modificarButton.Enabled = true;
+          //  borrarButton.Enabled = true;
+          //  modificarButton.Enabled = true;
         }
 
         private void borrarButton_Click(object sender, EventArgs e)
@@ -96,6 +131,34 @@ namespace AerolineaFrba.Abm_Rol
             CrearOModificarRol view = new CrearOModificarRol(newRol, daoRol, true);
             view.ShowDialog();
             fillDataGridView();
+        }
+
+        private void btnCrearRol_Click(object sender, EventArgs e)
+        {
+            showFormRol();
+        }
+
+        private void showFormRol(int rol_id = 0)
+        {
+            FormRol formRol = new FormRol(this, rol_id);
+            formRol.ShowDialog();
+        }
+
+        private void dataGridViewRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = dataGridViewRol.CurrentCell.OwningRow;
+            int rol_id = Convert.ToInt32(row.Cells["ID"].Value.ToString());
+
+            if (e.ColumnIndex == 3)
+                showFormRol(rol_id);
+            else if (e.ColumnIndex == 4)
+                DeleteRol(rol_id);
+        }
+
+        private void DeleteRol(int rol_id)
+        {
+            daoRol.deleteRol(rol_id);
+            this.fillDataGridView();
         }
 
     }
