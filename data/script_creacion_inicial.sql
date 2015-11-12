@@ -341,6 +341,20 @@ FROM   (SELECT cli_nombre,
         FROM   gd_esquema.MAESTRA) AS a 
 WHERE  a.rownumber = 1 
 
+INSERT INTO sqlovers.FUNCIONALIDAD (funcionalidad_desc) values
+('Login y Seguridad'),
+('Registro de usuario'),
+('ABM Ciudades'),
+('ABM Ruta Aerea'),
+('ABM Aeronaves'),
+('Generar viaje'),
+('Registro de llegada a destino'),
+('Compra pasaje / encomienda'),
+('Cancelación / devolución de pasaje'),
+('Consulta de millas'),
+('Canje de millas'),
+('Listado estadístico')
+
 --INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)      
 --VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')   
 INSERT INTO sqlovers.PASAJE 
