@@ -15,6 +15,26 @@ namespace AerolineaFrba.Models.DAO
         public DAORol()
             : base("SQLOVERS.ROL", "rol_id")
         { }
+                public Rol getRolById(int rol_id)
+        {
+            Rol rol = new Rol();
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@rol_id", rol_id));
+
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT rol_id,rol_name,CASE WHEN rol_activo = 1 THEN '1' ELSE '0' END AS rol_activo from SQLOVERS.ROL WHERE rol_id=@rol_id", "T", ListaParametros);
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    rol.name = (string)lector["rol_name"];
+                    rol.id = (int)(decimal)lector["rol_id"];
+                    rol.activo = lector["rol_activo"].ToString() == "1";
+                }
+            }
+            return rol;
+        }
+
 
         public int deleteRol(int key)
         {
