@@ -98,6 +98,12 @@
     <Compile Include="Abm Rol\CrearOModificarRol.Designer.cs">
       <DependentUpon>CrearOModificarRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rol\FormRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\FormRol.Designer.cs">
+      <DependentUpon>FormRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Ruta\ABMRuta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,7 @@
     <Compile Include="Models\BO\Ciudad.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\Compra.cs" />
+    <Compile Include="Models\BO\Funcionalidad.cs" />
     <Compile Include="Models\BO\Pasaje.cs" />
     <Compile Include="Models\BO\LlegadaDestino.cs" />
     <Compile Include="Models\BO\Rol.cs" />
@@ -186,6 +193,7 @@
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
+    <Compile Include="Models\DAO\DAOFuncionalidad.cs" />
     <Compile Include="Models\DAO\DAOLlegadaDestino.cs" />
     <Compile Include="Models\DAO\DAOPasaje.cs" />
     <Compile Include="Models\DAO\DAORol.cs" />
@@ -240,6 +248,9 @@
     <EmbeddedResource Include="Abm Rol\ABMRol.resx">
       <DependentUpon>ABMRol.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\FormRol.resx">
+      <DependentUpon>FormRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\ABMRuta.resx">
       <DependentUpon>ABMRuta.cs</DependentUpon>

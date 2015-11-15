@@ -36,7 +36,6 @@ namespace AerolineaFrba.Registro_de_Usuario
 
                         if (!user.Password.Equals(pass))
                         {
-                            // llamar a VIDA_ESTATICA.updateIntentos
                             user.ActualizarFallidos();
                             
                             MessageBox.Show("Usuario y contraseña no validos", "Error!", MessageBoxButtons.OK);
@@ -53,8 +52,9 @@ namespace AerolineaFrba.Registro_de_Usuario
 
                                 // Paso al form Principal (requiere user siempre)
                                 FormPrincipal formPrincipal = new FormPrincipal(user);
-                                this.Hide();
                                 formPrincipal.Show();
+                                this.Hide();
+                                
                             }
                         }
                     }
@@ -84,6 +84,21 @@ namespace AerolineaFrba.Registro_de_Usuario
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_KeyDown(object sender, KeyEventArgs e)
+        {
+            txtPassword.UseSystemPasswordChar = false;
+        }
+
+        private void button1_KeyUp(object sender, KeyEventArgs e)
+        {
+            txtPassword.UseSystemPasswordChar = true;
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
         {
 
         }
