@@ -38,7 +38,10 @@ namespace AerolineaFrba.Models.DAO{
 
         protected string fechaQuereable(DateTime? fecha)
         {
-            return " \'" + ((DateTime)fecha).ToString("yyyy-dd-MM hh:mm:ss") + "\' ";
+            return " \'" + ((DateTime)fecha).ToString("yyyy-MM-dd hh:mm:ss") + "\' ";
+//            return " \'" + ((DateTime)fecha).ToString("yyyy-dd-MM hh:mm:ss") + "\' ";
+
+
         }
 
 

@@ -1,4 +1,4 @@
-USE gd2c2015; 
+﻿USE gd2c2015; 
 
 IF NOT EXISTS (SELECT schema_name 
                FROM   information_schema.SCHEMATA 
@@ -123,7 +123,10 @@ CREATE TABLE sqlovers.AERONAVE
      aeronave_fecha_alta     DATETIME NULL,
      aeronave_fabricante     NVARCHAR(255), 
      aeronave_tipo_servicio  NUMERIC(3, 0) FOREIGN KEY REFERENCES 
-     sqlovers.TIPO_SERVICIO(tipo_servicio_id)
+     sqlovers.TIPO_SERVICIO(tipo_servicio_id),
+     aeronave_but_vent numeric(18,0),
+     aeronave_but_pasill numeric(18,0)
+
   ) 
 
 CREATE TABLE sqlovers.BUTACA 

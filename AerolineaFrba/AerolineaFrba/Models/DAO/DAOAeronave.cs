@@ -29,8 +29,8 @@ namespace AerolineaFrba.Models.DAO
             try
             {
                 int bit = 0;
-                string comando = "INSERT INTO SQLOVERS.AERONAVE(aeronave_matricula, aeronave_modelo, aeronave_kg_disponibles, aeronave_fabricante, aeronave_tipo_servicio)"
-                                    + "VALUES ({0},{1},{2},{3},{4})";
+                string comando = "INSERT INTO SQLOVERS.AERONAVE(aeronave_matricula, aeronave_modelo, aeronave_kg_disponibles, aeronave_fecha_alta, aeronave_fabricante, aeronave_tipo_servicio, aeronave_but_vent, aeronave_but_pasill)"
+                                    + "VALUES ({0},{1},{2},{3},{4},{5},{6},{7})";
                                    // + "SELECT SCOPE_IDENTITY();";
                /* if (_Aeronave.usuario == null || _Aeronave.usuario == "")
                 {
@@ -46,7 +46,7 @@ namespace AerolineaFrba.Models.DAO
                 {
                     bit = 1;
                 }*/
-                comando = String.Format(comando, stringQuereable(_Aeronave.matricula), stringQuereable(_Aeronave.modelo), _Aeronave.peso_disponible, stringQuereable(_Aeronave.fabricante), _Aeronave.aeronave_tipo_servicio);
+                comando = String.Format(comando, stringQuereable(_Aeronave.matricula), stringQuereable(_Aeronave.modelo), _Aeronave.peso_disponible, fechaQuereable(_Aeronave.fecha_alta), stringQuereable(_Aeronave.fabricante), _Aeronave.aeronave_tipo_servicio, _Aeronave.cant_butacas_vent, _Aeronave.cant_butacas_pas);
                 int insertado = DB.ExecuteCardinal(comando);
 
                 Console.WriteLine(insertado);

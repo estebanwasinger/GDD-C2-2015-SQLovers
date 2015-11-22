@@ -102,5 +102,10 @@ namespace AerolineaFrba.Registro_de_Usuario
         {
 
         }
+
+        private void s(object sender, EventArgs e)
+        {
+
+        }
     }
 }

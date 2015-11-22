@@ -24,9 +24,13 @@ namespace AerolineaFrba
             Aeronave aeronave = new Aeronave();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+           
+
             //Application.Run(new FormLogin());
-            Application.Run(new FormPrincipal(new Usuario()));
-            // Application.Run(new RegistrarLlegada());
+            Application.Run(new Inicio());
+
+           // Application.Run(new FormPrincipal(new Usuario()));
+            //Application.Run(new RegistrarLlegada());
                 
         }
     }

@@ -174,6 +174,12 @@
     <Compile Include="Generacion Viaje\GenerarViaje.Designer.cs">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inicio.Designer.cs">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +222,12 @@
     </Compile>
     <Compile Include="Registro de Usuario\FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registro de Usuario\PantallaCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registro de Usuario\PantallaCliente.Designer.cs">
+      <DependentUpon>PantallaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Registro Llegada Destino\RegistrarLlegada.cs">
       <SubType>Form</SubType>
@@ -276,6 +288,9 @@
     <EmbeddedResource Include="Generacion Viaje\GenerarViaje.resx">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Inicio.resx">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -287,6 +302,9 @@
     </Compile>
     <EmbeddedResource Include="Registro de Usuario\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registro de Usuario\PantallaCliente.resx">
+      <DependentUpon>PantallaCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro Llegada Destino\RegistrarLlegada.resx">
       <DependentUpon>RegistrarLlegada.cs</DependentUpon>

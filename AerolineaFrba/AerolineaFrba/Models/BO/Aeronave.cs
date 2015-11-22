@@ -24,7 +24,9 @@ namespace AerolineaFrba.Models.BO
         public string modelo { get; set; }       
         public DateTime? fecha_alta { get; set; }
         public int? peso_disponible { get; set; }
-        public int? cant_butacas { get; set; }
+        public int? cant_butacas_vent { get; set; }
+        public int? cant_butacas_pas { get; set; }
+
         public string fabricante { get; set; }
         public bool? activo { get; set; }
         public int? aeronave_tipo_servicio { get; set; }
@@ -45,13 +47,22 @@ namespace AerolineaFrba.Models.BO
             
             if (dcc.Contains("aeronave_kg_disponibles"))
                 peso_disponible = (dr["aeronave_kg_disponibles"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_kg_disponibles"]);
+
+            if (dcc.Contains("aeronave_but_vent"))
+                cant_butacas_vent = (dr["aeronave_but_vent"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_but_vent"]);
+
+            if (dcc.Contains("aeronave_but_pasill"))
+                cant_butacas_pas = (dr["aeronave_but_pasill"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_but_pasill"]);
            
+
             if (dcc.Contains("aeronave_fabricante"))
                 fabricante = (dr["aeronave_fabricante"] == DBNull.Value) ? null : dr["aeronave_fabricante"].ToString();
 
             if (dcc.Contains("aeronave_tipo_servicio"))
                 aeronave_tipo_servicio = (dr["aeronave_tipo_servicio"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_tipo_servicio"]);
 
+            if (dcc.Contains("aeronave_fecha_alta"))
+                fecha_alta = (dr["aeronave_fecha_alta"] == DBNull.Value) ? null : (DateTime?)Convert.ToDateTime(dr["aeronave_fecha_alta"]);
 
             return this;
         }
@@ -77,8 +88,9 @@ namespace AerolineaFrba.Models.BO
         public int getCantidadButacas() {
 
             DAOAeronave daoAer = new DAOAeronave();
-            cant_butacas = daoAer.retrieveButacas(this.matricula);
-            return (int)cant_butacas;
+            int cant_butacas_totales;
+            cant_butacas_totales = daoAer.retrieveButacas(this.matricula);
+            return (int)cant_butacas_totales;
         
         }
 

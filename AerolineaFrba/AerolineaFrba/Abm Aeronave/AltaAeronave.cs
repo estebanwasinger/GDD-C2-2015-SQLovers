@@ -33,25 +33,11 @@ namespace AerolineaFrba.Abm_Aeronave
             txtModelo.Text = aeronave.modelo;
             txtCarga.Text = aeronave.peso_disponible.ToString();
             txtFabricante.Text = aeronave.fabricante;
-            txtButacas.Text = aeronave.cant_butacas.ToString();
-            dateTimeFA.Value = (DateTime)aeronave.fecha_alta;
+            txtButacasVentanilla.Text = aeronave.cant_butacas_vent.ToString();
+            txtButPasillo.Text = aeronave.cant_butacas_pas.ToString();
 
 
 
-               /* txtNombre.Text = cliente.nombre;
-                txtApellido.Text = cliente.apellido;
-                txtCalle.Text = cliente.dom_calle;
-                txtDepto.Text = cliente.dom_dpto.ToString();
-                txtPiso.Text = cliente.dom_piso.ToString();
-                txtMail.Text = cliente.mail;
-                txtNumero.Text = cliente.dom_nro.ToString();
-                txtNumID.Text = cliente.documento.ToString();                
-                dateNacimiento.Value = (DateTime)cliente.fecha_nac;
-                string pa = (string)cliente.get_pais().Substring(1);            
-                cbNacionalidad.SelectedIndex = cbNacionalidad.FindStringExact(pa); 
-                string tip = ((TipoDocumento)daoTipoDoc.retrieveBy_id(cliente.tipo_documento)).descripcion;
-                cmbTipo.SelectedIndex = cmbTipo.FindStringExact(tip);
-                checkActivo.Checked = (bool)cliente.activo;*/
         }
 
 
@@ -65,7 +51,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private bool validateCamps()
         {
-            if (txtMatricula.Text == "" || txtModelo.Text == "" || txtCarga.Text == "" || txtFabricante.Text == "" || txtButacas.Text == "" || ((Servicio)cmbServicio.SelectedItem == null))
+            if (txtMatricula.Text == "" || txtModelo.Text == "" || txtCarga.Text == "" || txtFabricante.Text == "" || txtButacasVentanilla.Text == "" || ((Servicio)cmbServicio.SelectedItem == null))
                 
             {
                 MessageBox.Show("Hay campos vacios");
@@ -93,7 +79,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
                 try
                 {
-                    aeronave.cant_butacas = (int?)Convert.ToInt32(txtButacas.Text);
+                    aeronave.cant_butacas_vent = (int?)Convert.ToInt32(txtButacasVentanilla.Text);
+                    aeronave.cant_butacas_pas = (int?)Convert.ToInt32(txtButPasillo.Text);
                 }
                 catch (Exception h)
                 {
@@ -101,6 +88,8 @@ namespace AerolineaFrba.Abm_Aeronave
                 }
                 aeronave.aeronave_tipo_servicio = ((Servicio)cmbServicio.SelectedItem).tipo_servicio_id;
                 DateTime fecha_alta = new DateTime(dateTimeFA.Value.Year, dateTimeFA.Value.Month, dateTimeFA.Value.Day, dateTimeFA.Value.Hour, dateTimeFA.Value.Minute, dateTimeFA.Value.Second);
+              
+
 
                 if (validar_fecha_Alta() >= 0)
                 {
@@ -143,9 +132,10 @@ namespace AerolineaFrba.Abm_Aeronave
         {
 
 
-            DateTime fecha_alta = new DateTime(dateTimeFA.Value.Year, dateTimeFA.Value.Month, dateTimeFA.Value.Day, dateTimeFA.Value.Hour, dateTimeFA.Value.Minute, dateTimeFA.Value.Second);
-
-            int result = DateTime.Compare(fecha_alta, DateTime.Now);
+            //DateTime fecha_alta = new DateTime(dateTimeFA.Value.Year, dateTimeFA.Value.Month, dateTimeFA.Value.Day, dateTimeFA.Value.Hour, dateTimeFA.Value.Minute, dateTimeFA.Value.Second);
+            
+            //int result = DateTime.Compare(fecha_alta, DateTime.Now);
+            int result = 1;
 
             return result;
 
