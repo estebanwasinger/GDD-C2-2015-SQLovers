@@ -95,6 +95,15 @@ namespace AerolineaFrba.Models.DAO
             }
             return rolList;
         }
+         public int getLastIdRol()
+        {
+            int last_rol_id = 0;
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT @@IDENTITY AS last_rol_id", "T", new List<SqlParameter>());
+            if (lector.HasRows)
+                while (lector.Read())
+                    last_rol_id = Convert.ToInt32(lector["last_rol_id"]);
+            return last_rol_id;
+        }
 
     }
 }
