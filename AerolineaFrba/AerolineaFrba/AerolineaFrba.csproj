@@ -11,6 +11,21 @@
     <AssemblyName>AerolineaFrba</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publicar\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -194,6 +209,7 @@
     <Compile Include="Models\BO\Pasaje.cs" />
     <Compile Include="Models\BO\LlegadaDestino.cs" />
     <Compile Include="Models\BO\Rol.cs" />
+    <Compile Include="Models\BO\RolFuncionalidad.cs" />
     <Compile Include="Models\BO\Ruta.cs" />
     <Compile Include="Models\BO\IBO.cs" />
     <Compile Include="Models\BO\Servicio.cs" />
@@ -203,6 +219,7 @@
     <Compile Include="Models\DAO\DAOLlegadaDestino.cs" />
     <Compile Include="Models\DAO\DAOPasaje.cs" />
     <Compile Include="Models\DAO\DAORol.cs" />
+    <Compile Include="Models\DAO\DAORolFuncionalidad.cs" />
     <Compile Include="Models\DAO\DAORuta.cs" />
     <Compile Include="Models\DAO\DAOAeronave.cs" />
     <Compile Include="Models\DAO\DAOBase.cs" />
