@@ -76,22 +76,6 @@ namespace AerolineaFrba.Abm_Aeronave
 
             string serv = (string)aeronave.get_service();
             cmbServicio.SelectedIndex = cmbServicio.FindStringExact(serv);
-
-
-            //dateBaja.Value = (DateTime)aeronave.fecha_alta;
-
-            /*txtPiso.Text = cliente.dom_piso.ToString();
-            txtMail.Text = cliente.mail;
-            txtNumero.Text = cliente.dom_nro.ToString();
-            txtNumID.Text = cliente.documento.ToString();
-            dateNacimiento.Value = (DateTime)cliente.fecha_nac;
-
-            string pa = (string)cliente.get_pais().Substring(1);
-            cbNacionalidad.SelectedIndex = cbNacionalidad.FindStringExact(pa);
-
-            string tip = ((TipoDocumento)daoTipoDoc.retrieveBy_id(cliente.tipo_documento)).descripcion;
-            cmbTipo.SelectedIndex = cmbTipo.FindStringExact(tip);
-            checkActivo.Checked = (bool)cliente.activo;*/
         }
 
         private void cargarCombos()
@@ -116,9 +100,21 @@ namespace AerolineaFrba.Abm_Aeronave
             colID.HeaderText = "Vuelo ID";
             colID.Width = 120;
 
+            DataGridViewTextBoxColumn colFSalida = new DataGridViewTextBoxColumn();
+            colFSalida.DataPropertyName = "fechaSalida";
+            colFSalida.HeaderText = "Fecha de Salida";
+            colFSalida.Width = 120;
+
+            DataGridViewTextBoxColumn colFLlegada = new DataGridViewTextBoxColumn();
+            colFLlegada.DataPropertyName = "fechaLlegada";
+            colFLlegada.HeaderText = "Fecha de Llegada";
+            colFLlegada.Width = 120;
+
             dtgVuelos.Columns.Add(colID);
             dtgVuelos.Columns.Add(colAeronave);
             dtgVuelos.Columns.Add(colRuta);
+            dtgVuelos.Columns.Add(colFSalida);
+            dtgVuelos.Columns.Add(colFLlegada);
             
         }
 

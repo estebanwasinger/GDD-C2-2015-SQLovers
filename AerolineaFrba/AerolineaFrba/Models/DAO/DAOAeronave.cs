@@ -246,16 +246,10 @@ namespace AerolineaFrba.Models.DAO
                     aeRonave.peso_disponible = (int)(decimal)lector["aeronave_kg_disponibles"];
                     aeRonave.modelo = (string)lector["aeronave_modelo"];
                     aeRonave.fabricante = (string)lector["aeronave_fabricante"];
+                   aeRonave.cant_butacas_pas = (int)(decimal)lector["aeronave_but_pasill"];
+                   aeRonave.cant_butacas_vent = (int)(decimal)lector["aeronave_but_vent"];
+                    aeRonave.aeronave_tipo_servicio = (int)(decimal)lector["aeronave_tipo_servicio"];
                    
-                   /* try
-                    {
-                        aeRonave.usuario = (string)lector["usuario"];
-                    }
-                    catch
-                    {
-                        aeRonave.usuario = "";
-                    }*/
-                    
                     l.Add(aeRonave);
                 }
             }

@@ -83,6 +83,10 @@ IF Object_id('SQLOVERS.UpdateIntentos') IS NOT NULL
       DROP PROCEDURE sqlovers.updateintentos; 
   END; 
 
+IF Object_id('SQLOVERS.TIPO_BAJA') IS NOT NULL 
+  BEGIN 
+      DROP TABLE SQLOVERS.TIPO_BAJA; 
+  END; 
 
 
 
@@ -217,9 +221,21 @@ CREATE TABLE sqlovers.LLEGADA_DESTINO
      sqlovers.CIUDAD(ciudad_id)  
   )
 
+CREATE TABLE SQLOVERS.TIPO_BAJA
+(
+tipo_baja_id NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY,
+tipo_baja_detalle NVARCHAR(255),  
+)
+
+
 /*          
 FILL TABLES          
 */ 
+
+INSERT INTO sqlovers.TIPO_BAJA (tipo_baja_detalle) values
+('Baja Fuera de Servicio'),
+('Baja Definitiva')
+
 INSERT INTO sqlovers.ROL 
             (rol_name, 
              rol_activo) 
@@ -411,6 +427,35 @@ VALUES      ('admin',
              1); 
 
 go 
+
+create procedure SQLOVERS.SP_CARGAR_BUTACAS
+AS
+
+declare @aeronaves table(aeronave_id int IDENTITY,aeronave_mat nvarchar(255))
+insert into @aeronaves
+select aeronave_matricula from SQLOVERS.aeronave
+
+
+declare @var int = 1;
+
+while @var<= (select  COUNT(*) from @aeronaves)
+Begin
+declare @matri nvarchar(255) = (select aeronave_mat from @aeronaves where aeronave_id = @var)
+
+update sqlovers.aeronave set aeronave_but_pasill = (select sum(butaca_piso) from SQLOVERS.butaca
+where butaca_aeronave like @matri and butaca_tipo like 'pasillo')
+where aeronave_matricula like @matri
+
+update sqlovers.aeronave set aeronave_but_vent = (select sum(butaca_piso) from SQLOVERS.butaca
+where butaca_aeronave like @matri and butaca_tipo like 'Ventanilla')
+where aeronave_matricula like @matri
+
+set @var = @var + 1;
+end;
+GO
+
+execute SQLOVERS.SP_CARGAR_BUTACAS
+GO
 
 CREATE PROCEDURE sqlovers.[Updateintentos](@intentos_login NUMERIC(18, 0), 
                                            @nombre         VARCHAR(25)) 

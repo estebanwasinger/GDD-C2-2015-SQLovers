@@ -92,7 +92,7 @@
             this.btn_fueraServ.Name = "btn_fueraServ";
             this.btn_fueraServ.Size = new System.Drawing.Size(75, 37);
             this.btn_fueraServ.TabIndex = 8;
-            this.btn_fueraServ.Text = "Baja";
+            this.btn_fueraServ.Text = "Baja Tecnica";
             this.btn_fueraServ.UseVisualStyleBackColor = true;
             this.btn_fueraServ.Click += new System.EventHandler(this.btn_bTecnica_Click);
             // 

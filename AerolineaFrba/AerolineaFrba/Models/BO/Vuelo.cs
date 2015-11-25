@@ -54,6 +54,10 @@ namespace AerolineaFrba.Models.BO
             if (dcc.Contains("vuelo_fecha_llegada"))
                 fechaLlegada = Convert.ToDateTime(dr["vuelo_fecha_llegada"]);
 
+            if (dcc.Contains("vuelo_fecha_llegada_estimada"))
+                fechaLlegadaEstimada = Convert.ToDateTime(dr["vuelo_fecha_llegada_estimada"]);
+
+
             return this;
         }
 

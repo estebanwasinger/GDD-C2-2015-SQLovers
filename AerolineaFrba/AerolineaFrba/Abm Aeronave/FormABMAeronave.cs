@@ -93,12 +93,18 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void btn_bTecnica_Click(object sender, EventArgs e)
         {
-           Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
-           BajaFueraServicio bafs = new BajaFueraServicio(aer);
-            bafs.Show();
-            
 
+            if (txtmatricula.Text != "")
+            {
+                Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
+                BajaFueraServicio bafs = new BajaFueraServicio(aer);
+                bafs.Show();
+            }
+            else
+            {
+                MessageBox.Show("Ingrese Matricula y presione Buscar", "Error!", MessageBoxButtons.OK);
 
+            }
         }
         
         private void btn_bDef_Click(object sender, EventArgs e)
