@@ -139,7 +139,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
 
             Vuelo vue = (Vuelo)dtgVuelos.CurrentRow.DataBoundItem;
-            Reemplazar rem = new Reemplazar(vue);
+            Reemplazar rem = new Reemplazar(vue,this);
             rem.Show();
                                 }
 

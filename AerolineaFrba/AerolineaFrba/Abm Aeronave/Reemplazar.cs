@@ -19,12 +19,25 @@ namespace AerolineaFrba.Abm_Aeronave
         private DAOAeronave daoAeronave = new DAOAeronave();
         private List<Aeronave> lstAer { get; set; }
         private bool update;
+        private BajaAeronaveD bD { get; set; }
+        private BajaFueraServicio bFS { get; set; }
 
-        public Reemplazar(Vuelo vuelo)
+
+        public Reemplazar(Vuelo vuelo, BajaAeronaveD bajaD )
         {
             this.vuelo = vuelo;
             InitializeComponent();
             lstAer = new List<Aeronave>();
+            this.bD = bajaD;
+
+        }
+
+        public Reemplazar(Vuelo vuelo, BajaFueraServicio bajaFS)
+        {
+            this.vuelo = vuelo;
+            InitializeComponent();
+            lstAer = new List<Aeronave>();
+            this.bFS = bajaFS;
 
         }
 
@@ -127,9 +140,14 @@ namespace AerolineaFrba.Abm_Aeronave
         public void btnReemp_click(object sender, EventArgs e)
         {
             Aeronave aer = (Aeronave)dtgAeronaves.CurrentRow.DataBoundItem;
-            daoAeronave.reemplazoAeronave(aer.matricula, (int)vuelo.id);
-            MessageBox.Show("Aeronave asignada", "Notificacion", MessageBoxButtons.OK);
+            int i = daoAeronave.reemplazoAeronave(aer.matricula, (int)vuelo.id);
+            if (i == 1)
+            {
+                bD.actualizarGrilla_X_vueloCancelado();
+                }
 
+           MessageBox.Show("Aeronave asignada", "Notificacion", MessageBoxButtons.OK);
+           this.Close();
         }
 
         public void btnNvaAero_click(object sender, EventArgs e) {

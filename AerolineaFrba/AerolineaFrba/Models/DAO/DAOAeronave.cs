@@ -274,13 +274,14 @@ namespace AerolineaFrba.Models.DAO
 
         }
 
-        public void reemplazoAeronave(string matriculaReemplazo, int vuelo_id)
+        public int reemplazoAeronave(string matriculaReemplazo, int vuelo_id)
         {
           
 
             string comando = "UPDATE SQLOVERS.VUELO set " + String.Format(" vuelo_aeronave_id = '{0}' ", matriculaReemplazo) +
                 "where vuelo_id = " + vuelo_id;
-            DB.ExecuteNonQuery(comando);
+           int cant_filas_actual= DB.ExecuteNonQuery(comando);
+           return cant_filas_actual;
         }
 
        /* public List<Cliente> topInhabilitados(int anio, int min, int max)

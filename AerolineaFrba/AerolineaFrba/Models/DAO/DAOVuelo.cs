@@ -143,18 +143,21 @@ namespace AerolineaFrba.Models.DAO
             String base_query = String.Format("select * from sqlovers.vuelo WHERE");
             if (!String.IsNullOrEmpty(matricula))
             {
-                base_query += String.Format(" vuelo_aeronave_id like '{0}%' AND", matricula);
+                base_query += String.Format(" vuelo_aeronave_id like '{0}%' AND vuelo_cancelado = {1}", matricula,0);
             }
 
-            base_query = base_query.Substring(0, base_query.Length - 3);
+            base_query = base_query.Substring(0, base_query.Length - 0);
 
             return DB.ExecuteReader<Vuelo>(base_query);
         }
 
-        public void cancelarVuelo(int vuelo_id) {
+
+
+        public int cancelarVuelo(int vuelo_id) {
 
             string comando = "update SQLOVERS.VUELO set vuelo_cancelado = 1 where vuelo_id= " + vuelo_id;
-            DB.ExecuteNonQuery(comando);
+            int cant_filas_afectadas = DB.ExecuteNonQuery(comando);
+            return cant_filas_afectadas;
         }
 
         public static List<Vuelo> retrieveWithOriginDestinyAndDate(Ciudad ciudadOrigen, Ciudad ciudadDestino, DateTime fechaSalida)

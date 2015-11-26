@@ -128,18 +128,32 @@ namespace AerolineaFrba.Abm_Aeronave
             
         }
 
+        public void actualizarGrilla_X_vueloCancelado() {
+
+            lstVuelo = daoVuelo.search(txtmatricula.Text);
+            dtgVuelos.DataSource = lstVuelo;
+        }
+
+
         private void btn_Reemplazar_Click(object sender, EventArgs e)
         {
 
             Vuelo vue = (Vuelo)dtgVuelos.CurrentRow.DataBoundItem;
-            Reemplazar rem = new Reemplazar(vue);
+            Reemplazar rem = new Reemplazar(vue,this);
             rem.Show();
                                 }
 
         private void btn_Cancelar_Vuelo(object sender, EventArgs e) {
 
             Vuelo vuelo = (Vuelo)dtgVuelos.CurrentRow.DataBoundItem;
-            daoVuelo.cancelarVuelo((int)vuelo.id);
+            int cancelo=daoVuelo.cancelarVuelo((int)vuelo.id);
+
+            if (cancelo ==1) {
+
+                actualizarGrilla_X_vueloCancelado();
+            }
+
+           
 
             MessageBox.Show("Vuelo Cancelado", "Notificacion", MessageBoxButtons.OK);
 
