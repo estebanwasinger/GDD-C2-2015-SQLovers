@@ -1,82 +1,80 @@
 ﻿USE gd2c2015; 
 
 IF NOT EXISTS (SELECT schema_name 
-               FROM   information_schema.SCHEMATA 
+               FROM   information_schema.schemata 
                WHERE  schema_name = 'SQLOVERS') 
   BEGIN 
       EXEC Sp_executesql 
         N'CREATE SCHEMA SQLOVERS' 
   END 
 
-/*           
-DROP ALL THE TABLES!!!           
+/*            
+DROP ALL THE TABLES!!!            
 */ 
 IF Object_id('SQLOVERS.Pasaje') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.PASAJE; 
+      DROP TABLE sqlovers.pasaje; 
   END; 
 
 IF Object_id('SQLOVERS.Vuelo') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.VUELO; 
+      DROP TABLE sqlovers.vuelo; 
   END; 
 
 IF Object_id('SQLOVERS.Cliente') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.CLIENTE; 
+      DROP TABLE sqlovers.cliente; 
   END; 
 
 IF Object_id('SQLOVERS.Usuario') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.USUARIO; 
+      DROP TABLE sqlovers.usuario; 
   END; 
 
 IF Object_id('SQLOVERS.funcionalidad_rol') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.FUNCIONALIDAD_ROL; 
+      DROP TABLE sqlovers.funcionalidad_rol; 
   END; 
 
 IF Object_id('SQLOVERS.Rol') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.ROL; 
+      DROP TABLE sqlovers.rol; 
   END; 
 
 IF Object_id('SQLOVERS.Funcionalidad') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.FUNCIONALIDAD; 
+      DROP TABLE sqlovers.funcionalidad; 
   END; 
 
 IF Object_id('SQLOVERS.Ruta') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.RUTA; 
+      DROP TABLE sqlovers.ruta; 
   END; 
 
-  IF Object_id('SQLOVERS.butaca') IS NOT NULL 
+IF Object_id('SQLOVERS.butaca') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.BUTACA; 
-  END; 
-
-IF Object_id('SQLOVERS.Ciudad') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.CIUDAD; 
-  END; 
- 
-
-IF Object_id('SQLOVERS.aeronave') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.AERONAVE; 
-  END; 
-
-IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.TIPO_SERVICIO; 
+      DROP TABLE sqlovers.butaca; 
   END; 
 
 IF Object_id('SQLOVERS.LLEGADA_DESTINO') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.LLEGADA_DESTINO; 
+      DROP TABLE sqlovers.llegada_destino; 
   END; 
 
+IF Object_id('SQLOVERS.Ciudad') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.ciudad; 
+  END; 
+
+IF Object_id('SQLOVERS.aeronave') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.aeronave; 
+  END; 
+
+IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.tipo_servicio; 
+  END; 
 
 IF Object_id('SQLOVERS.UpdateIntentos') IS NOT NULL 
   BEGIN 
@@ -85,83 +83,107 @@ IF Object_id('SQLOVERS.UpdateIntentos') IS NOT NULL
 
 IF Object_id('SQLOVERS.TIPO_BAJA') IS NOT NULL 
   BEGIN 
-      DROP TABLE SQLOVERS.TIPO_BAJA; 
+      DROP TABLE sqlovers.tipo_baja; 
   END; 
 
+IF Object_id('SQLOVERS.SP_CARGAR_BUTACAS') IS NOT NULL 
+  BEGIN 
+      DROP PROCEDURE sqlovers.sp_cargar_butacas; 
+  END; 
 
+IF Object_id('SQLOVERS.reemplazar_vuelo') IS NOT NULL 
+  BEGIN 
+      DROP PROCEDURE sqlovers.reemplazar_vuelo; 
+  END; 
 
-/*           
-CREATE TABLES           
+IF Object_id('SQLOVERS.validar_fechaSalida') IS NOT NULL 
+  BEGIN 
+      DROP FUNCTION sqlovers.validar_fechasalida; 
+  END; 
+
+IF Object_id('SQLOVERS.estadoAeronave') IS NOT NULL 
+  BEGIN 
+      DROP FUNCTION sqlovers.estadoaeronave; 
+  END; 
+
+/*            
+CREATE TABLES            
 */ 
-CREATE TABLE sqlovers.ROL 
+CREATE TABLE sqlovers.rol 
   ( 
      rol_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
      rol_name   NVARCHAR(255), 
      rol_activo BINARY 
   ) 
 
-CREATE TABLE sqlovers.FUNCIONALIDAD 
+CREATE TABLE sqlovers.funcionalidad 
   ( 
      funcionalidad_id   NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
      funcionalidad_desc NVARCHAR(255) 
   ) 
 
-CREATE TABLE sqlovers.FUNCIONALIDAD_ROL 
+CREATE TABLE sqlovers.funcionalidad_rol 
   ( 
-     rol_id           NUMERIC(3, 0) FOREIGN KEY REFERENCES sqlovers.ROL(rol_id), 
+     rol_id           NUMERIC(3, 0) FOREIGN KEY REFERENCES sqlovers.rol(rol_id), 
      funcionalidad_id NUMERIC(3, 0) FOREIGN KEY REFERENCES 
-     sqlovers.FUNCIONALIDAD(funcionalidad_id) 
+     sqlovers.funcionalidad(funcionalidad_id) 
   ) 
 
-CREATE TABLE sqlovers.TIPO_SERVICIO 
+CREATE TABLE sqlovers.tipo_servicio 
   ( 
      tipo_servicio_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
      tipo_servicio_nombre NVARCHAR(255) 
   ) 
 
-CREATE TABLE sqlovers.AERONAVE 
+CREATE TABLE sqlovers.tipo_baja 
+  ( 
+     tipo_baja_id      NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
+     tipo_baja_detalle NVARCHAR(255), 
+  ) 
+
+CREATE TABLE sqlovers.aeronave 
   ( 
      aeronave_matricula      NVARCHAR(255) PRIMARY KEY NOT NULL, 
      aeronave_modelo         NVARCHAR(255), 
      aeronave_kg_disponibles NUMERIC(18, 0), 
-     aeronave_fecha_alta     DATETIME NULL,
+     aeronave_fecha_alta     DATETIME NULL, 
      aeronave_fabricante     NVARCHAR(255), 
      aeronave_tipo_servicio  NUMERIC(3, 0) FOREIGN KEY REFERENCES 
-     sqlovers.TIPO_SERVICIO(tipo_servicio_id),
-     aeronave_but_vent numeric(18,0),
-     aeronave_but_pasill numeric(18,0),
-	 aeronave_fecha_vueltaFS datetime,
-	 aeronave_estado numeric(3,0) FOREIGN KEY REFERENCES SQLOVERS.TIPO_BAJA(tipo_baja_id)
-
+     sqlovers.tipo_servicio(tipo_servicio_id), 
+     aeronave_but_vent       NUMERIC(18, 0), 
+     aeronave_but_pasill     NUMERIC(18, 0), 
+     aeronave_fecha_vueltafs DATETIME, 
+     aeronave_estado         NUMERIC(3, 0) FOREIGN KEY REFERENCES 
+     sqlovers.tipo_baja(tipo_baja_id) 
   ) 
 
-CREATE TABLE sqlovers.BUTACA 
+CREATE TABLE sqlovers.butaca 
   ( 
      butaca_nro      NUMERIC(18, 0), 
      butaca_tipo     NVARCHAR(255), 
      butaca_piso     NUMERIC(18, 0), 
      butaca_aeronave NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.AERONAVE(aeronave_matricula), 
+     sqlovers.aeronave(aeronave_matricula), 
      CONSTRAINT pk_butaca_aeronave PRIMARY KEY (butaca_nro, butaca_aeronave) 
   ) 
 
-CREATE TABLE sqlovers.CIUDAD 
+CREATE TABLE sqlovers.ciudad 
   ( 
      ciudad_id     NUMERIC(6, 0) IDENTITY NOT NULL PRIMARY KEY, 
-     ciudad_nombre NVARCHAR(255),
-	 ciudad_estado bit 
+     ciudad_nombre NVARCHAR(255), 
+     ciudad_estado BIT 
   ) 
 
-CREATE TABLE sqlovers.USUARIO 
+CREATE TABLE sqlovers.usuario 
   ( 
      user_username     NVARCHAR(255) NOT NULL PRIMARY KEY, 
      user_password     NVARCHAR(255), 
      user_nro_intentos NUMERIC(18, 0), 
      user_estado       BIT, 
-     user_rol_id       NUMERIC(3, 0) FOREIGN KEY REFERENCES sqlovers.ROL(rol_id) 
+     user_rol_id       NUMERIC(3, 0) FOREIGN KEY REFERENCES sqlovers.rol(rol_id) 
   ); 
 
-CREATE TABLE sqlovers.CLIENTE 
+CREATE TABLE sqlovers.cliente 
   ( 
      cli_nombre    NVARCHAR(255), 
      cli_apellido  NVARCHAR(255), 
@@ -171,88 +193,81 @@ CREATE TABLE sqlovers.CLIENTE
      cli_mail      NVARCHAR(255), 
      cli_fecha_nac DATETIME, 
      cli_username  NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.USUARIO(user_username) 
+     sqlovers.usuario(user_username) 
   ); 
 
-CREATE TABLE sqlovers.RUTA 
+CREATE TABLE sqlovers.ruta 
   ( 
      ruta_id                NUMERIC(18, 0) NOT NULL IDENTITY PRIMARY KEY, 
      ruta_ciudad_origen     NUMERIC(6, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CIUDAD(ciudad_id), 
+     sqlovers.ciudad(ciudad_id), 
      ruta_ciudad_destino    NUMERIC(6, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CIUDAD(ciudad_id), 
+     sqlovers.ciudad(ciudad_id), 
      ruta_precio_basepasaje NUMERIC(18, 0), 
      ruta_precio_basekg     NUMERIC(18, 0), 
-	 ruta_estado BIT,
-     ruta_tipo_servicio     NUMERIC(3, 0) FOREIGN KEY REFERENCES
-     sqlovers.TIPO_SERVICIO(tipo_servicio_id) 
+     ruta_estado            BIT, 
+     ruta_tipo_servicio     NUMERIC(3, 0) FOREIGN KEY REFERENCES 
+     sqlovers.tipo_servicio(tipo_servicio_id) 
   ) 
 
-CREATE TABLE sqlovers.VUELO 
+CREATE TABLE sqlovers.vuelo 
   ( 
      vuelo_id                     NUMERIC(18, 0) IDENTITY PRIMARY KEY, 
      vuelo_fecha_salida           DATETIME, 
      vuelo_fecha_llegada          DATETIME, 
-     vuelo_fecha_llegada_estimada DATETIME,
-	 vuelo_cancelado              bit NOT NULL,
+     vuelo_fecha_llegada_estimada DATETIME, 
+     vuelo_cancelado              BIT NOT NULL, 
      vuelo_aeronave_id            NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.AERONAVE(aeronave_matricula), 
+     sqlovers.aeronave(aeronave_matricula), 
      vuelo_ruta_id                NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.RUTA(ruta_id) 
+     sqlovers.ruta(ruta_id) 
   ) 
 
-CREATE TABLE sqlovers.PASAJE 
+CREATE TABLE sqlovers.pasaje 
   ( 
      pasaje_codigo      NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
      pasaje_precio      NUMERIC(18, 2), 
      pasaje_fechacompra DATETIME, 
      cli_dni            NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CLIENTE(cli_dni), 
+     sqlovers.cliente(cli_dni), 
      pasaje_vuelo_id    NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.VUELO(vuelo_id) 
+     sqlovers.vuelo(vuelo_id) 
   ) 
 
-CREATE TABLE sqlovers.LLEGADA_DESTINO 
+CREATE TABLE sqlovers.llegada_destino 
   ( 
-     llegada_codigo      NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
-     llegada_matricula   NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.AERONAVE(aeronave_matricula),      
-     llegada_horaArrivo  DATETIME,
-     llegada_origen      NUMERIC(6, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CIUDAD(ciudad_id),
-     llegada_destino     NUMERIC(6, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CIUDAD(ciudad_id)  
-  )
+     llegada_codigo     NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
+     llegada_matricula  NVARCHAR(255) FOREIGN KEY REFERENCES 
+     sqlovers.aeronave(aeronave_matricula), 
+     llegada_horaarrivo DATETIME, 
+     llegada_origen     NUMERIC(6, 0) FOREIGN KEY REFERENCES 
+     sqlovers.ciudad(ciudad_id), 
+     llegada_destino    NUMERIC(6, 0) FOREIGN KEY REFERENCES 
+     sqlovers.ciudad(ciudad_id) 
+  ) 
 
-CREATE TABLE SQLOVERS.TIPO_BAJA
-(
-tipo_baja_id NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY,
-tipo_baja_detalle NVARCHAR(255),  
-)
-
-
-/*          
-FILL TABLES          
+/*           
+FILL TABLES           
 */ 
+INSERT INTO sqlovers.tipo_baja 
+            (tipo_baja_detalle) 
+VALUES      ('Baja Fuera de Servicio'), 
+            ('Baja Definitiva') 
 
-INSERT INTO sqlovers.TIPO_BAJA (tipo_baja_detalle) values
-('Baja Fuera de Servicio'),
-('Baja Definitiva')
-
-INSERT INTO sqlovers.ROL 
+INSERT INTO sqlovers.rol 
             (rol_name, 
              rol_activo) 
-VALUES     ('Admin', 
-            1), 
+VALUES      ('Admin', 
+             1), 
             ('User', 
              1) 
 
-INSERT INTO sqlovers.TIPO_SERVICIO 
+INSERT INTO sqlovers.tipo_servicio 
             (tipo_servicio_nombre) 
 SELECT DISTINCT tipo_servicio 
-FROM   gd_esquema.MAESTRA 
+FROM   gd_esquema.maestra 
 
-INSERT INTO sqlovers.AERONAVE 
+INSERT INTO sqlovers.aeronave 
             (aeronave_matricula, 
              aeronave_modelo, 
              aeronave_fabricante, 
@@ -262,11 +277,12 @@ SELECT DISTINCT aeronave_matricula,
                 aeronave_modelo, 
                 aeronave_fabricante, 
                 aeronave_kg_disponibles, 
-                ts.tipo_servicio_id
-FROM   [GD2C2015].[gd_esquema].[MAESTRA], SQLOVERS.TIPO_SERVICIO ts 
-Where Tipo_Servicio = ts.tipo_servicio_nombre
+                ts.tipo_servicio_id 
+FROM   [GD2C2015].[gd_esquema].[maestra], 
+       sqlovers.tipo_servicio ts 
+WHERE  tipo_servicio = ts.tipo_servicio_nombre 
 
-INSERT INTO sqlovers.BUTACA 
+INSERT INTO sqlovers.butaca 
             (butaca_nro, 
              butaca_piso, 
              butaca_tipo, 
@@ -275,35 +291,45 @@ SELECT DISTINCT butaca_nro,
                 butaca_piso, 
                 butaca_tipo, 
                 aeronave_matricula 
-FROM   [GD2C2015].[gd_esquema].[MAESTRA] 
+FROM   [GD2C2015].[gd_esquema].[maestra] 
 WHERE  butaca_nro != 0 
 
-INSERT INTO sqlovers.CIUDAD 
-            (ciudad_nombre, ciudad_estado) 
-SELECT DISTINCT ruta_ciudad_origen, 1 
-FROM   gd_esquema.MAESTRA 
+INSERT INTO sqlovers.ciudad 
+            (ciudad_nombre, 
+             ciudad_estado) 
+SELECT DISTINCT ruta_ciudad_origen, 
+                1 
+FROM   gd_esquema.maestra 
 
-INSERT INTO sqlovers.RUTA 
+INSERT INTO sqlovers.ruta 
             (ruta_precio_basekg, 
              ruta_ciudad_destino, 
              ruta_ciudad_origen, 
              ruta_precio_basepasaje, 
-             ruta_tipo_servicio,
-			 ruta_estado) 
+             ruta_tipo_servicio, 
+             ruta_estado) 
 SELECT Max(m1.ruta_precio_basekg), 
-                c1.ciudad_id,
-                c2.ciudad_id, 
-                Max(m1.ruta_precio_basepasaje), 
-                ts.tipo_servicio_id,
-				1 
-FROM   [GD2C2015].[gd_esquema].[MAESTRA] m1, SQLOVERS.CIUDAD c1, SQLOVERS.CIUDAD c2, SQLOVERS.TIPO_SERVICIO ts
+       c1.ciudad_id, 
+       c2.ciudad_id, 
+       Max(m1.ruta_precio_basepasaje), 
+       ts.tipo_servicio_id, 
+       1 
+FROM   [GD2C2015].[gd_esquema].[maestra] m1, 
+       sqlovers.ciudad c1, 
+       sqlovers.ciudad c2, 
+       sqlovers.tipo_servicio ts 
 WHERE  m1.ruta_ciudad_destino != m1.ruta_ciudad_origen 
-AND c1.ciudad_nombre = m1.Ruta_Ciudad_Destino
-AND c2.ciudad_nombre = m1.Ruta_Ciudad_Origen
-AND ts.tipo_servicio_nombre = m1.Tipo_Servicio
-GROUP BY c1.ciudad_id, c2.ciudad_id, m1.Ruta_Ciudad_Destino, m1.Ruta_Ciudad_Origen, m1.Tipo_Servicio, ts.tipo_servicio_id
+       AND c1.ciudad_nombre = m1.ruta_ciudad_destino 
+       AND c2.ciudad_nombre = m1.ruta_ciudad_origen 
+       AND ts.tipo_servicio_nombre = m1.tipo_servicio 
+GROUP  BY c1.ciudad_id, 
+          c2.ciudad_id, 
+          m1.ruta_ciudad_destino, 
+          m1.ruta_ciudad_origen, 
+          m1.tipo_servicio, 
+          ts.tipo_servicio_id 
 
-INSERT INTO sqlovers.USUARIO 
+INSERT INTO sqlovers.usuario 
             (user_username, 
              user_password, 
              user_nro_intentos, 
@@ -327,10 +353,10 @@ FROM   (SELECT cli_nombre,
                  OVER ( 
                    partition BY cli_dni 
                    ORDER BY cli_dni) AS RowNumber 
-        FROM   gd_esquema.MAESTRA) AS a 
+        FROM   gd_esquema.maestra) AS a 
 WHERE  a.rownumber = 1 
 
-INSERT INTO sqlovers.CLIENTE 
+INSERT INTO sqlovers.cliente 
             (cli_nombre, 
              cli_apellido, 
              cli_dni, 
@@ -360,26 +386,27 @@ FROM   (SELECT cli_nombre,
                  OVER ( 
                    partition BY cli_dni 
                    ORDER BY cli_dni) AS RowNumber 
-        FROM   gd_esquema.MAESTRA) AS a 
+        FROM   gd_esquema.maestra) AS a 
 WHERE  a.rownumber = 1 
 
-INSERT INTO sqlovers.FUNCIONALIDAD (funcionalidad_desc) values
-('Login y Seguridad'),
-('Registro de usuario'),
-('ABM Ciudades'),
-('ABM Ruta Aerea'),
-('ABM Aeronaves'),
-('Generar viaje'),
-('Registro de llegada a destino'),
-('Compra pasaje / encomienda'),
-('Cancelación / devolución de pasaje'),
-('Consulta de millas'),
-('Canje de millas'),
-('Listado estadístico')
+INSERT INTO sqlovers.funcionalidad 
+            (funcionalidad_desc) 
+VALUES      ('Login y Seguridad'), 
+            ('Registro de usuario'), 
+            ('ABM Ciudades'), 
+            ('ABM Ruta Aerea'), 
+            ('ABM Aeronaves'), 
+            ('Generar viaje'), 
+            ('Registro de llegada a destino'), 
+            ('Compra pasaje / encomienda'), 
+            ('Cancelación / devolución de pasaje'), 
+            ('Consulta de millas'), 
+            ('Canje de millas'), 
+            ('Listado estadístico') 
 
---INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)      
+--INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)       
 --VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')   
-INSERT INTO sqlovers.PASAJE 
+INSERT INTO sqlovers.pasaje 
             (pasaje_codigo, 
              pasaje_precio, 
              pasaje_fechacompra, 
@@ -390,8 +417,8 @@ SELECT pasaje_codigo,
        pasaje_fechacompra, 
        cli_dni, 
        v.vuelo_id 
-FROM   gd_esquema.MAESTRA m, 
-       sqlovers.VUELO v 
+FROM   gd_esquema.maestra m, 
+       sqlovers.vuelo v 
 WHERE  pasaje_precio > 0 
        AND pasaje_codigo != 0 
        AND m.aeronave_matricula = v.vuelo_aeronave_id 
@@ -399,7 +426,7 @@ WHERE  pasaje_precio > 0
        AND m.fechallegada = v.vuelo_fecha_llegada 
        AND m.fecha_llegada_estimada = v.vuelo_fecha_llegada_estimada 
 
-INSERT INTO sqlovers.VUELO 
+INSERT INTO sqlovers.vuelo 
             (vuelo_fecha_llegada, 
              vuelo_fecha_llegada_estimada, 
              vuelo_fecha_salida, 
@@ -410,10 +437,10 @@ SELECT DISTINCT fechallegada,
                 m.fechasalida, 
                 m.aeronave_matricula, 
                 r.ruta_id 
-FROM   [GD2C2015].[gd_esquema].[MAESTRA] m, 
-       sqlovers.RUTA r, 
-       sqlovers.CIUDAD c, 
-       sqlovers.CIUDAD c2 
+FROM   [GD2C2015].[gd_esquema].[maestra] m, 
+       sqlovers.ruta r, 
+       sqlovers.ciudad c, 
+       sqlovers.ciudad c2 
 WHERE  pasaje_precio > 0 
        AND pasaje_codigo != 0 
        AND c.ciudad_id = r.ruta_ciudad_destino 
@@ -421,8 +448,8 @@ WHERE  pasaje_precio > 0
        AND m.ruta_ciudad_destino = c.ciudad_nombre 
        AND m.ruta_ciudad_origen = c2.ciudad_nombre 
 
--- agregar usuario admin con la password ya hasheada    
-INSERT INTO sqlovers.USUARIO 
+-- agregar usuario admin con la password ya hasheada     
+INSERT INTO sqlovers.usuario 
 VALUES      ('admin', 
              'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 
              0, 
@@ -431,34 +458,49 @@ VALUES      ('admin',
 
 go 
 
-create procedure SQLOVERS.SP_CARGAR_BUTACAS
-AS
+CREATE PROCEDURE sqlovers.Sp_cargar_butacas 
+AS 
+    DECLARE @aeronaves TABLE 
+      ( 
+         aeronave_id  INT IDENTITY, 
+         aeronave_mat NVARCHAR(255) 
+      ) 
 
-declare @aeronaves table(aeronave_id int IDENTITY,aeronave_mat nvarchar(255))
-insert into @aeronaves
-select aeronave_matricula from SQLOVERS.aeronave
+    INSERT INTO @aeronaves 
+    SELECT aeronave_matricula 
+    FROM   sqlovers.aeronave 
 
+    DECLARE @var INT = 1; 
 
-declare @var int = 1;
+    WHILE @var <= (SELECT Count(*) 
+                   FROM   @aeronaves) 
+      BEGIN 
+          DECLARE @matri NVARCHAR(255) = (SELECT aeronave_mat 
+             FROM   @aeronaves 
+             WHERE  aeronave_id = @var) 
 
-while @var<= (select  COUNT(*) from @aeronaves)
-Begin
-declare @matri nvarchar(255) = (select aeronave_mat from @aeronaves where aeronave_id = @var)
+          UPDATE sqlovers.aeronave 
+          SET    aeronave_but_pasill = (SELECT Sum(butaca_piso) 
+                                        FROM   sqlovers.butaca 
+                                        WHERE  butaca_aeronave LIKE @matri 
+                                               AND butaca_tipo LIKE 'pasillo') 
+          WHERE  aeronave_matricula LIKE @matri 
 
-update sqlovers.aeronave set aeronave_but_pasill = (select sum(butaca_piso) from SQLOVERS.butaca
-where butaca_aeronave like @matri and butaca_tipo like 'pasillo')
-where aeronave_matricula like @matri
+          UPDATE sqlovers.aeronave 
+          SET    aeronave_but_vent = (SELECT Sum(butaca_piso) 
+                                      FROM   sqlovers.butaca 
+                                      WHERE  butaca_aeronave LIKE @matri 
+                                             AND butaca_tipo LIKE 'Ventanilla') 
+          WHERE  aeronave_matricula LIKE @matri 
 
-update sqlovers.aeronave set aeronave_but_vent = (select sum(butaca_piso) from SQLOVERS.butaca
-where butaca_aeronave like @matri and butaca_tipo like 'Ventanilla')
-where aeronave_matricula like @matri
+          SET @var = @var + 1; 
+      END; 
 
-set @var = @var + 1;
-end;
-GO
+go 
 
-execute SQLOVERS.SP_CARGAR_BUTACAS
-GO
+EXECUTE sqlovers.Sp_cargar_butacas 
+
+go 
 
 CREATE PROCEDURE sqlovers.[Updateintentos](@intentos_login NUMERIC(18, 0), 
                                            @nombre         VARCHAR(25)) 
@@ -466,81 +508,108 @@ AS
   BEGIN 
       IF( @intentos_login = 3 ) 
         BEGIN 
-            UPDATE sqlovers.USUARIO 
+            UPDATE sqlovers.usuario 
             SET    user_estado = 0, 
                    user_nro_intentos = @intentos_login 
             WHERE  user_username = @nombre 
         END 
       ELSE 
         BEGIN 
-            UPDATE sqlovers.USUARIO 
+            UPDATE sqlovers.usuario 
             SET    user_nro_intentos = @intentos_login 
             WHERE  user_username = @nombre 
         END 
-  END
+  END 
 
-  /****** Object:  StoredProcedure [SQLOVERS].[reemplazar_vuelo]    Script Date: 11/26/2015 10:02:15 PM ******/
-SET ANSI_NULLS ON
-GO
+/****** Object:  StoredProcedure [SQLOVERS].[reemplazar_vuelo]    Script Date: 11/26/2015 10:02:15 PM ******/ 
+SET ansi_nulls ON 
 
-SET QUOTED_IDENTIFIER ON
-GO
+go 
 
-CREATE PROCEDURE [SQLOVERS].[reemplazar_vuelo](@aeronave_id nvarchar(255),@vuelo_id numeric(18,0))
-as
-declare @fecha_salida datetime = (select vuelo_fecha_salida from SQLOVERS.VUELO where vuelo_id = @vuelo_id)
+SET quoted_identifier ON 
 
-IF((select count(*)  from SQLOVERS.VUELO where vuelo_aeronave_id like @aeronave_id and vuelo_fecha_salida = @fecha_salida ) <= 0 )
-BEGIN
-UPDATE SQLOVERS.VUELO set  vuelo_aeronave_id = @aeronave_id where vuelo_id = @vuelo_id
-END
-ELSE SELECT 0
-GO
+go 
 
---FUNCIONES
+CREATE PROCEDURE [SQLOVERS].[Reemplazar_vuelo](@aeronave_id NVARCHAR(255), 
+                                               @vuelo_id    NUMERIC(18, 0)) 
+AS 
+    DECLARE @fecha_salida DATETIME = (SELECT vuelo_fecha_salida 
+       FROM   sqlovers.vuelo 
+       WHERE  vuelo_id = @vuelo_id) 
 
-/****** Object:  UserDefinedFunction [SQLOVERS].[validar_fechaSalida]    Script Date: 11/26/2015 10:04:28 PM ******/
-SET ANSI_NULLS ON
-GO
+    IF( (SELECT Count(*) 
+         FROM   sqlovers.vuelo 
+         WHERE  vuelo_aeronave_id LIKE @aeronave_id 
+                AND vuelo_fecha_salida = @fecha_salida) <= 0 ) 
+      BEGIN 
+          UPDATE sqlovers.vuelo 
+          SET    vuelo_aeronave_id = @aeronave_id 
+          WHERE  vuelo_id = @vuelo_id 
+      END 
+    ELSE 
+      SELECT 0 
 
-SET QUOTED_IDENTIFIER ON
-GO
+go 
 
- create function [SQLOVERS].[validar_fechaSalida](@aeronave_id nvarchar(255),@fechaSalida datetime)
- returns bit
- as
- begin
- declare @retorno numeric(3,0)= (select count(*)  from SQLOVERS.VUELO where vuelo_aeronave_id like @aeronave_id and vuelo_fecha_salida = @fechaSalida )
+--FUNCIONES 
+/****** Object:  UserDefinedFunction [SQLOVERS].[validar_fechaSalida]    Script Date: 11/26/2015 10:04:28 PM ******/ 
+SET ansi_nulls ON 
 
- if(@retorno=0)
- begin
- set @retorno=1
- end
- else set @retorno=0
- return @retorno
- end;
+go 
 
-GO
+SET quoted_identifier ON 
 
-/****** Object:  UserDefinedFunction [SQLOVERS].[estadoAeronave]    Script Date: 11/26/2015 10:05:15 PM ******/
-SET ANSI_NULLS ON
-GO
+go 
 
-SET QUOTED_IDENTIFIER ON
-GO
+CREATE FUNCTION [SQLOVERS].[Validar_fechasalida](@aeronave_id NVARCHAR(255), 
+                                                 @fechaSalida DATETIME) 
+returns BIT 
+AS 
+  BEGIN 
+      DECLARE @retorno NUMERIC(3, 0)= (SELECT Count(*) 
+         FROM   sqlovers.vuelo 
+         WHERE  vuelo_aeronave_id LIKE @aeronave_id 
+                AND vuelo_fecha_salida = @fechaSalida) 
 
- CREATE FUNCTION [SQLOVERS].[estadoAeronave](@aeronave_matricula nvarchar(255))
- returns int
-as
-begin
-declare @retorno int
+      IF( @retorno = 0 ) 
+        BEGIN 
+            SET @retorno=1 
+        END 
+      ELSE 
+        SET @retorno=0 
 
-if((select aeronave_estado from SQLOVERS.AERONAVE where aeronave_matricula like @aeronave_matricula) is null)
-begin
- set @retorno = 3;
- end
- else  set @retorno =(select aeronave_estado from SQLOVERS.AERONAVE where aeronave_matricula like @aeronave_matricula)
- return @retorno
- end;
+      RETURN @retorno 
+  END; 
 
-GO
+go 
+
+/****** Object:  UserDefinedFunction [SQLOVERS].[estadoAeronave]    Script Date: 11/26/2015 10:05:15 PM ******/ 
+SET ansi_nulls ON 
+
+go 
+
+SET quoted_identifier ON 
+
+go 
+
+CREATE FUNCTION [SQLOVERS].[Estadoaeronave](@aeronave_matricula NVARCHAR(255)) 
+returns INT 
+AS 
+  BEGIN 
+      DECLARE @retorno INT 
+
+      IF( (SELECT aeronave_estado 
+           FROM   sqlovers.aeronave 
+           WHERE  aeronave_matricula LIKE @aeronave_matricula) IS NULL ) 
+        BEGIN 
+            SET @retorno = 3; 
+        END 
+      ELSE 
+        SET @retorno =(SELECT aeronave_estado 
+                       FROM   sqlovers.aeronave 
+                       WHERE  aeronave_matricula LIKE @aeronave_matricula) 
+
+      RETURN @retorno 
+  END; 
+
+go 
