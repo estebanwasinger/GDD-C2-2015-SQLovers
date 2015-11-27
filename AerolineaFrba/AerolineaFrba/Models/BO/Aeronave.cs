@@ -23,6 +23,8 @@ namespace AerolineaFrba.Models.BO
         public string matricula { get; set; }
         public string modelo { get; set; }       
         public DateTime? fecha_alta { get; set; }
+        public DateTime? fecha_vueltaFS { get; set; }
+
         public int? peso_disponible { get; set; }
         public int? cant_butacas_vent { get; set; }
         public int? cant_butacas_pas { get; set; }
@@ -64,6 +66,8 @@ namespace AerolineaFrba.Models.BO
             if (dcc.Contains("aeronave_fecha_alta"))
                 fecha_alta = (dr["aeronave_fecha_alta"] == DBNull.Value) ? null : (DateTime?)Convert.ToDateTime(dr["aeronave_fecha_alta"]);
 
+            if (dcc.Contains("aeronave_fecha_vueltaFS"))
+                fecha_vueltaFS = (dr["aeronave_fecha_vueltaFS"] == DBNull.Value) ? null : (DateTime?)Convert.ToDateTime(dr["aeronave_fecha_vueltaFS"]);
             return this;
         }
 

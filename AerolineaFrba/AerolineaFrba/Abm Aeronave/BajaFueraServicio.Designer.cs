@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateFVS = new System.Windows.Forms.DateTimePicker();
             this.fechaAlta = new System.Windows.Forms.Label();
             this.btnBaja = new System.Windows.Forms.Button();
             this.btnCancelarV = new System.Windows.Forms.Button();
@@ -52,12 +52,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgVuelos)).BeginInit();
             this.SuspendLayout();
             // 
-            // dateTimePicker1
+            // dateFVS
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(548, 126);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 38;
+            this.dateFVS.Location = new System.Drawing.Point(548, 126);
+            this.dateFVS.Name = "dateFVS";
+            this.dateFVS.Size = new System.Drawing.Size(200, 20);
+            this.dateFVS.TabIndex = 38;
             // 
             // fechaAlta
             // 
@@ -229,7 +229,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 371);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dateFVS);
             this.Controls.Add(this.fechaAlta);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnCancelarV);
@@ -259,7 +259,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateFVS;
         private System.Windows.Forms.Label fechaAlta;
         private System.Windows.Forms.Button btnBaja;
         private System.Windows.Forms.Button btnCancelarV;

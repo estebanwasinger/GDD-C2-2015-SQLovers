@@ -97,8 +97,18 @@ namespace AerolineaFrba.Abm_Aeronave
             if (txtmatricula.Text != "")
             {
                 Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
+
+                DateTime fechaVS = (DateTime)aer.fecha_vueltaFS;
+                
+
+                if(dao.estaDisponible(aer.matricula) == 3){
                 BajaFueraServicio bafs = new BajaFueraServicio(aer);
-                bafs.Show();
+                bafs.Show();}
+                else{  
+                    int i= dao.estaDisponible(aer.matricula);
+                    if (i == 2) { MessageBox.Show("Aeronave fue dada de baja Definitivamente", "Error!", MessageBoxButtons.OK); } else { MessageBox.Show("Aeronave Fuera de Servicio hasta: " + fechaVS.ToString("dd/MM/yyyy"), "Error!", MessageBoxButtons.OK); }
+                }
+
             }
             else
             {
@@ -113,9 +123,17 @@ namespace AerolineaFrba.Abm_Aeronave
 
                 MessageBox.Show("Ingrese Matricula y luego presione Buscar", "Error!", MessageBoxButtons.OK);
             }else{
-            Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
-            BajaAeronaveD bad = new BajaAeronaveD(aer);
-            bad.Show();
+              
+                 Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
+                 DateTime fechaVS = (DateTime)aer.fecha_vueltaFS;
+                    if (dao.estaDisponible(aer.matricula) == 3)
+                {
+                    BajaAeronaveD bad = new BajaAeronaveD(aer);
+                    bad.Show();
+                }
+                else {
+                    if (dao.estaDisponible(aer.matricula) == 2) { MessageBox.Show("Aeronave fue dada de baja Definitivamente", "Error!", MessageBoxButtons.OK); } else { MessageBox.Show("Aeronave Fuera de Servicio hasta: " + fechaVS.ToString("dd/MM/yyyy"), "Error!", MessageBoxButtons.OK); }
+                }
             }
 
         }
@@ -126,24 +144,17 @@ namespace AerolineaFrba.Abm_Aeronave
             catch { MessageBox.Show("No existe Aeronave con esas caracteristicas", "Error!", MessageBoxButtons.OK); }
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Cancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void Limpiar_Click(object sender, EventArgs e)
+        {
+            txtmatricula.Clear();
+            txtfabri.Clear();
+            txtmodelo.Clear();
+            txtPeso.Clear();
         }
     }
 }

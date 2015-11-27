@@ -121,7 +121,7 @@ namespace AerolineaFrba.Abm_Aeronave
         public void actualizarGrilla()
         {
             if (txtVuelo.Text != "")
-                lstAer = daoAeronave.listaAero(txtAeron.Text);
+                lstAer = daoAeronave.listaAero(txtAeron.Text,vuelo.fechaSalida);
             // else
             //    lstAeronaves = dao.retrieveAll();
             //Vuelo vuelo = new Vuelo();
@@ -143,10 +143,13 @@ namespace AerolineaFrba.Abm_Aeronave
             int i = daoAeronave.reemplazoAeronave(aer.matricula, (int)vuelo.id);
             if (i == 1)
             {
-                bD.actualizarGrilla_X_vueloCancelado();
-                }
+                if (this.bD == null) { bFS.actualizarGrilla_X_vueloCancelado(); }
+                else { bD.actualizarGrilla_X_vueloCancelado(); }
+                MessageBox.Show("Aeronave asignada", "Notificacion", MessageBoxButtons.OK);
+            }
+            else { MessageBox.Show("Aeronave NO disponible en esa Hora de Salida", "Error", MessageBoxButtons.OK); }
 
-           MessageBox.Show("Aeronave asignada", "Notificacion", MessageBoxButtons.OK);
+           //MessageBox.Show("Aeronave asignada", "Notificacion", MessageBoxButtons.OK);
            this.Close();
         }
 

@@ -88,13 +88,24 @@ namespace AerolineaFrba.Models.DAO
 
         public void bajaDef(string matricula) {
 
-            string comando = "update SQLOVERS.AERONAVE set aeronave_baja = 1 where " + String.Format(" aeronave_matricula like '{0}%' ", matricula);
+            string comando = "update SQLOVERS.AERONAVE set aeronave_estado = 2 where " + String.Format(" aeronave_matricula like '{0}%' ", matricula);
                         DB.ExecuteNonQuery(comando);
         }
 
-        public void bajaFueraServicio(string matricula) {
+        public int estaDisponible(string matricula)
+        {
 
-            string comando = "update SQLOVERS.AERONAVE set aeronave_fuera_servicio = 1 where " + String.Format(" aeronave_matricula like '{0}%' ", matricula);
+           // string comando = "select aeronave_estado from SQLOVERS.AERONAVE  where " + String.Format(" aeronave_matricula like '{0}%' ", matricula);
+            //DB.ExecuteNonQuery(comando);
+
+            int estado = DB.ExecuteCardinal(String.Format("select sqlovers.estadoAeronave('{0}%')",matricula));
+                //DB.ExecuteNonQuery(String.Format("EXECUTE SQLOVERS.estadoAeronave '{0}%'", matricula));
+            return estado;
+        }
+
+        public void bajaFueraServicio(string matricula,DateTime fechaRegreso) {
+
+            string comando = "update SQLOVERS.AERONAVE  " + String.Format("set aeronave_estado = 1,aeronave_fecha_vueltaFS = '{0}' where aeronave_matricula like '{1}%' ",fechaRegreso, matricula);
             DB.ExecuteNonQuery(comando);
         }
 
@@ -132,67 +143,6 @@ namespace AerolineaFrba.Models.DAO
             return DB.ExecuteCardinal(command);
         }
 
-       /* public Cliente retrieveBy_id(object _value)
-        {
-            return DB.ExecuteReaderSingle<Cliente>("SELECT * FROM " + tabla + " WHERE id = @1", _value);
-        }*/
-
-       /* public List<Cliente> retrieveByInfo(string id, string numeroDoc, string nombre, string apellido)
-        {
-
-            if (String.IsNullOrEmpty(id) && String.IsNullOrEmpty(nombre) &&
-                String.IsNullOrEmpty(numeroDoc) && String.IsNullOrEmpty(apellido))
-            {
-                return retrieveBase();
-            }
-
-            string baseQuery = String.Format("SELECT * FROM {0} WHERE", tabla);
-
-            if (!String.IsNullOrEmpty(id))
-            {
-                baseQuery += String.Format(" id = {0} AND", id);
-            }
-            if (!String.IsNullOrEmpty(numeroDoc))
-            {
-                baseQuery += String.Format(" documento = {0} AND", numeroDoc);
-            }
-            if (!String.IsNullOrEmpty(nombre))
-            {
-                baseQuery += String.Format(" nombre LIKE '{0}%' AND", nombre);
-            }
-            if (!String.IsNullOrEmpty(apellido))
-            {
-                baseQuery += String.Format(" apellido LIKE '{0}%'", apellido);
-            }
-
-            baseQuery = baseQuery.Substring(0, baseQuery.Length - 3);
-            
-            return DB.ExecuteReader<Cliente>(baseQuery);
-        }*/
-
-
-       /* public Cliente retrieveBy_user(string userId)
-        {
-            return DB.ExecuteReaderSingle<Cliente>("SELECT * FROM " + tabla + " WHERE usuario = @1", userId);
-        } */
-
-       /* public bool existsUser(string userId)
-        {
-            List<Cliente> cl = DB.ExecuteReader<Cliente>("SELECT DISTINCT usuario FROM " + tabla);
-            List<string> users = new List<string>();
-            foreach (Cliente c in cl)
-            {
-                users.Add(c.usuario);
-            }
-            if (users.Contains(userId))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }*/
 
         public List<Aeronave> search(string matricula, string fabricante, string modelo, string peso)
         {
@@ -256,7 +206,7 @@ namespace AerolineaFrba.Models.DAO
             return l;
         }
 
-        public List<Aeronave> listaAero(string aeronave)
+        public List<Aeronave> listaAero(string aeronave,DateTime fecha_salida)
         {
 
             string comando =
@@ -266,7 +216,7 @@ namespace AerolineaFrba.Models.DAO
 "FROM SQLOVERS.AERONAVE WHERE" + String.Format(" aeronave_matricula like '{0}%' ", aeronave) +
 
 "SELECT aeronave_matricula,aeronave_modelo,aeronave_fabricante,aeronave_tipo_servicio from SQLOVERS.AERONAVE " +
-"where aeronave_modelo=@var1 and aeronave_fabricante=@var2 and aeronave_tipo_servicio=@var3 and "+ String.Format(" aeronave_matricula not like '{0}%' ", aeronave);
+"where aeronave_modelo=@var1 and aeronave_fabricante=@var2 and aeronave_tipo_servicio=@var3 and  " + String.Format(" aeronave_matricula not like '{0}%' and SQLOVERS.validar_fechaSalida(aeronave_matricula,{1}) = 1 ", aeronave, fechaQuereable(fecha_salida));
 
             //List<Aeronave> cl = DB.ExecuteReader<Aeronave>(comando);
             return DB.ExecuteReader<Aeronave>(comando);
@@ -278,58 +228,15 @@ namespace AerolineaFrba.Models.DAO
         {
           
 
-            string comando = "UPDATE SQLOVERS.VUELO set " + String.Format(" vuelo_aeronave_id = '{0}' ", matriculaReemplazo) +
-                "where vuelo_id = " + vuelo_id;
-           int cant_filas_actual= DB.ExecuteNonQuery(comando);
+            //string comando = "UPDATE SQLOVERS.VUELO set " + String.Format(" vuelo_aeronave_id = '{0}' ", matriculaReemplazo) +
+             //  "where vuelo_id = " + vuelo_id;
+
+            int cant_filas_actual = DB.ExecuteNonQuery(String.Format("EXECUTE SQLOVERS.reemplazar_vuelo '{0}',{1}", matriculaReemplazo, vuelo_id));
+
+           //int cant_filas_actual= DB.ExecuteNonQuery(comando);
            return cant_filas_actual;
         }
 
-       /* public List<Cliente> topInhabilitados(int anio, int min, int max)
-        {
-            string comando = "SELECT TOP 5 c.id "
-                                + "FROM VIDA_ESTATICA.Cliente c "
-                                + "INNER JOIN VIDA_ESTATICA.Cuenta cue "
-                                + "ON c.id = cue.cod_cli "
-                                + "JOIN VIDA_ESTATICA.Item_Factura i_f "
-                                + "ON cue.id = i_f.num_cuenta "
-                                + "WHERE YEAR(i_f.fecha) = "+ anio + " "
-                                + "AND MONTH(i_f.fecha) IN (" + min + "," + max + ") "
-                                + "GROUP BY c.id, i_f.id_factura "
-                                + "HAVING COUNT(*) > 5 "
-                                + "ORDER BY COUNT(*) DESC ";
-            List<Cliente> cl = DB.ExecuteReader<Cliente>(comando);   
-            
-            return cl;
-        }*/
-
-       /* public List<Cliente> topFacturadores(int anio, int min, int max)
-        {
-            string comando = "SELECT TOP 5 c.id FROM VIDA_ESTATICA.Cliente c "
-                                +"INNER JOIN VIDA_ESTATICA.Cuenta cue ON cue.cod_cli = c.id "
-                                +"INNER JOIN VIDA_ESTATICA.Item_Factura i_f ON cue.id = i_f.num_cuenta "
-                                +"WHERE i_f.facturado = 1 "
-                                +"AND YEAR(i_f.fecha) = " + anio + " "
-                                +"AND MONTH(i_f.fecha) IN (" + min + "," + max + ") "
-                                +"GROUP BY c.id "
-                                +"ORDER BY COUNT(*) DESC ";
-            List<Cliente> cl = DB.ExecuteReader<Cliente>(comando);
-
-            return cl;
-        }*/
-
-       /* public List<Cliente> topTransaccionales(int anio, int min, int max)
-        {
-            string comando = "SELECT TOP 5 c.id FROM VIDA_ESTATICA.Cliente c "
-                                + "INNER JOIN VIDA_ESTATICA.Cuenta cue ON cue.cod_cli = c.id "
-                                + "INNER JOIN VIDA_ESTATICA.Transferencia t ON cue.id = t.cuenta_origen "
-                                + "WHERE t.cuenta_destino IN (SELECT cuenta.id FROM VIDA_ESTATICA.Cuenta cuenta WHERE cuenta.cod_cli = c.id) "
-                                + "AND YEAR(t.fecha) = " + anio + " "
-                                + "AND MONTH(t.fecha) IN (" + min + "," + max + ") "
-                                + "GROUP BY c.id "
-                                + "ORDER BY COUNT(*) DESC ";
-            List<Cliente> cl = DB.ExecuteReader<Cliente>(comando);
-
-            return cl;
-        }*/
+      
     }
 }

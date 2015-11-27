@@ -129,7 +129,9 @@ CREATE TABLE sqlovers.AERONAVE
      aeronave_tipo_servicio  NUMERIC(3, 0) FOREIGN KEY REFERENCES 
      sqlovers.TIPO_SERVICIO(tipo_servicio_id),
      aeronave_but_vent numeric(18,0),
-     aeronave_but_pasill numeric(18,0)
+     aeronave_but_pasill numeric(18,0),
+	 aeronave_fecha_vueltaFS datetime,
+	 aeronave_estado numeric(3,0) FOREIGN KEY REFERENCES SQLOVERS.TIPO_BAJA(tipo_baja_id)
 
   ) 
 
@@ -191,7 +193,8 @@ CREATE TABLE sqlovers.VUELO
      vuelo_id                     NUMERIC(18, 0) IDENTITY PRIMARY KEY, 
      vuelo_fecha_salida           DATETIME, 
      vuelo_fecha_llegada          DATETIME, 
-     vuelo_fecha_llegada_estimada DATETIME, 
+     vuelo_fecha_llegada_estimada DATETIME,
+	 vuelo_cancelado              bit NOT NULL,
      vuelo_aeronave_id            NVARCHAR(255) FOREIGN KEY REFERENCES 
      sqlovers.AERONAVE(aeronave_matricula), 
      vuelo_ruta_id                NUMERIC(18, 0) FOREIGN KEY REFERENCES 
@@ -475,3 +478,69 @@ AS
             WHERE  user_username = @nombre 
         END 
   END
+
+  /****** Object:  StoredProcedure [SQLOVERS].[reemplazar_vuelo]    Script Date: 11/26/2015 10:02:15 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [SQLOVERS].[reemplazar_vuelo](@aeronave_id nvarchar(255),@vuelo_id numeric(18,0))
+as
+declare @fecha_salida datetime = (select vuelo_fecha_salida from SQLOVERS.VUELO where vuelo_id = @vuelo_id)
+
+IF((select count(*)  from SQLOVERS.VUELO where vuelo_aeronave_id like @aeronave_id and vuelo_fecha_salida = @fecha_salida ) <= 0 )
+BEGIN
+UPDATE SQLOVERS.VUELO set  vuelo_aeronave_id = @aeronave_id where vuelo_id = @vuelo_id
+END
+ELSE SELECT 0
+GO
+
+--FUNCIONES
+
+/****** Object:  UserDefinedFunction [SQLOVERS].[validar_fechaSalida]    Script Date: 11/26/2015 10:04:28 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ create function [SQLOVERS].[validar_fechaSalida](@aeronave_id nvarchar(255),@fechaSalida datetime)
+ returns bit
+ as
+ begin
+ declare @retorno numeric(3,0)= (select count(*)  from SQLOVERS.VUELO where vuelo_aeronave_id like @aeronave_id and vuelo_fecha_salida = @fechaSalida )
+
+ if(@retorno=0)
+ begin
+ set @retorno=1
+ end
+ else set @retorno=0
+ return @retorno
+ end;
+
+GO
+
+/****** Object:  UserDefinedFunction [SQLOVERS].[estadoAeronave]    Script Date: 11/26/2015 10:05:15 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+ CREATE FUNCTION [SQLOVERS].[estadoAeronave](@aeronave_matricula nvarchar(255))
+ returns int
+as
+begin
+declare @retorno int
+
+if((select aeronave_estado from SQLOVERS.AERONAVE where aeronave_matricula like @aeronave_matricula) is null)
+begin
+ set @retorno = 3;
+ end
+ else  set @retorno =(select aeronave_estado from SQLOVERS.AERONAVE where aeronave_matricula like @aeronave_matricula)
+ return @retorno
+ end;
+
+GO

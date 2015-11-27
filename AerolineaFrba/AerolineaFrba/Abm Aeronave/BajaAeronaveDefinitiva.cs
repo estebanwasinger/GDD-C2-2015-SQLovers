@@ -168,7 +168,7 @@ namespace AerolineaFrba.Abm_Aeronave
             }else{
             daoA.bajaDef(txtmatricula.Text);
             MessageBox.Show("Baja Definitiva completa", "Notificacion", MessageBoxButtons.OK);}
-        
+            this.Close();
         }
 
         public bool tieneVuelos(string matricula){

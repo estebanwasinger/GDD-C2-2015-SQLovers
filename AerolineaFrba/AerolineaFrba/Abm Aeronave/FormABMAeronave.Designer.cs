@@ -67,7 +67,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtro de Busqueda";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // txtPeso
             // 
@@ -84,7 +83,6 @@
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Peso Disp";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // btn_fueraServ
             // 
@@ -171,7 +169,6 @@
             this.dtgAeoronave.Name = "dtgAeoronave";
             this.dtgAeoronave.Size = new System.Drawing.Size(449, 164);
             this.dtgAeoronave.TabIndex = 1;
-            this.dtgAeoronave.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button4
             // 
@@ -181,6 +178,7 @@
             this.button4.TabIndex = 2;
             this.button4.Text = "Limpiar";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Limpiar_Click);
             // 
             // btnBuscar
             // 
