@@ -13,6 +13,8 @@ using AerolineaFrba.Abm_Aeronave;
 using AerolineaFrba.Abm_Ciudad;
 using AerolineaFrba.Abm_Rol;
 using AerolineaFrba.Compra;
+using AerolineaFrba.Listado_Estadistico;
+
 
 namespace AerolineaFrba
 {
@@ -65,5 +67,12 @@ namespace AerolineaFrba
         {
 
         }
+        
+        private void btnListadoEstadistico_Click(object sender, EventArgs e)
+        {
+            ListadoEstadistico frm = new ListadoEstadistico();
+            frm.ShowDialog();
+        }
+
     }
 }
