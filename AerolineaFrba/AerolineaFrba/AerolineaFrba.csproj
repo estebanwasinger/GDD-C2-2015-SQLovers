@@ -195,11 +195,11 @@
     <Compile Include="Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.cs">
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ListadoEstadistico\ListadoEstadistico.Designer.cs">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BO\Aeronave.cs" />
     <Compile Include="Models\BO\Ciudad.cs" />
@@ -216,6 +216,7 @@
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
     <Compile Include="Models\DAO\DAOFuncionalidad.cs" />
+    <Compile Include="Models\DAO\DAOListadoEstadistico.cs" />
     <Compile Include="Models\DAO\DAOLlegadaDestino.cs" />
     <Compile Include="Models\DAO\DAOPasaje.cs" />
     <Compile Include="Models\DAO\DAORol.cs" />
@@ -304,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generacion Viaje\GenerarViaje.resx">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
+    </EmbeddedResource>
+   <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
+      <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
