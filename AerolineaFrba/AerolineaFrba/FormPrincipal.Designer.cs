@@ -35,6 +35,7 @@
             this.buttonCompra = new System.Windows.Forms.Button();
             this.buttonMillas = new System.Windows.Forms.Button();
             this.buttonViajes = new System.Windows.Forms.Button();
+            this.btnListadoEstadistico = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAeronaves
@@ -106,6 +107,18 @@
             this.buttonViajes.Text = "Viajes";
             this.buttonViajes.UseVisualStyleBackColor = true;
             this.buttonViajes.Click += new System.EventHandler(this.buttonViajes_Click);
+            
+            // 
+            // btnListadoEstadistico
+            // 
+            this.btnListadoEstadistico.Location = new System.Drawing.Point(258, 239);
+            this.btnListadoEstadistico.Name = "btnListadoEstadistico";
+            this.btnListadoEstadistico.Size = new System.Drawing.Size(207, 53);
+            this.btnListadoEstadistico.TabIndex = 7;
+            this.btnListadoEstadistico.Text = "Listado Estadístico";
+            this.btnListadoEstadistico.UseVisualStyleBackColor = true;
+            this.btnListadoEstadistico.Click += new System.EventHandler(this.btnListadoEstadistico_Click);
+
             // 
             // FormPrincipal
             // 
@@ -119,6 +132,7 @@
             this.Controls.Add(this.buttonRoles);
             this.Controls.Add(this.buttonCiudades);
             this.Controls.Add(this.buttonAeronaves);
+            this.Controls.Add(this.btnListadoEstadistico);
             this.Name = "FormPrincipal";
             this.Text = "Welcome!";
             this.ResumeLayout(false);
@@ -134,6 +148,7 @@
         private System.Windows.Forms.Button buttonCompra;
         private System.Windows.Forms.Button buttonMillas;
         private System.Windows.Forms.Button buttonViajes;
+        private System.Windows.Forms.Button btnListadoEstadistico;
     }
 }
 
