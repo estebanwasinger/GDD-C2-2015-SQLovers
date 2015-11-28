@@ -99,27 +99,33 @@ namespace AerolineaFrba.Abm_Ruta
             Ciudad selectedCiudadDestino = (Ciudad) comboBoxCiudadDestino.SelectedItem;
             Ciudad selectedCiudadOrigen = (Ciudad) comboBoxCiudadOrigen.SelectedItem;
             Servicio selectedServicio = (Servicio)comboBoxTipoDeServicio.SelectedItem;
-
-            Ruta ruta = new Ruta();
-          
-            ruta.ciudadDestinoId = selectedCiudadDestino.id;
-            ruta.ciudadOrigenId = selectedCiudadOrigen.id;
-            ruta.tipoServicioId = (int)selectedServicio.tipo_servicio_id;
-            ruta.precioBaseKg = Convert.ToInt32(textBoxPrecioBaseKG.Text);
-            ruta.precioBasePasaje = Convert.ToInt32(textBoxPrecioBasePasaje.Text);
-            ruta.estado = checkBoxActivo.Checked;
-
-            if (crear)
+            if (!DAORuta.exist(selectedCiudadOrigen.id, selectedCiudadDestino.id))
             {
-                DAORuta.create(ruta);
+                Ruta ruta = new Ruta();
+
+                ruta.ciudadDestinoId = selectedCiudadDestino.id;
+                ruta.ciudadOrigenId = selectedCiudadOrigen.id;
+                ruta.tipoServicioId = (int)selectedServicio.tipo_servicio_id;
+                ruta.precioBaseKg = Convert.ToInt32(textBoxPrecioBaseKG.Text);
+                ruta.precioBasePasaje = Convert.ToInt32(textBoxPrecioBasePasaje.Text);
+                ruta.estado = checkBoxActivo.Checked;
+
+                if (crear)
+                {
+                    DAORuta.create(ruta);
+                }
+                else
+                {
+                    ruta.id = this.ruta.id;
+                    DAORuta.update(ruta);
+                }
+
+                this.Close();
             }
             else
             {
-                ruta.id = this.ruta.id;
-                DAORuta.update(ruta);
+                MessageBox.Show("Ruta con las ciudad seleccionadas ya existe.", "Error al crear la ruta", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
-            this.Close();
         }
 
         private bool checkRequiredValues()
@@ -140,15 +146,32 @@ namespace AerolineaFrba.Abm_Ruta
                 return false;
             }
 
-            if (String.IsNullOrWhiteSpace(textBoxPrecioBaseKG.Text)) {
+            if (String.IsNullOrWhiteSpace(textBoxPrecioBaseKG.Text))
+            {
                 return false;
+            }
+
+            Int32 num;
+            if (Int32.TryParse(textBoxPrecioBaseKG.Text, out num))
+            {
+                if (num < 1)
+                {
+                    return false;
+                }
             }
 
             if (String.IsNullOrWhiteSpace(textBoxPrecioBasePasaje.Text))
             {
                 return false;
             }
-            EventLog.WriteEntry("Algo", "text");
+
+            if (Int32.TryParse(textBoxPrecioBasePasaje.Text, out num))
+            {
+                if (num < 1)
+                {
+                    return false;
+                }
+            }
 
             if (((Ciudad)comboBoxCiudadDestino.SelectedItem).id.Equals(((Ciudad)comboBoxCiudadOrigen.SelectedItem).id))
             {
@@ -206,7 +229,12 @@ namespace AerolineaFrba.Abm_Ruta
 
         private void textBoxPrecioBasePasaje_TextChanged(object sender, EventArgs e)
         {
+            buttonAceptar.Enabled = checkRequiredValues();
+        }
 
+        private void textBoxPrecioBaseKG_TextChanged(object sender, EventArgs e)
+        {
+            buttonAceptar.Enabled = checkRequiredValues();
         }
 
     }

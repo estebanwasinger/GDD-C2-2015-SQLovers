@@ -103,6 +103,18 @@ namespace AerolineaFrba.Models.DAO
             return rutaList;
         }
 
+        public static bool exist(int ciudadOrigen, int ciudadDestino)
+        {
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@ciudadOrigen",ciudadOrigen));
+            parameterList.Add(new SqlParameter("@ciudadDestino",ciudadDestino));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT sqlovers.Existeruta(@ciudadOrigen,@ciudadDestino) ", "T", parameterList);
+
+            lector.Read();
+
+            return lector.GetBoolean(0);
+        }
+
 
         internal void delete(Ruta ruta)
         {

@@ -106,6 +106,11 @@ IF Object_id('SQLOVERS.estadoAeronave') IS NOT NULL
       DROP FUNCTION sqlovers.estadoaeronave; 
   END; 
 
+IF Object_id('SQLOVERS.existeRuta') IS NOT NULL 
+  BEGIN 
+      DROP FUNCTION sqlovers.existeRuta; 
+  END; 
+
 /*            
 CREATE TABLES            
 */ 
@@ -611,5 +616,26 @@ AS
 
       RETURN @retorno 
   END; 
-
 go 
+
+
+
+CREATE FUNCTION sqlovers.Existeruta(@ciudad_origen  INT, 
+                                    @ciudad_destino INT) 
+returns BIT 
+AS 
+  BEGIN 
+      DECLARE @return BIT 
+
+      IF( (SELECT Count(*) 
+           FROM   ruta 
+           WHERE  ruta_ciudad_destino = @ciudad_destino 
+                  AND ruta_ciudad_origen = @ciudad_origen) > 0 ) 
+        SET @return = 1 
+      ELSE 
+        SET @return = 0 
+
+      RETURN @return 
+  END;
+  GO
+  SELECT sqlovers.Existeruta(17,19) 

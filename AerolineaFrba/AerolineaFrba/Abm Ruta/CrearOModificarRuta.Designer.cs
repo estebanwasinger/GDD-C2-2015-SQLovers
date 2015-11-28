@@ -116,6 +116,7 @@
             this.textBoxPrecioBaseKG.Name = "textBoxPrecioBaseKG";
             this.textBoxPrecioBaseKG.Size = new System.Drawing.Size(194, 20);
             this.textBoxPrecioBaseKG.TabIndex = 7;
+            this.textBoxPrecioBaseKG.TextChanged += new System.EventHandler(this.textBoxPrecioBaseKG_TextChanged);
             this.textBoxPrecioBaseKG.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPrecioBaseKG_KeyPress);
             // 
             // textBoxPrecioBasePasaje
