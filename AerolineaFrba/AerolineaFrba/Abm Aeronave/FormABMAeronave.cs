@@ -95,8 +95,6 @@ namespace AerolineaFrba.Abm_Aeronave
         private void btn_bTecnica_Click(object sender, EventArgs e)
         {
 
-            if (txtmatricula.Text != "")
-            {
                 Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
 
                 if (aer.fecha_vueltaFS != null)
@@ -114,21 +112,10 @@ namespace AerolineaFrba.Abm_Aeronave
                     if (i == 2) { MessageBox.Show("Aeronave fue dada de baja Definitivamente", "Error!", MessageBoxButtons.OK); } else { MessageBox.Show("Aeronave Fuera de Servicio hasta: " + fechaVS.ToString("dd/MM/yyyy"), "Error!", MessageBoxButtons.OK); }
                 }
 
-            }
-            else
-            {
-                MessageBox.Show("Ingrese Matricula y presione Buscar", "Error!", MessageBoxButtons.OK);
-
-            }
         }
         
         private void btn_bDef_Click(object sender, EventArgs e)
         {
-            if(txtmatricula.Text==""){
-
-                MessageBox.Show("Ingrese Matricula y luego presione Buscar", "Error!", MessageBoxButtons.OK);
-            }else{
-              
                  Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
 
                  if (aer.fecha_vueltaFS != null)
@@ -144,8 +131,6 @@ namespace AerolineaFrba.Abm_Aeronave
                 else {
                     if (dao.estaDisponible(aer.matricula) == 2) { MessageBox.Show("Aeronave fue dada de baja Definitivamente", "Error!", MessageBoxButtons.OK); } else { MessageBox.Show("Aeronave Fuera de Servicio hasta: " + fechaVS.ToString("dd/MM/yyyy"), "Error!", MessageBoxButtons.OK); }
                 }
-            }
-
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

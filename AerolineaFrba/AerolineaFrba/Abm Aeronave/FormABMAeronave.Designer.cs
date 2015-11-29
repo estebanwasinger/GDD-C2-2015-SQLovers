@@ -167,6 +167,7 @@
             this.dtgAeoronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgAeoronave.Location = new System.Drawing.Point(62, 268);
             this.dtgAeoronave.Name = "dtgAeoronave";
+            this.dtgAeoronave.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgAeoronave.Size = new System.Drawing.Size(449, 164);
             this.dtgAeoronave.TabIndex = 1;
             // 

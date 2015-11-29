@@ -134,10 +134,13 @@ namespace AerolineaFrba.Abm_Ruta
         private void updateDataGridView()
         {
             int pos = dataGridViewRuta.CurrentRow.Index;
+            Cursor cursor = dataGridViewRuta.Cursor;
             fillDataGridView((RutaFilter)comboBoxFiltros.SelectedItem);
             if (dataGridViewRuta.Rows.Count != 0)
             {
+                dataGridViewRuta.CurrentCell = dataGridViewRuta.Rows[pos].Cells[0];
                 dataGridViewRuta.Rows[pos].Selected = true;
+
             }
         }
     }
