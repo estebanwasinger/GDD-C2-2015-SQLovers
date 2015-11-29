@@ -99,7 +99,7 @@ namespace AerolineaFrba.Abm_Ruta
             Ciudad selectedCiudadDestino = (Ciudad) comboBoxCiudadDestino.SelectedItem;
             Ciudad selectedCiudadOrigen = (Ciudad) comboBoxCiudadOrigen.SelectedItem;
             Servicio selectedServicio = (Servicio)comboBoxTipoDeServicio.SelectedItem;
-            if (!DAORuta.exist(selectedCiudadOrigen.id, selectedCiudadDestino.id))
+            if (!DAORuta.exist(selectedCiudadOrigen.id, selectedCiudadDestino.id) || !crear)
             {
                 Ruta ruta = new Ruta();
 

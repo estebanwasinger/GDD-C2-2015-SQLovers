@@ -436,12 +436,14 @@ INSERT INTO sqlovers.vuelo
              vuelo_fecha_llegada_estimada, 
              vuelo_fecha_salida, 
              vuelo_aeronave_id, 
-             vuelo_ruta_id) 
+             vuelo_ruta_id,
+			 vuelo_cancelado) 
 SELECT DISTINCT fechallegada, 
                 fecha_llegada_estimada, 
                 m.fechasalida, 
                 m.aeronave_matricula, 
-                r.ruta_id 
+                r.ruta_id,
+				1
 FROM   [GD2C2015].[gd_esquema].[maestra] m, 
        sqlovers.ruta r, 
        sqlovers.ciudad c, 
