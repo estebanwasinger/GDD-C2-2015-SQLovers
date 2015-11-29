@@ -105,7 +105,7 @@ namespace AerolineaFrba.Abm_Rol
 
         private void dataGridViewRol_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-          //  borrarButton.Enabled = true;
+         // borrarButton.Enabled = true;
           //  modificarButton.Enabled = true;
         }
 
