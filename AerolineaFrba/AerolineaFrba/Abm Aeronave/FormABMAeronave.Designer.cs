@@ -50,27 +50,27 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnBuscar);
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.txtPeso);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.btn_fueraServ);
-            this.groupBox1.Controls.Add(this.btn_bdef);
-            this.groupBox1.Controls.Add(this.btnAlta);
+            this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.txtfabri);
             this.groupBox1.Controls.Add(this.txtmodelo);
             this.groupBox1.Controls.Add(this.txtmatricula);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(41, 32);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(470, 172);
+            this.groupBox1.Size = new System.Drawing.Size(551, 145);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtro de Busqueda";
             // 
             // txtPeso
             // 
-            this.txtPeso.Location = new System.Drawing.Point(339, 73);
+            this.txtPeso.Location = new System.Drawing.Point(399, 61);
             this.txtPeso.Name = "txtPeso";
             this.txtPeso.Size = new System.Drawing.Size(100, 20);
             this.txtPeso.TabIndex = 10;
@@ -78,7 +78,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(269, 74);
+            this.label4.Location = new System.Drawing.Point(329, 62);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 9;
@@ -86,9 +86,9 @@
             // 
             // btn_fueraServ
             // 
-            this.btn_fueraServ.Location = new System.Drawing.Point(323, 124);
+            this.btn_fueraServ.Location = new System.Drawing.Point(384, 395);
             this.btn_fueraServ.Name = "btn_fueraServ";
-            this.btn_fueraServ.Size = new System.Drawing.Size(75, 37);
+            this.btn_fueraServ.Size = new System.Drawing.Size(180, 37);
             this.btn_fueraServ.TabIndex = 8;
             this.btn_fueraServ.Text = "Baja Tecnica";
             this.btn_fueraServ.UseVisualStyleBackColor = true;
@@ -96,9 +96,9 @@
             // 
             // btn_bdef
             // 
-            this.btn_bdef.Location = new System.Drawing.Point(186, 124);
+            this.btn_bdef.Location = new System.Drawing.Point(198, 395);
             this.btn_bdef.Name = "btn_bdef";
-            this.btn_bdef.Size = new System.Drawing.Size(75, 37);
+            this.btn_bdef.Size = new System.Drawing.Size(180, 37);
             this.btn_bdef.TabIndex = 7;
             this.btn_bdef.Text = "Baja Definitiva";
             this.btn_bdef.UseVisualStyleBackColor = true;
@@ -106,9 +106,9 @@
             // 
             // btnAlta
             // 
-            this.btnAlta.Location = new System.Drawing.Point(46, 124);
+            this.btnAlta.Location = new System.Drawing.Point(12, 395);
             this.btnAlta.Name = "btnAlta";
-            this.btnAlta.Size = new System.Drawing.Size(75, 37);
+            this.btnAlta.Size = new System.Drawing.Size(180, 37);
             this.btnAlta.TabIndex = 6;
             this.btnAlta.Text = "Alta";
             this.btnAlta.UseVisualStyleBackColor = true;
@@ -116,21 +116,21 @@
             // 
             // txtfabri
             // 
-            this.txtfabri.Location = new System.Drawing.Point(339, 32);
+            this.txtfabri.Location = new System.Drawing.Point(399, 20);
             this.txtfabri.Name = "txtfabri";
             this.txtfabri.Size = new System.Drawing.Size(100, 20);
             this.txtfabri.TabIndex = 5;
             // 
             // txtmodelo
             // 
-            this.txtmodelo.Location = new System.Drawing.Point(111, 74);
+            this.txtmodelo.Location = new System.Drawing.Point(96, 61);
             this.txtmodelo.Name = "txtmodelo";
             this.txtmodelo.Size = new System.Drawing.Size(100, 20);
             this.txtmodelo.TabIndex = 4;
             // 
             // txtmatricula
             // 
-            this.txtmatricula.Location = new System.Drawing.Point(111, 32);
+            this.txtmatricula.Location = new System.Drawing.Point(96, 19);
             this.txtmatricula.Name = "txtmatricula";
             this.txtmatricula.Size = new System.Drawing.Size(100, 20);
             this.txtmatricula.TabIndex = 3;
@@ -138,7 +138,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(43, 74);
+            this.label3.Location = new System.Drawing.Point(28, 61);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 13);
             this.label3.TabIndex = 2;
@@ -147,7 +147,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(266, 40);
+            this.label2.Location = new System.Drawing.Point(326, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 1;
@@ -156,7 +156,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 40);
+            this.label1.Location = new System.Drawing.Point(28, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 0;
@@ -165,17 +165,17 @@
             // dtgAeoronave
             // 
             this.dtgAeoronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgAeoronave.Location = new System.Drawing.Point(62, 268);
+            this.dtgAeoronave.Location = new System.Drawing.Point(12, 163);
             this.dtgAeoronave.Name = "dtgAeoronave";
             this.dtgAeoronave.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAeoronave.Size = new System.Drawing.Size(449, 164);
+            this.dtgAeoronave.Size = new System.Drawing.Size(551, 226);
             this.dtgAeoronave.TabIndex = 1;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(87, 223);
+            this.button4.Location = new System.Drawing.Point(10, 101);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.Size = new System.Drawing.Size(162, 33);
             this.button4.TabIndex = 2;
             this.button4.Text = "Limpiar";
             this.button4.UseVisualStyleBackColor = true;
@@ -183,9 +183,9 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(364, 222);
+            this.btnBuscar.Location = new System.Drawing.Point(383, 101);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(162, 33);
             this.btnBuscar.TabIndex = 3;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -193,9 +193,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(227, 222);
+            this.button1.Location = new System.Drawing.Point(194, 101);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(162, 33);
             this.button1.TabIndex = 4;
             this.button1.Text = "Cancelar";
             this.button1.UseVisualStyleBackColor = true;
@@ -206,10 +206,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 444);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnBuscar);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.dtgAeoronave);
+            this.Controls.Add(this.btnAlta);
+            this.Controls.Add(this.btn_bdef);
+            this.Controls.Add(this.btn_fueraServ);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormABMAeronave";
             this.Text = "FormABMAeronave";
