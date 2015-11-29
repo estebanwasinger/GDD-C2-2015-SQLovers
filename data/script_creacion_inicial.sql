@@ -443,7 +443,7 @@ SELECT DISTINCT fechallegada,
                 m.fechasalida, 
                 m.aeronave_matricula, 
                 r.ruta_id,
-				1
+				0
 FROM   [GD2C2015].[gd_esquema].[maestra] m, 
        sqlovers.ruta r, 
        sqlovers.ciudad c, 
@@ -640,4 +640,4 @@ AS
       RETURN @return 
   END;
   GO
-  SELECT sqlovers.Existeruta(17,19) 
+  
