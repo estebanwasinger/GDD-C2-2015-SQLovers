@@ -62,6 +62,9 @@ namespace AerolineaFrba.Abm_Aeronave
             dtgAeronaves.MultiSelect = false;
             cargarGrilla();
             actualizarGrilla();
+            if (actualizarGrilla() == 0)
+            { MessageBox.Show("no hay aeronaves para reemplazo", "Notificacion", MessageBoxButtons.OK);
+            }
         }
 
         private void cargarCombos()
@@ -118,8 +121,10 @@ namespace AerolineaFrba.Abm_Aeronave
 
         }
 
-        public void actualizarGrilla()
+        public int actualizarGrilla()
         {
+            int cant_aeronaves;
+
             if (txtVuelo.Text != "")
                 lstAer = daoAeronave.listaAero(txtAeron.Text,vuelo.fechaSalida);
             // else
@@ -129,12 +134,13 @@ namespace AerolineaFrba.Abm_Aeronave
 
             if (lstAer.Count == 0) {
 
-                MessageBox.Show("no hay aeronaves para reemplazo", "Notificacion", MessageBoxButtons.OK);
+                //MessageBox.Show("no hay aeronaves para reemplazo", "Notificacion", MessageBoxButtons.OK);
                 btnReemp.Enabled = false;
             }
 
             dtgAeronaves.DataSource = lstAer;
-            
+            cant_aeronaves = lstAer.Count;
+            return cant_aeronaves;
         }
 
         public void btnReemp_click(object sender, EventArgs e)
@@ -157,6 +163,17 @@ namespace AerolineaFrba.Abm_Aeronave
 
             AltaAeronave aa = new AltaAeronave(new Aeronave());
             aa.Show();
+        }
+
+
+        public void btnCancelar_click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        public void btnRefresh_click(object sender, EventArgs e)
+        {
+            actualizarGrilla();       
         }
 
     }

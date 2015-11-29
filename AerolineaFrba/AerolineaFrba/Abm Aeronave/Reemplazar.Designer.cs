@@ -36,6 +36,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtAeron = new System.Windows.Forms.TextBox();
             this.btn_nvAer = new System.Windows.Forms.Button();
+            this.btnRefrescar = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAeronaves)).BeginInit();
             this.SuspendLayout();
@@ -78,7 +80,7 @@
             // 
             this.btnReemp.Location = new System.Drawing.Point(76, 304);
             this.btnReemp.Name = "btnReemp";
-            this.btnReemp.Size = new System.Drawing.Size(128, 23);
+            this.btnReemp.Size = new System.Drawing.Size(99, 23);
             this.btnReemp.TabIndex = 4;
             this.btnReemp.Text = "Reemplazar";
             this.btnReemp.UseVisualStyleBackColor = true;
@@ -102,19 +104,41 @@
             // 
             // btn_nvAer
             // 
-            this.btn_nvAer.Location = new System.Drawing.Point(312, 304);
+            this.btn_nvAer.Location = new System.Drawing.Point(207, 304);
             this.btn_nvAer.Name = "btn_nvAer";
-            this.btn_nvAer.Size = new System.Drawing.Size(125, 23);
+            this.btn_nvAer.Size = new System.Drawing.Size(99, 23);
             this.btn_nvAer.TabIndex = 7;
             this.btn_nvAer.Text = "Nueva Aeronave";
             this.btn_nvAer.UseVisualStyleBackColor = true;
             this.btn_nvAer.Click += new System.EventHandler(this.btnNvaAero_click);
+            // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.Location = new System.Drawing.Point(341, 304);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(99, 23);
+            this.btnRefrescar.TabIndex = 8;
+            this.btnRefrescar.Text = "Refrescar";
+            this.btnRefrescar.UseVisualStyleBackColor = true;
+            this.btnRefrescar.Click += new System.EventHandler(this.btnRefresh_click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(476, 304);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(99, 23);
+            this.btnCancel.TabIndex = 9;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancelar_click);
             // 
             // Reemplazar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 361);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnRefrescar);
             this.Controls.Add(this.btn_nvAer);
             this.Controls.Add(this.txtAeron);
             this.Controls.Add(this.label2);
@@ -142,5 +166,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtAeron;
         private System.Windows.Forms.Button btn_nvAer;
+        private System.Windows.Forms.Button btnRefrescar;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

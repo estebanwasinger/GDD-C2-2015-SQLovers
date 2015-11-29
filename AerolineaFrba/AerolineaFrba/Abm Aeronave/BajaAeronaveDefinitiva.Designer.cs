@@ -45,6 +45,7 @@
             this.btnReempV = new System.Windows.Forms.Button();
             this.btnCancelarV = new System.Windows.Forms.Button();
             this.btnBaja = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgVuelos)).BeginInit();
             this.SuspendLayout();
@@ -194,11 +195,22 @@
             this.btnBaja.UseVisualStyleBackColor = true;
             this.btnBaja.Click += new System.EventHandler(this.btn_darBajaDefinitiva);
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(649, 270);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(104, 23);
+            this.btnCancelar.TabIndex = 19;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // BajaAeronaveD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 371);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.btnCancelarV);
             this.Controls.Add(this.btnReempV);
@@ -244,6 +256,7 @@
         private System.Windows.Forms.Button btnReempV;
         private System.Windows.Forms.Button btnCancelarV;
         private System.Windows.Forms.Button btnBaja;
+        private System.Windows.Forms.Button btnCancelar;
 
     }
 }

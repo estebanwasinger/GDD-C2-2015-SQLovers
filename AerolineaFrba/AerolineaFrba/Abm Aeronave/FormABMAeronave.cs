@@ -25,6 +25,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private DAOAeronave dao;
         private List<Aeronave> lstAeronaves { get; set; }
+        DateTime fechaVS;
         //private List<TipoDocumento> lstTipos;
 
 
@@ -98,7 +99,11 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
 
-                DateTime fechaVS = (DateTime)aer.fecha_vueltaFS;
+                if (aer.fecha_vueltaFS != null)
+                {
+                    fechaVS = (DateTime)aer.fecha_vueltaFS;
+                }
+                
                 
 
                 if(dao.estaDisponible(aer.matricula) == 3){
@@ -125,7 +130,12 @@ namespace AerolineaFrba.Abm_Aeronave
             }else{
               
                  Aeronave aer = (Aeronave)dtgAeoronave.CurrentRow.DataBoundItem;
-                 DateTime fechaVS = (DateTime)aer.fecha_vueltaFS;
+
+                 if (aer.fecha_vueltaFS != null)
+                 {
+                      fechaVS = (DateTime)aer.fecha_vueltaFS;
+                 }
+                
                     if (dao.estaDisponible(aer.matricula) == 3)
                 {
                     BajaAeronaveD bad = new BajaAeronaveD(aer);
