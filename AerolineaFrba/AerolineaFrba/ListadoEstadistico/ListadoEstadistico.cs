@@ -71,16 +71,16 @@ namespace AerolineaFrba.Listado_Estadistico
                     dgvListado.DataSource = daoListadoEstadistico.DestMasPasajComp(fechaIni, fechaFin);
                     break;
                 case 2:
-                    //daoListadoEstadistico.DestMasPasajComp();
+                    dgvListado.DataSource = daoListadoEstadistico.DestAeroMasVacias(fechaIni, fechaFin);
                     break;
                 case 3:
-                    //daoListadoEstadistico.DestMasPasajComp();
+                    dgvListado.DataSource = daoListadoEstadistico.CliMasPtosAcum();
                     break;
                 case 4:
-                    //daoListadoEstadistico.DestMasPasajComp();
+                   dgvListado.DataSource = daoListadoEstadistico.DestPasCancel(fechaIni, fechaFin);
                     break;
                 case 5:
-                    //daoListadoEstadistico.DestMasPasajComp();
+                    dgvListado.DataSource = daoListadoEstadistico.AeroMasCantDiaFueraServ(fechaIni, fechaFin);
                     break;
             }
         }
