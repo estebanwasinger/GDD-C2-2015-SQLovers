@@ -29,8 +29,8 @@ namespace AerolineaFrba
             //Application.Run(new RegistrarLlegada());
             Application.Run(new Inicio());
 
-             //Application.Run(new GenerarViaje());
-            //Application.Run(new RegistrarLlegada());
+             Application.Run(new GenerarViaje());
+            Application.Run(new RegistrarLlegada());
                 
         }
     }

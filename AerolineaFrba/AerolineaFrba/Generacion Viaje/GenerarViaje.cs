@@ -169,7 +169,7 @@ namespace AerolineaFrba.Generacion_Viaje
         {
             if ( validar_fecha_salida() == 1 )
             {
-                if (validar_horasDeViaje() <= 24)
+                if (validar_horasDeViaje() <= 24 && validar_horasDeViaje()>0)
                 {
                     if (validar_mismoServicio())
                     {
@@ -201,7 +201,7 @@ namespace AerolineaFrba.Generacion_Viaje
                     else { MessageBox.Show("¡El Servicio del Avion y el Recorrido no coinciden!", "Error", MessageBoxButtons.OK); }
 
                 }
-                else { MessageBox.Show("¡El viaje no puede ser mayor a 24hs.!", "Error", MessageBoxButtons.OK); }
+                else { MessageBox.Show("¡verificar Fecha de viaje!", "Error", MessageBoxButtons.OK); }
 
               
             }
