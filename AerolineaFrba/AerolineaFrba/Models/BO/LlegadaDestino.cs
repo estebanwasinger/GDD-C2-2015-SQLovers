@@ -23,6 +23,7 @@ namespace AerolineaFrba.Models.BO
         public DateTime fecha_arribo { get; set; }
         public int origen_id { get; set; }
         public int destino_id { get; set; }
+        public int vuelo_id { get; set; }
 
         public LlegadaDestino initialize(System.Data.DataRow _dr)
         {
@@ -46,6 +47,8 @@ namespace AerolineaFrba.Models.BO
             if (dcc.Contains("llegada_destino"))
                 destino_id = (dr["llegada_destino"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["llegada_destino"]);
 
+            if (dcc.Contains("llegada_vuelo_id"))
+                vuelo_id = (dr["llegada_vuelo_id"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["llegada_vuelo_id"]);
 
             return this;
         }

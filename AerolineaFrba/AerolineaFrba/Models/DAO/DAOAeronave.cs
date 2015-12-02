@@ -70,14 +70,6 @@ namespace AerolineaFrba.Models.DAO
                 ListaParametros.Add(new SqlParameter("@aeronave_fabricante", aero.fabricante));
                 ListaParametros.Add(new SqlParameter("@aeronave_tipo_servicio", (int)aero.aeronave_tipo_servicio));
              
-                /*ListaParametros.Add(new SqlParameter("@dom_nro", aero.dom_nro));
-                ListaParametros.Add(new SqlParameter("@dom_piso", aero.dom_piso));
-                ListaParametros.Add(new SqlParameter("@dom_dpto", aero.dom_dpto));
-                ListaParametros.Add(new SqlParameter("@fecha_nac", aero.fecha_nac));
-                ListaParametros.Add(new SqlParameter("@mail", aero.mail));
-                ListaParametros.Add(new SqlParameter("@nacionalidad", aero.nacionalidad));
-                ListaParametros.Add(new SqlParameter("@tipo_documento", aero.tipo_documento));
-                ListaParametros.Add(new SqlParameter("@activo", aero.activo));*/
 
 
                 return DBAcess.WriteInBase("update SQLOVERS.aeronave set aeronave_matricula =@aeronave_matricula, aeronave_modelo=@aeronave_modelo, aeronave_kg_disponibles=@aeronave_kg_disponibles," +
@@ -86,9 +78,9 @@ namespace AerolineaFrba.Models.DAO
             catch { return false; }
         }
 
-        public void bajaDef(string matricula) {
+        public void bajaDef(string matricula,DateTime fechaBajaDef) {
 
-            string comando = "update SQLOVERS.AERONAVE set aeronave_estado = 2 where " + String.Format(" aeronave_matricula like '{0}%' ", matricula);
+            string comando = "update SQLOVERS.AERONAVE set aeronave_estado = 2, " + String.Format("aeronave_fecha_bajaDefinitiva = {0} where aeronave_matricula like '{1}%' ",fechaQuereable(fechaBajaDef), matricula);
                         DB.ExecuteNonQuery(comando);
         }
 
@@ -103,9 +95,9 @@ namespace AerolineaFrba.Models.DAO
             return estado;
         }
 
-        public void bajaFueraServicio(string matricula,DateTime fechaRegreso) {
+        public void bajaFueraServicio(string matricula,DateTime fechaRegreso, DateTime fechaBajaFS) {
 
-            string comando = "update SQLOVERS.AERONAVE  " + String.Format("set aeronave_estado = 1,aeronave_fecha_vueltaFS = '{0}' where aeronave_matricula like '{1}%' ",fechaRegreso, matricula);
+            string comando = "update SQLOVERS.AERONAVE  " + String.Format("set aeronave_estado = 1,aeronave_fecha_vueltaFS = '{0}',aeronave_fecha_bajaTecnica='{2}' where aeronave_matricula like '{1}%' ", fechaRegreso, matricula,fechaBajaFS);
             DB.ExecuteNonQuery(comando);
         }
 
@@ -137,9 +129,16 @@ namespace AerolineaFrba.Models.DAO
             DB.ExecuteNonQuery(update);
         }
 
-        public int retrieveButacas(string matricula) {
+        public int retrieveButacasVentanilla(string matricula) {
 
-            string command = "select count(*) from SQLOVERS.BUTACA where " + String.Format("  butaca_aeronave like '{0}%' ", matricula);
+            string command = "select count(*) from SQLOVERS.BUTACA where " + String.Format("  butaca_aeronave like '{0}%' and butaca_tipo like 'Ventanilla' ", matricula);
+            return DB.ExecuteCardinal(command);
+        }
+
+        public int retrieveButacasPasillo(string matricula)
+        {
+
+            string command = "select count(*) from SQLOVERS.BUTACA where " + String.Format("  butaca_aeronave like '{0}%' and butaca_tipo like 'Pasillo' ", matricula);
             return DB.ExecuteCardinal(command);
         }
 

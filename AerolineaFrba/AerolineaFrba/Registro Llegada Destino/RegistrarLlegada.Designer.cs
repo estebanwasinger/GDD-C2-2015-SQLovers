@@ -32,16 +32,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtButacas = new System.Windows.Forms.TextBox();
+            this.txtButacasPasillo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtModelo = new System.Windows.Forms.TextBox();
             this.txtCarga = new System.Windows.Forms.TextBox();
             this.txtFabricante = new System.Windows.Forms.TextBox();
-            this.txtMatricula = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtServicio = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -55,6 +53,8 @@
             this.btnValidar = new System.Windows.Forms.Button();
             this.btnRegist = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtButacasVent = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,25 +94,25 @@
             this.label7.TabIndex = 28;
             this.label7.Text = "Tipo Servicio";
             // 
-            // txtButacas
+            // txtButacasPasillo
             // 
-            this.txtButacas.Location = new System.Drawing.Point(336, 98);
-            this.txtButacas.Name = "txtButacas";
-            this.txtButacas.Size = new System.Drawing.Size(121, 20);
-            this.txtButacas.TabIndex = 27;
+            this.txtButacasPasillo.Location = new System.Drawing.Point(352, 41);
+            this.txtButacasPasillo.Name = "txtButacasPasillo";
+            this.txtButacasPasillo.Size = new System.Drawing.Size(49, 20);
+            this.txtButacasPasillo.TabIndex = 27;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(245, 105);
+            this.label5.Location = new System.Drawing.Point(251, 48);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 13);
+            this.label5.Size = new System.Drawing.Size(79, 13);
             this.label5.TabIndex = 26;
-            this.label5.Text = "Cant. Butacas";
+            this.label5.Text = "Butacas Pasillo";
             // 
             // txtModelo
             // 
-            this.txtModelo.Location = new System.Drawing.Point(97, 98);
+            this.txtModelo.Location = new System.Drawing.Point(97, 94);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(115, 20);
             this.txtModelo.TabIndex = 25;
@@ -126,22 +126,15 @@
             // 
             // txtFabricante
             // 
-            this.txtFabricante.Location = new System.Drawing.Point(336, 41);
+            this.txtFabricante.Location = new System.Drawing.Point(97, 41);
             this.txtFabricante.Name = "txtFabricante";
             this.txtFabricante.Size = new System.Drawing.Size(115, 20);
             this.txtFabricante.TabIndex = 23;
             // 
-            // txtMatricula
-            // 
-            this.txtMatricula.Location = new System.Drawing.Point(97, 41);
-            this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.Size = new System.Drawing.Size(115, 20);
-            this.txtMatricula.TabIndex = 22;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(262, 48);
+            this.label3.Location = new System.Drawing.Point(20, 44);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 21;
@@ -159,30 +152,21 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(20, 105);
+            this.label8.Location = new System.Drawing.Point(20, 101);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(42, 13);
             this.label8.TabIndex = 19;
             this.label8.Text = "Modelo";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(20, 48);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(50, 13);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Matricula";
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtButacasVent);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.txtServicio);
-            this.groupBox1.Controls.Add(this.txtMatricula);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.txtModelo);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtButacas);
+            this.groupBox1.Controls.Add(this.txtButacasPasillo);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtCarga);
             this.groupBox1.Controls.Add(this.label3);
@@ -197,7 +181,7 @@
             // 
             // txtServicio
             // 
-            this.txtServicio.Location = new System.Drawing.Point(336, 145);
+            this.txtServicio.Location = new System.Drawing.Point(352, 147);
             this.txtServicio.Name = "txtServicio";
             this.txtServicio.Size = new System.Drawing.Size(49, 20);
             this.txtServicio.TabIndex = 29;
@@ -300,6 +284,22 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(251, 101);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(95, 13);
+            this.label12.TabIndex = 30;
+            this.label12.Text = "Butacas Ventanilla";
+            // 
+            // txtButacasVent
+            // 
+            this.txtButacasVent.Location = new System.Drawing.Point(352, 94);
+            this.txtButacasVent.Name = "txtButacasVent";
+            this.txtButacasVent.Size = new System.Drawing.Size(49, 20);
+            this.txtButacasVent.TabIndex = 31;
+            // 
             // RegistrarLlegada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -336,16 +336,14 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtButacas;
+        private System.Windows.Forms.TextBox txtButacasPasillo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtModelo;
         private System.Windows.Forms.TextBox txtCarga;
         private System.Windows.Forms.TextBox txtFabricante;
-        private System.Windows.Forms.TextBox txtMatricula;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtServicio;
         private System.Windows.Forms.Label label10;
@@ -359,5 +357,7 @@
         private System.Windows.Forms.Button btnValidar;
         private System.Windows.Forms.Button btnRegist;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox txtButacasVent;
+        private System.Windows.Forms.Label label12;
     }
 }

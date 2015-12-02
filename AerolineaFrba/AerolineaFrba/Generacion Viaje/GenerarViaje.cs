@@ -1,4 +1,5 @@
-﻿using AerolineaFrba.Models.BO;
+﻿using AerolineaFrba.Abm_Ruta;
+using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,9 @@ namespace AerolineaFrba.Generacion_Viaje
             string destino = ((Ciudad)cmbDestino.SelectedItem).nombre;
 
             Ruta ruta = new Ruta();
-            vuelo.ruta = ruta.getRuta(origen,destino);
+            
+                vuelo.ruta = ruta.getRuta(origen, destino);
+            
 
         }
 
@@ -151,15 +154,12 @@ namespace AerolineaFrba.Generacion_Viaje
         }
 
 
-        public bool validarDisponibiladad() {
-            
+        public bool validarDisponibiladad() {            
 
             Aeronave aer_seleccionada = (Aeronave)dtgAeronavesPosibles.CurrentRow.DataBoundItem;
             DateTime fecha_salida = new DateTime(dateSalida.Value.Year, dateSalida.Value.Month, dateSalida.Value.Day, horaSalida.Value.Hour, horaSalida.Value.Minute, horaSalida.Value.Second);
             bool disponible = aer_seleccionada.estaDisponible(fecha_salida);
-            System.Console.WriteLine("la fecha elejida es:" +fecha_salida);
-            
-
+            System.Console.WriteLine("la fecha elejida es:" +fecha_salida);          
 
             return disponible;
         
@@ -176,11 +176,20 @@ namespace AerolineaFrba.Generacion_Viaje
                         if(validarDisponibiladad()){
 
                             cargarDatosVueloAGuardar();
-                            if (vuelo.ruta == 0) { MessageBox.Show("¡La Ruta no Existe", "Error", MessageBoxButtons.OK); }
+                            if (vuelo.ruta == 0) { 
+                                
+                                MessageBox.Show("¡La Ruta no Existe, Necesita crearla!", "Error", MessageBoxButtons.OK);
+                                CrearOModificarRuta nuevaRuta = new CrearOModificarRuta();
+                                nuevaRuta.Show();
+                            }
                             else
                             {
-                                daoVuelo.create(vuelo);
-                                MessageBox.Show("¡Se Creo el Viaje correctamente", "Error", MessageBoxButtons.OK);
+                                if (daoVuelo.existe_vuelo(vuelo) == 0)
+                                {
+                                    daoVuelo.create(vuelo);
+                                    MessageBox.Show("¡Se Creo el Viaje correctamente", "Error", MessageBoxButtons.OK);
+                                }
+                                else { MessageBox.Show("¡La Aeronave tiene un vuelo a esa hora", "Error", MessageBoxButtons.OK); }
                             }
 
                              }else{

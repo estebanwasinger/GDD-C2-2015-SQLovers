@@ -28,9 +28,10 @@ namespace AerolineaFrba.Models.DAO
                 ListaParametros.Add(new SqlParameter("@llegada_horaArrivo", LlDestino.fecha_arribo));
                 ListaParametros.Add(new SqlParameter("@llegada_origen", LlDestino.origen_id));
                 ListaParametros.Add(new SqlParameter("@llegada_destino", LlDestino.destino_id));
+                ListaParametros.Add(new SqlParameter("@llegada_vuelo_id", LlDestino.vuelo_id));
 
 
-                return DBAcess.WriteInBase("insert into SQLOVERS.LLEGADA_DESTINO (llegada_matricula, llegada_horaArrivo, llegada_origen,llegada_destino) VALUES(@llegada_matricula, @llegada_horaArrivo,@llegada_origen,@llegada_destino  )", "T", ListaParametros);
+                return DBAcess.WriteInBase("insert into SQLOVERS.LLEGADA_DESTINO (llegada_matricula, llegada_horaArrivo, llegada_origen,llegada_destino,llegada_vuelo_id) VALUES(@llegada_matricula, @llegada_horaArrivo,@llegada_origen,@llegada_destino,@llegada_vuelo_id)", "T", ListaParametros);
             }
             catch { return false; }
         }

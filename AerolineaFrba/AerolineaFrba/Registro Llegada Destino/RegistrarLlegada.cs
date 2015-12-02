@@ -33,17 +33,20 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         private void cargarDatos_click(object sender, EventArgs e)
         {
 
-            txtMatricula.Text = ((Aeronave)cmbMatricula.SelectedItem).matricula;
+            //txtMatricula.Text = ((Aeronave)cmbMatricula.SelectedItem).matricula;
             txtFabricante.Text = ((Aeronave)cmbMatricula.SelectedItem).fabricante;
             txtModelo.Text = ((Aeronave)cmbMatricula.SelectedItem).modelo;
             txtCarga.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).peso_disponible);
             txtServicio.Text = ((Aeronave)cmbMatricula.SelectedItem).get_service();
-            txtButacas.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacas());
+            txtButacasPasillo.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacasPasillo());
+            txtButacasVent.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacasVentanilla());
 
-            txtMatricula.Enabled = false;
+
+
+            txtButacasVent.Enabled = false;
             txtFabricante.Enabled = false;
             txtModelo.Enabled = false;
-            txtButacas.Enabled = false;
+            txtButacasPasillo.Enabled = false;
             txtServicio.Enabled = false;
             txtCarga.Enabled = false;
         }
@@ -96,17 +99,53 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
             foreach (Vuelo velo in LsVuelos)
             {
-                if (velo.fechaLlegada.Equals(fecha_llegada_form))
+                TimeSpan dif_horas = new TimeSpan();
+                dif_horas = fecha_llegada_form - velo.fechaSalida;
+                
+                if(DateTime.Compare(fecha_llegada_form,velo.fechaSalida)>0)
                 {
+                    if(dif_horas.TotalHours < 24){
+                        Console.WriteLine(velo.id);
                     //System.Console.WriteLine("la fecha de la tabla vuelo es:" + velo.fecha_Llegada);
                     //System.Console.WriteLine("la fecha de la tabla vuelo es:" + fecha_llegada_form);
-                    arribo_correcto = true;
+                    arribo_correcto = true;}
                 }
                 // else { MessageBox.Show("¡La Aeronave no tenia vuelo Planificado a esa HORA, Call 911!", "Error", MessageBoxButtons.OK); }
             }
 
             return arribo_correcto;
         }
+
+        public int obtener_vueloID() {
+            string matricula = ((Aeronave)cmbMatricula.SelectedItem).matricula;
+            //bool arribo_correcto = false;
+            DAOVuelo daoVuelo = new DAOVuelo();
+            List<Vuelo> LsVuelos = new List<Vuelo>();
+            LsVuelos = daoVuelo.search(matricula);
+            int vuelo_id =0;
+
+            DateTime fecha_llegada_form = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
+
+            foreach (Vuelo velo in LsVuelos)
+            {
+                TimeSpan dif_horas = new TimeSpan();
+                dif_horas = fecha_llegada_form - velo.fechaSalida;
+                
+
+                if(DateTime.Compare(fecha_llegada_form,velo.fechaSalida)>0)
+                {
+                    if(dif_horas.TotalHours < 24){
+                        vuelo_id = (int)velo.id;
+                        //Console.WriteLine(velo.id);
+                       // arribo_correcto = true;
+                    }
+                }
+                // else { MessageBox.Show("¡La Aeronave no tenia vuelo Planificado a esa HORA, Call 911!", "Error", MessageBoxButtons.OK); }
+            }
+
+            return vuelo_id;
+        }
+
 
         public bool validarRuta()
         {
@@ -139,21 +178,21 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
 
             if (!validarMatricula()) { MessageBox.Show("¡La Aeronave no tenia vuelo planificado, Call 911!", "Error", MessageBoxButtons.OK);
-            btnRegist.Enabled = false;
+            //btnRegist.Enabled = false;
             }
             else
             {
 
-                if (!validarFechadeArribo()) { MessageBox.Show("¡La Aeronave no tenia vuelo Planificado a esa HORA, Call 911!", "Error", MessageBoxButtons.OK);
-                btnRegist.Enabled = false;
+                if (!validarRuta()) { MessageBox.Show("¡La Aeronave no tenia esta Ruta planificada!", "Error", MessageBoxButtons.OK);
+             //   btnRegist.Enabled = false;
                 }
                 else
                 {
-                    if (!validarRuta()) { MessageBox.Show("¡La Aeronave no tenia este destino, Call 911!", "Error", MessageBoxButtons.OK);
-                    btnRegist.Enabled = false;
+                    if (!validarFechadeArribo()) { MessageBox.Show("¡La fecha de Llegada tiene que ser mayor a la fecha de Salida!", "Error", MessageBoxButtons.OK);
+               //     btnRegist.Enabled = false;
                     }
 
-                    else { MessageBox.Show("¡La Aeronave llego al destino y en el horario correcto", "Notificacion", MessageBoxButtons.OK);
+                    else { MessageBox.Show("¡La Aeronave llego al destino y en el horario correcto, presione Registrar", "Notificacion", MessageBoxButtons.OK);
                                                                                                                                               };
                 }
 
@@ -166,15 +205,19 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
 
             LlegadaDestino llegada = new LlegadaDestino();
-            DAOLlegadaDestino daoll= new DAOLlegadaDestino();
+            DAOLlegadaDestino daoll = new DAOLlegadaDestino();
 
             llegada.matricula = ((Aeronave)cmbMatricula.SelectedItem).matricula;
             llegada.fecha_arribo = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
             llegada.origen_id = ((Ciudad)cmbAOrigen.SelectedItem).id;
-            llegada.destino_id=((Ciudad)cmbASalia.SelectedItem).id;
+            llegada.destino_id = ((Ciudad)cmbASalia.SelectedItem).id;
+            llegada.vuelo_id = this.obtener_vueloID();
 
-            daoll.create(llegada);
-            MessageBox.Show("Llegada de Aeronave Registrada", "Notificacion", MessageBoxButtons.OK);
+            if (daoll.create(llegada))
+            {
+                MessageBox.Show("Llegada de Aeronave Registrada", "Notificacion", MessageBoxButtons.OK);
+            }
+            else { MessageBox.Show("Error al Registrar llegada", "Notificacion", MessageBoxButtons.OK); }
             this.Close();
         }
 

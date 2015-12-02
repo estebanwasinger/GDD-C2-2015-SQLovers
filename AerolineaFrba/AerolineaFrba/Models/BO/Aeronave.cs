@@ -89,13 +89,23 @@ namespace AerolineaFrba.Models.BO
             return serv.tipo_servicio_nombre;
         }
 
-        public int getCantidadButacas() {
+        public int getCantidadButacasPasillo() {
 
             DAOAeronave daoAer = new DAOAeronave();
             int cant_butacas_totales;
-            cant_butacas_totales = daoAer.retrieveButacas(this.matricula);
+            cant_butacas_totales = daoAer.retrieveButacasPasillo(this.matricula);
             return (int)cant_butacas_totales;
         
+        }
+
+        public int getCantidadButacasVentanilla()
+        {
+
+            DAOAeronave daoAer = new DAOAeronave();
+            int cant_butacas_totales;
+            cant_butacas_totales = daoAer.retrieveButacasVentanilla(this.matricula);
+            return (int)cant_butacas_totales;
+
         }
 
         public bool estaDisponible(DateTime fecha_sal) {

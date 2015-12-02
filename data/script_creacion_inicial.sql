@@ -157,7 +157,9 @@ CREATE TABLE sqlovers.aeronave
      sqlovers.tipo_servicio(tipo_servicio_id), 
      aeronave_but_vent       NUMERIC(18, 0), 
      aeronave_but_pasill     NUMERIC(18, 0), 
-     aeronave_fecha_vueltafs DATETIME, 
+     aeronave_fecha_vueltafs DATETIME,
+	 aeronave_fecha_bajaTecnica DATETIME,
+	 aeronave_fecha_bajaDefinitiva DATETIME,
      aeronave_estado         NUMERIC(3, 0) FOREIGN KEY REFERENCES 
      sqlovers.tipo_baja(tipo_baja_id) 
   ) 
@@ -239,17 +241,20 @@ CREATE TABLE sqlovers.pasaje
      sqlovers.vuelo(vuelo_id) 
   ) 
 
+
 CREATE TABLE sqlovers.llegada_destino 
   ( 
-     llegada_codigo     NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
+     llegada_codigo     NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
      llegada_matricula  NVARCHAR(255) FOREIGN KEY REFERENCES 
      sqlovers.aeronave(aeronave_matricula), 
-     llegada_horaarrivo DATETIME, 
+     llegada_horaArrivo DATETIME, 
      llegada_origen     NUMERIC(6, 0) FOREIGN KEY REFERENCES 
      sqlovers.ciudad(ciudad_id), 
      llegada_destino    NUMERIC(6, 0) FOREIGN KEY REFERENCES 
-     sqlovers.ciudad(ciudad_id) 
-  ) 
+     sqlovers.ciudad(ciudad_id),
+	 llegada_vuelo_id    NUMERIC(18, 0) FOREIGN KEY REFERENCES 
+     sqlovers.vuelo(vuelo_id),
+  )  
 
 /*           
 FILL TABLES           
@@ -641,3 +646,16 @@ AS
   END;
   GO
   
+CREATE FUNCTION SQLOVERS.EXISTE_VUELO(@fechaSalida datetime, @matricula nvarchar(255))
+returns bit
+as
+begin
+declare @resultado bit
+
+IF(( select count(*) from sqlovers.vuelo where vuelo_fecha_salida = @fechaSalida  and
+vuelo_aeronave_id like @matricula)= 0)
+begin
+set @resultado = 0
+end ELSE set @resultado = 1
+return @resultado
+end; 

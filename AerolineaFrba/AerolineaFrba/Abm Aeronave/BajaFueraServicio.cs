@@ -17,9 +17,6 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private DAOServicio daoServicio = new DAOServicio();
         private DAOVuelo daoVuelo = new DAOVuelo();
-
-
-
         private Aeronave aeronave { get; set; }
         private bool update;
         private List<Vuelo> lstVuelo { get; set; }
@@ -47,7 +44,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 txtPeso.Enabled = false;
                 txtFabri.Enabled = false;
                 cmbServicio.Enabled = false;
-                dateBaja.Enabled = false;
+                //dateBaja.Enabled = false;
                 
                 update = true;
                 cargarDatosAeronave();                
@@ -161,30 +158,42 @@ namespace AerolineaFrba.Abm_Aeronave
 
         }
 
-        private void btn_darBajaFueraDeServicio(object sender, EventArgs e) {
+        private void btn_darBajaFueraDeServicio(object sender, EventArgs e)
+        {
 
             DAOAeronave daoA = new DAOAeronave();
-            if (tieneVuelos(txtmatricula.Text))
+            DateTime fecha_bfs = new DateTime(dateBaja.Value.Year, dateBaja.Value.Month, dateBaja.Value.Day, horaBFS.Value.Hour, horaBFS.Value.Minute, horaBFS.Value.Second);
+
+            if (DateTime.Compare(fecha_bfs, DateTime.Now) >= 0)
             {
-                MessageBox.Show("La Aeronave tiene Vuelos asignados", "Notificacion", MessageBoxButtons.OK);
+                if (tieneVuelos(txtmatricula.Text))
+                {
+                    MessageBox.Show("La Aeronave tiene Vuelos asignados", "Notificacion", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    DateTime fecha_vueltaS = new DateTime(dateFVS.Value.Year, dateFVS.Value.Month, dateFVS.Value.Day, dateFVS.Value.Hour, dateFVS.Value.Minute, dateFVS.Value.Second);
+
+                    if (DateTime.Compare(fecha_vueltaS, DateTime.Now) > 0)
+                    {
+                        DateTime fechaV = new DateTime(fecha_vueltaS.Year, fecha_vueltaS.Month, fecha_vueltaS.Day);
+                        daoA.bajaFueraServicio(txtmatricula.Text, fecha_vueltaS,fecha_bfs);
+                        MessageBox.Show("Baja por Fuera de Servicio hasta: " + fechaV, "Notificacion", MessageBoxButtons.OK);
+                        this.Close();
+                    }
+
+
+                    else
+                    {
+
+                        MessageBox.Show("Ingrese una fecha superior para la vuelta de Servicio", "Notificacion", MessageBoxButtons.OK);
+                    }
+                }
             }
             else
             {
-                DateTime fecha_vueltaS = new DateTime(dateFVS.Value.Year, dateFVS.Value.Month, dateFVS.Value.Day, dateFVS.Value.Hour, dateFVS.Value.Minute, dateFVS.Value.Second);
-                
-                if (DateTime.Compare(fecha_vueltaS, DateTime.Now) > 0)
-                {
-                    DateTime fechaV = new DateTime(fecha_vueltaS.Year, fecha_vueltaS.Month, fecha_vueltaS.Day);
-                    daoA.bajaFueraServicio(txtmatricula.Text, fecha_vueltaS);
-                    MessageBox.Show("Baja por Fuera de Servicio hasta: " + fechaV, "Notificacion", MessageBoxButtons.OK);
-                    this.Close();
-                }
+                { MessageBox.Show("Verifique fecha/hora de baja", "Notificacion", MessageBoxButtons.OK); }
 
-
-                else
-                {
-                    
-                    MessageBox.Show("Ingrese una fecha superior", "Notificacion", MessageBoxButtons.OK); }
             }
         }
 

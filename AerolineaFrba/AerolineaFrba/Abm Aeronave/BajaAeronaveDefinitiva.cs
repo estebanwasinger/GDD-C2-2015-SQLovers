@@ -162,13 +162,19 @@ namespace AerolineaFrba.Abm_Aeronave
         private void btn_darBajaDefinitiva(object sender, EventArgs e) {
 
             DAOAeronave daoA = new DAOAeronave();
+            DateTime fecha_bajaDef = new DateTime(dateBaja.Value.Year,dateBaja.Value.Month,dateBaja.Value.Day,horaBD.Value.Hour,horaBD.Value.Minute,horaBD.Value.Second);
+
+            if (DateTime.Compare(fecha_bajaDef, DateTime.Now) >= 0)
+            {
 
             if(tieneVuelos(txtmatricula.Text)){
                 MessageBox.Show("La Aeronave tiene Vuelos asignados", "Notificacion", MessageBoxButtons.OK);
             }else{
-            daoA.bajaDef(txtmatricula.Text);
+            daoA.bajaDef(txtmatricula.Text,fecha_bajaDef);
             MessageBox.Show("Baja Definitiva completa", "Notificacion", MessageBoxButtons.OK);}
             this.Close();
+            }else{ MessageBox.Show("Verifique la fecha/hora", "Notificacion", MessageBoxButtons.OK);} 
+
         }
 
         public bool tieneVuelos(string matricula){

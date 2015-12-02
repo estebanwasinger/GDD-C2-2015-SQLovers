@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
 using System.Diagnostics;
+using AerolineaFrba.Generacion_Viaje;
 
 namespace AerolineaFrba.Abm_Ruta
 {
@@ -30,6 +31,10 @@ namespace AerolineaFrba.Abm_Ruta
             this.ruta = ruta;
             
             InitializeComponent();
+
+        }
+
+        public CrearOModificarRuta(GenerarViaje genViaje) {
 
         }
 

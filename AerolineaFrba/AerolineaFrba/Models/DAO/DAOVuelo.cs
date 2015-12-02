@@ -42,32 +42,16 @@ namespace AerolineaFrba.Models.DAO
 
         }
 
-       /* public bool update(Cliente cliente)
-        {
-            try
-            {                
-                List<SqlParameter> ListaParametros = new List<SqlParameter>();
-                ListaParametros.Add(new SqlParameter("@id", (int)cliente.id));
-                ListaParametros.Add(new SqlParameter("@nombre", cliente.nombre));
-                ListaParametros.Add(new SqlParameter("@apellido", cliente.apellido));                
-                ListaParametros.Add(new SqlParameter("@documento", cliente.documento));
-                ListaParametros.Add(new SqlParameter("@dom_calle", cliente.dom_calle));                
-                ListaParametros.Add(new SqlParameter("@dom_nro", cliente.dom_nro));
-                ListaParametros.Add(new SqlParameter("@dom_piso", cliente.dom_piso));
-                ListaParametros.Add(new SqlParameter("@dom_dpto", cliente.dom_dpto));
-                ListaParametros.Add(new SqlParameter("@fecha_nac", cliente.fecha_nac));
-                ListaParametros.Add(new SqlParameter("@mail", cliente.mail));
-                ListaParametros.Add(new SqlParameter("@nacionalidad", cliente.nacionalidad));
-                ListaParametros.Add(new SqlParameter("@tipo_documento", cliente.tipo_documento));
-                ListaParametros.Add(new SqlParameter("@activo", cliente.activo));
-              
-                
-                return DBAcess.WriteInBase("update VIDA_ESTATICA.Cliente set nombre =@nombre, apellido=@apellido, documento=@documento," +
-                    "dom_calle=@dom_calle,dom_nro=@dom_nro,dom_piso=@dom_piso,dom_dpto=@dom_dpto,fecha_nac=@fecha_nac," +
-                    "mail=@mail, nacionalidad=@nacionalidad, activo=@activo where id=@id", "T", ListaParametros);
-            }
-            catch { return false; }
-        }*/
+        public int existe_vuelo(Vuelo vuelo) {
+
+            string comando = String.Format("select SQLOVERS.existe_vuelo({0},{1})", fechaQuereable(vuelo.fechaSalida), stringQuereable(vuelo.aeronave));
+            int existe = DB.ExecuteCardinal(comando);
+            return existe;
+
+        }
+
+
+       
 
         /*public void delete(int Cliente_id)
         {
