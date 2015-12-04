@@ -300,13 +300,16 @@
     <EmbeddedResource Include="Compra\DatosVuelo.resx">
       <DependentUpon>DatosVuelo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generacion Viaje\GenerarViaje.resx">
       <DependentUpon>GenerarViaje.cs</DependentUpon>
     </EmbeddedResource>
-   <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
+    <EmbeddedResource Include="ListadoEstadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
