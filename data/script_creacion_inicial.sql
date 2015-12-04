@@ -157,12 +157,21 @@ CREATE TABLE sqlovers.aeronave
      sqlovers.tipo_servicio(tipo_servicio_id), 
      aeronave_but_vent       NUMERIC(18, 0), 
      aeronave_but_pasill     NUMERIC(18, 0), 
-     aeronave_fecha_vueltafs DATETIME,
-	 aeronave_fecha_bajaTecnica DATETIME,
-	 aeronave_fecha_bajaDefinitiva DATETIME,
+     aeronave_fecha_bajaDefinitiva DATETIME,
      aeronave_estado         NUMERIC(3, 0) FOREIGN KEY REFERENCES 
      sqlovers.tipo_baja(tipo_baja_id) 
   ) 
+  
+CREATE TABLE sqlovers.aeronave_bajas
+(
+    aeronave_baja_id NUMERIC(18,0) IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    aeronave_baja_fecha_vueltafs DATETIME,
+    aeronave_baja_fecha_bajaTecnica DATETIME,
+    aeronave_matricula NVARCHAR(255) FOREIGN KEY REFERENCES  
+    sqlovers.aeronave(aeronave_matricula)
+)
+
+  
 
 CREATE TABLE sqlovers.butaca 
   ( 
@@ -238,7 +247,8 @@ CREATE TABLE sqlovers.pasaje
      cli_dni            NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.cliente(cli_dni), 
      pasaje_vuelo_id    NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.vuelo(vuelo_id) 
+     sqlovers.vuelo(vuelo_id),
+     pasaje_cancelado              BIT NOT NULL
   ) 
 
 
@@ -421,12 +431,14 @@ INSERT INTO sqlovers.pasaje
              pasaje_precio, 
              pasaje_fechacompra, 
              cli_dni, 
-             pasaje_vuelo_id) 
+             pasaje_vuelo_id,
+             pasaje_cancelado) 
 SELECT pasaje_codigo, 
        pasaje_precio, 
        pasaje_fechacompra, 
        cli_dni, 
-       v.vuelo_id 
+       v.vuelo_id,
+       0
 FROM   gd_esquema.maestra m, 
        sqlovers.vuelo v 
 WHERE  pasaje_precio > 0 
