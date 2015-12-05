@@ -16,6 +16,16 @@ IF Object_id('SQLOVERS.Pasaje') IS NOT NULL
       DROP TABLE sqlovers.pasaje; 
   END; 
 
+IF Object_id('SQLOVERS.encomienda') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.encomienda; 
+  END; 
+
+IF Object_id('SQLOVERS.LLEGADA_DESTINO') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.llegada_destino; 
+  END; 
+
 IF Object_id('SQLOVERS.Vuelo') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.vuelo; 
@@ -56,11 +66,6 @@ IF Object_id('SQLOVERS.butaca') IS NOT NULL
       DROP TABLE sqlovers.butaca; 
   END; 
 
-IF Object_id('SQLOVERS.LLEGADA_DESTINO') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.llegada_destino; 
-  END; 
-
 IF Object_id('SQLOVERS.Ciudad') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.ciudad; 
@@ -76,15 +81,20 @@ IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL
       DROP TABLE sqlovers.tipo_servicio; 
   END; 
 
+IF Object_id('SQLOVERS.TIPO_BAJA') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.tipo_baja; 
+  END; 
+
+/*            
+DROP ALL THE FUNCTIONS AND PROCEDURES!!!            
+*/ 
+
 IF Object_id('SQLOVERS.UpdateIntentos') IS NOT NULL 
   BEGIN 
       DROP PROCEDURE sqlovers.updateintentos; 
   END; 
 
-IF Object_id('SQLOVERS.TIPO_BAJA') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.tipo_baja; 
-  END; 
 
 IF Object_id('SQLOVERS.SP_CARGAR_BUTACAS') IS NOT NULL 
   BEGIN 
@@ -111,9 +121,26 @@ IF Object_id('SQLOVERS.existeRuta') IS NOT NULL
       DROP FUNCTION sqlovers.existeRuta; 
   END; 
 
+IF Object_id('SQLOVERS.Cantidadkgdisponibles') IS NOT NULL 
+  BEGIN 
+      DROP FUNCTION sqlovers.Cantidadkgdisponibles; 
+  END; 
+
+IF Object_id('SQLOVERS.darBajaTecnica') IS NOT NULL 
+  BEGIN 
+      DROP PROCEDURE sqlovers.darBajaTecnica; 
+  END;
+
+IF Object_id('SQLOVERS.EXISTE_VUELO') IS NOT NULL 
+  BEGIN 
+      DROP FUNCTION sqlovers.EXISTE_VUELO; 
+  END;
+
 /*            
 CREATE TABLES            
 */ 
+
+
 CREATE TABLE sqlovers.rol 
   ( 
      rol_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
@@ -238,6 +265,15 @@ CREATE TABLE sqlovers.vuelo
      vuelo_ruta_id                NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.ruta(ruta_id) 
   ) 
+
+  CREATE TABLE sqlovers.encomienda
+(
+	encomienda_id int PRIMARY KEY IDENTITY,
+	encomienda_kg int,
+	encomienda_cliente_dni NUMERIC(18,0) FOREIGN KEY REFERENCES sqlovers.cliente(cli_dni),
+	encomienda_vuelo_id NUMERIC(18,0) FOREIGN KEY REFERENCES sqlovers.vuelo(vuelo_id),
+	encomienda_precio_total int
+)
 
 CREATE TABLE sqlovers.pasaje 
   ( 
@@ -481,6 +517,29 @@ VALUES      ('admin',
              1); 
 
 go 
+SET IDENTITY_INSERT sqlovers.encomienda ON
+
+INSERT INTO sqlovers.encomienda 
+            (encomienda_id, 
+             encomienda_kg, 
+             encomienda_cliente_dni, 
+             encomienda_vuelo_id, 
+             encomienda_precio_total) 
+SELECT m.paquete_codigo, 
+       m.paquete_kg, 
+       m.cli_dni, 
+       (SELECT TOP 1 v.vuelo_id 
+        FROM   sqlovers.vuelo v 
+        WHERE  v.vuelo_fecha_llegada = m.fechallegada 
+               AND v.vuelo_fecha_llegada_estimada = m.fecha_llegada_estimada 
+               AND v.vuelo_fecha_salida = m.fechasalida 
+               AND v.vuelo_aeronave_id = m.aeronave_matricula), 
+       m.paquete_precio 
+FROM   gd2c2015.gd_esquema.maestra m 
+WHERE  m.paquete_codigo != 0 
+
+SET IDENTITY_INSERT sqlovers.encomienda OFF
+go
 
 CREATE PROCEDURE sqlovers.Sp_cargar_butacas 
 AS 
@@ -687,3 +746,25 @@ set @resultado = 0
 end ELSE set @resultado = 1
 return @resultado
 end; 
+
+GO
+CREATE FUNCTION sqlovers.Cantidadkgdisponibles(@vuelo_id INT) 
+returns INT 
+AS 
+  BEGIN 
+      DECLARE @kg_disponibles INT; 
+
+      SET @kg_disponibles = (SELECT ( a.aeronave_kg_disponibles - 
+                                      Sum(e.encomienda_kg) ) 
+                             FROM   gd2c2015.sqlovers.vuelo v, 
+                                    sqlovers.aeronave a, 
+                                    sqlovers.encomienda e 
+                             WHERE  v.vuelo_aeronave_id = a.aeronave_matricula 
+                                    AND e.encomienda_vuelo_id = @vuelo_id 
+                                    AND v.vuelo_id = @vuelo_id 
+                             GROUP  BY v.vuelo_id, 
+                                       a.aeronave_kg_disponibles) 
+
+      RETURN @kg_disponibles 
+  END; 
+
