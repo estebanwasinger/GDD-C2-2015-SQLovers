@@ -545,6 +545,22 @@ AS
         END 
   END 
 
+/****** Object:  StoredProcedure [SQLOVERS].[darBajaTecnica]    Script Date: 12/4/2015 5:18:02 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [SQLOVERS].[darBajaTecnica] (@matricula nvarchar(255),@fechaBaja datetime, @fechaRegreso datetime)
+AS
+
+update SQLOVERS.AERONAVE  SET aeronave_estado = 1 where  aeronave_matricula like @matricula
+ 
+insert SQLOVERS.aeronave_bajas values (@fechaRegreso,@fechaBaja,@matricula)
+
+GO
+
 /****** Object:  StoredProcedure [SQLOVERS].[reemplazar_vuelo]    Script Date: 11/26/2015 10:02:15 PM ******/ 
 SET ansi_nulls ON 
 

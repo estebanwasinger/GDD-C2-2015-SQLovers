@@ -97,7 +97,9 @@ namespace AerolineaFrba.Models.DAO
 
         public void bajaFueraServicio(string matricula,DateTime fechaRegreso, DateTime fechaBajaFS) {
 
-            string comando = "update SQLOVERS.AERONAVE  " + String.Format("set aeronave_estado = 1,aeronave_fecha_vueltaFS = '{0}',aeronave_fecha_bajaTecnica='{2}' where aeronave_matricula like '{1}%' ", fechaRegreso, matricula,fechaBajaFS);
+            string comando = String.Format(" EXECUTE sqlovers.darBajaTecnica '{1}',{2},{0} ", fechaQuereable(fechaRegreso), matricula, fechaQuereable(fechaBajaFS));
+            
+            
             DB.ExecuteNonQuery(comando);
         }
 
