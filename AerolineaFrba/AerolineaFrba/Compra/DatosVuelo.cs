@@ -43,10 +43,10 @@ namespace AerolineaFrba.Compra
             pasajeForm.ShowDialog();
             if (pasajeForm.pasaje != null) {
                 pasajeList.Add(pasajeForm.pasaje);
-                dataGridViewPasajes.DataSource = getPasajeList();
+                actualizarDataGridViews();
+                butacasDisponibles = butacasDisponibles - 1;
+                textBoxPasajesDisponibles.Text = butacasDisponibles.ToString();
             }
-            butacasDisponibles = butacasDisponibles - pasajeList.Count;
-            textBoxPasajesDisponibles.Text = butacasDisponibles.ToString();
         }
 
         private void buttonVolver_Click(object sender, EventArgs e)
@@ -60,13 +60,30 @@ namespace AerolineaFrba.Compra
             dataGridViewEncomiendas.AutoGenerateColumns = false;
             dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("precioTotal","Precio",140,true));
             dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("kg", "Kilos", 140, true));
-            dataGridViewEncomiendas.DataSource = encomiendaList;
+            dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("dni", "DNI", 140, true));
 
             dataGridViewPasajes.AutoGenerateColumns = false;
             dataGridViewPasajes.Columns.Add(Utils.crearColumna("precio", "Precio", 140, true));
-            dataGridViewPasajes.Columns.Add(Utils.crearColumna("butaca.numero", "Butaca Nro", 140, true));
-            dataGridViewPasajes.DataSource = pasajeList;
+            dataGridViewPasajes.Columns.Add(Utils.crearColumna("butaca_numero", "Butaca Nro", 140, true));
+            dataGridViewPasajes.Columns.Add(Utils.crearColumna("kg", "DNI", 140, true));
             
+        }
+
+        private void actualizarDataGridViews() {
+            dataGridViewPasajes.Rows.Clear();
+            dataGridViewEncomiendas.Rows.Clear();
+            foreach (Pasaje pasaje in pasajeList) {
+                string[] row1 = new string[] { pasaje.precio.ToString(), pasaje.butaca.numero.ToString(), pasaje.usuario.dni.ToString() };
+                
+                dataGridViewPasajes.Rows.Add(row1);
+            }
+
+            foreach (Encomienda encomienda in encomiendaList)
+            {
+                string[] row1 = new string[] { encomienda.precioTotal.ToString(), encomienda.kg.ToString(), ((Int32) encomienda.dniCliente).ToString() };
+                
+                dataGridViewEncomiendas.Rows.Add(row1);
+            }
         }
 
         private void buttonEncomienda_Click(object sender, EventArgs e)
@@ -77,7 +94,7 @@ namespace AerolineaFrba.Compra
             {
                 Encomienda encomienda = crearEncomienda.encomienda;
                 this.encomiendaList.Add(encomienda);
-                dataGridViewEncomiendas.DataSource = getEncomiendaList();
+                actualizarDataGridViews();
                 actualizarCantidadKGDisponibles(encomienda);
             }
         }
