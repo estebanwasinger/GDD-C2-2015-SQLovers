@@ -14,13 +14,14 @@ namespace AerolineaFrba.Models.DAO
 
         public static bool create(Pasaje pasaje){
             List<SqlParameter> parameterList = new List<SqlParameter>();
-            parameterList.Add(new SqlParameter("@pasaje_codigo", new Random().Next(100000)));
             parameterList.Add(new SqlParameter("@pasaje_vuelo_id", pasaje.vuelo.id));
             parameterList.Add(new SqlParameter("@cli_dni", pasaje.usuario.dni));
-            parameterList.Add(new SqlParameter("@pasaje_fechacompra", DateTime.Now));
-            
-            return DBAcess.WriteInBase("INSERT INTO sqlovers.PASAJE (pasaje_codigo, pasaje_vuelo_id, cli_dni, pasaje_fechacompra) " + 
-                                                " VALUES (@pasaje_codigo, @pasaje_vuelo_id, @cli_dni, @pasaje_fechacompra)", "T", parameterList );
+            parameterList.Add(new SqlParameter("@pasaje_precio", pasaje.precio));
+            parameterList.Add(new SqlParameter("@pasaje_butaca_nro", pasaje.butaca.numero));
+            parameterList.Add(new SqlParameter("@pasaje_fechacompra", pasaje.fechaCompra));
+
+            return DBAcess.WriteInBase("INSERT INTO sqlovers.PASAJE (pasaje_vuelo_id, cli_dni, pasaje_fechacompra, pasaje_precio, pasaje_butaca_nro, pasaje_cancelado) " +
+                                                " VALUES (@pasaje_vuelo_id, @cli_dni, @pasaje_fechacompra, @pasaje_precio, @pasaje_butaca_nro, 0)", "T", parameterList);
         }
 
     }

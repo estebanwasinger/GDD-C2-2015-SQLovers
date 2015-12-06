@@ -16,10 +16,11 @@ namespace AerolineaFrba.Compra
     public partial class CrearEncomienda : Form
     {
         private Models.BO.Pasaje pasaje;
-        private int kgDisponibles;
+        private int kgDisponibles = 0;
         private int precioBaseKg;
-        private Int32 kgSeleccionados;
+        private Int32 kgSeleccionados = 0;
         private Int32 precioTotal;
+        public Cliente cliente;
         public Encomienda encomienda;
 
         public CrearEncomienda()
@@ -41,13 +42,7 @@ namespace AerolineaFrba.Compra
             precioTotal = kgSeleccionados * precioBaseKg;
 
             textBoxPrecioTotal.Text = (precioTotal).ToString();
-            if (kgSeleccionados > kgDisponibles)
-            {
-                buttonComprar.Enabled = false;
-            }
-            else {
-                buttonComprar.Enabled = true;
-            }
+            habilitarBotonAceptar();
         }
 
         private void CrearEncomienda_Load(object sender, EventArgs e)
@@ -58,7 +53,7 @@ namespace AerolineaFrba.Compra
         private void buttonComprar_Click(object sender, EventArgs e)
         {
             encomienda = new Encomienda();
-            encomienda.dniCliente = pasaje.usuario.dni;
+            encomienda.dniCliente = this.cliente.dni;
             encomienda.kg = this.kgSeleccionados;
             encomienda.precioTotal = this.precioTotal;
             encomienda.vueloId = (int) pasaje.vuelo.id;
@@ -68,6 +63,26 @@ namespace AerolineaFrba.Compra
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonBuscarCliente_Click(object sender, EventArgs e)
+        {
+            BuscarCliente clienteForm = new BuscarCliente();
+            clienteForm.ShowDialog();
+            this.cliente = clienteForm.cliente;
+            if (cliente != null)
+            {
+                textBoxApellidoCliente.Text = cliente.apellido;
+                textBoxDni.Text = cliente.dni.ToString();
+                textBoxNombreCliente.Text = cliente.nombre;
+                textBoxUsuario.Text = cliente.username;
+            }
+            habilitarBotonAceptar();
+        }
+
+        private void habilitarBotonAceptar()
+        {
+            buttonComprar.Enabled = cliente != null && kgSeleccionados <= kgDisponibles;
         }
     }
 }

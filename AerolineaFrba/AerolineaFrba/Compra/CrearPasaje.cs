@@ -15,12 +15,16 @@ namespace AerolineaFrba.Compra
 {
     public partial class CrearPasaje : Form
     {
-        private Vuelo vuelo;
         public Butaca butaca;
+        public Cliente cliente;
+        private Pasaje pasajePrivate;
+        public Pasaje pasaje;
+        private List<Pasaje> pasajeList;
 
-        public CrearPasaje(Vuelo vuelo)
+        public CrearPasaje(Pasaje pasaje, List<Pasaje> pasajeList)
         {
-            this.vuelo = vuelo;
+            this.pasajeList = pasajeList;
+            this.pasajePrivate = pasaje;
             InitializeComponent();
         }
 
@@ -37,24 +41,59 @@ namespace AerolineaFrba.Compra
             dataGridViewButacas.Columns.Add(Utils.crearColumna("numero","Numero", 70,true));
             dataGridViewButacas.Columns.Add(Utils.crearColumna("tipo", "Tipo", 70, true));
             dataGridViewButacas.Columns.Add(Utils.crearColumna("piso", "Piso", 70, true));
-            dataGridViewButacas.DataSource = DAOButaca.getButacasDisponibles((int) vuelo.id);
+            List<Butaca> butacaList = DAOButaca.getButacasDisponibles((int) pasajePrivate.vuelo.id);
+            butacaList = filtrarButacasReservadas(pasajeList, butacaList);
+            dataGridViewButacas.DataSource = butacaList;
         }
 
         private void dataGridViewButacas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            buttonAgregar.Enabled = true;
-        }
-
-        private void dataGridViewButacas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            this.butaca = (Butaca)dataGridViewButacas.CurrentRow.DataBoundItem;
-            this.Close();
+            habilitarBotonAceptar();
         }
 
         private void buttonAgregar_Click(object sender, EventArgs e)
         {
             this.butaca = (Butaca)dataGridViewButacas.CurrentRow.DataBoundItem;
+            Pasaje pasaje = new Pasaje();
+            pasaje.vuelo = this.pasajePrivate.vuelo;
+            pasaje.usuario = this.cliente;
+            pasaje.precio = DAORuta.getRuta((int)this.pasajePrivate.vuelo.ruta).precioBasePasaje;
+            pasaje.butaca = this.butaca;
+            pasaje.fechaCompra = System.DateTime.Now;
+            this.pasaje = pasaje;
             this.Close();
         }
+
+        private void buttonBuscarCliente_Click(object sender, EventArgs e)
+        {
+            BuscarCliente clienteForm = new BuscarCliente();
+            clienteForm.ShowDialog();
+            this.cliente = clienteForm.cliente;
+            if (cliente != null) {
+                textBoxApellidoCliente.Text = cliente.apellido;
+                textBoxDni.Text = cliente.dni.ToString();
+                textBoxNombreCliente.Text = cliente.nombre;
+                textBoxUsuario.Text = cliente.username;
+            }
+            habilitarBotonAceptar();
+        }
+
+        private void habilitarBotonAceptar()
+        {
+            if (cliente != null && dataGridViewButacas.SelectedCells.Count != 0)
+            {
+                buttonAgregar.Enabled = true;
+            }
+        }
+
+        private List<Butaca> filtrarButacasReservadas(List<Pasaje> pasajeList, List<Butaca> butacaList)
+        {
+                foreach (Pasaje pasaje in pasajeList)
+                {
+                    butacaList.Remove(pasaje.butaca);
+                }
+                return butacaList;
+        }
+
     }
 }

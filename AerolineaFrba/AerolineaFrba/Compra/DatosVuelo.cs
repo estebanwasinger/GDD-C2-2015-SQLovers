@@ -19,6 +19,7 @@ namespace AerolineaFrba.Compra
         private Int32 kgDisponibles;
         private List<Encomienda> encomiendaList = new List<Encomienda>();
         private List<Pasaje> pasajeList = new List<Pasaje>();
+        private int butacasDisponibles;
 
         public DatosVuelo(Pasaje pasaje)
         {
@@ -32,40 +33,20 @@ namespace AerolineaFrba.Compra
             textBoxCiudadOrigen.Text = ruta.ciudadOrigenNombre;
             kgDisponibles = DAOVuelo.getKgDisponibles((int)pasaje.vuelo.id);
             textBoxKilogramosDisponibles.Text = kgDisponibles.ToString();
-            textBoxPasajesDisponibles.Text = DAOButaca.getButacasDisponibles((int)pasaje.vuelo.id).Count.ToString();
-        }
-
-        private void buttonBuscarCliente_Click(object sender, EventArgs e)
-        {
-            BuscarCliente buscarClienteForm = new BuscarCliente();
-            buscarClienteForm.ShowDialog();
-            if (buscarClienteForm.cliente != null)
-            {
-                textBoxApellidoCliente.Text = buscarClienteForm.cliente.apellido;
-                textBoxNombreCliente.Text = buscarClienteForm.cliente.nombre;
-                textBoxDni.Text = buscarClienteForm.cliente.dni.ToString() ;
-                textBoxUsuario.Text = buscarClienteForm.cliente.username;
-                pasaje.usuario = buscarClienteForm.cliente;
-
-                buttonPasaje.Enabled = true;
-                buttonEncomienda.Enabled = true;
-            }
+            butacasDisponibles = DAOButaca.getButacasDisponibles((int)pasaje.vuelo.id).Count;
+            textBoxPasajesDisponibles.Text = butacasDisponibles.ToString();
         }
 
         private void buttonPasaje_Click(object sender, EventArgs e)
         {
-            CrearPasaje pasajeForm = new CrearPasaje(this.pasaje.vuelo);
+            CrearPasaje pasajeForm = new CrearPasaje(this.pasaje,pasajeList);
             pasajeForm.ShowDialog();
-            if (pasajeForm.butaca != null) { 
-                Pasaje pasaje = new Pasaje();
-                pasaje.vuelo = this.pasaje.vuelo;
-                pasaje.usuario = this.pasaje.usuario;
-                pasaje.precio = DAORuta.getRuta((int) this.pasaje.vuelo.ruta).precioBasePasaje;
-                pasaje.butaca = pasajeForm.butaca;
-                pasaje.fechaCompra = System.DateTime.Now;
-                pasajeList.Add(pasaje);
+            if (pasajeForm.pasaje != null) {
+                pasajeList.Add(pasajeForm.pasaje);
                 dataGridViewPasajes.DataSource = getPasajeList();
             }
+            butacasDisponibles = butacasDisponibles - pasajeList.Count;
+            textBoxPasajesDisponibles.Text = butacasDisponibles.ToString();
         }
 
         private void buttonVolver_Click(object sender, EventArgs e)
@@ -75,8 +56,6 @@ namespace AerolineaFrba.Compra
 
         private void DatosVuelo_Load(object sender, EventArgs e)
         {
-            buttonEncomienda.Enabled = false;
-            buttonPasaje.Enabled = false;
 
             dataGridViewEncomiendas.AutoGenerateColumns = false;
             dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("precioTotal","Precio",140,true));
