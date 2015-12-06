@@ -20,6 +20,16 @@ namespace AerolineaFrba.Models.Utils
                 keypress == ',';
         }
 
+        public static DataGridViewTextBoxColumn crearColumna(String dataPropertyName, String headerText, int width, bool readOnly)
+        {
+            DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
+            columna.DataPropertyName = dataPropertyName;
+            columna.HeaderText = headerText;
+            columna.Width = width;
+            columna.ReadOnly = readOnly;
+            return columna;
+        }
+
         public static bool isPlainNumeric(char keypress)
         {
             return keypress == Convert.ToChar(Keys.D0) ||

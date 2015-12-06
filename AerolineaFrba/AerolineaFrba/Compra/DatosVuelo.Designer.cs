@@ -57,16 +57,25 @@
             this.textBoxNombreCliente = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.buttonBuscarCliente = new System.Windows.Forms.Button();
+            this.dataGridViewEncomiendas = new System.Windows.Forms.DataGridView();
+            this.groupBoxEncomiendas = new System.Windows.Forms.GroupBox();
+            this.groupBoxPasajes = new System.Windows.Forms.GroupBox();
+            this.dataGridViewPasajes = new System.Windows.Forms.DataGridView();
+            this.buttonConfirmarCompra = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEncomiendas)).BeginInit();
+            this.groupBoxEncomiendas.SuspendLayout();
+            this.groupBoxPasajes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPasajes)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonVolver
             // 
-            this.buttonVolver.Location = new System.Drawing.Point(10, 435);
+            this.buttonVolver.Location = new System.Drawing.Point(12, 530);
             this.buttonVolver.Name = "buttonVolver";
-            this.buttonVolver.Size = new System.Drawing.Size(229, 57);
+            this.buttonVolver.Size = new System.Drawing.Size(342, 57);
             this.buttonVolver.TabIndex = 0;
             this.buttonVolver.Text = "Volver";
             this.buttonVolver.UseVisualStyleBackColor = true;
@@ -74,21 +83,21 @@
             // 
             // buttonEncomienda
             // 
-            this.buttonEncomienda.Location = new System.Drawing.Point(245, 435);
+            this.buttonEncomienda.Location = new System.Drawing.Point(6, 155);
             this.buttonEncomienda.Name = "buttonEncomienda";
-            this.buttonEncomienda.Size = new System.Drawing.Size(229, 57);
+            this.buttonEncomienda.Size = new System.Drawing.Size(329, 32);
             this.buttonEncomienda.TabIndex = 1;
-            this.buttonEncomienda.Text = "Comprar Encomienda";
+            this.buttonEncomienda.Text = "Agregar Encomienda";
             this.buttonEncomienda.UseVisualStyleBackColor = true;
             this.buttonEncomienda.Click += new System.EventHandler(this.buttonEncomienda_Click);
             // 
             // buttonPasaje
             // 
-            this.buttonPasaje.Location = new System.Drawing.Point(480, 435);
+            this.buttonPasaje.Location = new System.Drawing.Point(6, 155);
             this.buttonPasaje.Name = "buttonPasaje";
-            this.buttonPasaje.Size = new System.Drawing.Size(229, 57);
+            this.buttonPasaje.Size = new System.Drawing.Size(331, 32);
             this.buttonPasaje.TabIndex = 2;
-            this.buttonPasaje.Text = "Comprar Pasaje";
+            this.buttonPasaje.Text = "Agregar Pasaje";
             this.buttonPasaje.UseVisualStyleBackColor = true;
             this.buttonPasaje.Click += new System.EventHandler(this.buttonPasaje_Click);
             // 
@@ -197,16 +206,16 @@
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.textBoxPasajesDisponibles);
             this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Location = new System.Drawing.Point(13, 172);
+            this.groupBox2.Location = new System.Drawing.Point(13, 160);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(694, 98);
+            this.groupBox2.Size = new System.Drawing.Size(694, 52);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Disponibilidad";
             // 
             // textBoxKilogramosDisponibles
             // 
-            this.textBoxKilogramosDisponibles.Location = new System.Drawing.Point(495, 44);
+            this.textBoxKilogramosDisponibles.Location = new System.Drawing.Point(495, 19);
             this.textBoxKilogramosDisponibles.Name = "textBoxKilogramosDisponibles";
             this.textBoxKilogramosDisponibles.Size = new System.Drawing.Size(180, 20);
             this.textBoxKilogramosDisponibles.TabIndex = 13;
@@ -214,7 +223,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(371, 47);
+            this.label7.Location = new System.Drawing.Point(371, 22);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(118, 13);
             this.label7.TabIndex = 12;
@@ -222,7 +231,7 @@
             // 
             // textBoxPasajesDisponibles
             // 
-            this.textBoxPasajesDisponibles.Location = new System.Drawing.Point(127, 44);
+            this.textBoxPasajesDisponibles.Location = new System.Drawing.Point(127, 19);
             this.textBoxPasajesDisponibles.Name = "textBoxPasajesDisponibles";
             this.textBoxPasajesDisponibles.Size = new System.Drawing.Size(180, 20);
             this.textBoxPasajesDisponibles.TabIndex = 11;
@@ -230,7 +239,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 47);
+            this.label6.Location = new System.Drawing.Point(15, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(106, 13);
             this.label6.TabIndex = 10;
@@ -246,7 +255,7 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.textBoxNombreCliente);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Location = new System.Drawing.Point(13, 308);
+            this.groupBox3.Location = new System.Drawing.Point(13, 222);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(608, 102);
             this.groupBox3.TabIndex = 5;
@@ -319,7 +328,7 @@
             // 
             // buttonBuscarCliente
             // 
-            this.buttonBuscarCliente.Location = new System.Drawing.Point(627, 319);
+            this.buttonBuscarCliente.Location = new System.Drawing.Point(627, 233);
             this.buttonBuscarCliente.Name = "buttonBuscarCliente";
             this.buttonBuscarCliente.Size = new System.Drawing.Size(77, 91);
             this.buttonBuscarCliente.TabIndex = 0;
@@ -327,17 +336,66 @@
             this.buttonBuscarCliente.UseVisualStyleBackColor = true;
             this.buttonBuscarCliente.Click += new System.EventHandler(this.buttonBuscarCliente_Click);
             // 
+            // dataGridViewEncomiendas
+            // 
+            this.dataGridViewEncomiendas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewEncomiendas.Location = new System.Drawing.Point(6, 19);
+            this.dataGridViewEncomiendas.Name = "dataGridViewEncomiendas";
+            this.dataGridViewEncomiendas.Size = new System.Drawing.Size(329, 130);
+            this.dataGridViewEncomiendas.TabIndex = 6;
+            // 
+            // groupBoxEncomiendas
+            // 
+            this.groupBoxEncomiendas.Controls.Add(this.dataGridViewEncomiendas);
+            this.groupBoxEncomiendas.Controls.Add(this.buttonEncomienda);
+            this.groupBoxEncomiendas.Location = new System.Drawing.Point(13, 331);
+            this.groupBoxEncomiendas.Name = "groupBoxEncomiendas";
+            this.groupBoxEncomiendas.Size = new System.Drawing.Size(341, 193);
+            this.groupBoxEncomiendas.TabIndex = 7;
+            this.groupBoxEncomiendas.TabStop = false;
+            this.groupBoxEncomiendas.Text = "Encomiendas";
+            // 
+            // groupBoxPasajes
+            // 
+            this.groupBoxPasajes.Controls.Add(this.dataGridViewPasajes);
+            this.groupBoxPasajes.Controls.Add(this.buttonPasaje);
+            this.groupBoxPasajes.Location = new System.Drawing.Point(361, 331);
+            this.groupBoxPasajes.Name = "groupBoxPasajes";
+            this.groupBoxPasajes.Size = new System.Drawing.Size(343, 193);
+            this.groupBoxPasajes.TabIndex = 8;
+            this.groupBoxPasajes.TabStop = false;
+            this.groupBoxPasajes.Text = "Pasajes";
+            // 
+            // dataGridViewPasajes
+            // 
+            this.dataGridViewPasajes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPasajes.Location = new System.Drawing.Point(7, 19);
+            this.dataGridViewPasajes.Name = "dataGridViewPasajes";
+            this.dataGridViewPasajes.Size = new System.Drawing.Size(330, 130);
+            this.dataGridViewPasajes.TabIndex = 3;
+            // 
+            // buttonConfirmarCompra
+            // 
+            this.buttonConfirmarCompra.Location = new System.Drawing.Point(362, 530);
+            this.buttonConfirmarCompra.Name = "buttonConfirmarCompra";
+            this.buttonConfirmarCompra.Size = new System.Drawing.Size(342, 57);
+            this.buttonConfirmarCompra.TabIndex = 9;
+            this.buttonConfirmarCompra.Text = "Comprar";
+            this.buttonConfirmarCompra.UseVisualStyleBackColor = true;
+            this.buttonConfirmarCompra.Click += new System.EventHandler(this.buttonConfirmarCompra_Click);
+            // 
             // DatosVuelo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 504);
+            this.ClientSize = new System.Drawing.Size(716, 599);
+            this.Controls.Add(this.buttonConfirmarCompra);
+            this.Controls.Add(this.groupBoxPasajes);
+            this.Controls.Add(this.groupBoxEncomiendas);
             this.Controls.Add(this.buttonBuscarCliente);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.buttonPasaje);
-            this.Controls.Add(this.buttonEncomienda);
             this.Controls.Add(this.buttonVolver);
             this.Name = "DatosVuelo";
             this.Text = "DatosVuelo";
@@ -348,6 +406,10 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEncomiendas)).EndInit();
+            this.groupBoxEncomiendas.ResumeLayout(false);
+            this.groupBoxPasajes.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPasajes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -383,5 +445,10 @@
         private System.Windows.Forms.TextBox textBoxNombreCliente;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button buttonBuscarCliente;
+        private System.Windows.Forms.DataGridView dataGridViewEncomiendas;
+        private System.Windows.Forms.GroupBox groupBoxEncomiendas;
+        private System.Windows.Forms.GroupBox groupBoxPasajes;
+        private System.Windows.Forms.DataGridView dataGridViewPasajes;
+        private System.Windows.Forms.Button buttonConfirmarCompra;
     }
 }

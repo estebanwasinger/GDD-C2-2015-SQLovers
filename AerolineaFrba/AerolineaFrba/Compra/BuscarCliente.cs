@@ -1,5 +1,6 @@
 ﻿using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
+using AerolineaFrba.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,22 +30,12 @@ namespace AerolineaFrba.Compra
 
         private void BuscarCliente_Load(object sender, EventArgs e)
         {
-            dataGridViewClientes.Columns.Add(crearColumna("dni", "DNI", 50, true));
-            dataGridViewClientes.Columns.Add(crearColumna("nombre", "Nombre", 100, true));
-            dataGridViewClientes.Columns.Add(crearColumna("apellido", "Apellido", 100, true));
+            dataGridViewClientes.Columns.Add(Utils.crearColumna("dni", "DNI", 50, true));
+            dataGridViewClientes.Columns.Add(Utils.crearColumna("nombre", "Nombre", 100, true));
+            dataGridViewClientes.Columns.Add(Utils.crearColumna("apellido", "Apellido", 100, true));
             dataGridViewClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewClientes.DataSource = DAOCliente.retrieveAll();
             buttonSeleccionar.Enabled = false;
-        }
-
-        private static DataGridViewTextBoxColumn crearColumna(String dataPropertyName, String headerText, int width, bool readOnly)
-        {
-            DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
-            columna.DataPropertyName = dataPropertyName;
-            columna.HeaderText = headerText;
-            columna.Width = width;
-            columna.ReadOnly = readOnly;
-            return columna;
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)

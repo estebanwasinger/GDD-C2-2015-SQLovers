@@ -165,6 +165,12 @@
     <Compile Include="Compra\CrearEncomienda.Designer.cs">
       <DependentUpon>CrearEncomienda.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\CrearPasaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\CrearPasaje.Designer.cs">
+      <DependentUpon>CrearPasaje.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\DatosVuelo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,6 +214,7 @@
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BO\Aeronave.cs" />
+    <Compile Include="Models\BO\Butaca.cs" />
     <Compile Include="Models\BO\Ciudad.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\Compra.cs" />
@@ -221,6 +228,7 @@
     <Compile Include="Models\BO\IBO.cs" />
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
+    <Compile Include="Models\DAO\DAOButaca.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
     <Compile Include="Models\DAO\DAOEncomienda.cs" />
     <Compile Include="Models\DAO\DAOFuncionalidad.cs" />
@@ -238,6 +246,7 @@
     <Compile Include="Models\DAO\DAOVuelo.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
     <Compile Include="Models\BO\Usuario.cs" />
+    <Compile Include="Models\Utils\Comprable.cs" />
     <Compile Include="Models\Utils\DB.cs" />
     <Compile Include="Models\Utils\MyException.cs" />
     <Compile Include="Models\Utils\Utils.cs" />
@@ -307,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\CrearEncomienda.resx">
       <DependentUpon>CrearEncomienda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\CrearPasaje.resx">
+      <DependentUpon>CrearPasaje.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\DatosVuelo.resx">
       <DependentUpon>DatosVuelo.cs</DependentUpon>

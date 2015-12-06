@@ -1,5 +1,6 @@
 ﻿using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
+using AerolineaFrba.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace AerolineaFrba.Compra
         private int precioBaseKg;
         private Int32 kgSeleccionados;
         private Int32 precioTotal;
+        public Encomienda encomienda;
 
         public CrearEncomienda()
         {
@@ -55,14 +57,11 @@ namespace AerolineaFrba.Compra
 
         private void buttonComprar_Click(object sender, EventArgs e)
         {
-            Encomienda encomienda = new Encomienda();
+            encomienda = new Encomienda();
             encomienda.dniCliente = pasaje.usuario.dni;
             encomienda.kg = this.kgSeleccionados;
             encomienda.precioTotal = this.precioTotal;
             encomienda.vueloId = (int) pasaje.vuelo.id;
-            if (DAOEncomienda.create(encomienda)) {
-                MessageBox.Show("Encomienda creada correctamente!");
-            }
             this.Close();
         }
 
