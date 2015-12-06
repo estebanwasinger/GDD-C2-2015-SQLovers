@@ -71,6 +71,11 @@ IF Object_id('SQLOVERS.Ciudad') IS NOT NULL
       DROP TABLE sqlovers.CIUDAD; 
   END; 
 
+IF Object_id('SQLOVERS.productos') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.productos; 
+  END; 
+
 IF Object_id('SQLOVERS.aeronave_bajas') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.AERONAVE_BAJAS; 
@@ -90,6 +95,7 @@ IF Object_id('SQLOVERS.TIPO_BAJA') IS NOT NULL
   BEGIN 
       DROP TABLE sqlovers.TIPO_BAJA; 
   END; 
+
 
 /*              
 DROP ALL THE FUNCTIONS AND PROCEDURES!!!              
@@ -158,6 +164,14 @@ CREATE TABLE sqlovers.FUNCIONALIDAD
   ( 
      funcionalidad_id   NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
      funcionalidad_desc NVARCHAR(255) 
+  ) 
+
+CREATE TABLE sqlovers.productos
+  ( 
+     producto_id   NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
+     producto_nombre NVARCHAR(255),
+	 producto_cantMillas numeric(5,0),
+	 producto_stock numeric(5,0)
   ) 
 
 CREATE TABLE sqlovers.FUNCIONALIDAD_ROL 
@@ -240,6 +254,7 @@ CREATE TABLE sqlovers.CLIENTE
      cli_telefono  NUMERIC(18, 0), 
      cli_mail      NVARCHAR(255), 
      cli_fecha_nac DATETIME, 
+	 cli_millas NUMERIC(18,0),
      cli_username  NVARCHAR(255) FOREIGN KEY REFERENCES 
      sqlovers.USUARIO(user_username) 
   ); 
@@ -325,6 +340,29 @@ VALUES      ('Admin',
             ('User', 
              1) 
 
+iNSERT INTO SQLOVERS.productos
+			(producto_nombre,
+			producto_cantMillas,
+			producto_stock)
+values		('bicicleta',
+			25000,
+			10000)
+
+iNSERT INTO SQLOVERS.productos
+			(producto_nombre,
+			producto_cantMillas,
+			producto_stock)
+values		('tablet',
+			28000,
+			10000)
+
+iNSERT INTO SQLOVERS.productos
+			(producto_nombre,
+			producto_cantMillas,
+			producto_stock)
+values		('notebook',
+			99000,
+			10000)
 INSERT INTO sqlovers.TIPO_SERVICIO 
             (tipo_servicio_nombre) 
 SELECT DISTINCT tipo_servicio 
@@ -427,6 +465,7 @@ INSERT INTO sqlovers.CLIENTE
              cli_telefono, 
              cli_mail, 
              cli_fecha_nac, 
+			 cli_millas,
              cli_username) 
 SELECT cli_nombre, 
        cli_apellido, 
@@ -435,6 +474,7 @@ SELECT cli_nombre,
        cli_telefono, 
        cli_mail, 
        cli_fecha_nac, 
+	   10000,
        Lower(Replace(cli_nombre, ' ', '.') + '.' 
              + Replace(cli_apellido, ' ', '.') 
              + CONVERT(VARCHAR(20), cli_dni)) 
@@ -451,6 +491,7 @@ FROM   (SELECT cli_nombre,
                    ORDER BY cli_dni) AS RowNumber 
         FROM   gd_esquema.MAESTRA) AS a 
 WHERE  a.rownumber = 1 
+
 
 INSERT INTO sqlovers.FUNCIONALIDAD 
             (funcionalidad_desc) 
@@ -821,4 +862,3 @@ AS
       RETURN 
   END; 
   GO
-  SELECT * FROM SQLOVERS.Butacasdisponibles(18)
