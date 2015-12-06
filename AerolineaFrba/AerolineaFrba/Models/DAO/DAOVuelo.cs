@@ -173,6 +173,17 @@ namespace AerolineaFrba.Models.DAO
 
         }
 
+        public static int getKgDisponibles(int vueloId)
+        {
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@vueloId", vueloId));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT sqlovers.Cantidadkgdisponibles(@vueloId) ", "T", parameterList);
+
+            lector.Read();
+
+            return lector.GetInt32(0);
+        }
+
         public static List<Vuelo> retrieveAll()
         {
             List<Vuelo> l = new List<Vuelo>();

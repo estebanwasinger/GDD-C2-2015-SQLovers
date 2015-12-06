@@ -15,6 +15,7 @@ namespace AerolineaFrba.Compra
     public partial class DatosVuelo : Form
     {
         private Pasaje pasaje;
+        private Int32 kgDisponibles;
 
         public DatosVuelo(Pasaje pasaje)
         {
@@ -26,6 +27,8 @@ namespace AerolineaFrba.Compra
             Ruta ruta = DAORuta.getRuta((int) pasaje.vuelo.ruta);
             textBoxCiudadDestino.Text = ruta.ciudadDestinoNombre;
             textBoxCiudadOrigen.Text = ruta.ciudadOrigenNombre;
+            kgDisponibles = DAOVuelo.getKgDisponibles((int)pasaje.vuelo.id);
+            textBoxKilogramosDisponibles.Text = kgDisponibles.ToString();
         }
 
         private void buttonBuscarCliente_Click(object sender, EventArgs e)
@@ -39,7 +42,9 @@ namespace AerolineaFrba.Compra
                 textBoxDni.Text = buscarClienteForm.cliente.dni.ToString() ;
                 textBoxUsuario.Text = buscarClienteForm.cliente.username;
                 pasaje.usuario = buscarClienteForm.cliente;
-                
+
+                buttonPasaje.Enabled = true;
+                buttonEncomienda.Enabled = true;
             }
         }
 
@@ -48,6 +53,25 @@ namespace AerolineaFrba.Compra
             if (!DAOPasaje.create(this.pasaje)) {
                 throw new Exception("ERROR");
             }
+        }
+
+        private void buttonVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void DatosVuelo_Load(object sender, EventArgs e)
+        {
+            buttonEncomienda.Enabled = false;
+            buttonPasaje.Enabled = false;
+        }
+
+        private void buttonEncomienda_Click(object sender, EventArgs e)
+        {
+            CrearEncomienda crearEncomienda = new CrearEncomienda(pasaje,kgDisponibles);
+            crearEncomienda.ShowDialog();
+            kgDisponibles = DAOVuelo.getKgDisponibles((int)pasaje.vuelo.id);
+            textBoxKilogramosDisponibles.Text = kgDisponibles.ToString();
         }
     }
 }

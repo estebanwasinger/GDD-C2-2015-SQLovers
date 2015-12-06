@@ -86,5 +86,11 @@ namespace AerolineaFrba.Compra
             this.Close();
         }
 
+        private void dataGridViewClientes_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.cliente = (Cliente)dataGridViewClientes.CurrentRow.DataBoundItem;
+            this.Close();
+        }
+
     }
 }

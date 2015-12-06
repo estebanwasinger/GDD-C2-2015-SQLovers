@@ -159,6 +159,12 @@
     <Compile Include="Compra\CrearDatosPasajero.Designer.cs">
       <DependentUpon>CrearDatosPasajero.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\CrearEncomienda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\CrearEncomienda.Designer.cs">
+      <DependentUpon>CrearEncomienda.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\DatosVuelo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +211,7 @@
     <Compile Include="Models\BO\Ciudad.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\Compra.cs" />
+    <Compile Include="Models\BO\Encomienda.cs" />
     <Compile Include="Models\BO\Funcionalidad.cs" />
     <Compile Include="Models\BO\Pasaje.cs" />
     <Compile Include="Models\BO\LlegadaDestino.cs" />
@@ -215,6 +222,7 @@
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
+    <Compile Include="Models\DAO\DAOEncomienda.cs" />
     <Compile Include="Models\DAO\DAOFuncionalidad.cs" />
     <Compile Include="Models\DAO\DAOListadoEstadistico.cs" />
     <Compile Include="Models\DAO\DAOLlegadaDestino.cs" />
@@ -296,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\CrearDatosPasajero.resx">
       <DependentUpon>CrearDatosPasajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\CrearEncomienda.resx">
+      <DependentUpon>CrearEncomienda.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\DatosVuelo.resx">
       <DependentUpon>DatosVuelo.cs</DependentUpon>

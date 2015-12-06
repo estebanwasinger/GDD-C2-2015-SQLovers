@@ -149,7 +149,8 @@
             this.dataGridViewVuelos.Name = "dataGridViewVuelos";
             this.dataGridViewVuelos.Size = new System.Drawing.Size(718, 336);
             this.dataGridViewVuelos.TabIndex = 13;
-            this.dataGridViewVuelos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewVuelos_CellContentClick);
+            this.dataGridViewVuelos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewVuelos_CellContentClick);
+            this.dataGridViewVuelos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewVuelos_CellDoubleClick);
             // 
             // buttonContinuar
             // 

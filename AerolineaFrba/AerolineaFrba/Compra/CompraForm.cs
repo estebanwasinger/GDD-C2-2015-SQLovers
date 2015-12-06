@@ -110,5 +110,13 @@ namespace AerolineaFrba.Compra
         {
             return (Vuelo) dataGridViewVuelos.CurrentRow.DataBoundItem;
         }
+
+        private void dataGridViewVuelos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Pasaje nuevoPasaje = new Pasaje();
+            nuevoPasaje.vuelo = selectedVuelo();
+            DatosVuelo datosVuelo = new DatosVuelo(nuevoPasaje);
+            datosVuelo.ShowDialog();
+        }
     }
 }

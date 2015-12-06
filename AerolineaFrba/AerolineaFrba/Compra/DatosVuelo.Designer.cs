@@ -48,15 +48,15 @@
             this.textBoxPasajesDisponibles = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.buttonBuscarCliente = new System.Windows.Forms.Button();
-            this.textBoxNombreCliente = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBoxApellidoCliente = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBoxUsuario = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.textBoxDni = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.textBoxUsuario = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxApellidoCliente = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxNombreCliente = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.buttonBuscarCliente = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -64,25 +64,27 @@
             // 
             // buttonVolver
             // 
-            this.buttonVolver.Location = new System.Drawing.Point(3, 435);
+            this.buttonVolver.Location = new System.Drawing.Point(10, 435);
             this.buttonVolver.Name = "buttonVolver";
             this.buttonVolver.Size = new System.Drawing.Size(229, 57);
             this.buttonVolver.TabIndex = 0;
             this.buttonVolver.Text = "Volver";
             this.buttonVolver.UseVisualStyleBackColor = true;
+            this.buttonVolver.Click += new System.EventHandler(this.buttonVolver_Click);
             // 
             // buttonEncomienda
             // 
-            this.buttonEncomienda.Location = new System.Drawing.Point(238, 435);
+            this.buttonEncomienda.Location = new System.Drawing.Point(245, 435);
             this.buttonEncomienda.Name = "buttonEncomienda";
             this.buttonEncomienda.Size = new System.Drawing.Size(229, 57);
             this.buttonEncomienda.TabIndex = 1;
             this.buttonEncomienda.Text = "Comprar Encomienda";
             this.buttonEncomienda.UseVisualStyleBackColor = true;
+            this.buttonEncomienda.Click += new System.EventHandler(this.buttonEncomienda_Click);
             // 
             // buttonPasaje
             // 
-            this.buttonPasaje.Location = new System.Drawing.Point(473, 435);
+            this.buttonPasaje.Location = new System.Drawing.Point(480, 435);
             this.buttonPasaje.Name = "buttonPasaje";
             this.buttonPasaje.Size = new System.Drawing.Size(229, 57);
             this.buttonPasaje.TabIndex = 2;
@@ -251,47 +253,21 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos Cliente";
             // 
-            // buttonBuscarCliente
+            // textBoxDni
             // 
-            this.buttonBuscarCliente.Location = new System.Drawing.Point(627, 319);
-            this.buttonBuscarCliente.Name = "buttonBuscarCliente";
-            this.buttonBuscarCliente.Size = new System.Drawing.Size(77, 91);
-            this.buttonBuscarCliente.TabIndex = 0;
-            this.buttonBuscarCliente.Text = "Buscar Cliente";
-            this.buttonBuscarCliente.UseVisualStyleBackColor = true;
-            this.buttonBuscarCliente.Click += new System.EventHandler(this.buttonBuscarCliente_Click);
+            this.textBoxDni.Location = new System.Drawing.Point(395, 19);
+            this.textBoxDni.Name = "textBoxDni";
+            this.textBoxDni.Size = new System.Drawing.Size(180, 20);
+            this.textBoxDni.TabIndex = 17;
             // 
-            // textBoxNombreCliente
+            // label11
             // 
-            this.textBoxNombreCliente.Location = new System.Drawing.Point(98, 19);
-            this.textBoxNombreCliente.Name = "textBoxNombreCliente";
-            this.textBoxNombreCliente.Size = new System.Drawing.Size(180, 20);
-            this.textBoxNombreCliente.TabIndex = 11;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 22);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 13);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Nombre:";
-            // 
-            // textBoxApellidoCliente
-            // 
-            this.textBoxApellidoCliente.Location = new System.Drawing.Point(98, 47);
-            this.textBoxApellidoCliente.Name = "textBoxApellidoCliente";
-            this.textBoxApellidoCliente.Size = new System.Drawing.Size(180, 20);
-            this.textBoxApellidoCliente.TabIndex = 13;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 50);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(47, 13);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "Apellido:";
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(312, 22);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(29, 13);
+            this.label11.TabIndex = 16;
+            this.label11.Text = "DNI:";
             // 
             // textBoxUsuario
             // 
@@ -309,21 +285,47 @@
             this.label10.TabIndex = 14;
             this.label10.Text = "Usuario:";
             // 
-            // textBoxDni
+            // textBoxApellidoCliente
             // 
-            this.textBoxDni.Location = new System.Drawing.Point(395, 19);
-            this.textBoxDni.Name = "textBoxDni";
-            this.textBoxDni.Size = new System.Drawing.Size(180, 20);
-            this.textBoxDni.TabIndex = 17;
+            this.textBoxApellidoCliente.Location = new System.Drawing.Point(98, 47);
+            this.textBoxApellidoCliente.Name = "textBoxApellidoCliente";
+            this.textBoxApellidoCliente.Size = new System.Drawing.Size(180, 20);
+            this.textBoxApellidoCliente.TabIndex = 13;
             // 
-            // label11
+            // label9
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(312, 22);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(29, 13);
-            this.label11.TabIndex = 16;
-            this.label11.Text = "DNI:";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 50);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(47, 13);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "Apellido:";
+            // 
+            // textBoxNombreCliente
+            // 
+            this.textBoxNombreCliente.Location = new System.Drawing.Point(98, 19);
+            this.textBoxNombreCliente.Name = "textBoxNombreCliente";
+            this.textBoxNombreCliente.Size = new System.Drawing.Size(180, 20);
+            this.textBoxNombreCliente.TabIndex = 11;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 13);
+            this.label8.TabIndex = 10;
+            this.label8.Text = "Nombre:";
+            // 
+            // buttonBuscarCliente
+            // 
+            this.buttonBuscarCliente.Location = new System.Drawing.Point(627, 319);
+            this.buttonBuscarCliente.Name = "buttonBuscarCliente";
+            this.buttonBuscarCliente.Size = new System.Drawing.Size(77, 91);
+            this.buttonBuscarCliente.TabIndex = 0;
+            this.buttonBuscarCliente.Text = "Buscar Cliente";
+            this.buttonBuscarCliente.UseVisualStyleBackColor = true;
+            this.buttonBuscarCliente.Click += new System.EventHandler(this.buttonBuscarCliente_Click);
             // 
             // DatosVuelo
             // 
@@ -339,6 +341,7 @@
             this.Controls.Add(this.buttonVolver);
             this.Name = "DatosVuelo";
             this.Text = "DatosVuelo";
+            this.Load += new System.EventHandler(this.DatosVuelo_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
