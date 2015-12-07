@@ -38,12 +38,12 @@ namespace AerolineaFrba.Models.DataBase
         {
             SqlCommand sqlCommand = BuildSQLCommand(commandtext, parameters);
             SetCommandType(commandtype, sqlCommand);
-            try
-            {
+           // try
+           // {
                 sqlCommand.ExecuteNonQuery();
                 return true;
-            }
-            catch { return false; }
+           // }
+           // catch { return false; }
         }
 
         // En @ret va el output

@@ -127,16 +127,9 @@ namespace AerolineaFrba.Compra
 
         private void buttonConfirmarCompra_Click(object sender, EventArgs e)
         {
-            foreach (Comprable comprable in this.pasajeList)
-            {
-                comprable.comprar();
-            }
 
-            foreach (Comprable comprable in this.encomiendaList)
-            {
-                comprable.comprar();
-            }
-            this.Close();
+            ConfirmarCompra confirmarCompraForm = new ConfirmarCompra(encomiendaList, pasajeList, this);
+            confirmarCompraForm.ShowDialog();
         }
     }
 }

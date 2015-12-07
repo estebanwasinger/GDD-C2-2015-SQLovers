@@ -153,6 +153,12 @@
     <Compile Include="Compra\CompraForm.Designer.cs">
       <DependentUpon>CompraForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\ConfirmarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\ConfirmarCompra.Designer.cs">
+      <DependentUpon>ConfirmarCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\CrearDatosPasajero.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -310,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\CompraForm.resx">
       <DependentUpon>CompraForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\ConfirmarCompra.resx">
+      <DependentUpon>ConfirmarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\CrearDatosPasajero.resx">
       <DependentUpon>CrearDatosPasajero.cs</DependentUpon>

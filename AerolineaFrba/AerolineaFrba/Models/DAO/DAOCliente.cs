@@ -27,9 +27,9 @@ namespace AerolineaFrba.Models.DAO
                     cliente.apellido = (string)lector["cli_apellido"];
                     cliente.direccion = (string)lector["cli_dir"];
                     cliente.mail = (string)lector["cli_mail"];
-                    cliente.username = (string)lector["cli_username"];
+                    cliente.username = lector["cli_username"] != DBNull.Value ? (string)lector["cli_username"] : null;
                     cliente.dni = (int)(decimal)lector["cli_dni"];
-                    cliente.telefono = (int)(decimal)lector["cli_telefono"];
+                    cliente.telefono = lector["cli_telefono"] != DBNull.Value ? (int)(decimal)lector["cli_telefono"] : 0;
                     cliente.fechaNacimiento = (DateTime)lector["cli_fecha_nac"];
 
                     clienteList.Add(cliente);
@@ -48,7 +48,7 @@ namespace AerolineaFrba.Models.DAO
             parameterList.Add(new SqlParameter("@cli_telefono", cliente.telefono));
             parameterList.Add(new SqlParameter("@cli_mail", cliente.mail));
             parameterList.Add(new SqlParameter("@cli_fecha_nac", cliente.fechaNacimiento));
-            parameterList.Add(new SqlParameter("@cli_username", cliente.username));
+            parameterList.Add(new SqlParameter("@cli_username", cliente.username != null ? (object)cliente.username : DBNull.Value));
             
             return DBAcess.WriteInBase("INSERT INTO sqlovers.CLIENTE (cli_nombre, cli_apellido, cli_dni, cli_dir, cli_telefono, cli_mail, cli_fecha_nac, cli_username) " + 
                                                 " VALUES (@cli_nombre, @cli_apellido, @cli_dni, @cli_dir, @cli_telefono, @cli_mail, @cli_fecha_nac, @cli_username)", "T", parameterList );

@@ -1,4 +1,5 @@
 ﻿using AerolineaFrba.Models.BO;
+using AerolineaFrba.Models.DAO;
 using AerolineaFrba.ValildationUtils;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace AerolineaFrba.Compra
 
                     this.cliente = cliente;
                     this.Close();
-                    // DAOClie
+                    DAOCliente.create(cliente);
             }
         }
     }

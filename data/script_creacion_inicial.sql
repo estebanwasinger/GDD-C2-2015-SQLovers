@@ -11,6 +11,11 @@ IF NOT EXISTS (SELECT schema_name
 /*              
 DROP ALL THE TABLES!!!              
 */ 
+IF Object_id('SQLOVERS.COMPRA') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.COMPRA; 
+  END;
+
 IF Object_id('SQLOVERS.Pasaje') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.PASAJE; 
@@ -322,7 +327,22 @@ CREATE TABLE sqlovers.LLEGADA_DESTINO
      sqlovers.CIUDAD(ciudad_id), 
      llegada_vuelo_id   NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.VUELO(vuelo_id), 
+  )
+  
+CREATE TABLE sqlovers.COMPRA
+  (
+     compra_id            NUMERIC (18, 0) IDENTITY PRIMARY KEY,
+     compra_monto         NUMERIC(18, 0) NOT NULL,
+     compra_tipo          CHAR NOT NULL CHECK (compra_tipo IN('e', 'p')),
+     compra_cliente       NUMERIC(18, 0) NOT NULL FOREIGN KEY REFERENCES
+     sqlovers.CLIENTE(cli_dni),
+     compra_fecha         DATETIME NOT NULL,
+     compra_pasaje_id     NUMERIC(18, 0) FOREIGN KEY REFERENCES
+     sqlovers.PASAJE(pasaje_codigo),
+     compra_encomienda_id INT FOREIGN KEY REFERENCES
+     sqlovers.ENCOMIENDA(encomienda_id)
   ) 
+
 
 /*             
 FILL TABLES             
@@ -593,8 +613,36 @@ WHERE  m.paquete_codigo != 0
 
 SET IDENTITY_INSERT sqlovers.encomienda OFF 
 
-go 
+INSERT INTO sqlovers.COMPRA 
+            (compra_monto, 
+             compra_tipo, 
+             compra_cliente, 
+             compra_fecha, 
+             compra_pasaje_id) 
+SELECT pasaje_precio, 
+       'p', 
+       cli_dni, 
+       pasaje_fechacompra, 
+       pasaje_codigo 
+FROM   gd_esquema.MAESTRA 
+WHERE  pasaje_codigo != 0 
 
+INSERT INTO sqlovers.COMPRA 
+            (compra_monto, 
+             compra_tipo, 
+             compra_cliente, 
+             compra_fecha, 
+             compra_encomienda_id) 
+SELECT pasaje_precio, 
+       'e', 
+       cli_dni, 
+       pasaje_fechacompra, 
+       paquete_codigo 
+FROM   gd_esquema.MAESTRA 
+WHERE  paquete_codigo != 0 
+
+go 
+go 
 CREATE PROCEDURE sqlovers.Sp_cargar_butacas 
 AS 
     DECLARE @aeronaves TABLE 
