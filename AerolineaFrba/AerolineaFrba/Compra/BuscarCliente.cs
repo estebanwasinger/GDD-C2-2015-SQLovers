@@ -83,5 +83,10 @@ namespace AerolineaFrba.Compra
             this.Close();
         }
 
+        private void textBoxBusqueda_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

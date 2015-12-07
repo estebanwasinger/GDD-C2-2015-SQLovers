@@ -20,10 +20,14 @@ namespace AerolineaFrba
         }
 
         public void btnCliente_Click(object sender, EventArgs e) {
+            FormLogin login = new FormLogin();
+            login.ShowDialog();
+            if (login.userRegistrado != null)
+            {
+                PantallaCliente pantallaCliente = new PantallaCliente(login.userRegistrado);
+                pantallaCliente.Show();
+            }
 
-            Usuario user = new Usuario();
-            PantallaCliente pantallaCliente = new PantallaCliente(user);
-            pantallaCliente.Show();
             //this.Hide();       
         }
 

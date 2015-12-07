@@ -135,11 +135,11 @@
     <Compile Include="Abm Ruta\CrearOModificarRuta.Designer.cs">
       <DependentUpon>CrearOModificarRuta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Canje Millas\Form1.cs">
+    <Compile Include="Canje Millas\CanjeDeMillas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Canje Millas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Canje Millas\CanjeDeMillas.Designer.cs">
+      <DependentUpon>CanjeDeMillas.cs</DependentUpon>
     </Compile>
     <Compile Include="Compra\BuscarCliente.cs">
       <SubType>Form</SubType>
@@ -222,6 +222,7 @@
     <Compile Include="Models\BO\Aeronave.cs" />
     <Compile Include="Models\BO\Butaca.cs" />
     <Compile Include="Models\BO\Ciudad.cs" />
+    <Compile Include="Models\BO\Canje.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\Compra.cs" />
     <Compile Include="Models\BO\Encomienda.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOButaca.cs" />
+    <Compile Include="Models\DAO\DAOProducto.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
     <Compile Include="Models\DAO\DAOEncomienda.cs" />
     <Compile Include="Models\DAO\DAOFuncionalidad.cs" />
@@ -250,6 +252,8 @@
     <Compile Include="Models\DAO\DAOServicio.cs" />
     <Compile Include="Models\DAO\DAOCliente.cs" />
     <Compile Include="Models\DAO\DAOVuelo.cs" />
+    <Compile Include="Models\DAO\int32.cs" />
+    <Compile Include="Models\DAO\Producto.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
     <Compile Include="Models\BO\Usuario.cs" />
     <Compile Include="Models\Utils\Comprable.cs" />
@@ -310,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Ruta\CrearOModificarRuta.resx">
       <DependentUpon>CrearOModificarRuta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Canje Millas\CanjeDeMillas.resx">
+      <DependentUpon>CanjeDeMillas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\BuscarCliente.resx">
       <DependentUpon>BuscarCliente.cs</DependentUpon>

@@ -13,6 +13,7 @@ using AerolineaFrba.Abm_Aeronave;
 using AerolineaFrba.Abm_Ciudad;
 using AerolineaFrba.Abm_Rol;
 using AerolineaFrba.Compra;
+using AerolineaFrba.Canje_Millas;
 
 namespace AerolineaFrba.Registro_de_Usuario
 {
@@ -35,7 +36,8 @@ namespace AerolineaFrba.Registro_de_Usuario
 
         private void buttonCanjeMillas_Click(object sender, EventArgs e)
         {
-
+            CanjeDeMillas canjeForm = new CanjeDeMillas(user);
+            canjeForm.ShowDialog();
         }
 
         private void buttonConsultarMillas_Click(object sender, EventArgs e)

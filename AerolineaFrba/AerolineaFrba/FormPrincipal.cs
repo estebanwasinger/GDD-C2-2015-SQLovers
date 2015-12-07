@@ -14,6 +14,7 @@ using AerolineaFrba.Abm_Ciudad;
 using AerolineaFrba.Abm_Rol;
 using AerolineaFrba.Compra;
 using AerolineaFrba.Listado_Estadistico;
+using AerolineaFrba.Canje_Millas;
 
 
 namespace AerolineaFrba
@@ -60,7 +61,8 @@ namespace AerolineaFrba
 
         private void buttonMillas_Click(object sender, EventArgs e)
         {
-
+            CanjeDeMillas canjeForm = new CanjeDeMillas();
+            canjeForm.ShowDialog();
         }
 
         private void buttonViajes_Click(object sender, EventArgs e)

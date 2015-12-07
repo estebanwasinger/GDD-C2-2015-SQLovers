@@ -13,6 +13,8 @@ namespace AerolineaFrba.Registro_de_Usuario
 {
     public partial class FormLogin : Form
     {
+        public Usuario userRegistrado;
+
         public FormLogin()
         {
             InitializeComponent();
@@ -51,10 +53,8 @@ namespace AerolineaFrba.Registro_de_Usuario
                                 user.ReiniciarFallidos();
 
                                 // Paso al form Principal (requiere user siempre)
-                                FormPrincipal formPrincipal = new FormPrincipal(user);
-                                formPrincipal.Show();
-                                this.Hide();
-                                
+                                this.userRegistrado = user;
+                                this.Close();
                             }
                         }
                     }

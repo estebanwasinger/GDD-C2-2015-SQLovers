@@ -42,5 +42,11 @@ namespace AerolineaFrba.Models.DAO
 
             return this;
         }
+
+        public string cantMillas { get; set; }
+
+        public int stock { get; set; }
+
+        public int producto_millas { get; set; }
     }
 }
