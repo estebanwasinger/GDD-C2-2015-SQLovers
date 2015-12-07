@@ -52,8 +52,8 @@ namespace AerolineaFrba.Devolucion
         public void actualizarGrilla()
         {
 
-            lstPasaje = daoPasaje.aeronave_servicio();
-            dtgAeronavesPosibles.DataSource = lstAeronaves;
+           // lstPasaje = daoPasaje.aeronave_servicio();
+           // dtgAeronavesPosibles.DataSource = lstAeronaves;
 
         }
 

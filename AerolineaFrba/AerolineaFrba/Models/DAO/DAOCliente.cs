@@ -74,7 +74,6 @@ namespace AerolineaFrba.Models.DAO
             parameterList.Add(new SqlParameter("@cli_fecha_nac", cliente.fechaNacimiento));
             parameterList.Add(new SqlParameter("@cli_username", cliente.username != null ? (object)cliente.username : DBNull.Value));
             parameterList.Add(new SqlParameter("@cli_millas", cliente.millas));
->>>>>>> 5ee4bdc737cd549c320aad3899ec819cfb05308c
             
             return DBAcess.WriteInBase("INSERT INTO sqlovers.CLIENTE (cli_nombre, cli_apellido, cli_dni, cli_dir, cli_telefono, cli_mail, cli_fecha_nac, cli_username) " + 
                                                 " VALUES (@cli_nombre, @cli_apellido, @cli_dni, @cli_dir, @cli_telefono, @cli_mail, @cli_fecha_nac, @cli_username, @cli_millas)", "T", parameterList );

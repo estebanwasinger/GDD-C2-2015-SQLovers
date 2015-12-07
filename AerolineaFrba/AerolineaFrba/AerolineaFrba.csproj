@@ -222,7 +222,6 @@
     <Compile Include="Models\BO\Aeronave.cs" />
     <Compile Include="Models\BO\Butaca.cs" />
     <Compile Include="Models\BO\Ciudad.cs" />
-    <Compile Include="Models\BO\Canje.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\Compra.cs" />
     <Compile Include="Models\BO\Encomienda.cs" />
@@ -252,7 +251,6 @@
     <Compile Include="Models\DAO\DAOServicio.cs" />
     <Compile Include="Models\DAO\DAOCliente.cs" />
     <Compile Include="Models\DAO\DAOVuelo.cs" />
-    <Compile Include="Models\DAO\int32.cs" />
     <Compile Include="Models\DAO\Producto.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
     <Compile Include="Models\BO\Usuario.cs" />
