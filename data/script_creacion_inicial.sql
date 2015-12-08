@@ -383,6 +383,15 @@ iNSERT INTO SQLOVERS.productos
 values		('notebook',
 			99000,
 			10000)
+
+iNSERT INTO SQLOVERS.productos
+			(producto_nombre,
+			producto_cantMillas,
+			producto_stock)
+values		('smartphone',
+			99000,
+			0)
+
 INSERT INTO sqlovers.TIPO_SERVICIO 
             (tipo_servicio_nombre) 
 SELECT DISTINCT tipo_servicio 
@@ -494,7 +503,7 @@ SELECT cli_nombre,
        cli_telefono, 
        cli_mail, 
        cli_fecha_nac, 
-	   10000,
+	   99999,
        Lower(Replace(cli_nombre, ' ', '.') + '.' 
              + Replace(cli_apellido, ' ', '.') 
              + CONVERT(VARCHAR(20), cli_dni)) 

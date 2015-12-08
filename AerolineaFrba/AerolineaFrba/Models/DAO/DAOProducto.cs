@@ -45,7 +45,7 @@ namespace AerolineaFrba.Models.DAO
         public static List<Producto> retrieveAll()
         {
             List<Producto> productoList = new List<Producto>();
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.PRODUCTOS", "T", new List<SqlParameter>());
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.PRODUCTOS WHERE producto_stock>0", "T", new List<SqlParameter>());
 
             if (lector.HasRows)
             {

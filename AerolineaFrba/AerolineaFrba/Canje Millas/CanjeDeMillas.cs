@@ -38,10 +38,6 @@ namespace AerolineaFrba.Canje_Millas
         }
 
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -60,18 +56,18 @@ namespace AerolineaFrba.Canje_Millas
             comboBoxProducto.Text = "(Seleccionar producto)";
             comboBoxProducto.Items.AddRange(productoList.ToArray());
             comboBoxProducto.DisplayMember = "nombre";
-
-            buttonCanjear.Enabled = false;
+            buttonCanjear.Enabled = validarDatosCargados();
+            //buttonCanjear.Enabled = false;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            if (producto != null & (producto.stock > numericUpDown_cant.Value) & (Validarcliente = true))
+            cantidad = (Int32)numericUpDown_cant.Value;
+            if (cantidad>0)
             {
-                cantidad = (Int32)numericUpDown_cant.Value;
                 cantidadTotal = cantidad * millasproducto;
                 if (cantidadTotal < cliente.millas)
-                { habilitarBotonCanjear(); }
+                { buttonCanjear.Enabled = validarDatosCargados(); }
                 else
                 {
                     MessageBox.Show("No se puede realizar la operación, no cuenta con la cantidad de millas suficiente", "Error!", MessageBoxButtons.OK);
@@ -80,13 +76,9 @@ namespace AerolineaFrba.Canje_Millas
 
         }
 
-        private void habilitarBotonCanjear()
-        {
-            buttonCanjear.Enabled = cliente != null;
-        }
-
         private void buttonCanjear_Click(object sender, EventArgs e)
         {
+            producto.stock = producto.stock - 1;
             this.Close();
         }
 
@@ -97,7 +89,15 @@ namespace AerolineaFrba.Canje_Millas
 
         private void textBoxDNI_TextChanged(object sender, EventArgs e)
         {
+            cliente = DAOCliente.getCliente(int.Parse(textBoxDNI.Text));
 
+            if (cliente == null)
+            {
+                //MessageBox.Show("El cliente no existe", "Error!", MessageBoxButtons.OK);
+               // textBoxDNI.Text = "";
+            }
+
+            buttonCanjear.Enabled = validarDatosCargados();
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)
@@ -115,26 +115,9 @@ namespace AerolineaFrba.Canje_Millas
 
         }
 
-        /* private void buttonBuscar_Click(object sender, EventArgs e)
-         {
-             if (textBoxDNI.Text != null)
-             {
-                 List<Cliente> clienteList = DAOCliente.retrieveAll();
-                 foreach (Cliente cliente in clienteList)
-                 {
-                     if (cliente.dni.ToString().StartsWith(textBoxDNI.Text))
-                     {
-                     }
-                     else { MessageBox.Show("El cliente no existe", "Error!", MessageBoxButtons.OK); }
-                     textBoxDNI.Text = "";
-                 }
+        //public bool Validarcliente { get; set; }
 
-             }
-         }*/
-
-        public bool Validarcliente { get; set; }
-
-        private void buttonValidar_Click(object sender, EventArgs e)
+      /*  private void buttonValidar_Click(object sender, EventArgs e)
         {
             cliente = DAOCliente.getCliente(int.Parse(textBoxDNI.Text));
             
@@ -145,7 +128,7 @@ namespace AerolineaFrba.Canje_Millas
             }
 
             buttonCanjear.Enabled = validarDatosCargados();
-        }
+        }*/
 
         private bool validarDatosCargados()
         {

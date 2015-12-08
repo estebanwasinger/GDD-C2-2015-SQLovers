@@ -132,7 +132,7 @@
             this.buttonValidar.TabIndex = 14;
             this.buttonValidar.Text = "Validar";
             this.buttonValidar.UseVisualStyleBackColor = true;
-            this.buttonValidar.Click += new System.EventHandler(this.buttonValidar_Click);
+          //  this.buttonValidar.Click += new System.EventHandler(this.buttonValidar_Click);
             // 
             // CanjeDeMillas
             // 
