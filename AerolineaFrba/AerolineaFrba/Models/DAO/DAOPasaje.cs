@@ -19,9 +19,9 @@ namespace AerolineaFrba.Models.DAO
             parameterList.Add(new SqlParameter("@pasaje_precio", pasaje.precio));
             parameterList.Add(new SqlParameter("@pasaje_butaca_nro", pasaje.butaca.numero));
             parameterList.Add(new SqlParameter("@pasaje_fechacompra", pasaje.fechaCompra));
-
-            return DBAcess.WriteInBase("INSERT INTO sqlovers.PASAJE (pasaje_vuelo_id, cli_dni, pasaje_fechacompra, pasaje_precio, pasaje_butaca_nro, pasaje_cancelado) " +
-                                                " VALUES (@pasaje_vuelo_id, @cli_dni, @pasaje_fechacompra, @pasaje_precio, @pasaje_butaca_nro, 0)", "T", parameterList);
+            parameterList.Add(new SqlParameter("@pasaje_compra_id", pasaje.compraId));
+            return DBAcess.WriteInBase("INSERT INTO sqlovers.PASAJE (pasaje_vuelo_id, cli_dni, pasaje_fechacompra, pasaje_precio, pasaje_butaca_nro, pasaje_cancelado, pasaje_compra_id) " +
+                                                " VALUES (@pasaje_vuelo_id, @cli_dni, @pasaje_fechacompra, @pasaje_precio, @pasaje_butaca_nro, 0, @pasaje_compra_id)", "T", parameterList);
         }
 
     }

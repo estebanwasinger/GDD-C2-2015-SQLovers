@@ -24,8 +24,9 @@ namespace AerolineaFrba.Models.DAO
                 sqlCommand.Parameters.AddWithValue("@precio_total", encomienda.precioTotal);
                 sqlCommand.Parameters.AddWithValue("@kg", encomienda.kg);
                 sqlCommand.Parameters.AddWithValue("@dni_cliente", encomienda.dniCliente);
-                sqlCommand.CommandText = "INSERT INTO SQLOVERS.ENCOMIENDA (encomienda_kg, encomienda_cliente_dni, encomienda_vuelo_id, encomienda_precio_total) VALUES "
-                    +"(@kg, @dni_cliente, @vuelo_id, @precio_total)";
+                sqlCommand.Parameters.AddWithValue("@compraId", encomienda.compraId);
+                sqlCommand.CommandText = "INSERT INTO SQLOVERS.ENCOMIENDA (encomienda_kg, encomienda_cliente_dni, encomienda_vuelo_id, encomienda_precio_total, encomienda_compra_id) VALUES "
+                    +"(@kg, @dni_cliente, @vuelo_id, @precio_total, @compraId)";
                 sqlCommand.ExecuteNonQuery();
 
                 return true;

@@ -50,7 +50,7 @@
             this.btnCliente.Name = "btnCliente";
             this.btnCliente.Size = new System.Drawing.Size(112, 48);
             this.btnCliente.TabIndex = 1;
-            this.btnCliente.Text = "Cliente";
+            this.btnCliente.Text = "Kiosco";
             this.btnCliente.UseVisualStyleBackColor = true;
             this.btnCliente.Click += new System.EventHandler(this.btnCliente_Click);
             // 

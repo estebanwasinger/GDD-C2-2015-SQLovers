@@ -1,4 +1,5 @@
 ﻿using AerolineaFrba.Models.BO;
+using AerolineaFrba.Models.DAO;
 using AerolineaFrba.Models.Utils;
 using AerolineaFrba.ValildationUtils;
 using System;
@@ -32,7 +33,7 @@ namespace AerolineaFrba.Compra
 
         private void buttonBuscarCliente_Click(object sender, EventArgs e)
         {
-            BuscarCliente clienteForm = new BuscarCliente();
+            BuscarClienteBasico clienteForm = new BuscarClienteBasico();
             clienteForm.ShowDialog();
             if (clienteForm.cliente != null)
             {
@@ -52,10 +53,16 @@ namespace AerolineaFrba.Compra
                 if (!Validation.isFilled(comboBoxTipos) ||
                     !Validation.isFilled(comboBoxCuotas) ||
                     !Validation.isFilled(textBoxCodSeguridad) ||
-                    !Validation.isFilled(textBoxNumeroTC))
+                    !Validation.isFilled(textBoxNumeroTC) ||
+                    textBoxCodSeguridad.Text.Length > 5 ||
+                    textBoxNumeroTC.Text.Length > 18)
                 {
                         return false;
                 }
+            }
+
+            if (!radioButtonTC.Checked && !radioButtonEfectivo.Checked) {
+                return false;
             }
             
             return true;
@@ -63,10 +70,12 @@ namespace AerolineaFrba.Compra
 
         private void ConfirmarCompra_Load(object sender, EventArgs e)
         {
-            comboBoxCuotas.Items.AddRange(new object[] { 1,2,3,6,12,18,24,36,48 });
+            comboBoxCuotas.Items.AddRange(new object[] { 1, 2, 3, 6, 12, 18, 24, 36, 48 });
             comboBoxCuotas.Text = "(Cuotas)";
+            comboBoxCuotas.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            comboBoxTipos.Items.AddRange(new object[] { "VISA", "MASTERCARD", "AMEX"});
+            comboBoxTipos.Items.AddRange(new object[] { "VISA", "MASTERCARD", "AMEX" });
+            comboBoxTipos.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTipos.Text = "(Tipo)";
 
             dateTimePickerVencimiento.CustomFormat = "MM/yyyy";
@@ -78,7 +87,14 @@ namespace AerolineaFrba.Compra
             Int32 costoTotal = getCostoTotal();
             textBoxCostoTotal.Text = costoTotal.ToString();
 
-            groupBoTC.Enabled = false;
+            if (!Session.Instance().admin)
+            {
+                radioButtonEfectivo.Enabled = false;
+                radioButtonTC.Checked = true;
+                groupBoTC.Enabled = true;
+            } else {
+                groupBoTC.Enabled = false;
+            }
 
             buttonComprar.Enabled = false;
         }
@@ -123,17 +139,45 @@ namespace AerolineaFrba.Compra
 
         private void buttonComprar_Click(object sender, EventArgs e)
         {
-            foreach (Comprable compra in pasajeList)
+            CompraAero compraGeneral = new CompraAero();
+            compraGeneral.cliente = this.cliente.dni;
+            compraGeneral.fecha = DateTime.Now;
+            compraGeneral.tipo = radioButtonEfectivo.Checked ? "e" : "t";
+            DAOCompra.create(compraGeneral);
+            compraGeneral = DAOCompra.getCompra(compraGeneral.cliente, compraGeneral.fecha);
+            if (compraGeneral != null)
             {
-                compra.comprar();
+                foreach (Comprable compra in pasajeList)
+                {
+                    compra.setCompra(compraGeneral.id);
+                    compra.comprar();
+                }
+
+                foreach (Comprable compra in encomiendaList)
+                {
+                    compra.setCompra(compraGeneral.id);
+                    compra.comprar();
+                }
+
+                if (compraGeneral.tipo.Equals("t")) {
+                    TarjetaDeCredito tarjeta = new TarjetaDeCredito();
+                    tarjeta.numero = Int64.Parse(textBoxNumeroTC.Text);
+                    tarjeta.tipo = comboBoxTipos.Text;
+                    tarjeta.cuotas = Int64.Parse(comboBoxCuotas.Text);
+                    tarjeta.compraId = (Int64)compraGeneral.id;
+                    tarjeta.cod = Int64.Parse(textBoxCodSeguridad.Text);
+                    tarjeta.fecha = dateTimePickerVencimiento.Value;
+                    DAOTarjetaDeCredito.create(tarjeta);
+                }
+
+                NumeroCompra mostrarNumeroForm = new NumeroCompra(compraGeneral.id);
+                this.Close();
+                this.datosVuelo.Close();
+                mostrarNumeroForm.ShowDialog();
             }
 
-            foreach (Comprable compra in encomiendaList)
-            {
-                compra.comprar();
-            }
-            this.Close();
-            this.datosVuelo.Close();
+            
+            
         }
 
         private void textBoxNumeroTC_KeyPress(object sender, KeyPressEventArgs e)

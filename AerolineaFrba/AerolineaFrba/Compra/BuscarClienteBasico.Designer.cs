@@ -1,6 +1,6 @@
 ﻿namespace AerolineaFrba.Compra
 {
-    partial class CrearPasaje
+    partial class BuscarClienteBasico
     {
         /// <summary>
         /// Required designer variable.
@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonCancelar = new System.Windows.Forms.Button();
-            this.buttonAgregar = new System.Windows.Forms.Button();
-            this.dataGridViewButacas = new System.Windows.Forms.DataGridView();
-            this.buttonBuscarCliente = new System.Windows.Forms.Button();
+            this.buttonBuscar = new System.Windows.Forms.Button();
+            this.textBoxBusqueda = new System.Windows.Forms.TextBox();
+            this.buttonAceptar = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.buttonModificarCliente = new System.Windows.Forms.Button();
+            this.buttonCrearCliente = new System.Windows.Forms.Button();
             this.textBoxDni = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxUsuario = new System.Windows.Forms.TextBox();
@@ -42,8 +43,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxNombreCliente = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButacas)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -51,57 +52,43 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.label1.Location = new System.Drawing.Point(213, 9);
+            this.label1.Location = new System.Drawing.Point(6, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(181, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Creacion de pasaje";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Size = new System.Drawing.Size(26, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "DNI";
             // 
-            // buttonCancelar
+            // buttonBuscar
             // 
-            this.buttonCancelar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.buttonCancelar.Location = new System.Drawing.Point(327, 299);
-            this.buttonCancelar.Name = "buttonCancelar";
-            this.buttonCancelar.Size = new System.Drawing.Size(133, 34);
-            this.buttonCancelar.TabIndex = 1;
-            this.buttonCancelar.Text = "Cancelar";
-            this.buttonCancelar.UseVisualStyleBackColor = true;
-            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
+            this.buttonBuscar.Location = new System.Drawing.Point(190, 12);
+            this.buttonBuscar.Name = "buttonBuscar";
+            this.buttonBuscar.Size = new System.Drawing.Size(91, 20);
+            this.buttonBuscar.TabIndex = 3;
+            this.buttonBuscar.Text = "Buscar";
+            this.buttonBuscar.UseVisualStyleBackColor = true;
+            this.buttonBuscar.Click += new System.EventHandler(this.buttonBuscar_Click);
             // 
-            // buttonAgregar
+            // textBoxBusqueda
             // 
-            this.buttonAgregar.Location = new System.Drawing.Point(469, 299);
-            this.buttonAgregar.Name = "buttonAgregar";
-            this.buttonAgregar.Size = new System.Drawing.Size(133, 34);
-            this.buttonAgregar.TabIndex = 2;
-            this.buttonAgregar.Text = "Agregar";
-            this.buttonAgregar.UseVisualStyleBackColor = true;
-            this.buttonAgregar.Click += new System.EventHandler(this.buttonAgregar_Click);
+            this.textBoxBusqueda.Location = new System.Drawing.Point(38, 13);
+            this.textBoxBusqueda.Name = "textBoxBusqueda";
+            this.textBoxBusqueda.Size = new System.Drawing.Size(136, 20);
+            this.textBoxBusqueda.TabIndex = 4;
             // 
-            // dataGridViewButacas
+            // buttonAceptar
             // 
-            this.dataGridViewButacas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewButacas.Location = new System.Drawing.Point(6, 22);
-            this.dataGridViewButacas.Name = "dataGridViewButacas";
-            this.dataGridViewButacas.Size = new System.Drawing.Size(274, 247);
-            this.dataGridViewButacas.TabIndex = 3;
-            this.dataGridViewButacas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewButacas_CellClick);
-            // 
-            // buttonBuscarCliente
-            // 
-            this.buttonBuscarCliente.Location = new System.Drawing.Point(18, 125);
-            this.buttonBuscarCliente.Name = "buttonBuscarCliente";
-            this.buttonBuscarCliente.Size = new System.Drawing.Size(260, 32);
-            this.buttonBuscarCliente.TabIndex = 6;
-            this.buttonBuscarCliente.Text = "Seleccionar Pasajero";
-            this.buttonBuscarCliente.UseVisualStyleBackColor = true;
-            this.buttonBuscarCliente.Click += new System.EventHandler(this.buttonBuscarCliente_Click);
+            this.buttonAceptar.Location = new System.Drawing.Point(12, 262);
+            this.buttonAceptar.Name = "buttonAceptar";
+            this.buttonAceptar.Size = new System.Drawing.Size(293, 35);
+            this.buttonAceptar.TabIndex = 10;
+            this.buttonAceptar.Text = "Aceptar";
+            this.buttonAceptar.UseVisualStyleBackColor = true;
+            this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.buttonBuscarCliente);
+            this.groupBox3.Controls.Add(this.buttonModificarCliente);
+            this.groupBox3.Controls.Add(this.buttonCrearCliente);
             this.groupBox3.Controls.Add(this.textBoxDni);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.textBoxUsuario);
@@ -110,12 +97,32 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.textBoxNombreCliente);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Location = new System.Drawing.Point(309, 45);
+            this.groupBox3.Location = new System.Drawing.Point(12, 80);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(293, 165);
-            this.groupBox3.TabIndex = 7;
+            this.groupBox3.Size = new System.Drawing.Size(293, 176);
+            this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos Cliente";
+            // 
+            // buttonModificarCliente
+            // 
+            this.buttonModificarCliente.Location = new System.Drawing.Point(145, 137);
+            this.buttonModificarCliente.Name = "buttonModificarCliente";
+            this.buttonModificarCliente.Size = new System.Drawing.Size(135, 33);
+            this.buttonModificarCliente.TabIndex = 6;
+            this.buttonModificarCliente.Text = "Modificar Usuario";
+            this.buttonModificarCliente.UseVisualStyleBackColor = true;
+            this.buttonModificarCliente.Click += new System.EventHandler(this.buttonModificarCliente_Click);
+            // 
+            // buttonCrearCliente
+            // 
+            this.buttonCrearCliente.Location = new System.Drawing.Point(14, 137);
+            this.buttonCrearCliente.Name = "buttonCrearCliente";
+            this.buttonCrearCliente.Size = new System.Drawing.Size(125, 33);
+            this.buttonCrearCliente.TabIndex = 18;
+            this.buttonCrearCliente.Text = "Crear Usuario";
+            this.buttonCrearCliente.UseVisualStyleBackColor = true;
+            this.buttonCrearCliente.Click += new System.EventHandler(this.buttonCrearCliente_Click);
             // 
             // textBoxDni
             // 
@@ -185,33 +192,43 @@
             this.label8.TabIndex = 10;
             this.label8.Text = "Nombre:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.label2.Location = new System.Drawing.Point(66, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(173, 25);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Busqueda Usuario";
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridViewButacas);
-            this.groupBox1.Location = new System.Drawing.Point(12, 45);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.textBoxBusqueda);
+            this.groupBox1.Controls.Add(this.buttonBuscar);
+            this.groupBox1.Location = new System.Drawing.Point(12, 37);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(291, 288);
-            this.groupBox1.TabIndex = 18;
+            this.groupBox1.Size = new System.Drawing.Size(293, 37);
+            this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Butacas Disponibles";
             // 
-            // CrearPasaje
+            // BuscarClienteBasico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(614, 351);
+            this.ClientSize = new System.Drawing.Size(313, 308);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.buttonAgregar);
-            this.Controls.Add(this.buttonCancelar);
-            this.Controls.Add(this.label1);
-            this.Name = "CrearPasaje";
-            this.Text = "CrearPasaje";
-            this.Load += new System.EventHandler(this.CrearPasaje_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewButacas)).EndInit();
+            this.Controls.Add(this.buttonAceptar);
+            this.Name = "BuscarClienteBasico";
+            this.Text = "BuscarClienteBasico";
+            this.Load += new System.EventHandler(this.BuscarClienteBasico_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,11 +237,12 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonCancelar;
-        private System.Windows.Forms.Button buttonAgregar;
-        private System.Windows.Forms.DataGridView dataGridViewButacas;
-        private System.Windows.Forms.Button buttonBuscarCliente;
+        private System.Windows.Forms.Button buttonBuscar;
+        private System.Windows.Forms.TextBox textBoxBusqueda;
+        private System.Windows.Forms.Button buttonAceptar;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button buttonModificarCliente;
+        private System.Windows.Forms.Button buttonCrearCliente;
         private System.Windows.Forms.TextBox textBoxDni;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBoxUsuario;
@@ -233,6 +251,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxNombreCliente;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
+
     }
 }

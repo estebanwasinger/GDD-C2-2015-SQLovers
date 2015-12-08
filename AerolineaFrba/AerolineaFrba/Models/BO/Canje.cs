@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Models.BO
 {
-    class Compra
+    public class Canje
     {
+       
     }
+
+    
 }

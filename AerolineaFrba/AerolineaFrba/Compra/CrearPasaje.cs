@@ -66,16 +66,34 @@ namespace AerolineaFrba.Compra
 
         private void buttonBuscarCliente_Click(object sender, EventArgs e)
         {
-            BuscarCliente clienteForm = new BuscarCliente();
+            BuscarClienteBasico clienteForm = new BuscarClienteBasico();
             clienteForm.ShowDialog();
             this.cliente = clienteForm.cliente;
             if (cliente != null) {
-                textBoxApellidoCliente.Text = cliente.apellido;
-                textBoxDni.Text = cliente.dni.ToString();
-                textBoxNombreCliente.Text = cliente.nombre;
-                textBoxUsuario.Text = cliente.username;
+                if (!DAOVuelo.tieneVueloEntre(cliente.dni, this.pasajePrivate.vuelo.fechaSalida, this.pasajePrivate.vuelo.fechaLlegadaEstimada) && !pasajeroYaEstaEnList(cliente.dni))
+                {
+                    textBoxApellidoCliente.Text = cliente.apellido;
+                    textBoxDni.Text = cliente.dni.ToString();
+                    textBoxNombreCliente.Text = cliente.nombre;
+                    textBoxUsuario.Text = cliente.username;
+                }
+                else {
+                    cliente = null;
+                    MessageBox.Show("El pasajero seleccionado ya tiene un vuelo incompatible con el selccionado", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                
             }
             habilitarBotonAceptar();
+        }
+
+        private bool pasajeroYaEstaEnList(int dni)
+        {
+            foreach (Pasaje pasaje in pasajeList) { 
+                if(pasaje.usuario.dni.Equals(dni)){
+                return true;
+                }
+            }
+            return false;
         }
 
         private void habilitarBotonAceptar()
@@ -93,6 +111,11 @@ namespace AerolineaFrba.Compra
                     butacaList.Remove(pasaje.butaca);
                 }
                 return butacaList;
+        }
+
+        private void buttonCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
     }

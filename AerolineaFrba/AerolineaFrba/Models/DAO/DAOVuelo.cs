@@ -119,11 +119,44 @@ namespace AerolineaFrba.Models.DAO
             return lector.GetInt32(0);
         }
 
+        public static bool tieneVueloEntre(int dniCliente, DateTime fechaSalida, DateTime fechaLlegada)
+        {
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@dniCliente", dniCliente));
+            parameterList.Add(new SqlParameter("@fechaSalida", fechaSalida));
+            parameterList.Add(new SqlParameter("@fechaLlegada", fechaLlegada));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT sqlovers.pasajeroYaTieneVueloEntre(@dniCliente, @fechaSalida, @fechaLlegada) ", "T", parameterList);
+
+            lector.Read();
+
+            return lector.GetBoolean(0);
+        }
+
         public static List<Vuelo> retrieveAll()
         {
-            List<Vuelo> l = new List<Vuelo>();
             SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.VUELO", "T", new List<SqlParameter>());
+            return getVuelosFromResult(lector);
+        }
 
+        public static Vuelo getVuelo(int vueloId) {
+            List<Vuelo> l = new List<Vuelo>();
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@vueloId",vueloId));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.VUELO where vuelo_id = @vueloId", "T", parameterList);
+
+            List<Vuelo> vuelosList = getVuelosFromResult(lector);
+            if (vuelosList.Count == 0)
+            {
+                return null;
+            }
+            else {
+                return vuelosList[0];
+            }
+        }
+
+        private static List<Vuelo> getVuelosFromResult(SqlDataReader lector)
+        {
+            List<Vuelo> l = new List<Vuelo>();
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -142,8 +175,5 @@ namespace AerolineaFrba.Models.DAO
             return l;
         }
 
-      
-
-       
     }
 }

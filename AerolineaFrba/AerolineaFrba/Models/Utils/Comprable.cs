@@ -13,5 +13,6 @@ namespace AerolineaFrba.Models.Utils
 
        String tipo { get; }
        Int32 precioTotal { get; }
+       void setCompra(int compraId);
     }
 }

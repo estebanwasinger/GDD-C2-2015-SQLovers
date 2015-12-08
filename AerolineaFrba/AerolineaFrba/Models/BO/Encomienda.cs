@@ -16,6 +16,7 @@ namespace AerolineaFrba.Models.BO
         public int dniCliente { get; set; }
         public int vueloId { get; set; }
         public int precioTotal { get; set; }
+        public int compraId { get; set; }
 
         public bool comprar()
         {
@@ -26,6 +27,12 @@ namespace AerolineaFrba.Models.BO
         string Comprable.tipo
         {
             get { return "Encomienda"; }
+        }
+
+
+        public void setCompra(int compraId)
+        {
+            this.compraId = compraId;
         }
     }
 }

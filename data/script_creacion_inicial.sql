@@ -11,9 +11,9 @@ IF NOT EXISTS (SELECT schema_name
 /*              
 DROP ALL THE TABLES!!!              
 */ 
-IF Object_id('SQLOVERS.COMPRA') IS NOT NULL 
+IF Object_id('SQLOVERS.TARJETAS_DE_CREDITO') IS NOT NULL 
   BEGIN 
-      DROP TABLE sqlovers.COMPRA; 
+      DROP TABLE sqlovers.TARJETAS_DE_CREDITO; 
   END;
 
 IF Object_id('SQLOVERS.Pasaje') IS NOT NULL 
@@ -35,6 +35,11 @@ IF Object_id('SQLOVERS.Vuelo') IS NOT NULL
   BEGIN 
       DROP TABLE sqlovers.VUELO; 
   END; 
+
+IF Object_id('SQLOVERS.COMPRA') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.COMPRA; 
+  END;
 
 IF Object_id('SQLOVERS.Cliente') IS NOT NULL 
   BEGIN 
@@ -153,6 +158,11 @@ IF Object_id('SQLOVERS.EXISTE_VUELO') IS NOT NULL
 IF Object_id('SQLOVERS.Butacasdisponibles') IS NOT NULL 
   BEGIN 
       DROP FUNCTION sqlovers.Butacasdisponibles; 
+  END; 
+
+IF Object_id('SQLOVERS.pasajeroYaTieneVueloEntre') IS NOT NULL 
+  BEGIN 
+      DROP FUNCTION sqlovers.pasajeroYaTieneVueloEntre; 
   END; 
 
 /*              
@@ -290,6 +300,25 @@ CREATE TABLE sqlovers.VUELO
      vuelo_ruta_id                NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.RUTA(ruta_id) 
   ) 
+  
+CREATE TABLE sqlovers.COMPRA
+  (
+     compra_id            NUMERIC (18, 0) IDENTITY PRIMARY KEY,
+     compra_tipo          CHAR NOT NULL CHECK (compra_tipo IN('e', 't')),
+     compra_cliente       NUMERIC(18, 0) NOT NULL FOREIGN KEY REFERENCES
+     sqlovers.CLIENTE(cli_dni),
+     compra_fecha         DATETIME NOT NULL,
+  ) 
+
+CREATE TABLE sqlovers.TARJETAS_DE_CREDITO
+(
+	tarjeta_numero NUMERIC(20,0) NOT NULL,
+	tarjeta_cod NUMERIC(18,0) NOT NULL,
+	tarjeta_fecha DATETIME NOT NULL,
+	tarjeta_tipo NVARCHAR(255) NOT NULL,
+	tarjeta_cuotas NUMERIC(3,0) NOT NULL,
+	tarjeta_compra NUMERIC(18,0) FOREIGN KEY REFERENCES sqlovers.COMPRA(compra_id) NOT NULL
+)
 
 CREATE TABLE sqlovers.ENCOMIENDA 
   ( 
@@ -299,7 +328,9 @@ CREATE TABLE sqlovers.ENCOMIENDA
      sqlovers.CLIENTE(cli_dni), 
      encomienda_vuelo_id     NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.VUELO(vuelo_id), 
-     encomienda_precio_total INT 
+     encomienda_precio_total INT,
+	 encomienda_compra_id NUMERIC(18,0) FOREIGN KEY REFERENCES
+	 sqlovers.COMPRA(compra_id) 
   ) 
 
 CREATE TABLE sqlovers.PASAJE 
@@ -312,7 +343,9 @@ CREATE TABLE sqlovers.PASAJE
      pasaje_vuelo_id    NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.VUELO(vuelo_id), 
      pasaje_cancelado   BIT NOT NULL,
-	 pasaje_butaca_nro NUMERIC(3,0) 
+	 pasaje_butaca_nro NUMERIC(3,0),
+	 pasaje_compra_id NUMERIC(18,0) FOREIGN KEY REFERENCES
+	 sqlovers.COMPRA(compra_id)
   ) 
 
 CREATE TABLE sqlovers.LLEGADA_DESTINO 
@@ -328,20 +361,7 @@ CREATE TABLE sqlovers.LLEGADA_DESTINO
      llegada_vuelo_id   NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.VUELO(vuelo_id), 
   )
-  
-CREATE TABLE sqlovers.COMPRA
-  (
-     compra_id            NUMERIC (18, 0) IDENTITY PRIMARY KEY,
-     compra_monto         NUMERIC(18, 0) NOT NULL,
-     compra_tipo          CHAR NOT NULL CHECK (compra_tipo IN('e', 'p')),
-     compra_cliente       NUMERIC(18, 0) NOT NULL FOREIGN KEY REFERENCES
-     sqlovers.CLIENTE(cli_dni),
-     compra_fecha         DATETIME NOT NULL,
-     compra_pasaje_id     NUMERIC(18, 0) FOREIGN KEY REFERENCES
-     sqlovers.PASAJE(pasaje_codigo),
-     compra_encomienda_id INT FOREIGN KEY REFERENCES
-     sqlovers.ENCOMIENDA(encomienda_id)
-  ) 
+
 
 
 /*             
@@ -622,12 +642,10 @@ WHERE  m.paquete_codigo != 0
 
 SET IDENTITY_INSERT sqlovers.encomienda OFF 
 
-INSERT INTO sqlovers.COMPRA 
-            (compra_monto, 
-             compra_tipo, 
+/*INSERT INTO sqlovers.COMPRA 
+            (compra_tipo, 
              compra_cliente, 
-             compra_fecha, 
-             compra_pasaje_id) 
+             compra_fecha) 
 SELECT pasaje_precio, 
        'p', 
        cli_dni, 
@@ -650,7 +668,7 @@ SELECT pasaje_precio,
 FROM   gd_esquema.MAESTRA 
 WHERE  paquete_codigo != 0 
 
-go 
+go */
 go 
 CREATE PROCEDURE sqlovers.Sp_cargar_butacas 
 AS 
@@ -917,5 +935,25 @@ AS
              AND pasaje_butaca_nro IS NULL 
 
       RETURN 
+  END; 
+  GO
+
+  CREATE FUNCTION sqlovers.pasajeroYaTieneVueloEntre(@pasajeroDni INT, @fechaSalida DateTime, @fechaLlegada DateTime) 
+returns bit
+AS 
+  BEGIN
+  DECLARE @cantidad int 
+		DECLARE @return bit
+      SET @cantidad = (SELECT COUNT(*) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v
+  WHERE p.cli_dni = @pasajeroDni
+  AND p.pasaje_vuelo_id = v.vuelo_id
+  AND ((v.vuelo_fecha_salida > @fechaSalida AND v.vuelo_fecha_salida <  @fechaLlegada) OR 
+	   (v.vuelo_fecha_llegada_estimada > @fechaSalida AND v.vuelo_fecha_llegada_estimada <  @fechaLlegada) OR
+	   (v.vuelo_fecha_salida <@fechaSalida AND v.vuelo_fecha_llegada_estimada >  @fechaLlegada)))
+	   if(@cantidad > 0)
+		SET @return = 1;
+		else
+		SET @return = 0;
+		return @return;
   END; 
   GO

@@ -10,12 +10,15 @@ using System.Windows.Forms;
 using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
 using System.Diagnostics;
+using AerolineaFrba.Models.Utils;
 
 namespace AerolineaFrba.Compra
 {
     public partial class CompraForm : Form
     {
         List<Cliente> originalList;
+        private Dictionary<int, Ruta> dictionary = new Dictionary<int, Ruta>();
+        List<Vuelo> vueloList;
 
         public CompraForm()
         {
@@ -60,37 +63,64 @@ namespace AerolineaFrba.Compra
             comboBoxCiudadOrigen.Items.AddRange(ciudadList.ToArray());
             comboBoxCiudadOrigen.DisplayMember = "nombre";
 
-
             dataGridViewVuelos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewVuelos.DataSource = DAOVuelo.retrieveAll();
+            dataGridViewVuelos.Columns.Add(Utils.crearColumna("", "Id", 15, true));
+            dataGridViewVuelos.Columns.Add(Utils.crearColumna("", "Fecha Salida", 150, true));
+            dataGridViewVuelos.Columns.Add(Utils.crearColumna("", "Fecha Llegada", 150, true));
+            dataGridViewVuelos.Columns.Add(Utils.crearColumna("", "Ciudad Origen", 110, true));
+            dataGridViewVuelos.Columns.Add(Utils.crearColumna("", "Ciudad Destino", 110, true));
+            dataGridViewVuelos.Columns.Add(Utils.crearColumna("", "Tipo Servicio", 110, true));
+
+            vueloList = DAOVuelo.retrieveAll();
+
+            fillDataGridView(vueloList);
+
             buttonContinuar.Enabled = false;
         }
 
-        private void comboBoxUsuarios_KeyPress(object sender, KeyPressEventArgs e)
+        private void fillDataGridView(List<Vuelo> vueloList)
         {
-           /* if (comboBoxUsuarios.Text.Length > 3)
+            dataGridViewVuelos.Rows.Clear();
+            foreach (Vuelo vuelo in vueloList)
             {
-                List<Cliente> filteredList = new List<Cliente>();
-                foreach (Cliente cliente in originalList)
-                {
-                    if(cliente.dni.ToString().StartsWith(comboBoxUsuarios.Text)){
-                        filteredList.Add(cliente);
-                    }
-                }
-                comboBoxUsuarios.Items.Clear();
-                comboBoxUsuarios.Items.AddRange(filteredList.ToArray());
-            }*/
+                Ruta ruta = getRuta((int)vuelo.ruta);
+                string[] row1 = new string[] { vuelo.id.ToString(), vuelo.fechaSalida.ToString(), vuelo.fechaLlegada.ToString(), ruta.ciudadOrigenNombre, ruta.ciudadDestinoNombre, ruta.tipoServicioNombre };
+
+                dataGridViewVuelos.Rows.Add(row1);
+            }
+        }
+
+        private Ruta getRuta(int rutaId) {
+            if (dictionary.ContainsKey(rutaId))
+            {
+                return dictionary[rutaId];
+            }
+            else
+            {
+                Ruta ruta = DAORuta.getRuta(rutaId);
+                dictionary.Add(rutaId, ruta);
+                return ruta;
+            }
         }
 
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
-            List<Vuelo> vueloList = DAOVuelo.retrieveWithOriginDestinyAndDate((Ciudad) comboBoxCiudadOrigen.SelectedItem, (Ciudad) comboBoxCiudadDestino.SelectedItem, dateTimePickerCompra.Value);
-            dataGridViewVuelos.DataSource = vueloList;
+            vueloList = DAOVuelo.retrieveWithOriginDestinyAndDate((Ciudad) comboBoxCiudadOrigen.SelectedItem, (Ciudad) comboBoxCiudadDestino.SelectedItem, dateTimePickerCompra.Value);
+            fillDataGridView(vueloList);
+            if (vueloList.Count == 0) {
+                buttonContinuar.Enabled = false;
+            }
+
         }
 
         private void dataGridViewVuelos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            buttonContinuar.Enabled = true;
+            if (vueloList.Count == 0)
+            {
+                buttonContinuar.Enabled = false;
+            }
+            else { buttonContinuar.Enabled = true; }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -108,7 +138,7 @@ namespace AerolineaFrba.Compra
 
         private Vuelo selectedVuelo()
         {
-            return (Vuelo) dataGridViewVuelos.CurrentRow.DataBoundItem;
+            return DAOVuelo.getVuelo(int.Parse((String) dataGridViewVuelos.CurrentRow.Cells[0].Value));
         }
 
         private void dataGridViewVuelos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

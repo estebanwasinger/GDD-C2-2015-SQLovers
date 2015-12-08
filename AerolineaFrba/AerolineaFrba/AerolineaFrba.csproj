@@ -147,6 +147,12 @@
     <Compile Include="Compra\BuscarCliente.Designer.cs">
       <DependentUpon>BuscarCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Compra\BuscarClienteBasico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\BuscarClienteBasico.Designer.cs">
+      <DependentUpon>BuscarClienteBasico.cs</DependentUpon>
+    </Compile>
     <Compile Include="Compra\CompraForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,12 @@
     </Compile>
     <Compile Include="Compra\DatosVuelo.Designer.cs">
       <DependentUpon>DatosVuelo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Compra\NumeroCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Compra\NumeroCompra.Designer.cs">
+      <DependentUpon>NumeroCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="Consulta Millas\Form1.cs">
       <SubType>Form</SubType>
@@ -223,7 +235,7 @@
     <Compile Include="Models\BO\Butaca.cs" />
     <Compile Include="Models\BO\Ciudad.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
-    <Compile Include="Models\BO\Compra.cs" />
+    <Compile Include="Models\BO\CompraAero.cs" />
     <Compile Include="Models\BO\Encomienda.cs" />
     <Compile Include="Models\BO\Funcionalidad.cs" />
     <Compile Include="Models\BO\Pasaje.cs" />
@@ -233,6 +245,7 @@
     <Compile Include="Models\BO\Ruta.cs" />
     <Compile Include="Models\BO\IBO.cs" />
     <Compile Include="Models\BO\Servicio.cs" />
+    <Compile Include="Models\BO\TarjetaDeCredito.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOButaca.cs" />
     <Compile Include="Models\DAO\DAOProducto.cs" />
@@ -250,6 +263,7 @@
     <Compile Include="Models\DAO\DAOCiudad.cs" />
     <Compile Include="Models\DAO\DAOServicio.cs" />
     <Compile Include="Models\DAO\DAOCliente.cs" />
+    <Compile Include="Models\DAO\DAOTarjetaDeCredito.cs" />
     <Compile Include="Models\DAO\DAOVuelo.cs" />
     <Compile Include="Models\DAO\Producto.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
@@ -278,6 +292,7 @@
     <Compile Include="Registro Llegada Destino\RegistrarLlegada.Designer.cs">
       <DependentUpon>RegistrarLlegada.cs</DependentUpon>
     </Compile>
+    <Compile Include="Session.cs" />
     <Compile Include="ValidationUtils\Validation.cs" />
     <EmbeddedResource Include="Abm Aeronave\AltaAeronave.resx">
       <DependentUpon>AltaAeronave.cs</DependentUpon>
@@ -319,6 +334,9 @@
     <EmbeddedResource Include="Compra\BuscarCliente.resx">
       <DependentUpon>BuscarCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Compra\BuscarClienteBasico.resx">
+      <DependentUpon>BuscarClienteBasico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Compra\CompraForm.resx">
       <DependentUpon>CompraForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -336,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Compra\DatosVuelo.resx">
       <DependentUpon>DatosVuelo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Compra\NumeroCompra.resx">
+      <DependentUpon>NumeroCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Devolucion\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

@@ -25,16 +25,21 @@ namespace AerolineaFrba.Compra
         {
             this.pasaje = pasaje;
             InitializeComponent();
+
             textBoxAvion.Text = pasaje.vuelo.aeronave;
             textBoxFechaSalida.Text = pasaje.vuelo.fechaSalida.ToString();
             textBoxFechaLlegada.Text = pasaje.vuelo.fechaLlegada.ToString();
+
             Ruta ruta = DAORuta.getRuta((int) pasaje.vuelo.ruta);
             textBoxCiudadDestino.Text = ruta.ciudadDestinoNombre;
             textBoxCiudadOrigen.Text = ruta.ciudadOrigenNombre;
+            textBoxTipoServicio.Text = ruta.tipoServicioNombre;
+
             kgDisponibles = DAOVuelo.getKgDisponibles((int)pasaje.vuelo.id);
             textBoxKilogramosDisponibles.Text = kgDisponibles.ToString();
             butacasDisponibles = DAOButaca.getButacasDisponibles((int)pasaje.vuelo.id).Count;
             textBoxPasajesDisponibles.Text = butacasDisponibles.ToString();
+            
         }
 
         private void buttonPasaje_Click(object sender, EventArgs e)
@@ -46,6 +51,7 @@ namespace AerolineaFrba.Compra
                 actualizarDataGridViews();
                 butacasDisponibles = butacasDisponibles - 1;
                 textBoxPasajesDisponibles.Text = butacasDisponibles.ToString();
+                buttonConfirmarCompra.Enabled = true;
             }
         }
 
@@ -58,15 +64,16 @@ namespace AerolineaFrba.Compra
         {
 
             dataGridViewEncomiendas.AutoGenerateColumns = false;
-            dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("precioTotal","Precio",140,true));
-            dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("kg", "Kilos", 140, true));
-            dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("dni", "DNI", 140, true));
+            dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("precioTotal", "Precio", 138, true));
+            dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("kg", "Kilos", 138, true));
+            dataGridViewEncomiendas.Columns.Add(Utils.crearColumna("dni", "DNI", 138, true));
 
             dataGridViewPasajes.AutoGenerateColumns = false;
-            dataGridViewPasajes.Columns.Add(Utils.crearColumna("precio", "Precio", 140, true));
-            dataGridViewPasajes.Columns.Add(Utils.crearColumna("butaca_numero", "Butaca Nro", 140, true));
-            dataGridViewPasajes.Columns.Add(Utils.crearColumna("kg", "DNI", 140, true));
-            
+            dataGridViewPasajes.Columns.Add(Utils.crearColumna("precio", "Precio", 138, true));
+            dataGridViewPasajes.Columns.Add(Utils.crearColumna("butaca_numero", "Butaca Nro", 138, true));
+            dataGridViewPasajes.Columns.Add(Utils.crearColumna("kg", "DNI", 138, true));
+
+            buttonConfirmarCompra.Enabled = false;
         }
 
         private void actualizarDataGridViews() {
@@ -96,6 +103,7 @@ namespace AerolineaFrba.Compra
                 this.encomiendaList.Add(encomienda);
                 actualizarDataGridViews();
                 actualizarCantidadKGDisponibles(encomienda);
+                buttonConfirmarCompra.Enabled = true;
             }
         }
 

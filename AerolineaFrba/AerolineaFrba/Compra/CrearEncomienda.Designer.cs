@@ -88,7 +88,7 @@
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(6, 137);
+            this.buttonCancelar.Location = new System.Drawing.Point(6, 142);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(129, 35);
             this.buttonCancelar.TabIndex = 4;
@@ -98,7 +98,7 @@
             // 
             // buttonComprar
             // 
-            this.buttonComprar.Location = new System.Drawing.Point(141, 137);
+            this.buttonComprar.Location = new System.Drawing.Point(141, 142);
             this.buttonComprar.Name = "buttonComprar";
             this.buttonComprar.Size = new System.Drawing.Size(129, 35);
             this.buttonComprar.TabIndex = 5;
@@ -130,7 +130,7 @@
             this.buttonBuscarCliente.Name = "buttonBuscarCliente";
             this.buttonBuscarCliente.Size = new System.Drawing.Size(260, 32);
             this.buttonBuscarCliente.TabIndex = 6;
-            this.buttonBuscarCliente.Text = "Seleccionar Pasajero";
+            this.buttonBuscarCliente.Text = "Seleccionar Cliente";
             this.buttonBuscarCliente.UseVisualStyleBackColor = true;
             this.buttonBuscarCliente.Click += new System.EventHandler(this.buttonBuscarCliente_Click);
             // 
@@ -210,7 +210,7 @@
             this.groupBox1.Controls.Add(this.textBoxPrecioTotal);
             this.groupBox1.Location = new System.Drawing.Point(6, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(264, 89);
+            this.groupBox1.Size = new System.Drawing.Size(264, 124);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encomienda";
@@ -225,7 +225,7 @@
             this.Controls.Add(this.buttonComprar);
             this.Controls.Add(this.buttonCancelar);
             this.Name = "CrearEncomienda";
-            this.Text = "CrearEncomienda";
+            this.Text = "Nueva Encomienda";
             this.Load += new System.EventHandler(this.CrearEncomienda_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPeso)).EndInit();
             this.groupBox3.ResumeLayout(false);

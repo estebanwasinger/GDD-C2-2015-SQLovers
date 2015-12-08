@@ -67,7 +67,7 @@ namespace AerolineaFrba.Compra
 
         private void buttonBuscarCliente_Click(object sender, EventArgs e)
         {
-            BuscarCliente clienteForm = new BuscarCliente();
+            BuscarClienteBasico clienteForm = new BuscarClienteBasico();
             clienteForm.ShowDialog();
             this.cliente = clienteForm.cliente;
             if (cliente != null)
