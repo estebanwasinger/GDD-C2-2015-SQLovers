@@ -74,7 +74,7 @@ namespace AerolineaFrba.Listado_Estadistico
                     dgvListado.DataSource = daoListadoEstadistico.DestAeroMasVacias(fechaIni, fechaFin);
                     break;
                 case 3:
-                    dgvListado.DataSource = daoListadoEstadistico.CliMasPtosAcum();
+                    dgvListado.DataSource = daoListadoEstadistico.CliMasPtosAcum(fechaIni, fechaFin);
                     break;
                 case 4:
                    dgvListado.DataSource = daoListadoEstadistico.DestPasCancel(fechaIni, fechaFin);
