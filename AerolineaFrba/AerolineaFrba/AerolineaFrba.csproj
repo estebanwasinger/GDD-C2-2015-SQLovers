@@ -265,7 +265,7 @@
     <Compile Include="Models\DAO\DAOCliente.cs" />
     <Compile Include="Models\DAO\DAOTarjetaDeCredito.cs" />
     <Compile Include="Models\DAO\DAOVuelo.cs" />
-    <Compile Include="Models\DAO\Producto.cs" />
+    <Compile Include="Models\BO\Producto.cs" />
     <Compile Include="Models\DataBase\DBAcess.cs" />
     <Compile Include="Models\BO\Usuario.cs" />
     <Compile Include="Models\Utils\Comprable.cs" />
