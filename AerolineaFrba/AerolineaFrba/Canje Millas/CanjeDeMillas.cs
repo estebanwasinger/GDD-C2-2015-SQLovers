@@ -87,6 +87,12 @@ namespace AerolineaFrba.Canje_Millas
 
             cliente.millas = cliente.millas - cantidadTotal;
             DAOCliente.update(cliente);
+            Canje canje = new Canje();
+            canje.cantidad = cantidad;
+            canje.cliente = cliente.dni;
+            canje.fecha = DateTime.Now;
+            canje.producto = producto.id;
+            DAOCanje.create(canje);
 
             this.Close();
         }

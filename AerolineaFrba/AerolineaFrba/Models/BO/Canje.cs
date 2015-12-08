@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Models.BO
 {
-    public class Canje
+    class Canje
     {
-       
-    }
+        public Canje() { }
 
-    
+        public Int32 cliente { get; set; }
+        public Int32 producto { get; set; }
+        public DateTime fecha { get; set; }
+        public Int32 cantidad { get; set; }
+
+    }
 }

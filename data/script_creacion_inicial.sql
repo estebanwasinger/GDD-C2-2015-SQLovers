@@ -51,6 +51,11 @@ IF Object_id('SQLOVERS.Usuario') IS NOT NULL
       DROP TABLE sqlovers.USUARIO; 
   END; 
 
+IF Object_id('SQLOVERS.CANJE') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.CANJE; 
+  END; 
+
 IF Object_id('SQLOVERS.funcionalidad_rol') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.FUNCIONALIDAD_ROL; 
@@ -363,6 +368,17 @@ CREATE TABLE sqlovers.LLEGADA_DESTINO
      sqlovers.VUELO(vuelo_id), 
   )
 
+CREATE TABLE sqlovers.CANJE 
+  ( 
+     canje_id     NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
+     canje_cliente  NUMERIC(18, 0)FOREIGN KEY REFERENCES 
+     sqlovers.CLIENTE(cli_dni),
+	 canje_fecha DATETIME,
+	 canje_producto NUMERIC(3, 0) FOREIGN KEY REFERENCES
+	 sqlovers.productos(producto_id),
+	 canje_cantidad NUMERIC(5, 0),
+
+  )
 
 
 /*             

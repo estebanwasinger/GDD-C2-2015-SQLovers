@@ -234,6 +234,7 @@
     <Compile Include="Models\BO\Aeronave.cs" />
     <Compile Include="Models\BO\Butaca.cs" />
     <Compile Include="Models\BO\Ciudad.cs" />
+    <Compile Include="Models\BO\Canje.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\CompraAero.cs" />
     <Compile Include="Models\BO\Encomienda.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Models\BO\Servicio.cs" />
     <Compile Include="Models\BO\TarjetaDeCredito.cs" />
     <Compile Include="Models\BO\Vuelo.cs" />
+    <Compile Include="Models\DAO\DAOCanje.cs" />
     <Compile Include="Models\DAO\DAOButaca.cs" />
     <Compile Include="Models\DAO\DAOProducto.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
