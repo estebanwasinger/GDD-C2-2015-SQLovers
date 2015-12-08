@@ -17,6 +17,7 @@ namespace AerolineaFrba.Models.BO
         public int vueloId { get; set; }
         public int precioTotal { get; set; }
         public int compraId { get; set; }
+        public bool cancelado { get; set; }
 
         public bool comprar()
         {

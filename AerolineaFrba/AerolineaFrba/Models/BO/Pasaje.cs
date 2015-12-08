@@ -16,7 +16,8 @@ namespace AerolineaFrba.Models.BO
         public Cliente usuario { get; set; }
         public Vuelo vuelo { get; set; }
         public Butaca butaca { get; set; }
-        public int compraId { get; set; } 
+        public int compraId { get; set; }
+        public bool cancelado { get; set; }
 
         public bool comprar()
         {

@@ -330,7 +330,8 @@ CREATE TABLE sqlovers.ENCOMIENDA
      sqlovers.VUELO(vuelo_id), 
      encomienda_precio_total INT,
 	 encomienda_compra_id NUMERIC(18,0) FOREIGN KEY REFERENCES
-	 sqlovers.COMPRA(compra_id) 
+	 sqlovers.COMPRA(compra_id),
+	 encomienda_cancelado BIT NOT NULL DEFAULT 0
   ) 
 
 CREATE TABLE sqlovers.PASAJE 
@@ -890,8 +891,7 @@ AS
       RETURN @resultado 
   END; 
 
-go 
-
+GO
 CREATE FUNCTION sqlovers.Cantidadkgdisponibles(@vuelo_id INT) 
 returns INT 
 AS 
@@ -905,15 +905,14 @@ AS
                                     sqlovers.ENCOMIENDA e 
                              WHERE  v.vuelo_aeronave_id = a.aeronave_matricula 
                                     AND e.encomienda_vuelo_id = @vuelo_id 
-                                    AND v.vuelo_id = @vuelo_id 
+                                    AND v.vuelo_id = @vuelo_id
+									AND e.encomienda_cancelado = 0 
                              GROUP  BY v.vuelo_id, 
                                        a.aeronave_kg_disponibles) 
 
       RETURN @kg_disponibles 
   END;
-
   GO
-
 CREATE FUNCTION sqlovers.Butacasdisponibles(@vuelo_id INT) 
 returns @butacasDisponibles TABLE ( 
   butaca_nro  NUMERIC(18, 0), 
@@ -928,14 +927,16 @@ AS
       FROM   sqlovers.butaca b 
              LEFT OUTER JOIN sqlovers.pasaje p 
                           ON b.butaca_nro = p.pasaje_butaca_nro 
-                             AND p.pasaje_vuelo_id = @vuelo_id, 
+                             AND p.pasaje_vuelo_id = @vuelo_id AND p.pasaje_cancelado = 0, 
              sqlovers.vuelo v 
       WHERE  b.butaca_aeronave = v.vuelo_aeronave_id 
-             AND v.vuelo_id = @vuelo_id 
+			 AND v.vuelo_id = @vuelo_id 
+
              AND pasaje_butaca_nro IS NULL 
 
       RETURN 
-  END; 
+  END;
+
   GO
 
   CREATE FUNCTION sqlovers.pasajeroYaTieneVueloEntre(@pasajeroDni INT, @fechaSalida DateTime, @fechaLlegada DateTime) 
