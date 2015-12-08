@@ -1,5 +1,6 @@
 ﻿using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DataBase;
+using AerolineaFrba.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,8 +10,18 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Models.DAO
 {
-    class DAOPasaje
+    class DAOPasaje : DAOBase<Pasaje>
     {
+
+        public DAOPasaje()
+            : base("SQLOVERS.PASAJE", "pasaje_codigo")
+        {
+        }
+
+        private string stringQuereable(string cadena)
+        {
+            return "'" + cadena + "'";
+        }
 
         public static bool create(Pasaje pasaje){
             List<SqlParameter> parameterList = new List<SqlParameter>();
@@ -24,5 +35,26 @@ namespace AerolineaFrba.Models.DAO
                                                 " VALUES (@pasaje_vuelo_id, @cli_dni, @pasaje_fechacompra, @pasaje_precio, @pasaje_butaca_nro, 0, @pasaje_compra_id)", "T", parameterList);
         }
 
+
+        public List<Pasaje> getPasajes()
+        {
+
+            string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje");
+
+            List<Pasaje> LPasajes = DB.ExecuteReader<Pasaje>(comando);
+
+            return LPasajes;
+        }
+
+
+        public List<Pasaje> buscarPasaje(string codigoPasaje)
+        {
+
+            string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}",codigoPasaje);
+
+            List<Pasaje> LPasajes = DB.ExecuteReader<Pasaje>(comando);
+
+            return LPasajes;
+        }
     }
 }

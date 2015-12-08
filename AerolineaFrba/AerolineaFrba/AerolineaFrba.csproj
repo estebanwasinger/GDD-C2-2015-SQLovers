@@ -201,11 +201,23 @@
     <Compile Include="Consulta Millas\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Devolucion\Form1.cs">
+    <Compile Include="Devolucion\DevolucionEncomienda.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Devolucion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Devolucion\DevolucionEncomienda.Designer.cs">
+      <DependentUpon>DevolucionEncomienda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Devolucion\DevolucionPasaje.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\DevolucionPasaje.Designer.cs">
+      <DependentUpon>DevolucionPasaje.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Devolucion\FormDevolucion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devolucion\FormDevolucion.Designer.cs">
+      <DependentUpon>FormDevolucion.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -237,6 +249,7 @@
     <Compile Include="Models\BO\Canje.cs" />
     <Compile Include="Models\BO\Cliente.cs" />
     <Compile Include="Models\BO\CompraAero.cs" />
+    <Compile Include="Models\BO\Devolver.cs" />
     <Compile Include="Models\BO\Encomienda.cs" />
     <Compile Include="Models\BO\Funcionalidad.cs" />
     <Compile Include="Models\BO\Pasaje.cs" />
@@ -250,6 +263,7 @@
     <Compile Include="Models\BO\Vuelo.cs" />
     <Compile Include="Models\DAO\DAOCanje.cs" />
     <Compile Include="Models\DAO\DAOButaca.cs" />
+    <Compile Include="Models\DAO\DAODevolucion.cs" />
     <Compile Include="Models\DAO\DAOProducto.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
     <Compile Include="Models\DAO\DAOEncomienda.cs" />
@@ -360,8 +374,14 @@
     <EmbeddedResource Include="Compra\NumeroCompra.resx">
       <DependentUpon>NumeroCompra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Devolucion\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Devolucion\DevolucionEncomienda.resx">
+      <DependentUpon>DevolucionEncomienda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\DevolucionPasaje.resx">
+      <DependentUpon>DevolucionPasaje.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Devolucion\FormDevolucion.resx">
+      <DependentUpon>FormDevolucion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

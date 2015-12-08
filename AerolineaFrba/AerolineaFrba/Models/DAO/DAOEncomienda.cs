@@ -1,5 +1,6 @@
 ﻿using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DataBase;
+using AerolineaFrba.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,8 +10,19 @@ using System.Threading.Tasks;
 
 namespace AerolineaFrba.Models.DAO
 {
-    class DAOEncomienda
+    class DAOEncomienda : DAOBase<Encomienda>
     {
+
+        public DAOEncomienda()
+            : base("SQLOVERS.ENCOMIENDA", "encomienda_id")
+        {
+        }
+
+        private string stringQuereable(string cadena)
+        {
+            return "'" + cadena + "'";
+        }
+
 
         public static bool create(Encomienda encomienda)
         {
@@ -33,5 +45,27 @@ namespace AerolineaFrba.Models.DAO
             }
             catch { return false; }
         }
+
+        public List<Encomienda> getEncomienda()
+        {
+
+            string comando = String.Format("select encomienda_id, encomienda_cliente_dni from sqlovers.encomienda");
+
+            List<Encomienda> LEncomiendas = DB.ExecuteReader<Encomienda>(comando);
+
+            return LEncomiendas;
+        }
+
+        public List<Encomienda> buscarEncomienda(string codigoEncomienda)
+        {
+
+            string comando = String.Format("select encomienda_id, encomienda_cliente_dni  from sqlovers.ENCOMIENDA where encomienda_id ={0}", codigoEncomienda);
+
+            List<Encomienda> Lenco = DB.ExecuteReader<Encomienda>(comando);
+
+            return Lenco;
+        }
+
+
     }
 }

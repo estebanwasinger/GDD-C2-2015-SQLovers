@@ -10,6 +10,7 @@ using AerolineaFrba.Abm_Ruta;
 using AerolineaFrba.Models;
 using AerolineaFrba.Generacion_Viaje;
 using AerolineaFrba.Registro_Llegada_Destino;
+using AerolineaFrba.Devolucion;
 
 namespace AerolineaFrba
 {
@@ -26,7 +27,7 @@ namespace AerolineaFrba
             Application.SetCompatibleTextRenderingDefault(false);
            
 
-            //Application.Run(new RegistrarLlegada());
+            //Application.Run(new FormDevolucion());
             Application.Run(new Inicio());
 
                 
