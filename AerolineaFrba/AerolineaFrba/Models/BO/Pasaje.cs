@@ -48,6 +48,9 @@ namespace AerolineaFrba.Models.BO
             if (dcc.Contains("compra_id"))
                 compraId = (dr["compra_id"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["compra_id"]);
 
+            if (dcc.Contains("pasaje_precio"))
+                precio = (dr["pasaje_precio"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["pasaje_precio"]);
+
             return this;
         }
 

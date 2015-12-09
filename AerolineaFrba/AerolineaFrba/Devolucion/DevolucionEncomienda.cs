@@ -67,12 +67,16 @@ namespace AerolineaFrba.Devolucion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtEnc.Text != "")
+            if (txtEnc.Text != "" && Char.IsDigit(txtEnc.Text, 0))
             {
                 lstEnco = daoEnco.buscarEncomienda(txtEnc.Text);
-                dtgEncomienda.DataSource = lstEnco;
+                if (lstEnco.Count > 0)
+                {
+                    dtgEncomienda.DataSource = lstEnco;
+                }
+                else { MessageBox.Show("No Existe el Codigo de Encomienda", "Error", MessageBoxButtons.OK); }
             }
-            else { MessageBox.Show("Ingrese el codigo de un Pasaje y presione buscar", "Error", MessageBoxButtons.OK); }
+            else { MessageBox.Show("Ingrese el codigo de una Encomienda y presione buscar", "Error", MessageBoxButtons.OK); }
         }
 
         private void btnContinuar_Click(object sender, EventArgs e)

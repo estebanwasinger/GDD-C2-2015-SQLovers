@@ -23,7 +23,7 @@ namespace AerolineaFrba.Models.DAO
             return "'" + cadena + "'";
         }
 
-        public void guardar(DateTime fechaDEV, string detalle, List<Pasaje> lstPasajes, List<Encomienda> lstEncom)
+        public int guardar(DateTime fechaDEV, string detalle, List<Pasaje> lstPasajes, List<Encomienda> lstEncom)
         {
             
                 List<SqlParameter> ListaParametros = new List<SqlParameter>();
@@ -38,18 +38,29 @@ namespace AerolineaFrba.Models.DAO
 
                  DBAcess.WriteInBase("insert into SQLOVERS.DEVOLUCION (devolucion_fecha, devolucion_detalle) VALUES(@devolucion_fecha, @devolucion_detalle)", "T", ListaParametros);
 
-                 string command = String.Format(" select * from sqlovers.devolucion where devolucion_fecha = '{0}' ", fechaDEV);
+                 string command = String.Format(" select * from sqlovers.devolucion where devolucion_detalle like  '{0}' ", detalle);
 
                  Devolver dev= DB.ExecuteReaderSingle<Devolver>(command);
 
+                 int precioPasaje = 0;
+                 int precioEncomienda = 0;
 
                  foreach (Pasaje pasaje in lstPasajes)
                  {
                      List<SqlParameter> ListaParametros_dos = new List<SqlParameter>();
                      ListaParametros_dos.Add(new SqlParameter("@devolucion", dev.id));
 
+                     precioPasaje = precioPasaje + pasaje.precio;
+
+                     Console.WriteLine(pasaje.precio);
+
                      ListaParametros_dos.Add(new SqlParameter("@pasaje", pasaje.codigo));
                      DBAcess.WriteInBase("insert into SQLOVERS.DEV_PASAJE (devolucion, pasaje) VALUES(@devolucion, @pasaje)", "T", ListaParametros_dos);
+
+
+                     string comando = String.Format("update SQLOVERS.PASAJE set pasaje_cancelado = 1 where pasaje_codigo like '{0}'", pasaje.codigo);
+                     DB.ExecuteCardinal(comando);
+
                  }
 
                  foreach (Encomienda encomienda in lstEncom)
@@ -57,11 +68,19 @@ namespace AerolineaFrba.Models.DAO
                      List<SqlParameter> ListaParametros_tres = new List<SqlParameter>();
                      ListaParametros_tres.Add(new SqlParameter("@devolucion", dev.id));
 
+                     precioEncomienda = precioEncomienda + encomienda.precioTotal;
+
                      ListaParametros_tres.Add(new SqlParameter("@encomienda", encomienda.id));
                      DBAcess.WriteInBase("insert into SQLOVERS.DEV_ENCOMIENDA (devolucion, encomienda) VALUES(@devolucion, @encomienda)", "T", ListaParametros_tres);
+                     string comando = String.Format("update SQLOVERS.ENCOMIENDA set encomienda_cancelado = 1 where encomienda_id like '{0}'", encomienda.id);
+                     DB.ExecuteCardinal(comando);
                  }
 
-
+                 int plataAdevolver = precioPasaje + precioEncomienda;
+                 string comand = String.Format("update SQLOVERS.DEVOLUCION set devolucion_dinero_total = {1} where devolucion_detalle like  '{0}' ", detalle, plataAdevolver);
+                 DB.ExecuteCardinal(comand);
+                 return plataAdevolver;
+                 
         }
 
 

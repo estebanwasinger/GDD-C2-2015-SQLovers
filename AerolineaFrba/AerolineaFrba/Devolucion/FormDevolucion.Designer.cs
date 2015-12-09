@@ -36,8 +36,6 @@
             this.dtgEncomiendas = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDetalle = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dateDev = new System.Windows.Forms.DateTimePicker();
             this.btnFinalizar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtgPasajes)).BeginInit();
@@ -120,22 +118,6 @@
             this.txtDetalle.Size = new System.Drawing.Size(185, 20);
             this.txtDetalle.TabIndex = 6;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(351, 337);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Fecha";
-            // 
-            // dateDev
-            // 
-            this.dateDev.Location = new System.Drawing.Point(394, 334);
-            this.dateDev.Name = "dateDev";
-            this.dateDev.Size = new System.Drawing.Size(200, 20);
-            this.dateDev.TabIndex = 8;
-            // 
             // btnFinalizar
             // 
             this.btnFinalizar.Location = new System.Drawing.Point(394, 383);
@@ -154,6 +136,7 @@
             this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // FormDevolucion
             // 
@@ -162,8 +145,6 @@
             this.ClientSize = new System.Drawing.Size(620, 428);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnFinalizar);
-            this.Controls.Add(this.dateDev);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtDetalle);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
@@ -192,8 +173,6 @@
         private System.Windows.Forms.DataGridView dtgEncomiendas;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDetalle;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateDev;
         private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.Button btnCancelar;
     }

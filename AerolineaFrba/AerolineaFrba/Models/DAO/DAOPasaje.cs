@@ -40,7 +40,8 @@ namespace AerolineaFrba.Models.DAO
         public List<Pasaje> getPasajes()
         {
 
-            string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje");
+//          string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje");
+            string comando = String.Format("select * from sqlovers.pasaje");
 
             List<Pasaje> LPasajes = DB.ExecuteReader<Pasaje>(comando);
 
@@ -51,7 +52,12 @@ namespace AerolineaFrba.Models.DAO
         public List<Pasaje> buscarPasaje(string codigoPasaje)
         {
 
+
             string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}", codigoPasaje);
+
+
+            string comando = String.Format("select * from sqlovers.pasaje where pasaje_codigo ={0}",codigoPasaje);
+            //string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}", codigoPasaje);
 
             List<Pasaje> LPasajes = DB.ExecuteReader<Pasaje>(comando);
 

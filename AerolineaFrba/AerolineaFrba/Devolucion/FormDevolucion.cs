@@ -83,6 +83,7 @@ namespace AerolineaFrba.Devolucion
                 string[] row1 = new string[] { ((Int32)pasaje.codigo).ToString(), ((Int32)pasaje.compraId).ToString() };
                 dtgPasajes.Rows.Add(row1);
                 lstPasajes.Add(pasaje);
+                
             }
             else { MessageBox.Show("El pasaje ya fue seleccionado", "Error", MessageBoxButtons.OK); }
                    
@@ -130,11 +131,26 @@ namespace AerolineaFrba.Devolucion
         private void btnFinalizar_Click(object sender, EventArgs e) {
 
             DAODevolucion daoDev = new DAODevolucion();
-            DateTime fechaDev = new DateTime(dateDev.Value.Year, dateDev.Value.Month, dateDev.Value.Day, dateDev.Value.Hour, dateDev.Value.Minute, dateDev.Value.Second);
+            DateTime fechaDev = DateTime.Now;
+                //new DateTime(DateTime.Now.Value.Year, dateDev.Value.Month, dateDev.Value.Day, dateDev.Value.Hour, dateDev.Value.Minute, dateDev.Value.Second);
             string detalle = txtDetalle.Text;
 
-            daoDev.guardar(fechaDev,detalle,lstPasajes,lstEncom);
-        
+            if (detalle != "" )
+            {
+                if (lstEncom.Count > 0 || lstPasajes.Count > 0)
+                {
+                int dinero = daoDev.guardar(fechaDev, detalle, lstPasajes, lstEncom);
+                MessageBox.Show("Se Devolvio en $: " + dinero, "Error", MessageBoxButtons.OK);
+                this.Close();
+                }
+                else { MessageBox.Show("Elija algun Item a Cancelar ", "Error", MessageBoxButtons.OK); }
+            }
+            else { MessageBox.Show("Ingrese el Detalle ", "Error", MessageBoxButtons.OK); }
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e) {
+            this.Close();
         }
 
     }

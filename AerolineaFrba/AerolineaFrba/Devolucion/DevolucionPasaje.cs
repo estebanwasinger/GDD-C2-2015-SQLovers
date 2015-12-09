@@ -65,10 +65,13 @@ namespace AerolineaFrba.Devolucion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtCodPasa.Text != "")
+            if (txtCodPasa.Text != "" && Char.IsDigit(txtCodPasa.Text,0))
             {
                 lstPasajes = daoPasaje.buscarPasaje(txtCodPasa.Text);
-                dtgPasaje.DataSource = lstPasajes;
+                if(lstPasajes.Count>0){
+                    dtgPasaje.DataSource = lstPasajes;
+                }
+                else { MessageBox.Show("No Existe el Pasaje", "Error", MessageBoxButtons.OK); }
             }
             else { MessageBox.Show("Ingrese el codigo de un Pasaje y presione buscar", "Error", MessageBoxButtons.OK); }
         }

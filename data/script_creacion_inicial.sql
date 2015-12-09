@@ -410,7 +410,9 @@ CREATE TABLE sqlovers.CANJE
      PRIMARY KEY, 
      devolucion_fecha    DATETIME, 
      devolucion_compra NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.COMPRA(compra_id),
-     devolucion_detalle NVARCHAR(255)
+     devolucion_detalle NVARCHAR(255),
+     
+     devolucion_dinero_total int
  )
  
 CREATE TABLE sqlovers.MILLAS 

@@ -50,8 +50,8 @@ namespace AerolineaFrba.Models.DAO
         public List<Encomienda> getEncomienda()
         {
 
-            string comando = String.Format("select encomienda_id, encomienda_cliente_dni from sqlovers.encomienda");
-
+            //string comando = String.Format("select encomienda_id, encomienda_cliente_dni from sqlovers.encomienda");
+            string comando = String.Format("select * from sqlovers.encomienda");
             List<Encomienda> LEncomiendas = DB.ExecuteReader<Encomienda>(comando);
 
             return LEncomiendas;
@@ -60,7 +60,7 @@ namespace AerolineaFrba.Models.DAO
         public List<Encomienda> buscarEncomienda(string codigoEncomienda)
         {
 
-            string comando = String.Format("select encomienda_id, encomienda_cliente_dni  from sqlovers.ENCOMIENDA where encomienda_id ={0}", codigoEncomienda);
+            string comando = String.Format("select *  from sqlovers.ENCOMIENDA where encomienda_id ={0}", codigoEncomienda);
 
             List<Encomienda> Lenco = DB.ExecuteReader<Encomienda>(comando);
 
