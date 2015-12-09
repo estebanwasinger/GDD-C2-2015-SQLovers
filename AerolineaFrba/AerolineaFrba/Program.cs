@@ -27,8 +27,8 @@ namespace AerolineaFrba
             Application.SetCompatibleTextRenderingDefault(false);
            
 
-            //Application.Run(new FormDevolucion());
-            Application.Run(new Inicio());
+            Application.Run(new FormDevolucion());
+           // Application.Run(new Inicio());
 
                 
         }

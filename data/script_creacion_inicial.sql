@@ -11,20 +11,6 @@ IF NOT EXISTS (SELECT schema_name
 /*              
 DROP ALL THE TABLES!!!              
 */ 
-IF Object_id('SQLOVERS.DEV_ENCOMIENDA') IS NOT NULL 
-  BEGIN 
-      DROP TABLE SQLOVERS.DEV_ENCOMIENDA; 
-  END;
-
-IF Object_id('SQLOVERS.DEV_PASAJE') IS NOT NULL 
-  BEGIN 
-      DROP TABLE SQLOVERS.DEV_PASAJE; 
-  END;
-
-IF Object_id('SQLOVERS.DEVOLUCION') IS NOT NULL 
-  BEGIN 
-      DROP TABLE SQLOVERS.DEVOLUCION; 
-  END;
 
 IF Object_id('SQLOVERS.TARJETAS_DE_CREDITO') IS NOT NULL 
   BEGIN 
@@ -126,6 +112,21 @@ IF Object_id('SQLOVERS.TIPO_BAJA') IS NOT NULL
       DROP TABLE sqlovers.TIPO_BAJA; 
   END; 
 
+IF Object_id('SQLOVERS.DEVOLUCION') IS NOT NULL 
+  BEGIN 
+      DROP TABLE SQLOVERS.DEVOLUCION; 
+  END;
+
+IF Object_id('SQLOVERS.DEV_ENCOMIENDA') IS NOT NULL 
+  BEGIN 
+      DROP TABLE SQLOVERS.DEV_ENCOMIENDA; 
+  END;
+
+IF Object_id('SQLOVERS.DEV_PASAJE') IS NOT NULL 
+  BEGIN 
+      DROP TABLE SQLOVERS.DEV_PASAJE; 
+  END;
+
 
 /*              
 DROP ALL THE FUNCTIONS AND PROCEDURES!!!              
@@ -190,27 +191,7 @@ CREATE TABLES
 */ 
 
 
-CREATE TABLE sqlovers.DEVOLUCION 
-  ( 
-     devolucion_id                NUMERIC(18, 0) IDENTITY(1, 1) NOT NULL 
-     PRIMARY KEY, 
-     devolucion_fecha    DATETIME, 
-     devolucion_compra NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.COMPRA(compra_id),
-     devolucion_detalle NVARCHAR(255)
-     
-  )
 
-CREATE TABLE sqlovers.DEV_PASAJE 
-  ( 
-     devolucion                NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.DEVOLUCION(devolucion_id), 
-     pasaje   NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.PASAJE(pasaje_codigo) 
-  )
-
-  CREATE TABLE sqlovers.DEV_ENCOMIENDA 
-  ( 
-     devolucion                NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.DEVOLUCION(devolucion_id), 
-     encomienda   int FOREIGN KEY REFERENCES sqlovers.ENCOMIENDA(encomienda_id) 
-  )
 
 CREATE TABLE sqlovers.ROL 
   ( 
@@ -419,7 +400,27 @@ CREATE TABLE sqlovers.CANJE
 
   )
 
+  CREATE TABLE sqlovers.DEVOLUCION 
+  ( 
+     devolucion_id                NUMERIC(18, 0) IDENTITY(1, 1) NOT NULL 
+     PRIMARY KEY, 
+     devolucion_fecha    DATETIME, 
+     devolucion_compra NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.COMPRA(compra_id),
+     devolucion_detalle NVARCHAR(255)
+     
+  )
 
+CREATE TABLE sqlovers.DEV_PASAJE 
+  ( 
+     devolucion                NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.DEVOLUCION(devolucion_id), 
+     pasaje   NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.PASAJE(pasaje_codigo) 
+  )
+
+  CREATE TABLE sqlovers.DEV_ENCOMIENDA 
+  ( 
+     devolucion                NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.DEVOLUCION(devolucion_id), 
+     encomienda   int FOREIGN KEY REFERENCES sqlovers.ENCOMIENDA(encomienda_id) 
+  )
 /*             
 FILL TABLES             
 */ 
