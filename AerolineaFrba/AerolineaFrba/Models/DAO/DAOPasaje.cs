@@ -53,7 +53,7 @@ namespace AerolineaFrba.Models.DAO
         {
 
 
-            string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}", codigoPasaje);
+            //string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}", codigoPasaje);
 
 
             string comando = String.Format("select * from sqlovers.pasaje where pasaje_codigo ={0}",codigoPasaje);
