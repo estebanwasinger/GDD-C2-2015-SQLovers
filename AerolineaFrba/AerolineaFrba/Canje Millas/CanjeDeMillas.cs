@@ -21,6 +21,8 @@ namespace AerolineaFrba.Canje_Millas
         private bool crear;
         private Int32 cantidad = 0;
         private Int32 cantidadTotal;
+        private Int32 millasCliente;
+        private Int32 millasGastadas;
         public Cliente cliente;
         private Models.Usuario user;
 
@@ -70,7 +72,7 @@ namespace AerolineaFrba.Canje_Millas
                     MessageBox.Show("No se puede realizar la operación, no cuenta con suficiente stock", "Error!", MessageBoxButtons.OK);
                     return;
                 }
-                if (cantidadTotal > cliente.millas)
+                if (cantidadTotal > (millasCliente - millasGastadas))
                 {
                     numericUpDown_cant.Value = numericUpDown_cant.Value - 1;
                     MessageBox.Show("No se puede realizar la operación, no cuenta con la cantidad de millas suficiente", "Error!", MessageBoxButtons.OK);
@@ -85,8 +87,6 @@ namespace AerolineaFrba.Canje_Millas
             producto.stock = producto.stock - (int) numericUpDown_cant.Value;
             DAOProducto.actualizarStock(producto.id, producto.stock);
 
-            cliente.millas = cliente.millas - cantidadTotal;
-            DAOCliente.update(cliente);
             Canje canje = new Canje();
             canje.cantidad = cantidad;
             canje.cliente = cliente.dni;
@@ -127,6 +127,8 @@ namespace AerolineaFrba.Canje_Millas
             if (buscarForm.cliente != null) {
                 this.cliente = buscarForm.cliente;
                 textBoxDNI.Text = this.cliente.dni.ToString();
+                millasCliente = DAOMillas.getMillasTotalesDeCliente(this.cliente.dni);
+                millasGastadas = DAOCanje.getMillasGastadas(this.cliente.dni);
                 validarDatosCargados();
             }
 

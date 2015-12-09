@@ -195,7 +195,7 @@
     <Compile Include="Compra\NumeroCompra.Designer.cs">
       <DependentUpon>NumeroCompra.cs</DependentUpon>
     </Compile>
-	<Compile Include="Consulta Millas\ConsultaMillas.cs">
+    <Compile Include="Consulta Millas\ConsultaMillas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Consulta Millas\ConsultaMillas.Designer.cs">
@@ -252,7 +252,7 @@
     <Compile Include="Models\BO\Devolver.cs" />
     <Compile Include="Models\BO\Encomienda.cs" />
     <Compile Include="Models\BO\Funcionalidad.cs" />
-	<Compile Include="Models\BO\Millas.cs" />
+    <Compile Include="Models\BO\Millas.cs" />
     <Compile Include="Models\BO\Pasaje.cs" />
     <Compile Include="Models\BO\LlegadaDestino.cs" />
     <Compile Include="Models\BO\Rol.cs" />
@@ -265,11 +265,11 @@
     <Compile Include="Models\DAO\DAOCanje.cs" />
     <Compile Include="Models\DAO\DAOButaca.cs" />
     <Compile Include="Models\DAO\DAODevolucion.cs" />
+    <Compile Include="Models\DAO\DAOMillas.cs" />
     <Compile Include="Models\DAO\DAOProducto.cs" />
     <Compile Include="Models\DAO\DAOCompra.cs" />
     <Compile Include="Models\DAO\DAOEncomienda.cs" />
     <Compile Include="Models\DAO\DAOFuncionalidad.cs" />
-	<Compile Include="Models\DAO\DAOMillas.cs" />
     <Compile Include="Models\DAO\DAOListadoEstadistico.cs" />
     <Compile Include="Models\DAO\DAOLlegadaDestino.cs" />
     <Compile Include="Models\DAO\DAOPasaje.cs" />
@@ -310,6 +310,7 @@
     <Compile Include="Registro Llegada Destino\RegistrarLlegada.Designer.cs">
       <DependentUpon>RegistrarLlegada.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistroLlegada.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="ValidationUtils\Validation.cs" />
     <EmbeddedResource Include="Abm Aeronave\AltaAeronave.resx">
@@ -384,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Devolucion\FormDevolucion.resx">
       <DependentUpon>FormDevolucion.cs</DependentUpon>
+	</EmbeddedResource>
+    <EmbeddedResource Include="Consulta Millas\ConsultaMillas.resx">
+      <DependentUpon>ConsultaMillas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

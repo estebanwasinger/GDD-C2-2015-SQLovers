@@ -20,23 +20,25 @@ namespace AerolineaFrba
         }
 
         public void btnCliente_Click(object sender, EventArgs e) {
-            FormLogin login = new FormLogin();
             Session.Instance(false);
-            login.ShowDialog();
-            if (login.userRegistrado != null)
-            {
-                PantallaCliente pantallaCliente = new PantallaCliente(login.userRegistrado);
+                PantallaCliente pantallaCliente = new PantallaCliente(null);
                 pantallaCliente.Show();
-            }
 
             //this.Hide();       
         }
 
         public void btnAdministrador_Click(object sender, EventArgs e) {
-            Session.Instance(true);
-            Usuario user = new Usuario();
-            FormPrincipal formPrinicipal = new FormPrincipal(user);
-            formPrinicipal.Show();
+            FormLogin login = new FormLogin();
+            login.ShowDialog();
+            if (login.userRegistrado != null) {
+                Session.Instance(true);
+
+                Usuario user = new Usuario();
+                FormPrincipal formPrinicipal = new FormPrincipal(user);
+                formPrinicipal.Show();
+                this.Hide();
+            }
+           
         }
         
 

@@ -127,6 +127,10 @@ IF Object_id('SQLOVERS.DEV_PASAJE') IS NOT NULL
       DROP TABLE SQLOVERS.DEV_PASAJE; 
   END;
 
+IF Object_id('SQLOVERS.MILLAS') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.MILLAS; 
+  END;
 
 /*              
 DROP ALL THE FUNCTIONS AND PROCEDURES!!!              
@@ -407,7 +411,20 @@ CREATE TABLE sqlovers.CANJE
      devolucion_fecha    DATETIME, 
      devolucion_compra NUMERIC(18, 0) FOREIGN KEY REFERENCES sqlovers.COMPRA(compra_id),
      devolucion_detalle NVARCHAR(255)
-     
+ )
+ 
+CREATE TABLE sqlovers.MILLAS 
+  ( 
+     millas_id     NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
+     millas_cliente  NUMERIC(18, 0)FOREIGN KEY REFERENCES 
+     sqlovers.CLIENTE(cli_dni),
+	 millas_fecha DATETIME,
+	 millas_pasaje_id NUMERIC(18, 0) FOREIGN KEY REFERENCES
+	 sqlovers.pasaje(pasaje_codigo),
+	 millas_encomienda_id int FOREIGN KEY REFERENCES
+	 sqlovers.encomienda(encomienda_id),
+	 millas_cantidad NUMERIC(5, 0)
+
   )
 
 CREATE TABLE sqlovers.DEV_PASAJE 

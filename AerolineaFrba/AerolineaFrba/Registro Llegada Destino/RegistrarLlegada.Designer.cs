@@ -41,6 +41,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtButacasVent = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.txtServicio = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.dateLlegada = new System.Windows.Forms.DateTimePicker();
@@ -53,15 +55,13 @@
             this.btnValidar = new System.Windows.Forms.Button();
             this.btnRegist = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtButacasVent = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 44);
+            this.label1.Location = new System.Drawing.Point(12, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 0;
@@ -70,7 +70,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 84);
+            this.label2.Location = new System.Drawing.Point(206, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 1;
@@ -79,7 +79,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(296, 44);
+            this.label4.Location = new System.Drawing.Point(390, 35);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 3;
@@ -172,12 +172,28 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtFabricante);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(49, 153);
+            this.groupBox1.Location = new System.Drawing.Point(30, 122);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(497, 182);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos Aeronave";
+            // 
+            // txtButacasVent
+            // 
+            this.txtButacasVent.Location = new System.Drawing.Point(352, 94);
+            this.txtButacasVent.Name = "txtButacasVent";
+            this.txtButacasVent.Size = new System.Drawing.Size(49, 20);
+            this.txtButacasVent.TabIndex = 31;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(251, 101);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(95, 13);
+            this.label12.TabIndex = 30;
+            this.label12.Text = "Butacas Ventanilla";
             // 
             // txtServicio
             // 
@@ -189,7 +205,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(294, 78);
+            this.label10.Location = new System.Drawing.Point(27, 73);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 13);
             this.label10.TabIndex = 31;
@@ -197,7 +213,7 @@
             // 
             // dateLlegada
             // 
-            this.dateLlegada.Location = new System.Drawing.Point(393, 71);
+            this.dateLlegada.Location = new System.Drawing.Point(111, 67);
             this.dateLlegada.Name = "dateLlegada";
             this.dateLlegada.Size = new System.Drawing.Size(200, 20);
             this.dateLlegada.TabIndex = 32;
@@ -205,7 +221,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(297, 107);
+            this.label11.Location = new System.Drawing.Point(324, 73);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(71, 13);
             this.label11.TabIndex = 33;
@@ -214,7 +230,7 @@
             // horaLlegada
             // 
             this.horaLlegada.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.horaLlegada.Location = new System.Drawing.Point(393, 107);
+            this.horaLlegada.Location = new System.Drawing.Point(413, 67);
             this.horaLlegada.Name = "horaLlegada";
             this.horaLlegada.ShowUpDown = true;
             this.horaLlegada.Size = new System.Drawing.Size(89, 20);
@@ -222,7 +238,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(91, 113);
+            this.button1.Location = new System.Drawing.Point(30, 93);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 23);
             this.button1.TabIndex = 35;
@@ -233,7 +249,7 @@
             // cmbAOrigen
             // 
             this.cmbAOrigen.FormattingEnabled = true;
-            this.cmbAOrigen.Location = new System.Drawing.Point(129, 75);
+            this.cmbAOrigen.Location = new System.Drawing.Point(280, 32);
             this.cmbAOrigen.Name = "cmbAOrigen";
             this.cmbAOrigen.Size = new System.Drawing.Size(100, 21);
             this.cmbAOrigen.TabIndex = 36;
@@ -241,7 +257,7 @@
             // cmbASalia
             // 
             this.cmbASalia.FormattingEnabled = true;
-            this.cmbASalia.Location = new System.Drawing.Point(393, 35);
+            this.cmbASalia.Location = new System.Drawing.Point(478, 32);
             this.cmbASalia.Name = "cmbASalia";
             this.cmbASalia.Size = new System.Drawing.Size(100, 21);
             this.cmbASalia.TabIndex = 37;
@@ -249,14 +265,14 @@
             // cmbMatricula
             // 
             this.cmbMatricula.FormattingEnabled = true;
-            this.cmbMatricula.Location = new System.Drawing.Point(129, 36);
+            this.cmbMatricula.Location = new System.Drawing.Point(86, 32);
             this.cmbMatricula.Name = "cmbMatricula";
             this.cmbMatricula.Size = new System.Drawing.Size(100, 21);
             this.cmbMatricula.TabIndex = 38;
             // 
             // btnValidar
             // 
-            this.btnValidar.Location = new System.Drawing.Point(91, 375);
+            this.btnValidar.Location = new System.Drawing.Point(236, 334);
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(75, 23);
             this.btnValidar.TabIndex = 39;
@@ -266,7 +282,7 @@
             // 
             // btnRegist
             // 
-            this.btnRegist.Location = new System.Drawing.Point(254, 375);
+            this.btnRegist.Location = new System.Drawing.Point(452, 334);
             this.btnRegist.Name = "btnRegist";
             this.btnRegist.Size = new System.Drawing.Size(75, 23);
             this.btnRegist.TabIndex = 40;
@@ -276,7 +292,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(407, 375);
+            this.button4.Location = new System.Drawing.Point(65, 334);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 41;
@@ -284,27 +300,11 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(251, 101);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(95, 13);
-            this.label12.TabIndex = 30;
-            this.label12.Text = "Butacas Ventanilla";
-            // 
-            // txtButacasVent
-            // 
-            this.txtButacasVent.Location = new System.Drawing.Point(352, 94);
-            this.txtButacasVent.Name = "txtButacasVent";
-            this.txtButacasVent.Size = new System.Drawing.Size(49, 20);
-            this.txtButacasVent.TabIndex = 31;
-            // 
             // RegistrarLlegada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 483);
+            this.ClientSize = new System.Drawing.Size(590, 380);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.btnRegist);
             this.Controls.Add(this.btnValidar);

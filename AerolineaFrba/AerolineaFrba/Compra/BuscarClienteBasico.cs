@@ -79,5 +79,24 @@ namespace AerolineaFrba.Compra
         {
             buttonModificarCliente.Enabled = false;
         }
+
+        private void textBoxBusqueda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.AcceptOnlyNumbers(e);
+        }
+
+        private void AcceptOnlyNumbers(KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxBusqueda_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -215,6 +215,29 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
             if (daoll.create(llegada))
             {
+                List<Pasaje> pasajeList = DAOPasaje.getFromVuelo(llegada.vuelo_id);
+
+                foreach( Pasaje pasaje in pasajeList) {
+                    Millas millas = new Millas();
+                    millas.cantidad = pasaje.precio / 10;
+                    millas.cliente = pasaje.usuario.dni;
+                    millas.pasaje = pasaje.codigo;
+                    millas.fecha = DateTime.Now;
+                    DAOMillas.create(millas);
+                }
+
+                List<Encomienda> encomiendaList = DAOEncomienda.getFromVuelo(llegada.vuelo_id);
+
+                foreach (Encomienda encomienda in encomiendaList)
+                {
+                    Millas millas = new Millas();
+                    millas.cantidad = encomienda.precioTotal / 10;
+                    millas.cliente = encomienda.dniCliente;
+                    millas.encomienda = encomienda.id;
+                    millas.fecha = DateTime.Now;
+                    DAOMillas.create(millas);
+                }
+
                 MessageBox.Show("Llegada de Aeronave Registrada", "Notificacion", MessageBoxButtons.OK);
             }
             else { MessageBox.Show("Error al Registrar llegada", "Notificacion", MessageBoxButtons.OK); }

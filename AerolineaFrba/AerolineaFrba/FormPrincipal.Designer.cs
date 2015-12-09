@@ -36,6 +36,9 @@
             this.buttonMillas = new System.Windows.Forms.Button();
             this.buttonViajes = new System.Windows.Forms.Button();
             this.btnListadoEstadistico = new System.Windows.Forms.Button();
+            this.buttonRegistroDeLlegada = new System.Windows.Forms.Button();
+            this.buttonDevolucion = new System.Windows.Forms.Button();
+            this.buttonConsultaMillas = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAeronaves
@@ -107,7 +110,6 @@
             this.buttonViajes.Text = "Viajes";
             this.buttonViajes.UseVisualStyleBackColor = true;
             this.buttonViajes.Click += new System.EventHandler(this.buttonViajes_Click);
-            
             // 
             // btnListadoEstadistico
             // 
@@ -118,13 +120,45 @@
             this.btnListadoEstadistico.Text = "Listado Estadístico";
             this.btnListadoEstadistico.UseVisualStyleBackColor = true;
             this.btnListadoEstadistico.Click += new System.EventHandler(this.btnListadoEstadistico_Click);
-
+            // 
+            // buttonRegistroDeLlegada
+            // 
+            this.buttonRegistroDeLlegada.Location = new System.Drawing.Point(27, 308);
+            this.buttonRegistroDeLlegada.Name = "buttonRegistroDeLlegada";
+            this.buttonRegistroDeLlegada.Size = new System.Drawing.Size(207, 53);
+            this.buttonRegistroDeLlegada.TabIndex = 8;
+            this.buttonRegistroDeLlegada.Text = "Registro de Llegada";
+            this.buttonRegistroDeLlegada.UseVisualStyleBackColor = true;
+            this.buttonRegistroDeLlegada.Click += new System.EventHandler(this.buttonRegistroDeLlegada_Click);
+            // 
+            // buttonDevolucion
+            // 
+            this.buttonDevolucion.Location = new System.Drawing.Point(258, 308);
+            this.buttonDevolucion.Name = "buttonDevolucion";
+            this.buttonDevolucion.Size = new System.Drawing.Size(207, 53);
+            this.buttonDevolucion.TabIndex = 9;
+            this.buttonDevolucion.Text = "Devolucion";
+            this.buttonDevolucion.UseVisualStyleBackColor = true;
+            this.buttonDevolucion.Click += new System.EventHandler(this.buttonDevolucion_Click);
+            // 
+            // buttonConsultaMillas
+            // 
+            this.buttonConsultaMillas.Location = new System.Drawing.Point(258, 376);
+            this.buttonConsultaMillas.Name = "buttonConsultaMillas";
+            this.buttonConsultaMillas.Size = new System.Drawing.Size(207, 53);
+            this.buttonConsultaMillas.TabIndex = 10;
+            this.buttonConsultaMillas.Text = "Consulta Millas";
+            this.buttonConsultaMillas.UseVisualStyleBackColor = true;
+            this.buttonConsultaMillas.Click += new System.EventHandler(this.buttonConsultaMillas_Click);
             // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(503, 333);
+            this.ClientSize = new System.Drawing.Size(503, 463);
+            this.Controls.Add(this.buttonConsultaMillas);
+            this.Controls.Add(this.buttonDevolucion);
+            this.Controls.Add(this.buttonRegistroDeLlegada);
             this.Controls.Add(this.buttonViajes);
             this.Controls.Add(this.buttonMillas);
             this.Controls.Add(this.buttonCompra);
@@ -149,6 +183,9 @@
         private System.Windows.Forms.Button buttonMillas;
         private System.Windows.Forms.Button buttonViajes;
         private System.Windows.Forms.Button btnListadoEstadistico;
+        private System.Windows.Forms.Button buttonRegistroDeLlegada;
+        private System.Windows.Forms.Button buttonDevolucion;
+        private System.Windows.Forms.Button buttonConsultaMillas;
     }
 }
 

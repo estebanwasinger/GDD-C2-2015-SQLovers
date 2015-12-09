@@ -46,6 +46,7 @@ namespace AerolineaFrba.Models.DAO
             catch { return false; }
         }
 
+
         public List<Encomienda> getEncomienda()
         {
 
@@ -64,6 +65,45 @@ namespace AerolineaFrba.Models.DAO
             List<Encomienda> Lenco = DB.ExecuteReader<Encomienda>(comando);
 
             return Lenco;
+        }
+
+
+
+        internal static List<Encomienda> getFromVuelo(int vueloId)
+        {
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@vueloId", vueloId));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * FROM SQLOVERS.Encomienda WHERE encomienda_vuelo_id = @vueloId", "T", parameterList);
+            return createEncomiendaListFromQuery(lector);
+        }
+
+        public static List<Encomienda> retrieveAll()
+        {
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.Encomienda", "T", new List<SqlParameter>());
+            return createEncomiendaListFromQuery(lector);
+        }
+
+        private static List<Encomienda> createEncomiendaListFromQuery(SqlDataReader lector)
+        {
+            List<Encomienda> clienteList = new List<Encomienda>();
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    Encomienda encomienda = new Encomienda();
+                    encomienda.id = (int)lector["encomienda_id"];
+                    encomienda.cancelado = (bool)lector["encomienda_cancelado"];
+                    // pasaje.butaca = (int)lector["cli_apellido"];
+                    encomienda.compraId = (int)(lector["encomienda_compra_id"] == DBNull.Value ? 0 : lector["encomienda_compra_id"]);
+                    encomienda.precioTotal = (int)lector["encomienda_precio_total"];
+                    encomienda.vueloId = (int)(decimal)lector["encomienda_vuelo_id"];
+                    encomienda.dniCliente = (int)(decimal)lector["encomienda_cliente_dni"];
+                    //pasaje.vuelo = DAOVuelo.getVuelo();
+
+                    clienteList.Add(encomienda);
+                }
+            }
+            return clienteList;
         }
 
 

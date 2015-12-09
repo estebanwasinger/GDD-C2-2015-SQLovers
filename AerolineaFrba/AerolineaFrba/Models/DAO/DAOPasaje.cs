@@ -36,6 +36,7 @@ namespace AerolineaFrba.Models.DAO
         }
 
 
+
         public List<Pasaje> getPasajes()
         {
 
@@ -50,11 +51,49 @@ namespace AerolineaFrba.Models.DAO
         public List<Pasaje> buscarPasaje(string codigoPasaje)
         {
 
-            string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}",codigoPasaje);
+            string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}", codigoPasaje);
 
             List<Pasaje> LPasajes = DB.ExecuteReader<Pasaje>(comando);
 
             return LPasajes;
+        }
+            
+        internal static List<Pasaje> getFromVuelo(int vueloId)
+        {
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@vueloId", vueloId));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * FROM SQLOVERS.PASAJE WHERE pasaje_vuelo_id = @vueloId", "T", parameterList);
+            return createPasajeListFromQuery(lector);
+        }
+
+        public static List<Pasaje> retrieveAll()
+        {
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.PASAJE", "T", new List<SqlParameter>());
+            return createPasajeListFromQuery(lector);
+        }
+
+        private static List<Pasaje> createPasajeListFromQuery(SqlDataReader lector)
+        {
+            List<Pasaje> clienteList = new List<Pasaje>();
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    Pasaje pasaje = new Pasaje();
+                    pasaje.codigo = (int)(decimal)lector["pasaje_codigo"];
+                    pasaje.cancelado = (bool)lector["pasaje_cancelado"];
+                   // pasaje.butaca = (int)lector["cli_apellido"];
+                    pasaje.compraId = (int)(lector["pasaje_compra_id"] == DBNull.Value ? 0 : lector["pasaje_compra_id"]);
+                    pasaje.fechaCompra = (DateTime)lector["pasaje_fechacompra"];
+                    pasaje.precio = (int)(decimal)lector["pasaje_precio"];
+                    pasaje.usuario = DAOCliente.getCliente((int)(decimal)lector["cli_dni"]);
+                    //pasaje.vuelo = DAOVuelo.getVuelo();
+
+                    clienteList.Add(pasaje);
+                }
+            }
+            return clienteList;
+
         }
     }
 }

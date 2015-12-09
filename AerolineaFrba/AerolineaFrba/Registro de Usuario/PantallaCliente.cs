@@ -14,6 +14,7 @@ using AerolineaFrba.Abm_Ciudad;
 using AerolineaFrba.Abm_Rol;
 using AerolineaFrba.Compra;
 using AerolineaFrba.Canje_Millas;
+using AerolineaFrba.Consulta_Millas;
 
 namespace AerolineaFrba.Registro_de_Usuario
 {
@@ -42,7 +43,8 @@ namespace AerolineaFrba.Registro_de_Usuario
 
         private void buttonConsultarMillas_Click(object sender, EventArgs e)
         {
-
+            ConsultaMillas millas = new ConsultaMillas();
+            millas.ShowDialog();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

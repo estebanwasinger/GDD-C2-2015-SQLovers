@@ -15,6 +15,10 @@ using AerolineaFrba.Abm_Rol;
 using AerolineaFrba.Compra;
 using AerolineaFrba.Listado_Estadistico;
 using AerolineaFrba.Canje_Millas;
+using AerolineaFrba.Generacion_Viaje;
+using AerolineaFrba.Registro_Llegada_Destino;
+using AerolineaFrba.Consulta_Millas;
+using AerolineaFrba.Devolucion;
 
 
 namespace AerolineaFrba
@@ -67,13 +71,32 @@ namespace AerolineaFrba
 
         private void buttonViajes_Click(object sender, EventArgs e)
         {
-
-        }
+            GenerarViaje viajeForm = new GenerarViaje();
+            viajeForm.ShowDialog();
+        } 
         
         private void btnListadoEstadistico_Click(object sender, EventArgs e)
         {
             ListadoEstadistico frm = new ListadoEstadistico();
             frm.ShowDialog();
+        }
+
+        private void buttonRegistroDeLlegada_Click(object sender, EventArgs e)
+        {
+            RegistrarLlegada registroForm = new RegistrarLlegada();
+            registroForm.ShowDialog();
+        }
+
+        private void buttonConsultaMillas_Click(object sender, EventArgs e)
+        {
+            ConsultaMillas millas = new ConsultaMillas();
+            millas.ShowDialog();
+        }
+
+        private void buttonDevolucion_Click(object sender, EventArgs e)
+        {
+            FormDevolucion devolucion = new FormDevolucion();
+            devolucion.ShowDialog();
         }
 
     }
