@@ -28,16 +28,16 @@ namespace AerolineaFrba
         }
 
         public void btnAdministrador_Click(object sender, EventArgs e) {
-            FormLogin login = new FormLogin();
-            login.ShowDialog();
-            if (login.userRegistrado != null) {
+           // FormLogin login = new FormLogin();
+           // login.ShowDialog();
+           // if (login.userRegistrado != null) {
                 Session.Instance(true);
 
                 Usuario user = new Usuario();
                 FormPrincipal formPrinicipal = new FormPrincipal(user);
                 formPrinicipal.Show();
                 this.Hide();
-            }
+            //}
            
         }
         

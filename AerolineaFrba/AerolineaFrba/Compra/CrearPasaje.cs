@@ -57,7 +57,10 @@ namespace AerolineaFrba.Compra
             Pasaje pasaje = new Pasaje();
             pasaje.vuelo = this.pasajePrivate.vuelo;
             pasaje.usuario = this.cliente;
-            pasaje.precio = DAORuta.getRuta((int)this.pasajePrivate.vuelo.ruta).precioBasePasaje;
+            int precioBase = DAORuta.getRuta((int)this.pasajePrivate.vuelo.ruta).precioBasePasaje;
+            DAOServicio servicio = new DAOServicio();
+            Servicio serv = servicio.retrieveBy_id_serv((int) DAORuta.getRuta((int) this.pasajePrivate.vuelo.ruta).tipoServicioId);
+            pasaje.precio = precioBase + precioBase * serv.tipo_servicio_recargo;
             pasaje.butaca = this.butaca;
             pasaje.fechaCompra = System.DateTime.Now;
             this.pasaje = pasaje;

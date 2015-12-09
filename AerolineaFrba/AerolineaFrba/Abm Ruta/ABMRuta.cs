@@ -109,8 +109,11 @@ namespace AerolineaFrba.Abm_Ruta
         private void BajaButtonRuta_Click(object sender, EventArgs e)
         {
             Ruta ruta = (Ruta)dataGridViewRuta.CurrentRow.DataBoundItem;
-            DAORuta.baja(ruta);
-            updateDataGridView();
+            DialogResult dialogResult = MessageBox.Show("Todos los pasajes y encomiendas de la ruta seleccionada se daran de baja, esta de acuerdo?","Atencion!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dialogResult.Equals(DialogResult.OK)) {
+                DAORuta.baja(ruta);
+                updateDataGridView();
+            }
         }
 
         private void dataGridViewRuta_CellClick(object sender, DataGridViewCellEventArgs e)
