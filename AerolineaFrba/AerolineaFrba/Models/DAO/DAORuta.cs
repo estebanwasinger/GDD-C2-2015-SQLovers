@@ -60,6 +60,12 @@ namespace AerolineaFrba.Models.DAO
             listaParametros = new List<SqlParameter>();
             listaParametros.Add(new SqlParameter("@ruta_id", ruta.id));
 
+            DBAcess.WriteInBase("UPDATE SQLOVERS.ENCOMIENDA SET encomienda_cancelado = 1 FROM SQLOVERS.VUELO WHERE vuelo_ruta_id = @ruta_id AND encomienda_vuelo_id = vuelo_id", "T", listaParametros);
+
+
+            listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@ruta_id", ruta.id));
+
 
             DBAcess.WriteInBase("UPDATE SQLOVERS.VUELO SET vuelo_cancelado = 1  WHERE vuelo_ruta_id = @ruta_id", "T", listaParametros);
 
