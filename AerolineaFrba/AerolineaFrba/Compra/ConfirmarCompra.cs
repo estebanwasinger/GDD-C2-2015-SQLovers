@@ -84,7 +84,7 @@ namespace AerolineaFrba.Compra
 
             textBoxCantPasajes.Text = pasajeList.Count.ToString();
             textBoxEncomiendas.Text = encomiendaList.Count.ToString();
-            Int32 costoTotal = getCostoTotal();
+            float costoTotal = getCostoTotal();
             textBoxCostoTotal.Text = costoTotal.ToString();
 
             if (!Session.Instance().admin)
@@ -99,9 +99,9 @@ namespace AerolineaFrba.Compra
             buttonComprar.Enabled = false;
         }
 
-        private int getCostoTotal()
+        private float getCostoTotal()
         {
-            Int32 costoTotal = 0;
+            float costoTotal = 0;
             foreach (Comprable comprable in encomiendaList)
             {
                 costoTotal = costoTotal + comprable.precioTotal;

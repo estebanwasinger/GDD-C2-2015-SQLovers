@@ -50,6 +50,15 @@ namespace AerolineaFrba.Models.DAO
 
         }
 
+        public void darBaja(int vueloId){
+
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@vueloId", vueloId));
+
+            DBAcess.WriteInBase("UPDATE SQLOVERS.PASAJE SET pasaje_cancelado = 1 FROM SQLOVERS.VUELO WHERE pasaje_vuelo_id = @vueloId AND vuelo_fecha_salida > GETDATE()", "T", parameterList);
+            DBAcess.WriteInBase("UPDATE SQLOVERS.VUELO SET vuelo_cancelado = 1 WHERE vuelo_id = @vueloId AND vuelo_fecha_salida > GETDATE()", "T", parameterList);
+        }
+
         public List<Vuelo> search(string matricula) {
             List<Vuelo> lc = new List<Vuelo>();
 

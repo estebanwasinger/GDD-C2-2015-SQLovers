@@ -50,7 +50,19 @@ namespace AerolineaFrba.Models.DAO
             listaParametros.Add(new SqlParameter("@ruta_id", ruta.id));
             listaParametros.Add(new SqlParameter("@ruta_estado", false));
 
-            Convert.ToInt32(DBAcess.WriteInBase("update SQLOVERS.ruta set ruta_estado=@ruta_estado where ruta_id=@ruta_id", "T", listaParametros));
+            DBAcess.WriteInBase("update SQLOVERS.ruta set ruta_estado=@ruta_estado where ruta_id=@ruta_id", "T", listaParametros);
+
+            listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@ruta_id", ruta.id));
+
+            DBAcess.WriteInBase("UPDATE SQLOVERS.PASAJE SET pasaje_cancelado = 1 FROM SQLOVERS.VUELO WHERE vuelo_ruta_id = @ruta_id AND pasaje_vuelo_id = vuelo_id", "T", listaParametros);
+
+            listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@ruta_id", ruta.id));
+
+
+            DBAcess.WriteInBase("UPDATE SQLOVERS.VUELO SET vuelo_cancelado = 1  WHERE vuelo_ruta_id = @ruta_id", "T", listaParametros);
+
         }
 
         public static bool create(Ruta ruta)
@@ -103,12 +115,13 @@ namespace AerolineaFrba.Models.DAO
             return rutaList;
         }
 
-        public static bool exist(int ciudadOrigen, int ciudadDestino)
+        public static bool exist(int ciudadOrigen, int ciudadDestino, int tipoServicio)
         {
             List<SqlParameter> parameterList = new List<SqlParameter>();
             parameterList.Add(new SqlParameter("@ciudadOrigen",ciudadOrigen));
             parameterList.Add(new SqlParameter("@ciudadDestino",ciudadDestino));
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT sqlovers.Existeruta(@ciudadOrigen,@ciudadDestino) ", "T", parameterList);
+            parameterList.Add(new SqlParameter("@tipoServicio", tipoServicio));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT sqlovers.Existeruta(@ciudadOrigen,@ciudadDestino,@tipoServicio) ", "T", parameterList);
 
             lector.Read();
 

@@ -43,7 +43,6 @@ namespace AerolineaFrba.Models.DAO
             parameterList.Add(new SqlParameter("@dniCliente", dniCliente));
             SqlDataReader lector = DBAcess.GetDataReader("SELECT * FROM SQLOVERS.MILLAS WHERE millas_cliente = @dniCliente AND millas_fecha > DATEADD(Year,-1,GETDATE()) ", "T", parameterList);
 
-            lector.Read();
             List<Millas> compraList = new List<Millas>();
             if (lector.HasRows)
             {

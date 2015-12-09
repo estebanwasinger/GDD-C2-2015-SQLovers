@@ -23,7 +23,7 @@ namespace AerolineaFrba.Models.DAO
             return "'" + cadena + "'";
         }
 
-        public int guardar(DateTime fechaDEV, string detalle, List<Pasaje> lstPasajes, List<Encomienda> lstEncom)
+        public float guardar(DateTime fechaDEV, string detalle, List<Pasaje> lstPasajes, List<Encomienda> lstEncom)
         {
             
                 List<SqlParameter> ListaParametros = new List<SqlParameter>();
@@ -42,8 +42,8 @@ namespace AerolineaFrba.Models.DAO
 
                  Devolver dev= DB.ExecuteReaderSingle<Devolver>(command);
 
-                 int precioPasaje = 0;
-                 int precioEncomienda = 0;
+                 float precioPasaje = 0;
+                 float precioEncomienda = 0;
 
                  foreach (Pasaje pasaje in lstPasajes)
                  {
@@ -76,7 +76,7 @@ namespace AerolineaFrba.Models.DAO
                      DB.ExecuteCardinal(comando);
                  }
 
-                 int plataAdevolver = precioPasaje + precioEncomienda;
+                 float plataAdevolver = precioPasaje + precioEncomienda;
                  string comand = String.Format("update SQLOVERS.DEVOLUCION set devolucion_dinero_total = {1} where devolucion_detalle like  '{0}' ", detalle, plataAdevolver);
                  DB.ExecuteCardinal(comand);
                  return plataAdevolver;

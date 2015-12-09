@@ -19,9 +19,10 @@ namespace AerolineaFrba.Compra
         private int kgDisponibles = 0;
         private int precioBaseKg;
         private Int32 kgSeleccionados = 0;
-        private Int32 precioTotal;
+        private float precioTotal;
         public Cliente cliente;
         public Encomienda encomienda;
+        private Servicio tipoServicio;
 
         public CrearEncomienda()
         {
@@ -33,13 +34,16 @@ namespace AerolineaFrba.Compra
             this.pasaje = pasaje;
             this.kgDisponibles = kgDisponibles;
             this.precioBaseKg = DAORuta.getRuta((int)pasaje.vuelo.ruta).precioBaseKg;
+            int precioBase = DAORuta.getRuta((int)this.pasaje.vuelo.ruta).precioBasePasaje;
+            DAOServicio servicio = new DAOServicio();
+            tipoServicio = servicio.retrieveBy_id_serv((int)DAORuta.getRuta((int)this.pasaje.vuelo.ruta).tipoServicioId);
             InitializeComponent();
         }
 
         private void numericUpDownPeso_ValueChanged(object sender, EventArgs e)
         {
             kgSeleccionados = (Int32) numericUpDownPeso.Value;
-            precioTotal = kgSeleccionados * precioBaseKg;
+            precioTotal = ((kgSeleccionados * precioBaseKg) + (kgSeleccionados * precioBaseKg) * tipoServicio.tipo_servicio_recargo);
 
             textBoxPrecioTotal.Text = (precioTotal).ToString();
             habilitarBotonAceptar();
@@ -54,6 +58,9 @@ namespace AerolineaFrba.Compra
         {
             encomienda = new Encomienda();
             encomienda.dniCliente = this.cliente.dni;
+
+
+
             encomienda.kg = this.kgSeleccionados;
             encomienda.precioTotal = this.precioTotal;
             encomienda.vueloId = (int) pasaje.vuelo.id;

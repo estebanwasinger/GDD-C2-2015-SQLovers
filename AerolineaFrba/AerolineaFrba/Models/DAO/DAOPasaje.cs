@@ -48,7 +48,6 @@ namespace AerolineaFrba.Models.DAO
             return LPasajes;
         }
 
-
         public List<Pasaje> buscarPasaje(string codigoPasaje)
         {
 
@@ -91,7 +90,7 @@ namespace AerolineaFrba.Models.DAO
                    // pasaje.butaca = (int)lector["cli_apellido"];
                     pasaje.compraId = (int)(lector["pasaje_compra_id"] == DBNull.Value ? 0 : lector["pasaje_compra_id"]);
                     pasaje.fechaCompra = (DateTime)lector["pasaje_fechacompra"];
-                    pasaje.precio = (int)(decimal)lector["pasaje_precio"];
+                    pasaje.precio = (float)(decimal)lector["pasaje_precio"];
                     pasaje.usuario = DAOCliente.getCliente((int)(decimal)lector["cli_dni"]);
                     //pasaje.vuelo = DAOVuelo.getVuelo();
 

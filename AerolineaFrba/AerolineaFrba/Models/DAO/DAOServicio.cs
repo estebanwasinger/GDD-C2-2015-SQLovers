@@ -45,7 +45,7 @@ namespace AerolineaFrba.Models.DAO {
                       Servicio servicio = new Servicio();
                       servicio.tipo_servicio_id = (int)(decimal)lector["tipo_servicio_id"];
                       servicio.tipo_servicio_nombre = (String)lector["tipo_servicio_nombre"];
-
+                      servicio.tipo_servicio_recargo = (float)(decimal)lector["tipo_servicio_recarga"];
                       servicioList.Add(servicio);
                   }
               }

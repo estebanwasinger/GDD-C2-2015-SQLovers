@@ -17,6 +17,27 @@ IF Object_id('SQLOVERS.TARJETAS_DE_CREDITO') IS NOT NULL
       DROP TABLE sqlovers.TARJETAS_DE_CREDITO; 
   END;
 
+
+IF Object_id('SQLOVERS.MILLAS') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.MILLAS; 
+  END;
+
+IF Object_id('SQLOVERS.DEV_ENCOMIENDA') IS NOT NULL 
+  BEGIN 
+      DROP TABLE SQLOVERS.DEV_ENCOMIENDA; 
+  END;
+
+IF Object_id('SQLOVERS.DEV_PASAJE') IS NOT NULL 
+  BEGIN 
+      DROP TABLE SQLOVERS.DEV_PASAJE; 
+  END;
+
+IF Object_id('SQLOVERS.DEVOLUCION') IS NOT NULL 
+  BEGIN 
+      DROP TABLE SQLOVERS.DEVOLUCION; 
+  END;
+
 IF Object_id('SQLOVERS.Pasaje') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.PASAJE; 
@@ -42,6 +63,11 @@ IF Object_id('SQLOVERS.COMPRA') IS NOT NULL
       DROP TABLE sqlovers.COMPRA; 
   END;
 
+IF Object_id('SQLOVERS.CANJE') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.CANJE; 
+  END; 
+
 IF Object_id('SQLOVERS.Cliente') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.CLIENTE; 
@@ -50,11 +76,6 @@ IF Object_id('SQLOVERS.Cliente') IS NOT NULL
 IF Object_id('SQLOVERS.Usuario') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.USUARIO; 
-  END; 
-
-IF Object_id('SQLOVERS.CANJE') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.CANJE; 
   END; 
 
 IF Object_id('SQLOVERS.funcionalidad_rol') IS NOT NULL 
@@ -112,25 +133,6 @@ IF Object_id('SQLOVERS.TIPO_BAJA') IS NOT NULL
       DROP TABLE sqlovers.TIPO_BAJA; 
   END; 
 
-IF Object_id('SQLOVERS.DEVOLUCION') IS NOT NULL 
-  BEGIN 
-      DROP TABLE SQLOVERS.DEVOLUCION; 
-  END;
-
-IF Object_id('SQLOVERS.DEV_ENCOMIENDA') IS NOT NULL 
-  BEGIN 
-      DROP TABLE SQLOVERS.DEV_ENCOMIENDA; 
-  END;
-
-IF Object_id('SQLOVERS.DEV_PASAJE') IS NOT NULL 
-  BEGIN 
-      DROP TABLE SQLOVERS.DEV_PASAJE; 
-  END;
-
-IF Object_id('SQLOVERS.MILLAS') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.MILLAS; 
-  END;
 
 /*              
 DROP ALL THE FUNCTIONS AND PROCEDURES!!!              
@@ -228,7 +230,8 @@ CREATE TABLE sqlovers.FUNCIONALIDAD_ROL
 CREATE TABLE sqlovers.TIPO_SERVICIO 
   ( 
      tipo_servicio_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
-     tipo_servicio_nombre NVARCHAR(255) 
+     tipo_servicio_nombre NVARCHAR(255) NOT NULL,
+	 tipo_servicio_recarga NUMERIC(18,2) NOT NULL
   ) 
 
 CREATE TABLE sqlovers.TIPO_BAJA 
@@ -488,10 +491,10 @@ values		('smartphone',
 			99000,
 			0)
 
-INSERT INTO sqlovers.TIPO_SERVICIO 
-            (tipo_servicio_nombre) 
-SELECT DISTINCT tipo_servicio 
-FROM   gd_esquema.MAESTRA 
+INSERT INTO sqlovers.TIPO_SERVICIO (tipo_servicio_nombre, tipo_servicio_recarga) 
+SELECT DISTINCT m.tipo_servicio, (SELECT CASE m.tipo_servicio WHEN 'Ejecutivo' THEN 0.5 WHEN 'Primera Clase' THEN 1 WHEN 'Turista' THEN 0.2 END)
+FROM   gd_esquema.MAESTRA m
+WHERE Pasaje_Precio != 0
 
 INSERT INTO sqlovers.AERONAVE 
             (aeronave_matricula, 
@@ -927,7 +930,8 @@ AS
 go 
 
 CREATE FUNCTION sqlovers.Existeruta(@ciudad_origen  INT, 
-                                    @ciudad_destino INT) 
+                                    @ciudad_destino INT,
+									@tipoServicio INT) 
 returns BIT 
 AS 
   BEGIN 
@@ -936,7 +940,8 @@ AS
       IF( (SELECT Count(*) 
            FROM   RUTA 
            WHERE  ruta_ciudad_destino = @ciudad_destino 
-                  AND ruta_ciudad_origen = @ciudad_origen) > 0 ) 
+                  AND ruta_ciudad_origen = @ciudad_origen
+				  AND ruta_tipo_servicio = @tipoServicio) > 0 ) 
         SET @return = 1 
       ELSE 
         SET @return = 0 

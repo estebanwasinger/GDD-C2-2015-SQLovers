@@ -21,7 +21,7 @@ namespace AerolineaFrba.Models.BO
          private DataRow dr;
 
         public Int32 codigo { get; set; }
-        public Int32 precio { get; set; }
+        public float precio { get; set; }
         public DateTime fechaCompra { get; set; }
         public Cliente usuario { get; set; }
         public Vuelo vuelo { get; set; }
@@ -71,7 +71,7 @@ namespace AerolineaFrba.Models.BO
             get { return "Pasaje"; }
         }
 
-        int Comprable.precioTotal
+        float Comprable.precioTotal
         {
             get { return precio; }
         }

@@ -139,7 +139,7 @@ namespace AerolineaFrba.Devolucion
             {
                 if (lstEncom.Count > 0 || lstPasajes.Count > 0)
                 {
-                int dinero = daoDev.guardar(fechaDev, detalle, lstPasajes, lstEncom);
+                float dinero = daoDev.guardar(fechaDev, detalle, lstPasajes, lstEncom);
                 MessageBox.Show("Se Devolvio en $: " + dinero, "Error", MessageBoxButtons.OK);
                 this.Close();
                 }

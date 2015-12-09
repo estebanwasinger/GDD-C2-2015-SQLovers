@@ -219,7 +219,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
                 foreach( Pasaje pasaje in pasajeList) {
                     Millas millas = new Millas();
-                    millas.cantidad = pasaje.precio / 10;
+                    millas.cantidad = (int) pasaje.precio / 10;
                     millas.cliente = pasaje.usuario.dni;
                     millas.pasaje = pasaje.codigo;
                     millas.fecha = DateTime.Now;
@@ -231,7 +231,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 foreach (Encomienda encomienda in encomiendaList)
                 {
                     Millas millas = new Millas();
-                    millas.cantidad = encomienda.precioTotal / 10;
+                    millas.cantidad = (int) encomienda.precioTotal / 10;
                     millas.cliente = encomienda.dniCliente;
                     millas.encomienda = encomienda.id;
                     millas.fecha = DateTime.Now;

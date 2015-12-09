@@ -19,6 +19,7 @@ namespace AerolineaFrba.Models.BO {
        // public enum Monedas { Dolar = 1 };
         public int? tipo_servicio_id { get; set; }
         public string tipo_servicio_nombre { get; set; }
+        public float tipo_servicio_recargo { get; set; }
 		
         public Servicio initialize(DataRow _dr) {
 			
@@ -29,7 +30,9 @@ namespace AerolineaFrba.Models.BO {
                 tipo_servicio_id = (dr["tipo_servicio_id"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["tipo_servicio_id"]);
             if (dcc.Contains("tipo_servicio_nombre"))
                 tipo_servicio_nombre = (dr["tipo_servicio_nombre"] == DBNull.Value) ? null : dr["tipo_servicio_nombre"].ToString();
-			
+            if (dcc.Contains("tipo_servicio_recarga"))
+                tipo_servicio_recargo = (dr["tipo_servicio_recarga"] == DBNull.Value) ? 0 : (float)(decimal) dr["tipo_servicio_recarga"];
+
             return this;
         }
 		

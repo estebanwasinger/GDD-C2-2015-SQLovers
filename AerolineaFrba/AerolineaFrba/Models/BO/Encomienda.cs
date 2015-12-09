@@ -25,7 +25,7 @@ namespace AerolineaFrba.Models.BO
         public int kg { get; set; }
         public int dniCliente { get; set; }
         public int vueloId { get; set; }
-        public int precioTotal { get; set; }
+        public float precioTotal { get; set; }
 
         public int compraId { get; set; }
 	public bool cancelado { get; set; }
