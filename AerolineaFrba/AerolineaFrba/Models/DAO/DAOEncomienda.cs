@@ -35,10 +35,10 @@ namespace AerolineaFrba.Models.DAO
                 sqlCommand.Parameters.AddWithValue("@vuelo_id", encomienda.vueloId);
                 sqlCommand.Parameters.AddWithValue("@precio_total", encomienda.precioTotal);
                 sqlCommand.Parameters.AddWithValue("@kg", encomienda.kg);
-                sqlCommand.Parameters.AddWithValue("@dni_cliente", encomienda.dniCliente);
+                sqlCommand.Parameters.AddWithValue("@encomienda_cliente_id", encomienda.idCliente);
                 sqlCommand.Parameters.AddWithValue("@compraId", encomienda.compraId);
-                sqlCommand.CommandText = "INSERT INTO SQLOVERS.ENCOMIENDA (encomienda_kg, encomienda_cliente_dni, encomienda_vuelo_id, encomienda_precio_total, encomienda_compra_id) VALUES "
-                    +"(@kg, @dni_cliente, @vuelo_id, @precio_total, @compraId)";
+                sqlCommand.CommandText = "INSERT INTO SQLOVERS.ENCOMIENDA (encomienda_kg, encomienda_cliente_id, encomienda_vuelo_id, encomienda_precio_total, encomienda_compra_id) VALUES "
+                    + "(@kg, @encomienda_cliente_id, @vuelo_id, @precio_total, @compraId)";
                 sqlCommand.ExecuteNonQuery();
 
                 return true;
@@ -97,7 +97,7 @@ namespace AerolineaFrba.Models.DAO
                     encomienda.compraId = (int)(lector["encomienda_compra_id"] == DBNull.Value ? 0 : lector["encomienda_compra_id"]);
                     encomienda.precioTotal = (int)lector["encomienda_precio_total"];
                     encomienda.vueloId = (int)(decimal)lector["encomienda_vuelo_id"];
-                    encomienda.dniCliente = (int)(decimal)lector["encomienda_cliente_dni"];
+                    encomienda.idCliente = (int)(decimal)lector["encomienda_cliente_id"];
                     //pasaje.vuelo = DAOVuelo.getVuelo();
 
                     clienteList.Add(encomienda);

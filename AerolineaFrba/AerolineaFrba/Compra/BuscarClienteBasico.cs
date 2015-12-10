@@ -27,7 +27,7 @@ namespace AerolineaFrba.Compra
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
             if(Validation.isFilled(textBoxBusqueda)){
-                cliente = DAOCliente.getCliente(int.Parse(textBoxBusqueda.Text));
+                cliente = DAOCliente.getClienteWithDNI(int.Parse(textBoxBusqueda.Text));
                 if (cliente != null)
                 {
                     actualizarComboBoxCliente(cliente);
@@ -45,7 +45,6 @@ namespace AerolineaFrba.Compra
             textBoxApellidoCliente.Text = cliente.apellido;
             textBoxDni.Text = cliente.dni.ToString();
             textBoxNombreCliente.Text = cliente.nombre;
-            textBoxUsuario.Text = cliente.username;
         }
 
         private void buttonAceptar_Click(object sender, EventArgs e)

@@ -140,7 +140,7 @@ namespace AerolineaFrba.Compra
         private void buttonComprar_Click(object sender, EventArgs e)
         {
             CompraAero compraGeneral = new CompraAero();
-            compraGeneral.cliente = this.cliente.dni;
+            compraGeneral.cliente = this.cliente.id;
             compraGeneral.fecha = DateTime.Now;
             compraGeneral.tipo = radioButtonEfectivo.Checked ? "e" : "t";
             DAOCompra.create(compraGeneral);

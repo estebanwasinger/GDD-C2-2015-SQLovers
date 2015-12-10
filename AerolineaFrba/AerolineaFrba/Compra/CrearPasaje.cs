@@ -78,7 +78,6 @@ namespace AerolineaFrba.Compra
                     textBoxApellidoCliente.Text = cliente.apellido;
                     textBoxDni.Text = cliente.dni.ToString();
                     textBoxNombreCliente.Text = cliente.nombre;
-                    textBoxUsuario.Text = cliente.username;
                 }
                 else {
                     cliente = null;

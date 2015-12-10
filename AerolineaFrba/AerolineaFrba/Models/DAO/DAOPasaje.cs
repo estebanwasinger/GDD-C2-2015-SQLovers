@@ -26,13 +26,13 @@ namespace AerolineaFrba.Models.DAO
         public static bool create(Pasaje pasaje){
             List<SqlParameter> parameterList = new List<SqlParameter>();
             parameterList.Add(new SqlParameter("@pasaje_vuelo_id", pasaje.vuelo.id));
-            parameterList.Add(new SqlParameter("@cli_dni", pasaje.usuario.dni));
+            parameterList.Add(new SqlParameter("@pasaje_cliente_id", pasaje.usuario.id));
             parameterList.Add(new SqlParameter("@pasaje_precio", pasaje.precio));
             parameterList.Add(new SqlParameter("@pasaje_butaca_nro", pasaje.butaca.numero));
             parameterList.Add(new SqlParameter("@pasaje_fechacompra", pasaje.fechaCompra));
             parameterList.Add(new SqlParameter("@pasaje_compra_id", pasaje.compraId));
-            return DBAcess.WriteInBase("INSERT INTO sqlovers.PASAJE (pasaje_vuelo_id, cli_dni, pasaje_fechacompra, pasaje_precio, pasaje_butaca_nro, pasaje_cancelado, pasaje_compra_id) " +
-                                                " VALUES (@pasaje_vuelo_id, @cli_dni, @pasaje_fechacompra, @pasaje_precio, @pasaje_butaca_nro, 0, @pasaje_compra_id)", "T", parameterList);
+            return DBAcess.WriteInBase("INSERT INTO sqlovers.PASAJE (pasaje_vuelo_id, pasaje_cliente_id, pasaje_fechacompra, pasaje_precio, pasaje_butaca_nro, pasaje_cancelado, pasaje_compra_id) " +
+                                                " VALUES (@pasaje_vuelo_id, @pasaje_cliente_id, @pasaje_fechacompra, @pasaje_precio, @pasaje_butaca_nro, 0, @pasaje_compra_id)", "T", parameterList);
         }
 
 
@@ -50,13 +50,7 @@ namespace AerolineaFrba.Models.DAO
 
         public List<Pasaje> buscarPasaje(string codigoPasaje)
         {
-
-
-            //string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}", codigoPasaje);
-
-
             string comando = String.Format("select * from sqlovers.pasaje where pasaje_codigo ={0}",codigoPasaje);
-            //string comando = String.Format("select pasaje_codigo, cli_dni from sqlovers.pasaje where pasaje_codigo ={0}", codigoPasaje);
 
             List<Pasaje> LPasajes = DB.ExecuteReader<Pasaje>(comando);
 
@@ -91,7 +85,7 @@ namespace AerolineaFrba.Models.DAO
                     pasaje.compraId = (int)(lector["pasaje_compra_id"] == DBNull.Value ? 0 : lector["pasaje_compra_id"]);
                     pasaje.fechaCompra = (DateTime)lector["pasaje_fechacompra"];
                     pasaje.precio = (float)(decimal)lector["pasaje_precio"];
-                    pasaje.usuario = DAOCliente.getCliente((int)(decimal)lector["cli_dni"]);
+                    pasaje.usuario = DAOCliente.getClienteWithID((int)(decimal)lector["pasaje_cliente_id"]);
                     //pasaje.vuelo = DAOVuelo.getVuelo();
 
                     clienteList.Add(pasaje);

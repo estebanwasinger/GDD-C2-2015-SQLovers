@@ -87,7 +87,7 @@ namespace AerolineaFrba.Compra
 
             foreach (Encomienda encomienda in encomiendaList)
             {
-                string[] row1 = new string[] { encomienda.precioTotal.ToString(), encomienda.kg.ToString(), ((Int32) encomienda.dniCliente).ToString() };
+                string[] row1 = new string[] { encomienda.precioTotal.ToString(), encomienda.kg.ToString(), ((Int32) encomienda.idCliente).ToString() };
                 
                 dataGridViewEncomiendas.Rows.Add(row1);
             }

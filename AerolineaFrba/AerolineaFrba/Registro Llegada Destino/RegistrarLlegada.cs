@@ -232,7 +232,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                 {
                     Millas millas = new Millas();
                     millas.cantidad = (int) encomienda.precioTotal / 10;
-                    millas.cliente = encomienda.dniCliente;
+                    millas.cliente = encomienda.idCliente;
                     millas.encomienda = encomienda.id;
                     millas.fecha = DateTime.Now;
                     DAOMillas.create(millas);

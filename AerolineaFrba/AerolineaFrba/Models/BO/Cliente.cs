@@ -12,12 +12,12 @@ namespace AerolineaFrba.Models.BO
 
         public Cliente() { }
 
+        public Int32 id { get; set; }
         public String nombre { get; set; }
         public String apellido { get; set; }
         public String direccion { get; set; }
         public String mail { get; set; }
         public DateTime fechaNacimiento { get; set; }
-        public String username { get; set; }
         public Int32 telefono { get; set; }
         public Int32 dni { get; set; }
         public Int32 millas { get; set; }

@@ -57,7 +57,7 @@ namespace AerolineaFrba.Compra
         private void buttonComprar_Click(object sender, EventArgs e)
         {
             encomienda = new Encomienda();
-            encomienda.dniCliente = this.cliente.dni;
+            encomienda.idCliente = this.cliente.dni;
 
 
 
@@ -82,7 +82,6 @@ namespace AerolineaFrba.Compra
                 textBoxApellidoCliente.Text = cliente.apellido;
                 textBoxDni.Text = cliente.dni.ToString();
                 textBoxNombreCliente.Text = cliente.nombre;
-                textBoxUsuario.Text = cliente.username;
             }
             habilitarBotonAceptar();
         }

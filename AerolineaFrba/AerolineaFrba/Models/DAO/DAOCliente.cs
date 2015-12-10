@@ -31,8 +31,8 @@ namespace AerolineaFrba.Models.DAO
                     cliente.apellido = (string)lector["cli_apellido"];
                     cliente.direccion = (string)lector["cli_dir"];
                     cliente.mail = (string)lector["cli_mail"];
-                    cliente.username = lector["cli_username"] != DBNull.Value ? (string)lector["cli_username"] : null;
                     cliente.dni = (int)(decimal)lector["cli_dni"];
+                    cliente.id = (int)(decimal)lector["cli_id"];
                     cliente.telefono = lector["cli_telefono"] != DBNull.Value ? (int)(decimal)lector["cli_telefono"] : 0;
                     cliente.fechaNacimiento = (DateTime)lector["cli_fecha_nac"];
                     cliente.millas = (int)(decimal)lector["cli_millas"];
@@ -43,7 +43,7 @@ namespace AerolineaFrba.Models.DAO
             return clienteList;
         }
 
-        public static Cliente getCliente(int dniCliente)
+        public static Cliente getClienteWithDNI(int dniCliente)
         {
             List<Cliente> clienteList = new List<Cliente>();
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -61,6 +61,25 @@ namespace AerolineaFrba.Models.DAO
 
         }
 
+        public static Cliente getClienteWithID(int idCliente)
+        {
+            List<Cliente> clienteList = new List<Cliente>();
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@cli_id", idCliente));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.CLIENTE WHERE cli_id=@cli_id", "T", listaParametros);
+
+            clienteList = createClienteListFromQuery(lector);
+            if (clienteList.Count > 0)
+            {
+                return clienteList[0];
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
 
         public static bool create(Cliente cliente)
         {
@@ -72,11 +91,10 @@ namespace AerolineaFrba.Models.DAO
             parameterList.Add(new SqlParameter("@cli_telefono", cliente.telefono));
             parameterList.Add(new SqlParameter("@cli_mail", cliente.mail));
             parameterList.Add(new SqlParameter("@cli_fecha_nac", cliente.fechaNacimiento));
-            parameterList.Add(new SqlParameter("@cli_username", cliente.username != null ? (object)cliente.username : DBNull.Value));
             parameterList.Add(new SqlParameter("@cli_millas", cliente.millas != null ? cliente.millas : 0));
             
-            return DBAcess.WriteInBase("INSERT INTO sqlovers.CLIENTE (cli_nombre, cli_apellido, cli_dni, cli_dir, cli_telefono, cli_mail, cli_fecha_nac, cli_username, cli_millas) " + 
-                                                " VALUES (@cli_nombre, @cli_apellido, @cli_dni, @cli_dir, @cli_telefono, @cli_mail, @cli_fecha_nac, @cli_username, @cli_millas)", "T", parameterList );
+            return DBAcess.WriteInBase("INSERT INTO sqlovers.CLIENTE (cli_nombre, cli_apellido, cli_dni, cli_dir, cli_telefono, cli_mail, cli_fecha_nac, cli_millas) " + 
+                                                " VALUES (@cli_nombre, @cli_apellido, @cli_dni, @cli_dir, @cli_telefono, @cli_mail, @cli_fecha_nac, @cli_millas)", "T", parameterList );
         }
 
         internal static void update(Cliente cliente)
@@ -90,7 +108,8 @@ namespace AerolineaFrba.Models.DAO
             parameterList.Add(new SqlParameter("@cli_mail", cliente.mail));
             parameterList.Add(new SqlParameter("@cli_fecha_nac", cliente.fechaNacimiento));
             parameterList.Add(new SqlParameter("@cli_millas", cliente.millas));
-            DBAcess.WriteInBase("UPDATE sqlovers.CLIENTE SET cli_nombre=@cli_nombre, cli_apellido=@cli_apellido, cli_dir=@cli_dir, cli_telefono=@cli_telefono, cli_mail=@cli_mail, cli_fecha_nac=@cli_fecha_nac, cli_millas=@cli_millas WHERE cli_dni=@cli_dni", "T", parameterList);
+            parameterList.Add(new SqlParameter("@cli_id", cliente.id));
+            DBAcess.WriteInBase("UPDATE sqlovers.CLIENTE SET cli_nombre=@cli_nombre, cli_apellido=@cli_apellido, cli_dir=@cli_dir, cli_telefono=@cli_telefono, cli_mail=@cli_mail, cli_fecha_nac=@cli_fecha_nac, cli_millas=@cli_millas WHERE cli_id=@cli_id", "T", parameterList);
         }
     }
 }

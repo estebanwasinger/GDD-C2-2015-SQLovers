@@ -294,9 +294,10 @@ CREATE TABLE sqlovers.USUARIO
 
 CREATE TABLE sqlovers.CLIENTE 
   ( 
+	 cli_id       NUMERIC(18,0) PRIMARY KEY IDENTITY,
      cli_nombre    NVARCHAR(255), 
      cli_apellido  NVARCHAR(255), 
-     cli_dni       NUMERIC(18, 0) NOT NULL PRIMARY KEY, 
+     cli_dni       NUMERIC(18, 0), 
      cli_dir       NVARCHAR(255), 
      cli_telefono  NUMERIC(18, 0), 
      cli_mail      NVARCHAR(255), 
@@ -336,7 +337,7 @@ CREATE TABLE sqlovers.COMPRA
      compra_id            NUMERIC (18, 0) IDENTITY PRIMARY KEY,
      compra_tipo          CHAR NOT NULL CHECK (compra_tipo IN('e', 't')),
      compra_cliente       NUMERIC(18, 0) NOT NULL FOREIGN KEY REFERENCES
-     sqlovers.CLIENTE(cli_dni),
+     sqlovers.CLIENTE(cli_id),
      compra_fecha         DATETIME NOT NULL,
   ) 
 
@@ -354,8 +355,8 @@ CREATE TABLE sqlovers.ENCOMIENDA
   ( 
      encomienda_id           INT PRIMARY KEY IDENTITY, 
      encomienda_kg           INT, 
-     encomienda_cliente_dni  NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CLIENTE(cli_dni), 
+     encomienda_cliente_id  NUMERIC(18, 0) FOREIGN KEY REFERENCES 
+     sqlovers.CLIENTE(cli_id), 
      encomienda_vuelo_id     NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.VUELO(vuelo_id), 
      encomienda_precio_total INT,
@@ -369,8 +370,8 @@ CREATE TABLE sqlovers.PASAJE
      pasaje_codigo      NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
      pasaje_precio      NUMERIC(18, 2), 
      pasaje_fechacompra DATETIME, 
-     cli_dni            NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CLIENTE(cli_dni), 
+     pasaje_cliente_id  NUMERIC(18, 0) FOREIGN KEY REFERENCES 
+     sqlovers.CLIENTE(cli_id), 
      pasaje_vuelo_id    NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.VUELO(vuelo_id), 
      pasaje_cancelado   BIT NOT NULL,
@@ -397,7 +398,7 @@ CREATE TABLE sqlovers.CANJE
   ( 
      canje_id     NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
      canje_cliente  NUMERIC(18, 0)FOREIGN KEY REFERENCES 
-     sqlovers.CLIENTE(cli_dni),
+     sqlovers.CLIENTE(cli_id),
 	 canje_fecha DATETIME,
 	 canje_producto NUMERIC(3, 0) FOREIGN KEY REFERENCES
 	 sqlovers.productos(producto_id),
@@ -420,7 +421,7 @@ CREATE TABLE sqlovers.MILLAS
   ( 
      millas_id     NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
      millas_cliente  NUMERIC(18, 0)FOREIGN KEY REFERENCES 
-     sqlovers.CLIENTE(cli_dni),
+     sqlovers.CLIENTE(cli_id),
 	 millas_fecha DATETIME,
 	 millas_pasaje_id NUMERIC(18, 0) FOREIGN KEY REFERENCES
 	 sqlovers.pasaje(pasaje_codigo),
@@ -556,33 +557,6 @@ GROUP  BY c1.ciudad_id,
           m1.tipo_servicio, 
           ts.tipo_servicio_id 
 
-INSERT INTO sqlovers.USUARIO 
-            (user_username, 
-             user_password, 
-             user_nro_intentos, 
-             user_estado, 
-             user_rol_id) 
-SELECT Lower(Replace(cli_nombre, ' ', '.') + '.' 
-             + Replace(cli_apellido, ' ', '.') 
-             + CONVERT(VARCHAR(20), cli_dni)), 
-       '', 
-       0, 
-       1, 
-       2 
-FROM   (SELECT cli_nombre, 
-               cli_apellido, 
-               cli_dni, 
-               cli_dir, 
-               cli_telefono, 
-               cli_mail, 
-               cli_fecha_nac, 
-               Row_number() 
-                 OVER ( 
-                   partition BY cli_dni 
-                   ORDER BY cli_dni) AS RowNumber 
-        FROM   gd_esquema.MAESTRA) AS a 
-WHERE  a.rownumber = 1 
-
 INSERT INTO sqlovers.CLIENTE 
             (cli_nombre, 
              cli_apellido, 
@@ -672,14 +646,14 @@ INSERT INTO sqlovers.pasaje
             (pasaje_codigo, 
              pasaje_precio, 
              pasaje_fechacompra, 
-             cli_dni, 
+             pasaje_cliente_id, 
              pasaje_vuelo_id, 
              pasaje_cancelado,
 			 pasaje_butaca_nro) 
 SELECT pasaje_codigo, 
        pasaje_precio, 
        pasaje_fechacompra, 
-       cli_dni, 
+       (SELECT TOP 1 C.cli_id FROM SQLOVERS.CLIENTE C WHERE c.cli_dni = m.cli_dni),
        (SELECT TOP 1 v.vuelo_id 
         FROM   sqlovers.vuelo v 
         WHERE  v.vuelo_fecha_llegada = m.fechallegada 
@@ -697,12 +671,12 @@ SET IDENTITY_INSERT sqlovers.encomienda ON
 INSERT INTO sqlovers.ENCOMIENDA 
             (encomienda_id, 
              encomienda_kg, 
-             encomienda_cliente_dni, 
+             encomienda_cliente_id, 
              encomienda_vuelo_id, 
              encomienda_precio_total) 
 SELECT m.paquete_codigo, 
        m.paquete_kg, 
-       m.cli_dni, 
+       (SELECT TOP 1 c.cli_id FROM SQLOVERS.CLIENTE c WHERE c.cli_dni = m.Cli_Dni), 
        (SELECT TOP 1 v.vuelo_id 
         FROM   sqlovers.VUELO v 
         WHERE  v.vuelo_fecha_llegada = m.fechallegada 
@@ -1013,14 +987,14 @@ AS
 
   GO
 
-  CREATE FUNCTION sqlovers.pasajeroYaTieneVueloEntre(@pasajeroDni INT, @fechaSalida DateTime, @fechaLlegada DateTime) 
+  CREATE FUNCTION sqlovers.pasajeroYaTieneVueloEntre(@pasajeroId INT, @fechaSalida DateTime, @fechaLlegada DateTime) 
 returns bit
 AS 
   BEGIN
   DECLARE @cantidad int 
 		DECLARE @return bit
       SET @cantidad = (SELECT COUNT(*) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v
-  WHERE p.cli_dni = @pasajeroDni
+  WHERE p.pasaje_cliente_id = @pasajeroId
   AND p.pasaje_vuelo_id = v.vuelo_id
   AND ((v.vuelo_fecha_salida > @fechaSalida AND v.vuelo_fecha_salida <  @fechaLlegada) OR 
 	   (v.vuelo_fecha_llegada_estimada > @fechaSalida AND v.vuelo_fecha_llegada_estimada <  @fechaLlegada) OR
