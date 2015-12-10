@@ -51,24 +51,25 @@ namespace AerolineaFrba.Models.DAO
             return dt;
         }
 
-        public DataTable CliMasPtosAcum(string fechaIni, string fechaFin)
+         public DataTable CliMasPtosAcum(string fechaIni, string fechaFin)
         {
             string query = @"select c1.* from SQLOVERS.cliente c1 inner join
                             (
-	                            select top 5 c.cli_dni,sum(p.pasaje_precio / 10) as puntos_acum
-	                            from SQLOVERS.cliente c inner join SQLOVERS.pasaje p on p.cli_dni=c.cli_dni
+	                            select top 5 c.cli_id,sum(p.pasaje_precio / 10) as puntos_acum
+	                            from SQLOVERS.cliente c inner join SQLOVERS.pasaje p on p.pasaje_cliente_id=c.cli_id
 	                            where p.pasaje_cancelado=0 and p.pasaje_fechacompra >= dateadd(year, -1, getdate())
 	                            AND p.pasaje_fechacompra BETWEEN CONVERT(datetime, '" + fechaIni + "', 120)" +
                                     " and CONVERT(datetime, '" + fechaFin + "', 120)" +
                                      @" 
-	                            group by c.cli_dni
+	                            group by c.cli_id
 	                            order by puntos_acum desc
-                            ) as c2 on c2.cli_dni=c1.cli_dni";
+                            ) as c2 on c2.cli_id=c1.cli_id";
             SqlDataReader lector = DBAcess.GetDataReader(query, "T", new List<SqlParameter>());
             DataTable dt = new DataTable("listado");
             dt.Load(lector);
             return dt;
         }
+
 
         public DataTable DestPasCancel(string fechaIni, string fechaFin)
         {
