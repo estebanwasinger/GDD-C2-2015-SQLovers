@@ -44,7 +44,7 @@ namespace AerolineaFrba.Models.DAO
                 WHERE v.vuelo_fecha_salida between CONVERT(datetime, '" + fechaIni + "', 120)" +
                 " and  CONVERT(datetime, '" + fechaFin + "', 120)" +
                 @" and v.vuelo_cancelado=0 and p.pasaje_cancelado=0
-                GROUP BY c.ciudad_id ORDER BY cantidad_aeronaves  desc";
+                GROUP BY c.ciudad_id ORDER BY cantidad_aeronaves  asc";
             SqlDataReader lector = DBAcess.GetDataReader(query, "T", new List<SqlParameter>());
             DataTable dt = new DataTable("listado");
             dt.Load(lector);
