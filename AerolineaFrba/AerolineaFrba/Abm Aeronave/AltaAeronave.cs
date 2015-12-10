@@ -81,6 +81,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 {
                     aeronave.cant_butacas_vent = (int?)Convert.ToInt32(txtButacasVentanilla.Text);
                     aeronave.cant_butacas_pas = (int?)Convert.ToInt32(txtButPasillo.Text);
+                    
                 }
                 catch (Exception h)
                 {
@@ -114,6 +115,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 {
                     if (daoaeronave.create(aeronave))
                     {
+                        DAOButaca.createButacas(aeronave.cant_butacas_pas, aeronave.cant_butacas_vent, aeronave.matricula);
                         MessageBox.Show("Aeronave creada correctamente");
                         this.Close();
                         return;

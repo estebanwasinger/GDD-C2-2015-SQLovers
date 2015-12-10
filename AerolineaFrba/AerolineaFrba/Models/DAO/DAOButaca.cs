@@ -33,5 +33,24 @@ namespace AerolineaFrba.Models.DAO
             return butacaList;
         }
 
+
+        internal static void createButacas(int? butacasPasillo, int? butacasVentana, string matricula)
+        {
+            string query = "INSERT INTO SQLOVERS.BUTACA (butaca_nro, butaca_tipo, butaca_piso, butaca_aeronave) VALUES ";
+
+            for (int i = 1; i <= butacasPasillo; i++)
+            {
+                query = String.Concat(query,"("+i+",'Pasillo',1,'"+matricula+"'),");
+            }
+
+            for (int i = (int) butacasPasillo + 1; i <= (butacasPasillo + butacasVentana + 1); i++)
+            {
+                query = String.Concat(query,"("+i+",'Ventana',1,'"+matricula+"'),");
+            }
+
+            query = query.Remove(query.Length - 1);
+
+            DBAcess.WriteInBase(query, "T", new List<SqlParameter>());
+        }
     }
 }
