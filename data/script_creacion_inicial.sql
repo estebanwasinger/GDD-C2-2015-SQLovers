@@ -301,9 +301,7 @@ CREATE TABLE sqlovers.CLIENTE
      cli_telefono  NUMERIC(18, 0), 
      cli_mail      NVARCHAR(255), 
      cli_fecha_nac DATETIME, 
-	 cli_millas NUMERIC(18,0),
-     cli_username  NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.USUARIO(user_username) 
+	 cli_millas NUMERIC(18,0)
   ); 
 
 CREATE TABLE sqlovers.RUTA 
@@ -592,9 +590,8 @@ INSERT INTO sqlovers.CLIENTE
              cli_dir, 
              cli_telefono, 
              cli_mail, 
-             cli_fecha_nac, 
-			 cli_millas,
-             cli_username) 
+             cli_fecha_nac,
+			 cli_millas) 
 SELECT cli_nombre, 
        cli_apellido, 
        cli_dni, 
@@ -602,10 +599,7 @@ SELECT cli_nombre,
        cli_telefono, 
        cli_mail, 
        cli_fecha_nac, 
-	   99999,
-       Lower(Replace(cli_nombre, ' ', '.') + '.' 
-             + Replace(cli_apellido, ' ', '.') 
-             + CONVERT(VARCHAR(20), cli_dni)) 
+	   99999 
 FROM   (SELECT cli_nombre, 
                cli_apellido, 
                cli_dni, 
