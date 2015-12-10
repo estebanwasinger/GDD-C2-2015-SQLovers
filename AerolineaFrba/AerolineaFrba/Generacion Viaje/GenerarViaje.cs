@@ -21,9 +21,9 @@ namespace AerolineaFrba.Generacion_Viaje
         private Vuelo vuelo = new Vuelo();
 
         private DAOAeronave daoAeronave = new DAOAeronave();
-      private List<Aeronave> lstAeronaves { get; set; }
+        private List<Aeronave> lstAeronaves { get; set; }
 
-       // private List<Object> lstAeronaves { get; set; }
+        // private List<Object> lstAeronaves { get; set; }
 
         public GenerarViaje()
         {
@@ -31,10 +31,11 @@ namespace AerolineaFrba.Generacion_Viaje
             lstAeronaves = new List<Aeronave>();
         }
 
-        private void FormGenerarViaje_Load(object sender, EventArgs e) {
+        private void FormGenerarViaje_Load(object sender, EventArgs e)
+        {
 
             cargarCombos();
-          
+
             dtgAeronavesPosibles.AutoGenerateColumns = false;
             dtgAeronavesPosibles.MultiSelect = false;
             cargarGrilla();
@@ -42,13 +43,10 @@ namespace AerolineaFrba.Generacion_Viaje
 
             //validar_fecha_salida();
             //validar_horasDeViaje();
-            
-
-           
-
         }
 
-        public void cargarDatosVueloAGuardar() {
+        public void cargarDatosVueloAGuardar()
+        {
 
             vuelo.fechaSalida = new DateTime(dateSalida.Value.Year, dateSalida.Value.Month, dateSalida.Value.Day, horaSalida.Value.Hour, horaSalida.Value.Minute, horaSalida.Value.Second);
             vuelo.fechaLlegada = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
@@ -60,15 +58,12 @@ namespace AerolineaFrba.Generacion_Viaje
             string destino = ((Ciudad)cmbDestino.SelectedItem).nombre;
 
             Ruta ruta = new Ruta();
-            
-                vuelo.ruta = ruta.getRuta(origen, destino);
-            
-
+            vuelo.ruta = ruta.getRuta(origen, destino);
         }
 
         private void cargarCombos()
         {
-            DAOServicio daoServ= new DAOServicio();
+            DAOServicio daoServ = new DAOServicio();
             DAOAeronave daoAer = new DAOAeronave();
 
 
@@ -78,7 +73,7 @@ namespace AerolineaFrba.Generacion_Viaje
             //cmbAerov.Items.AddRange(daoAer.retrieveBase().ToArray());
 
 
-            cmbOrigen.DisplayMember="nombre";
+            cmbOrigen.DisplayMember = "nombre";
             cmbDestino.DisplayMember = "nombre";
             cmbTipoServ.DisplayMember = "tipo_servicio_nombre";
             //cmbAerov.DisplayMember = "matricula";
@@ -107,7 +102,7 @@ namespace AerolineaFrba.Generacion_Viaje
 
             dtgAeronavesPosibles.Columns.Add(colMatricula);
             dtgAeronavesPosibles.Columns.Add(Colservicio);
-           
+
 
         }
 
@@ -115,35 +110,38 @@ namespace AerolineaFrba.Generacion_Viaje
         {
 
             lstAeronaves = daoAeronave.aeronave_servicio();
-            dtgAeronavesPosibles.DataSource = lstAeronaves;                      
+            dtgAeronavesPosibles.DataSource = lstAeronaves;
 
         }
 
-        public int validar_fecha_salida() {
+        public int validar_fecha_salida()
+        {
 
-        
+
             DateTime fechaSalida = new DateTime(dateSalida.Value.Year, dateSalida.Value.Month, dateSalida.Value.Day, horaSalida.Value.Hour, horaSalida.Value.Minute, horaSalida.Value.Second);
 
             int result = DateTime.Compare(fechaSalida, DateTime.Now);
 
             return result;
-                
+
         }
 
-        public double validar_horasDeViaje(){
-        
-         DateTime fechaSalida = new DateTime(dateSalida.Value.Year, dateSalida.Value.Month, dateSalida.Value.Day, horaSalida.Value.Hour, horaSalida.Value.Minute, horaSalida.Value.Second);
-         DateTime fechaLlegada = new DateTime(dateLlegada.Value.Year,dateLlegada.Value.Month,dateLlegada.Value.Day,horaLlegada.Value.Hour,horaLlegada.Value.Minute,horaLlegada.Value.Second);
+        public double validar_horasDeViaje()
+        {
 
-         TimeSpan fechadiff = fechaLlegada.Subtract(fechaSalida);
-         double diff = fechadiff.TotalHours;
+            DateTime fechaSalida = new DateTime(dateSalida.Value.Year, dateSalida.Value.Month, dateSalida.Value.Day, horaSalida.Value.Hour, horaSalida.Value.Minute, horaSalida.Value.Second);
+            DateTime fechaLlegada = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
+
+            TimeSpan fechadiff = fechaLlegada.Subtract(fechaSalida);
+            double diff = fechadiff.TotalHours;
             System.Console.WriteLine(diff);
 
             return diff;
 
         }
 
-        public bool validar_mismoServicio() {
+        public bool validar_mismoServicio()
+        {
 
             string seleccionado = cmbTipoServ.Text;
             Aeronave aer = (Aeronave)dtgAeronavesPosibles.CurrentRow.DataBoundItem;
@@ -154,30 +152,33 @@ namespace AerolineaFrba.Generacion_Viaje
         }
 
 
-        public bool validarDisponibiladad() {            
+        public bool validarDisponibiladad()
+        {
 
             Aeronave aer_seleccionada = (Aeronave)dtgAeronavesPosibles.CurrentRow.DataBoundItem;
             DateTime fecha_salida = new DateTime(dateSalida.Value.Year, dateSalida.Value.Month, dateSalida.Value.Day, horaSalida.Value.Hour, horaSalida.Value.Minute, horaSalida.Value.Second);
             bool disponible = aer_seleccionada.estaDisponible(fecha_salida);
-            System.Console.WriteLine("la fecha elejida es:" +fecha_salida);          
+            System.Console.WriteLine("la fecha elejida es:" + fecha_salida);
 
             return disponible;
-        
+
         }
 
         private void btnGuardarVuelo_click(object sender, EventArgs e)
         {
-            if ( validar_fecha_salida() == 1 )
+            if (validar_fecha_salida() == 1)
             {
-                if (validar_horasDeViaje() <= 24 && validar_horasDeViaje()>0)
+                if (validar_horasDeViaje() <= 24 && validar_horasDeViaje() > 0)
                 {
                     if (validar_mismoServicio())
                     {
-                        if(validarDisponibiladad()){
+                        if (validarDisponibiladad())
+                        {
 
                             cargarDatosVueloAGuardar();
-                            if (vuelo.ruta == 0) { 
-                                
+                            if (vuelo.ruta == 0)
+                            {
+
                                 MessageBox.Show("¡La Ruta no Existe, Necesita crearla!", "Error", MessageBoxButtons.OK);
                                 CrearOModificarRuta nuevaRuta = new CrearOModificarRuta();
                                 nuevaRuta.Show();
@@ -192,20 +193,23 @@ namespace AerolineaFrba.Generacion_Viaje
                                 else { MessageBox.Show("¡La Aeronave tiene un vuelo a esa hora", "Error", MessageBoxButtons.OK); }
                             }
 
-                             }else{
-                        
-                          MessageBox.Show("¡el avion No esta disponible esa fecha!", "Error", MessageBoxButtons.OK); 
                         }
-                       
+                        else
+                        {
+
+                            MessageBox.Show("¡el avion No esta disponible esa fecha!", "Error", MessageBoxButtons.OK);
+                        }
+
                     }
                     else { MessageBox.Show("¡El Servicio del Avion y el Recorrido no coinciden!", "Error", MessageBoxButtons.OK); }
 
                 }
                 else { MessageBox.Show("¡verificar Fecha de viaje!", "Error", MessageBoxButtons.OK); }
 
-              
+
             }
-            else {
+            else
+            {
                 MessageBox.Show("¡La fecha de salida tiene que ser mayor a la actual!", "Error", MessageBoxButtons.OK);
             }
 
@@ -216,6 +220,6 @@ namespace AerolineaFrba.Generacion_Viaje
             this.Close();
         }
 
-       
+
     }
 }

@@ -326,7 +326,7 @@ CREATE TABLE sqlovers.VUELO
      vuelo_fecha_salida           DATETIME, 
      vuelo_fecha_llegada          DATETIME, 
      vuelo_fecha_llegada_estimada DATETIME, 
-     vuelo_cancelado              BIT NOT NULL, 
+     vuelo_cancelado              BIT NOT NULL DEFAULT 0, 
      vuelo_aeronave_id            NVARCHAR(255) FOREIGN KEY REFERENCES 
      sqlovers.AERONAVE(aeronave_matricula), 
      vuelo_ruta_id                NUMERIC(18, 0) FOREIGN KEY REFERENCES 

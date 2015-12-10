@@ -33,7 +33,7 @@ namespace AerolineaFrba.Models.DAO
                                     + "VALUES ({0},{1},{2},{3},{4},{5});"
                                     + "SELECT SCOPE_IDENTITY();";
                 
-                comando = String.Format(comando, fechaQuereable(_Vuelo.fechaSalida), fechaQuereable(_Vuelo.fechaLlegada), fechaQuereable(_Vuelo.fechaLlegada), stringQuereable(_Vuelo.aeronave),_Vuelo.ruta ,1);
+                comando = String.Format(comando, fechaQuereable(_Vuelo.fechaSalida), fechaQuereable(_Vuelo.fechaLlegada), fechaQuereable(_Vuelo.fechaLlegada), stringQuereable(_Vuelo.aeronave),_Vuelo.ruta ,0);
                 int insertado = DB.ExecuteCardinal(comando);
                 return true;
 
