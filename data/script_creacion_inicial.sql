@@ -198,6 +198,11 @@ IF Object_id('SQLOVERS.pasajeroYaTieneVueloEntre') IS NOT NULL
       DROP FUNCTION sqlovers.pasajeroYaTieneVueloEntre; 
   END; 
 
+IF Object_id('SQLOVERS.obtenerFabricante') IS NOT NULL 
+  BEGIN 
+      DROP FUNCTION sqlovers.obtenerFabricante; 
+  END; 
+
 /*              
 CREATE TABLES              
 */ 
@@ -1026,3 +1031,22 @@ AS
 		return @return;
   END; 
   GO
+
+  /****** Object:  UserDefinedFunction [SQLOVERS].[obtenerFabricante]    Script Date: 12/11/2015 2:01:30 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+create function [SQLOVERS].[obtenerFabricante] (@modelo numeric(18,0))
+
+ returns nvarchar(255)
+ as
+ begin 
+   declare @resultado nvarchar(255)
+
+   set @resultado = (select fabricante_nombre from sqlovers.modelo join sqlovers.fabricante on modelo_fabricante=fabricante_id where modelo_id=@modelo)
+   return @resultado
+ end;
+GO
