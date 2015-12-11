@@ -358,11 +358,11 @@ CREATE TABLE sqlovers.VUELO
   
 CREATE TABLE sqlovers.COMPRA
   (
-     compra_id            NUMERIC (18, 0) IDENTITY PRIMARY KEY,
-     compra_tipo          CHAR NOT NULL CHECK (compra_tipo IN('e', 't')),
-     compra_cliente       NUMERIC(18, 0) NOT NULL FOREIGN KEY REFERENCES
+     compra_id                NUMERIC (18, 0) IDENTITY PRIMARY KEY,
+     compra_cliente           NUMERIC(18, 0) NOT NULL FOREIGN KEY REFERENCES
      sqlovers.CLIENTE(cli_id),
-     compra_fecha         DATETIME NOT NULL,
+	 compra_pasajeOEncomienda NUMERIC(18,0),
+     compra_fecha             DATETIME NOT NULL,
   ) 
 
 CREATE TABLE sqlovers.TARJETAS_DE_CREDITO
@@ -665,6 +665,29 @@ VALUES      ('admin',
              1); 
 
 go 
+
+
+INSERT INTO sqlovers.COMPRA 
+            (compra_cliente, 
+             compra_fecha,
+			 compra_pasajeOEncomienda) 
+SELECT (SELECT c.cli_id FROM SQLOVERS.CLIENTE c WHERE c.cli_dni = m.Cli_dni), 
+       pasaje_fechacompra, 
+       pasaje_codigo 
+FROM   gd_esquema.MAESTRA m 
+WHERE  pasaje_codigo != 0 
+
+INSERT INTO sqlovers.COMPRA
+             (compra_cliente, 
+             compra_fecha,
+			 compra_pasajeOEncomienda)  
+SELECT (SELECT c.cli_id FROM SQLOVERS.CLIENTE c WHERE c.cli_dni = m.Cli_dni), 
+       m.paquete_fechacompra, 
+      m. paquete_codigo 
+FROM   gd_esquema.MAESTRA m
+WHERE  paquete_codigo != 0 
+go
+
 SET IDENTITY_INSERT sqlovers.pasaje ON 
 
 INSERT INTO sqlovers.pasaje 
@@ -674,7 +697,8 @@ INSERT INTO sqlovers.pasaje
              pasaje_cliente_id, 
              pasaje_vuelo_id, 
              pasaje_cancelado,
-			 pasaje_butaca_nro) 
+			 pasaje_butaca_nro,
+			 pasaje_compra_id) 
 SELECT pasaje_codigo, 
        pasaje_precio, 
        pasaje_fechacompra, 
@@ -686,7 +710,8 @@ SELECT pasaje_codigo,
                AND v.vuelo_fecha_salida = m.fechasalida 
                AND v.vuelo_aeronave_id = (SELECT a.aeronave_id FROM SQLOVERS.AERONAVE a WHERE a.aeronave_matricula = m.Aeronave_Matricula)), 
        0,
-	   Butaca_Nro 
+	   Butaca_Nro,
+	   (SELECT c.compra_id FROM SQLOVERS.COMPRA c WHERE c.compra_pasajeOEncomienda = Pasaje_Codigo) 
 FROM   [GD2C2015].[gd_esquema].[maestra] m 
 WHERE  pasaje_codigo != 0 
 
@@ -698,7 +723,8 @@ INSERT INTO sqlovers.ENCOMIENDA
              encomienda_kg, 
              encomienda_cliente_id, 
              encomienda_vuelo_id, 
-             encomienda_precio_total) 
+             encomienda_precio_total,
+			 encomienda_compra_id) 
 SELECT m.paquete_codigo, 
        m.paquete_kg, 
        (SELECT TOP 1 c.cli_id FROM SQLOVERS.CLIENTE c WHERE c.cli_dni = m.Cli_Dni), 
@@ -708,40 +734,14 @@ SELECT m.paquete_codigo,
                AND v.vuelo_fecha_llegada_estimada = m.fecha_llegada_estimada 
                AND v.vuelo_fecha_salida = m.fechasalida 
                AND v.vuelo_aeronave_id = (SELECT a.aeronave_id FROM SQLOVERS.AERONAVE a WHERE a.aeronave_matricula = m.Aeronave_Matricula)), 
-       m.paquete_precio 
+       m.paquete_precio,
+	   (SELECT c.compra_id FROM SQLOVERS.COMPRA c WHERE c.compra_pasajeOEncomienda = m.Paquete_Codigo) 
 FROM   gd2c2015.gd_esquema.MAESTRA m 
 WHERE  m.paquete_codigo != 0 
 
 SET IDENTITY_INSERT sqlovers.encomienda OFF 
-
-/*INSERT INTO sqlovers.COMPRA 
-            (compra_tipo, 
-             compra_cliente, 
-             compra_fecha) 
-SELECT pasaje_precio, 
-       'p', 
-       cli_dni, 
-       pasaje_fechacompra, 
-       pasaje_codigo 
-FROM   gd_esquema.MAESTRA 
-WHERE  pasaje_codigo != 0 
-
-INSERT INTO sqlovers.COMPRA 
-            (compra_monto, 
-             compra_tipo, 
-             compra_cliente, 
-             compra_fecha, 
-             compra_encomienda_id) 
-SELECT pasaje_precio, 
-       'e', 
-       cli_dni, 
-       pasaje_fechacompra, 
-       paquete_codigo 
-FROM   gd_esquema.MAESTRA 
-WHERE  paquete_codigo != 0 
-
-go */
-go 
+GO
+ 
 CREATE PROCEDURE sqlovers.Sp_cargar_butacas 
 AS 
     DECLARE @aeronaves TABLE 
@@ -1032,6 +1032,7 @@ AS
   END; 
   GO
 
+
   /****** Object:  UserDefinedFunction [SQLOVERS].[obtenerFabricante]    Script Date: 12/11/2015 2:01:30 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -1050,3 +1051,7 @@ create function [SQLOVERS].[obtenerFabricante] (@modelo numeric(18,0))
    return @resultado
  end;
 GO
+
+ALTER TABLE SQLOVERS.COMPRA
+DROP COLUMN compra_pasajeOEncomienda
+
