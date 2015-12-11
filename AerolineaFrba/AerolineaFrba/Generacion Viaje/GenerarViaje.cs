@@ -40,9 +40,6 @@ namespace AerolineaFrba.Generacion_Viaje
             dtgAeronavesPosibles.MultiSelect = false;
             cargarGrilla();
             actualizarGrilla();
-
-            //validar_fecha_salida();
-            //validar_horasDeViaje();
         }
 
         public void cargarDatosVueloAGuardar()
@@ -52,7 +49,7 @@ namespace AerolineaFrba.Generacion_Viaje
             vuelo.fechaLlegada = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
 
             Aeronave aer_seleccionada = (Aeronave)dtgAeronavesPosibles.CurrentRow.DataBoundItem;
-            vuelo.aeronave = aer_seleccionada.matricula;
+            vuelo.aeronave = aer_seleccionada.id;
 
             string origen = ((Ciudad)cmbOrigen.SelectedItem).nombre;
             string destino = ((Ciudad)cmbDestino.SelectedItem).nombre;

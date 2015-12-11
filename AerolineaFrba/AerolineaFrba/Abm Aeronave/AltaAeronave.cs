@@ -73,7 +73,8 @@ namespace AerolineaFrba.Abm_Aeronave
             {
                 if (daoaeronave.create(aeronave))
                 {
-                    DAOButaca.createButacas(aeronave.cant_butacas_pas, aeronave.cant_butacas_vent, aeronave.matricula);
+                    aeronave = DAOAeronave.getAeronaveFromMatricula(aeronave.matricula);
+                    DAOButaca.createButacas(aeronave.cant_butacas_pas, aeronave.cant_butacas_vent, aeronave.id);
                     MessageBox.Show("Aeronave creada correctamente");
                     this.Close();
                     return;

@@ -76,7 +76,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             DAOVuelo daoVuelo = new DAOVuelo();
             List<Vuelo> LsVuelos = new List<Vuelo>();
 
-            LsVuelos = daoVuelo.search(matricula);
+            LsVuelos = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(matricula).id);
 
             if (LsVuelos.Count > 0) { existe = true; }
 
@@ -93,7 +93,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             bool arribo_correcto = false;
             DAOVuelo daoVuelo = new DAOVuelo();
             List<Vuelo> LsVuelos = new List<Vuelo>();
-            LsVuelos = daoVuelo.search(matricula);
+            LsVuelos = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(matricula).id);
 
             DateTime fecha_llegada_form = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
 
@@ -121,7 +121,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             //bool arribo_correcto = false;
             DAOVuelo daoVuelo = new DAOVuelo();
             List<Vuelo> LsVuelos = new List<Vuelo>();
-            LsVuelos = daoVuelo.search(matricula);
+            LsVuelos = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(matricula).id);
             int vuelo_id =0;
 
             DateTime fecha_llegada_form = new DateTime(dateLlegada.Value.Year, dateLlegada.Value.Month, dateLlegada.Value.Day, horaLlegada.Value.Hour, horaLlegada.Value.Minute, horaLlegada.Value.Second);
@@ -159,7 +159,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             string destino = ((Ciudad)cmbASalia.SelectedItem).nombre;
 
 
-            LsVuelos = daoVuelo.search(matricula);
+            LsVuelos = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(matricula).id);
 
             int ruta_elex = ruta.getRuta(origen, destino);
 

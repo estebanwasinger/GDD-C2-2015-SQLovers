@@ -38,6 +38,8 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void FormBajaDefinitiva_Load(object sender, EventArgs e)
         {
+            
+            
             int NO_tiene_vuelos;
             cargarCombos();
             if (aeronave.matricula != null)
@@ -50,7 +52,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             cargarGrilla();
             NO_tiene_vuelos=actualizarGrilla();
-
+            if (dtgVuelos.RowCount > 0) { groupBoxDatosBaja.Enabled = false; }
             if (NO_tiene_vuelos==1) {
 
                 txtFabri.Enabled = false;
@@ -116,11 +118,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             int var=0;
             if (txtmatricula.Text != "")
-                lstVuelo = daoVuelo.search(txtmatricula.Text);
-           // else
-            //    lstAeronaves = dao.retrieveAll();
-            //Vuelo vuelo = new Vuelo();
-            //vuelo = lstVuelo[0];
+                lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(txtmatricula.Text).id);
             dtgVuelos.DataSource = lstVuelo;
 
             if (lstVuelo.Count == 0) { var = 1; }
@@ -130,7 +128,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
         public void actualizarGrilla_X_vueloCancelado() {
 
-            lstVuelo = daoVuelo.search(txtmatricula.Text);
+            lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(txtmatricula.Text).id);
             dtgVuelos.DataSource = lstVuelo;
         }
 
@@ -151,6 +149,9 @@ namespace AerolineaFrba.Abm_Aeronave
             if (cancelo ==1) {
 
                 actualizarGrilla_X_vueloCancelado();
+                if (dtgVuelos.RowCount == 0) {
+                    groupBoxDatosBaja.Enabled = true;
+                }
             }
 
            
@@ -180,7 +181,7 @@ namespace AerolineaFrba.Abm_Aeronave
         public bool tieneVuelos(string matricula){
 
             bool tieneVuelos=false;
-            lstVuelo=daoVuelo.search(matricula);
+            lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(matricula).id);
             if (lstVuelo.Count > 0) { tieneVuelos = true; }
 
             return tieneVuelos;

@@ -263,7 +263,8 @@ CREATE TABLE SQLOVERS.MODELO
 
 CREATE TABLE sqlovers.AERONAVE 
   ( 
-     aeronave_matricula            NVARCHAR(255) PRIMARY KEY NOT NULL, 
+	 aeronave_id                   NUMERIC(18,0) PRIMARY KEY IDENTITY,
+     aeronave_matricula            NVARCHAR(255) UNIQUE, 
      aeronave_modelo               NUMERIC(18,0) FOREIGN KEY REFERENCES SQLOVERS.MODELO(modelo_id), 
      aeronave_kg_disponibles       NUMERIC(18, 0), 
      aeronave_fecha_alta           DATETIME NULL, 
@@ -282,8 +283,8 @@ CREATE TABLE sqlovers.AERONAVE_BAJAS
      PRIMARY KEY, 
      aeronave_baja_fecha_vueltafs    DATETIME, 
      aeronave_baja_fecha_bajatecnica DATETIME, 
-     aeronave_matricula              NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.AERONAVE(aeronave_matricula) 
+     aeronave_matricula              NUMERIC(18,0) FOREIGN KEY REFERENCES 
+     sqlovers.AERONAVE(aeronave_id) 
   ) 
 
 CREATE TABLE sqlovers.BUTACA 
@@ -291,8 +292,8 @@ CREATE TABLE sqlovers.BUTACA
      butaca_nro      NUMERIC(18, 0), 
      butaca_tipo     NVARCHAR(255), 
      butaca_piso     NUMERIC(18, 0), 
-     butaca_aeronave NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.AERONAVE(aeronave_matricula), 
+     butaca_aeronave NUMERIC(18,0) FOREIGN KEY REFERENCES 
+     sqlovers.AERONAVE(aeronave_id), 
      CONSTRAINT pk_butaca_aeronave PRIMARY KEY (butaca_nro, butaca_aeronave) 
   ) 
 
@@ -346,8 +347,8 @@ CREATE TABLE sqlovers.VUELO
      vuelo_fecha_llegada          DATETIME, 
      vuelo_fecha_llegada_estimada DATETIME, 
      vuelo_cancelado              BIT NOT NULL DEFAULT 0, 
-     vuelo_aeronave_id            NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.AERONAVE(aeronave_matricula), 
+     vuelo_aeronave_id            NUMERIC(18,0) FOREIGN KEY REFERENCES 
+     sqlovers.AERONAVE(aeronave_id), 
      vuelo_ruta_id                NUMERIC(18, 0) FOREIGN KEY REFERENCES 
      sqlovers.RUTA(ruta_id) 
   ) 
@@ -403,8 +404,8 @@ CREATE TABLE sqlovers.PASAJE
 CREATE TABLE sqlovers.LLEGADA_DESTINO 
   ( 
      llegada_codigo     NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
-     llegada_matricula  NVARCHAR(255) FOREIGN KEY REFERENCES 
-     sqlovers.AERONAVE(aeronave_matricula), 
+     llegada_matricula  NUMERIC(18,0) FOREIGN KEY REFERENCES 
+     sqlovers.AERONAVE(aeronave_id), 
      llegada_horaarrivo DATETIME, 
      llegada_origen     NUMERIC(6, 0) FOREIGN KEY REFERENCES 
      sqlovers.CIUDAD(ciudad_id), 
@@ -536,10 +537,12 @@ SELECT DISTINCT aeronave_matricula,
 				AND f.fabricante_nombre = Aeronave_Fabricante
 				AND m.modelo_fabricante = f.fabricante_id ),
                 aeronave_kg_disponibles, 
-                ts.tipo_servicio_id 
+                ts.tipo_servicio_id
 FROM   [GD2C2015].[gd_esquema].[MAESTRA], 
        sqlovers.TIPO_SERVICIO ts 
 WHERE  tipo_servicio = ts.tipo_servicio_nombre 
+
+UPDATE SQLOVERS.AERONAVE SET aeronave_but_pasill=10, aeronave_but_vent=10
 
 INSERT INTO sqlovers.BUTACA 
             (butaca_nro, 
@@ -549,8 +552,8 @@ INSERT INTO sqlovers.BUTACA
 SELECT DISTINCT butaca_nro, 
                 butaca_piso, 
                 butaca_tipo, 
-                aeronave_matricula 
-FROM   [GD2C2015].[gd_esquema].[MAESTRA] 
+                (SELECT a.aeronave_id FROM SQLOVERS.AERONAVE a WHERE a.aeronave_matricula = m.Aeronave_Matricula)
+FROM   [GD2C2015].[gd_esquema].[MAESTRA] m
 WHERE  butaca_nro != 0 
 
 INSERT INTO sqlovers.CIUDAD 
@@ -648,7 +651,7 @@ INSERT INTO sqlovers.VUELO
 SELECT DISTINCT fechallegada, 
                 fecha_llegada_estimada, 
                 m.fechasalida, 
-                m.aeronave_matricula, 
+                (SELECT a.aeronave_id FROM SQLOVERS.AERONAVE a WHERE a.aeronave_matricula = m.Aeronave_Matricula), 
                 r.ruta_id, 
                 0 
 FROM   [GD2C2015].[gd_esquema].[MAESTRA] m, 
@@ -690,7 +693,7 @@ SELECT pasaje_codigo,
         WHERE  v.vuelo_fecha_llegada = m.fechallegada 
                AND v.vuelo_fecha_llegada_estimada = m.fecha_llegada_estimada 
                AND v.vuelo_fecha_salida = m.fechasalida 
-               AND v.vuelo_aeronave_id = m.aeronave_matricula), 
+               AND v.vuelo_aeronave_id = (SELECT a.aeronave_id FROM SQLOVERS.AERONAVE a WHERE a.aeronave_matricula = m.Aeronave_Matricula)), 
        0,
 	   Butaca_Nro 
 FROM   [GD2C2015].[gd_esquema].[maestra] m 
@@ -713,7 +716,7 @@ SELECT m.paquete_codigo,
         WHERE  v.vuelo_fecha_llegada = m.fechallegada 
                AND v.vuelo_fecha_llegada_estimada = m.fecha_llegada_estimada 
                AND v.vuelo_fecha_salida = m.fechasalida 
-               AND v.vuelo_aeronave_id = m.aeronave_matricula), 
+               AND v.vuelo_aeronave_id = (SELECT a.aeronave_id FROM SQLOVERS.AERONAVE a WHERE a.aeronave_matricula = m.Aeronave_Matricula)), 
        m.paquete_precio 
 FROM   gd2c2015.gd_esquema.MAESTRA m 
 WHERE  m.paquete_codigo != 0 
@@ -788,7 +791,7 @@ AS
 
 go 
 
-EXECUTE sqlovers.Sp_cargar_butacas 
+--EXECUTE sqlovers.Sp_cargar_butacas 
 
 go 
 

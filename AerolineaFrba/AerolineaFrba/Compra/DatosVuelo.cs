@@ -26,7 +26,7 @@ namespace AerolineaFrba.Compra
             this.pasaje = pasaje;
             InitializeComponent();
 
-            textBoxAvion.Text = pasaje.vuelo.aeronave;
+            textBoxAvion.Text = pasaje.vuelo.aeronave.ToString();
             textBoxFechaSalida.Text = pasaje.vuelo.fechaSalida.ToString();
             textBoxFechaLlegada.Text = pasaje.vuelo.fechaLlegada.ToString();
 

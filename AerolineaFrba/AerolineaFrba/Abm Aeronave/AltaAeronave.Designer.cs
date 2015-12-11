@@ -48,6 +48,8 @@
             this.numericUpDownVentana = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownKg = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
+            this.buttonAgregarFabricante = new System.Windows.Forms.Button();
+            this.buttonAgregarModelo = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPasillo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVentana)).BeginInit();
@@ -173,6 +175,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonAgregarModelo);
+            this.groupBox1.Controls.Add(this.buttonAgregarFabricante);
             this.groupBox1.Controls.Add(this.comboBoxModelo);
             this.groupBox1.Controls.Add(this.comboBoxFabricante);
             this.groupBox1.Controls.Add(this.numericUpDownPasillo);
@@ -264,6 +268,24 @@
             this.label9.TabIndex = 21;
             this.label9.Text = "Datos Aeronave";
             // 
+            // buttonAgregarFabricante
+            // 
+            this.buttonAgregarFabricante.Location = new System.Drawing.Point(255, 48);
+            this.buttonAgregarFabricante.Name = "buttonAgregarFabricante";
+            this.buttonAgregarFabricante.Size = new System.Drawing.Size(18, 21);
+            this.buttonAgregarFabricante.TabIndex = 25;
+            this.buttonAgregarFabricante.Text = "+";
+            this.buttonAgregarFabricante.UseVisualStyleBackColor = true;
+            // 
+            // buttonAgregarModelo
+            // 
+            this.buttonAgregarModelo.Location = new System.Drawing.Point(255, 75);
+            this.buttonAgregarModelo.Name = "buttonAgregarModelo";
+            this.buttonAgregarModelo.Size = new System.Drawing.Size(18, 21);
+            this.buttonAgregarModelo.TabIndex = 26;
+            this.buttonAgregarModelo.Text = "+";
+            this.buttonAgregarModelo.UseVisualStyleBackColor = true;
+            // 
             // AltaAeronave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -308,5 +330,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownVentana;
         private System.Windows.Forms.NumericUpDown numericUpDownKg;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonAgregarModelo;
+        private System.Windows.Forms.Button buttonAgregarFabricante;
     }
 }

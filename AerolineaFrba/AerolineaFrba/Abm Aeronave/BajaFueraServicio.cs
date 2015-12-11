@@ -125,7 +125,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             int var=0;
             if (txtmatricula.Text != "")
-                lstVuelo = daoVuelo.search(txtmatricula.Text);
+                lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(txtmatricula.Text).id);
            // else
             //    lstAeronaves = dao.retrieveAll();
             //Vuelo vuelo = new Vuelo();
@@ -201,7 +201,7 @@ namespace AerolineaFrba.Abm_Aeronave
         {
 
             bool tieneVuelos = false;
-            lstVuelo = daoVuelo.search(matricula);
+            lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(txtmatricula.Text).id);
             if (lstVuelo.Count > 0) { tieneVuelos = true; }
 
             return tieneVuelos;
@@ -211,7 +211,7 @@ namespace AerolineaFrba.Abm_Aeronave
         public void actualizarGrilla_X_vueloCancelado()
         {
 
-            lstVuelo = daoVuelo.search(txtmatricula.Text);
+            lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(txtmatricula.Text).id);
             dtgVuelos.DataSource = lstVuelo;
         }
 

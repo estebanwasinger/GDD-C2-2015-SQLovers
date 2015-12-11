@@ -33,7 +33,7 @@ namespace AerolineaFrba.Models.DAO
                                     + "VALUES ({0},{1},{2},{3},{4},{5});"
                                     + "SELECT SCOPE_IDENTITY();";
                 
-                comando = String.Format(comando, fechaQuereable(_Vuelo.fechaSalida), fechaQuereable(_Vuelo.fechaLlegada), fechaQuereable(_Vuelo.fechaLlegada), stringQuereable(_Vuelo.aeronave),_Vuelo.ruta ,0);
+                comando = String.Format(comando, fechaQuereable(_Vuelo.fechaSalida), fechaQuereable(_Vuelo.fechaLlegada), fechaQuereable(_Vuelo.fechaLlegada), _Vuelo.aeronave,_Vuelo.ruta ,0);
                 int insertado = DB.ExecuteCardinal(comando);
                 return true;
 
@@ -44,7 +44,7 @@ namespace AerolineaFrba.Models.DAO
 
         public int existe_vuelo(Vuelo vuelo) {
 
-            string comando = String.Format("select SQLOVERS.existe_vuelo({0},{1})", fechaQuereable(vuelo.fechaSalida), stringQuereable(vuelo.aeronave));
+            string comando = String.Format("select SQLOVERS.existe_vuelo({0},{1})", fechaQuereable(vuelo.fechaSalida), vuelo.aeronave);
             int existe = DB.ExecuteCardinal(comando);
             return existe;
 
@@ -59,20 +59,18 @@ namespace AerolineaFrba.Models.DAO
             DBAcess.WriteInBase("UPDATE SQLOVERS.VUELO SET vuelo_cancelado = 1 WHERE vuelo_id = @vueloId AND vuelo_fecha_salida > GETDATE()", "T", parameterList);
         }
 
-        public List<Vuelo> search(string matricula) {
+        public List<Vuelo> search(int? matricula) {
             List<Vuelo> lc = new List<Vuelo>();
 
-            if (String.IsNullOrEmpty(matricula)) {
+            if (matricula == null) {
                 String query = String.Format("select * from sqlovers.vuelo");
                 return DB.ExecuteReader<Vuelo>(query);
             }
 
 
             String base_query = String.Format("select * from sqlovers.vuelo WHERE");
-            if (!String.IsNullOrEmpty(matricula))
-            {
-                base_query += String.Format(" vuelo_aeronave_id like '{0}%' AND vuelo_cancelado = {1}", matricula,0);
-            }
+            base_query += String.Format(" vuelo_aeronave_id ={0} AND vuelo_cancelado = {1}", matricula,0);
+
 
             base_query = base_query.Substring(0, base_query.Length - 0);
 
@@ -101,15 +99,15 @@ namespace AerolineaFrba.Models.DAO
             {
                 while (lector.Read())
                 {
-                    Vuelo unCliente = new Vuelo();
-                    unCliente.id = (int)(decimal)lector["vuelo_id"];
-                    unCliente.aeronave = (String)lector["vuelo_aeronave_id"];
-                    unCliente.ruta = (int)(decimal)lector["vuelo_ruta_id"];
-                    unCliente.fechaLlegada = (DateTime)lector["vuelo_fecha_llegada"];
-                    unCliente.fechaLlegadaEstimada = (DateTime)lector["vuelo_fecha_llegada_estimada"];
-                    unCliente.fechaSalida = (DateTime)lector["vuelo_fecha_salida"];
+                    Vuelo vuelo = new Vuelo();
+                    vuelo.id = (int)(decimal)lector["vuelo_id"];
+                    vuelo.aeronave = (int?)(decimal)lector["vuelo_aeronave_id"];
+                    vuelo.ruta = (int)(decimal)lector["vuelo_ruta_id"];
+                    vuelo.fechaLlegada = (DateTime)lector["vuelo_fecha_llegada"];
+                    vuelo.fechaLlegadaEstimada = (DateTime)lector["vuelo_fecha_llegada_estimada"];
+                    vuelo.fechaSalida = (DateTime)lector["vuelo_fecha_salida"];
 
-                    l.Add(unCliente);
+                    l.Add(vuelo);
                 }
             }
 
@@ -172,7 +170,7 @@ namespace AerolineaFrba.Models.DAO
                 {
                     Vuelo unCliente = new Vuelo();
                     unCliente.id = (int)(decimal)lector["vuelo_id"];
-                    unCliente.aeronave = (String)lector["vuelo_aeronave_id"];
+                    unCliente.aeronave = (int?)(decimal)lector["vuelo_aeronave_id"];
                     unCliente.ruta = (int)(decimal)lector["vuelo_ruta_id"];
                     unCliente.fechaLlegada = (DateTime)lector["vuelo_fecha_llegada"];
                     unCliente.fechaLlegadaEstimada = (DateTime)lector["vuelo_fecha_llegada_estimada"];

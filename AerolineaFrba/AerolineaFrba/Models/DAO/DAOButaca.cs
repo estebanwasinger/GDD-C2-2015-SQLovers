@@ -34,18 +34,18 @@ namespace AerolineaFrba.Models.DAO
         }
 
 
-        internal static void createButacas(int? butacasPasillo, int? butacasVentana, string matricula)
+        internal static void createButacas(int? butacasPasillo, int? butacasVentana, int? id)
         {
             string query = "INSERT INTO SQLOVERS.BUTACA (butaca_nro, butaca_tipo, butaca_piso, butaca_aeronave) VALUES ";
 
             for (int i = 1; i <= butacasPasillo; i++)
             {
-                query = String.Concat(query,"("+i+",'Pasillo',1,'"+matricula+"'),");
+                query = String.Concat(query,"("+i+",'Pasillo',1,'"+id+"'),");
             }
 
             for (int i = (int) butacasPasillo + 1; i <= (butacasPasillo + butacasVentana + 1); i++)
             {
-                query = String.Concat(query,"("+i+",'Ventana',1,'"+matricula+"'),");
+                query = String.Concat(query,"("+i+",'Ventana',1,'"+id+"'),");
             }
 
             query = query.Remove(query.Length - 1);

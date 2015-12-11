@@ -78,7 +78,7 @@ namespace AerolineaFrba.Abm_Aeronave
 
             txtVuelo.Text = vuelo.id.ToString();
 
-            txtAeron.Text = vuelo.aeronave;
+            txtAeron.Text = vuelo.aeronave.ToString();
 
             /*txtModelo.Text = aeronave.modelo;
 

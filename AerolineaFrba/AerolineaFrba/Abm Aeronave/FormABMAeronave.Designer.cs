@@ -29,21 +29,21 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.txtPeso = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.btn_fueraServ = new System.Windows.Forms.Button();
-            this.btn_bdef = new System.Windows.Forms.Button();
-            this.btnAlta = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.txtfabri = new System.Windows.Forms.TextBox();
             this.txtmodelo = new System.Windows.Forms.TextBox();
             this.txtmatricula = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_fueraServ = new System.Windows.Forms.Button();
+            this.btn_bdef = new System.Windows.Forms.Button();
+            this.btnAlta = new System.Windows.Forms.Button();
             this.dtgAeoronave = new System.Windows.Forms.DataGridView();
-            this.button4 = new System.Windows.Forms.Button();
-            this.btnBuscar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAeoronave)).BeginInit();
             this.SuspendLayout();
@@ -68,6 +68,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtro de Busqueda";
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Location = new System.Drawing.Point(383, 101);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(162, 33);
+            this.btnBuscar.TabIndex = 3;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(194, 101);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(162, 33);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Cancelar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Cancelar_Click);
+            // 
             // txtPeso
             // 
             this.txtPeso.Location = new System.Drawing.Point(399, 61);
@@ -84,35 +104,15 @@
             this.label4.TabIndex = 9;
             this.label4.Text = "Peso Disp";
             // 
-            // btn_fueraServ
+            // button4
             // 
-            this.btn_fueraServ.Location = new System.Drawing.Point(384, 395);
-            this.btn_fueraServ.Name = "btn_fueraServ";
-            this.btn_fueraServ.Size = new System.Drawing.Size(180, 37);
-            this.btn_fueraServ.TabIndex = 8;
-            this.btn_fueraServ.Text = "Baja Tecnica";
-            this.btn_fueraServ.UseVisualStyleBackColor = true;
-            this.btn_fueraServ.Click += new System.EventHandler(this.btn_bTecnica_Click);
-            // 
-            // btn_bdef
-            // 
-            this.btn_bdef.Location = new System.Drawing.Point(198, 395);
-            this.btn_bdef.Name = "btn_bdef";
-            this.btn_bdef.Size = new System.Drawing.Size(180, 37);
-            this.btn_bdef.TabIndex = 7;
-            this.btn_bdef.Text = "Baja Definitiva";
-            this.btn_bdef.UseVisualStyleBackColor = true;
-            this.btn_bdef.Click += new System.EventHandler(this.btn_bDef_Click);
-            // 
-            // btnAlta
-            // 
-            this.btnAlta.Location = new System.Drawing.Point(12, 395);
-            this.btnAlta.Name = "btnAlta";
-            this.btnAlta.Size = new System.Drawing.Size(180, 37);
-            this.btnAlta.TabIndex = 6;
-            this.btnAlta.Text = "Alta";
-            this.btnAlta.UseVisualStyleBackColor = true;
-            this.btnAlta.Click += new System.EventHandler(this.btnAlta_Click);
+            this.button4.Location = new System.Drawing.Point(10, 101);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(162, 33);
+            this.button4.TabIndex = 2;
+            this.button4.Text = "Limpiar";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Limpiar_Click);
             // 
             // txtfabri
             // 
@@ -162,44 +162,46 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Matricula";
             // 
+            // btn_fueraServ
+            // 
+            this.btn_fueraServ.Location = new System.Drawing.Point(384, 395);
+            this.btn_fueraServ.Name = "btn_fueraServ";
+            this.btn_fueraServ.Size = new System.Drawing.Size(180, 37);
+            this.btn_fueraServ.TabIndex = 8;
+            this.btn_fueraServ.Text = "Baja Tecnica";
+            this.btn_fueraServ.UseVisualStyleBackColor = true;
+            this.btn_fueraServ.Click += new System.EventHandler(this.btn_bTecnica_Click);
+            // 
+            // btn_bdef
+            // 
+            this.btn_bdef.Location = new System.Drawing.Point(198, 395);
+            this.btn_bdef.Name = "btn_bdef";
+            this.btn_bdef.Size = new System.Drawing.Size(180, 37);
+            this.btn_bdef.TabIndex = 7;
+            this.btn_bdef.Text = "Baja Definitiva";
+            this.btn_bdef.UseVisualStyleBackColor = true;
+            this.btn_bdef.Click += new System.EventHandler(this.btn_bDef_Click);
+            // 
+            // btnAlta
+            // 
+            this.btnAlta.Location = new System.Drawing.Point(12, 395);
+            this.btnAlta.Name = "btnAlta";
+            this.btnAlta.Size = new System.Drawing.Size(180, 37);
+            this.btnAlta.TabIndex = 6;
+            this.btnAlta.Text = "Alta";
+            this.btnAlta.UseVisualStyleBackColor = true;
+            this.btnAlta.Click += new System.EventHandler(this.btnAlta_Click);
+            // 
             // dtgAeoronave
             // 
             this.dtgAeoronave.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgAeoronave.Location = new System.Drawing.Point(12, 163);
             this.dtgAeoronave.Name = "dtgAeoronave";
+            this.dtgAeoronave.ReadOnly = true;
             this.dtgAeoronave.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgAeoronave.Size = new System.Drawing.Size(551, 226);
             this.dtgAeoronave.TabIndex = 1;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(10, 101);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(162, 33);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "Limpiar";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Limpiar_Click);
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.Location = new System.Drawing.Point(383, 101);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(162, 33);
-            this.btnBuscar.TabIndex = 3;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = true;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(194, 101);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(162, 33);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Cancelar_Click);
+            this.dtgAeoronave.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAeoronave_CellClick);
             // 
             // FormABMAeronave
             // 

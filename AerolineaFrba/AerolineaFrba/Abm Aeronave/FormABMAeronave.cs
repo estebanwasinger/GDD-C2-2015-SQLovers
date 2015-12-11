@@ -153,5 +153,18 @@ namespace AerolineaFrba.Abm_Aeronave
             txtmodelo.Clear();
             txtPeso.Clear();
         }
+
+        private void dtgAeoronave_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dao.estaDisponible(((Aeronave)dtgAeoronave.CurrentRow.DataBoundItem).matricula) == 2)
+            {
+                btn_bdef.Enabled = false;
+                btn_fueraServ.Enabled = false;
+            }
+            else {
+                btn_bdef.Enabled = true;
+                btn_fueraServ.Enabled = true;
+            }
+        }
     }
 }

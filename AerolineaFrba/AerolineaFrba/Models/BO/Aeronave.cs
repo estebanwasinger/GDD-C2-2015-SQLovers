@@ -20,8 +20,9 @@ namespace AerolineaFrba.Models.BO
             initialize(dr);
         }
 
+        public int? id { get; set; }
         public string matricula { get; set; }
-        public int? modelo { get; set; }       
+        public int? modelo { get; set; }
         public DateTime? fecha_alta { get; set; }
         public DateTime? fecha_vueltaFS { get; set; }
 
@@ -34,7 +35,7 @@ namespace AerolineaFrba.Models.BO
         public int? aeronave_tipo_servicio { get; set; }
 
         public string descripcion_tipoServicio { get; set; }
-        
+
 
         public Aeronave initialize(DataRow _dr)
         {
@@ -44,8 +45,12 @@ namespace AerolineaFrba.Models.BO
 
             if (dcc.Contains("aeronave_matricula"))
                 matricula = (dr["aeronave_matricula"] == DBNull.Value) ? null : dr["aeronave_matricula"].ToString();
+
+            if (dcc.Contains("aeronave_id"))
+                id = (dr["aeronave_id"] == DBNull.Value) ? null : (int?)(decimal)dr["aeronave_id"];
+
             if (dcc.Contains("aeronave_modelo"))
-                modelo = (dr["aeronave_modelo"] == DBNull.Value) ? null : (int?)(decimal) dr["aeronave_modelo"];
+                modelo = (dr["aeronave_modelo"] == DBNull.Value) ? null : (int?)(decimal)dr["aeronave_modelo"];
 
             if (dcc.Contains("fabricante_nombre"))
                 fabricanteNombre = (dr["fabricante_nombre"] == DBNull.Value) ? null : (string)dr["fabricante_nombre"];
@@ -64,10 +69,9 @@ namespace AerolineaFrba.Models.BO
 
             if (dcc.Contains("aeronave_but_pasill"))
                 cant_butacas_pas = (dr["aeronave_but_pasill"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_but_pasill"]);
-           
 
             if (dcc.Contains("aeronave_fabricante"))
-                fabricante = (dr["aeronave_fabricante"] == DBNull.Value) ? null : (int?) dr["aeronave_fabricante"];
+                fabricante = (dr["aeronave_fabricante"] == DBNull.Value) ? null : (int?)dr["aeronave_fabricante"];
 
             if (dcc.Contains("aeronave_tipo_servicio"))
                 aeronave_tipo_servicio = (dr["aeronave_tipo_servicio"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_tipo_servicio"]);
@@ -98,13 +102,14 @@ namespace AerolineaFrba.Models.BO
             return serv.tipo_servicio_nombre;
         }
 
-        public int getCantidadButacasPasillo() {
+        public int getCantidadButacasPasillo()
+        {
 
             DAOAeronave daoAer = new DAOAeronave();
             int cant_butacas_totales;
             cant_butacas_totales = daoAer.retrieveButacasPasillo(this.matricula);
             return (int)cant_butacas_totales;
-        
+
         }
 
         public int getCantidadButacasVentanilla()
@@ -117,7 +122,8 @@ namespace AerolineaFrba.Models.BO
 
         }
 
-        public bool estaDisponible(DateTime fecha_sal) {
+        public bool estaDisponible(DateTime fecha_sal)
+        {
 
             bool disponible = true;
             int aviones_con_misma_fsalida = 0;
@@ -125,45 +131,21 @@ namespace AerolineaFrba.Models.BO
             DAOVuelo daoVuelo = new DAOVuelo();
             List<Vuelo> LsVuelos = new List<Vuelo>();
 
-            LsVuelos = daoVuelo.search(this.matricula);
-             
-            foreach(Vuelo velo in LsVuelos){
+            LsVuelos = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(this.matricula).id);
+
+            foreach (Vuelo velo in LsVuelos)
+            {
 
 
                 if (velo.fechaSalida.Equals(fecha_sal))
                 {
-                        System.Console.WriteLine("la fecha de la tabla vuelo es:" + velo.fechaSalida);
-                        disponible = false;
-                        aviones_con_misma_fsalida++;
-                    }
+                    System.Console.WriteLine("la fecha de la tabla vuelo es:" + velo.fechaSalida);
+                    disponible = false;
+                    aviones_con_misma_fsalida++;
+                }
             }
-            return disponible;   
+            return disponible;
         }
-
-
-       /* public List<Tarjeta> get_tarjetas()
-        {
-            DAOTarjeta dao = new DAOTarjeta();
-            List<Tarjeta> tarjetas = dao.retrieveByClientId(this.id);
-            return tarjetas;
-        }*/
-
-       /* public void setById(object _id)
-        {
-            initialize(new DAOCliente().retrieveBy_id(_id).dr);
-        }*/
-
-      /*  public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-
-            Aeronave aux = obj as Aeronave;
-            if ((object)aux == null)
-                return false;
-        
-            return aux.matricula == matricula;
-        }*/
 
         public override int GetHashCode()
         {

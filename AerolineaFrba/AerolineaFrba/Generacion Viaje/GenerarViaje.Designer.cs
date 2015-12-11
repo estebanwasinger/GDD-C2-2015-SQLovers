@@ -190,7 +190,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(304, 19);
+            this.btnCancel.Location = new System.Drawing.Point(341, 178);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(152, 36);
             this.btnCancel.TabIndex = 15;
@@ -203,9 +203,9 @@
             this.groupBox2.Controls.Add(this.dtgAeronavesPosibles);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.btnCancel);
-            this.groupBox2.Location = new System.Drawing.Point(17, 105);
+            this.groupBox2.Location = new System.Drawing.Point(6, 105);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(477, 179);
+            this.groupBox2.Size = new System.Drawing.Size(499, 223);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Aeronaves";
@@ -213,14 +213,14 @@
             // dtgAeronavesPosibles
             // 
             this.dtgAeronavesPosibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgAeronavesPosibles.Location = new System.Drawing.Point(6, 19);
+            this.dtgAeronavesPosibles.Location = new System.Drawing.Point(6, 18);
             this.dtgAeronavesPosibles.Name = "dtgAeronavesPosibles";
-            this.dtgAeronavesPosibles.Size = new System.Drawing.Size(279, 154);
+            this.dtgAeronavesPosibles.Size = new System.Drawing.Size(487, 154);
             this.dtgAeronavesPosibles.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(305, 61);
+            this.button1.Location = new System.Drawing.Point(184, 178);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(151, 35);
             this.button1.TabIndex = 17;
@@ -241,7 +241,7 @@
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Location = new System.Drawing.Point(12, 119);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(511, 295);
+            this.groupBox3.Size = new System.Drawing.Size(511, 335);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             // 
@@ -249,7 +249,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 425);
+            this.ClientSize = new System.Drawing.Size(537, 459);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Name = "GenerarViaje";

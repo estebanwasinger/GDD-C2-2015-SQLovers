@@ -22,7 +22,7 @@ namespace AerolineaFrba.Models.BO
 
         public int? id { get; set; }
 
-        public string aeronave { get; set; }   
+        public int? aeronave { get; set; }   
     
         public DateTime fechaLlegada { get; set; }
         public DateTime fechaSalida { get; set; }
@@ -37,13 +37,10 @@ namespace AerolineaFrba.Models.BO
             DataColumnCollection dcc = dr.Table.Columns;
 
             if (dcc.Contains("vuelo_aeronave_id"))
-                aeronave = (dr["vuelo_aeronave_id"] == DBNull.Value) ? null : dr["vuelo_aeronave_id"].ToString();
-
+                aeronave = (dr["vuelo_aeronave_id"] == DBNull.Value) ? null : (int?)(decimal)dr["vuelo_aeronave_id"];
 
             if (dcc.Contains("vuelo_id"))
                 id = (dr["vuelo_id"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["vuelo_id"]);
-           
-      
 
             if (dcc.Contains("vuelo_ruta_id"))
                 ruta = (dr["vuelo_ruta_id"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["vuelo_ruta_id"]);
@@ -69,39 +66,6 @@ namespace AerolineaFrba.Models.BO
 
             return this;
         }
-
-
-
-        /*public string get_service()
-        {
-            DAOServicio daoServ = new DAOServicio();
-            Servicio serv = daoServ.retrieveBy_id_serv(this.aeronave_tipo_servicio);
-            return serv.tipo_servicio_nombre;
-        }*/
-
-       /* public List<Tarjeta> get_tarjetas()
-        {
-            DAOTarjeta dao = new DAOTarjeta();
-            List<Tarjeta> tarjetas = dao.retrieveByClientId(this.id);
-            return tarjetas;
-        }*/
-
-       /* public void setById(object _id)
-        {
-            initialize(new DAOCliente().retrieveBy_id(_id).dr);
-        }*/
-
-      /*  public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-
-            Aeronave aux = obj as Aeronave;
-            if ((object)aux == null)
-                return false;
-        
-            return aux.matricula == matricula;
-        }*/
 
         public override int GetHashCode()
         {
