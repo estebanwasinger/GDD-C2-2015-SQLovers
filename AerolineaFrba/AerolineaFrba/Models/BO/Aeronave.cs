@@ -21,7 +21,7 @@ namespace AerolineaFrba.Models.BO
         }
 
         public string matricula { get; set; }
-        public string modelo { get; set; }       
+        public int? modelo { get; set; }       
         public DateTime? fecha_alta { get; set; }
         public DateTime? fecha_vueltaFS { get; set; }
 
@@ -29,7 +29,7 @@ namespace AerolineaFrba.Models.BO
         public int? cant_butacas_vent { get; set; }
         public int? cant_butacas_pas { get; set; }
 
-        public string fabricante { get; set; }
+        public int? fabricante { get; set; }
         public bool? activo { get; set; }
         public int? aeronave_tipo_servicio { get; set; }
 
@@ -45,8 +45,17 @@ namespace AerolineaFrba.Models.BO
             if (dcc.Contains("aeronave_matricula"))
                 matricula = (dr["aeronave_matricula"] == DBNull.Value) ? null : dr["aeronave_matricula"].ToString();
             if (dcc.Contains("aeronave_modelo"))
-                modelo = (dr["aeronave_modelo"] == DBNull.Value) ? null : dr["aeronave_modelo"].ToString();
-            
+                modelo = (dr["aeronave_modelo"] == DBNull.Value) ? null : (int?)(decimal) dr["aeronave_modelo"];
+
+            if (dcc.Contains("fabricante_nombre"))
+                fabricanteNombre = (dr["fabricante_nombre"] == DBNull.Value) ? null : (string)dr["fabricante_nombre"];
+
+            if (dcc.Contains("modelo_nombre"))
+                modeloNombre = (dr["modelo_nombre"] == DBNull.Value) ? null : (string)dr["modelo_nombre"];
+
+            if (dcc.Contains("fabricante_id"))
+                fabricante = (dr["fabricante_id"] == DBNull.Value) ? null : (int?)(decimal)dr["fabricante_id"];
+
             if (dcc.Contains("aeronave_kg_disponibles"))
                 peso_disponible = (dr["aeronave_kg_disponibles"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_kg_disponibles"]);
 
@@ -58,7 +67,7 @@ namespace AerolineaFrba.Models.BO
            
 
             if (dcc.Contains("aeronave_fabricante"))
-                fabricante = (dr["aeronave_fabricante"] == DBNull.Value) ? null : dr["aeronave_fabricante"].ToString();
+                fabricante = (dr["aeronave_fabricante"] == DBNull.Value) ? null : (int?) dr["aeronave_fabricante"];
 
             if (dcc.Contains("aeronave_tipo_servicio"))
                 aeronave_tipo_servicio = (dr["aeronave_tipo_servicio"] == DBNull.Value) ? null : (int?)Convert.ToInt32(dr["aeronave_tipo_servicio"]);
@@ -161,5 +170,8 @@ namespace AerolineaFrba.Models.BO
             return base.GetHashCode();
         }
 
+
+        public string fabricanteNombre { get; set; }
+        public string modeloNombre { get; set; }
     }
 }

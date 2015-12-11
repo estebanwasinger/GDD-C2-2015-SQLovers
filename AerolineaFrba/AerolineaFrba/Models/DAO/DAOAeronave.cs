@@ -29,8 +29,8 @@ namespace AerolineaFrba.Models.DAO
             try
             {
                 int bit = 0;
-                string comando = "INSERT INTO SQLOVERS.AERONAVE(aeronave_matricula, aeronave_modelo, aeronave_kg_disponibles, aeronave_fecha_alta, aeronave_fabricante, aeronave_tipo_servicio, aeronave_but_vent, aeronave_but_pasill)"
-                                    + "VALUES ({0},{1},{2},{3},{4},{5},{6},{7})";
+                string comando = "INSERT INTO SQLOVERS.AERONAVE(aeronave_matricula, aeronave_modelo, aeronave_kg_disponibles, aeronave_fecha_alta, aeronave_tipo_servicio, aeronave_but_vent, aeronave_but_pasill)"
+                                    + "VALUES ({0},{1},{2},{3},{4},{5},{6})";
                                    // + "SELECT SCOPE_IDENTITY();";
                /* if (_Aeronave.usuario == null || _Aeronave.usuario == "")
                 {
@@ -46,7 +46,7 @@ namespace AerolineaFrba.Models.DAO
                 {
                     bit = 1;
                 }*/
-                comando = String.Format(comando, stringQuereable(_Aeronave.matricula), stringQuereable(_Aeronave.modelo), _Aeronave.peso_disponible, fechaQuereable(_Aeronave.fecha_alta), stringQuereable(_Aeronave.fabricante), _Aeronave.aeronave_tipo_servicio, _Aeronave.cant_butacas_vent, _Aeronave.cant_butacas_pas);
+                comando = String.Format(comando, stringQuereable(_Aeronave.matricula), _Aeronave.modelo, _Aeronave.peso_disponible, fechaQuereable(_Aeronave.fecha_alta), _Aeronave.aeronave_tipo_servicio, _Aeronave.cant_butacas_vent, _Aeronave.cant_butacas_pas);
                 int insertado = DB.ExecuteCardinal(comando);
 
                 Console.WriteLine(insertado);
@@ -150,27 +150,27 @@ namespace AerolineaFrba.Models.DAO
             List<Aeronave> lc = new List<Aeronave>();
 
             if (String.IsNullOrEmpty(matricula) && String.IsNullOrEmpty(fabricante) && String.IsNullOrEmpty(modelo)
-                &&String.IsNullOrEmpty(peso)) {
+                && String.IsNullOrEmpty(peso)) {
 
-                String query = String.Format("SELECT * FROM SQLOVERS.AERONAVE");
+                    String query = String.Format("SELECT f.fabricante_nombre, f.fabricante_id, m.modelo_nombre, [aeronave_matricula],[aeronave_modelo],[aeronave_kg_disponibles],[aeronave_fecha_alta],[aeronave_tipo_servicio],[aeronave_but_vent],[aeronave_but_pasill],[aeronave_fecha_bajadefinitiva],[aeronave_estado] FROM [GD2C2015].[SQLOVERS].[AERONAVE], SQLOVERS.MODELO m , SQLOVERS.FABRICANTE f WHERE m.modelo_id = aeronave_modelo AND m.modelo_fabricante = f.fabricante_id ");
                     return DB.ExecuteReader<Aeronave>(query);
             }
 
 
-            String base_query = String.Format("SELECT * FROM SQLOVERS.AERONAVE WHERE");
+            String base_query = String.Format("SELECT f.fabricante_nombre, f.fabricante_id, m.modelo_nombre, [aeronave_matricula],[aeronave_modelo],[aeronave_kg_disponibles],[aeronave_fecha_alta],[aeronave_tipo_servicio],[aeronave_but_vent],[aeronave_but_pasill],[aeronave_fecha_bajadefinitiva],[aeronave_estado] FROM [GD2C2015].[SQLOVERS].[AERONAVE], SQLOVERS.MODELO m , SQLOVERS.FABRICANTE f WHERE m.modelo_id = aeronave_modelo AND m.modelo_fabricante = f.fabricante_id AND");
             if (!String.IsNullOrEmpty(matricula))
             {
                 base_query += String.Format(" aeronave_matricula like '{0}%' AND", matricula);
             }
 
-            if (!String.IsNullOrEmpty(fabricante))
+            if (!(fabricante == null))
             {
-                base_query += String.Format(" aeronave_fabricante like '{0}%' AND", fabricante);
+                base_query += String.Format(" f.fabricante_nombre like '{0}%' AND", fabricante);
             }
                        
-            if (!String.IsNullOrEmpty(modelo))
+            if (!(modelo == null))
             {
-                base_query += String.Format(" aeronave_modelo LIKE '{0}%' AND", modelo);
+                base_query += String.Format(" m.modelo_nombre LIKE '{0}%' AND", modelo);
             }
 
             if(!String.IsNullOrEmpty(peso))
@@ -186,7 +186,8 @@ namespace AerolineaFrba.Models.DAO
         public List<Aeronave> retrieveAll()
         {
             List<Aeronave> l = new List<Aeronave>();
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.AERONAVE", "T", new List<SqlParameter>());
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT f.fabricante_nombre, f.fabricante_id,  m.modelo_nombre, [aeronave_matricula],[aeronave_modelo],[aeronave_kg_disponibles],[aeronave_fecha_alta],[aeronave_tipo_servicio],[aeronave_but_vent],[aeronave_but_pasill],[aeronave_fecha_bajadefinitiva],[aeronave_estado] FROM [GD2C2015].[SQLOVERS].[AERONAVE], SQLOVERS.MODELO m , SQLOVERS.FABRICANTE f " +
+"WHERE m.modelo_id = aeronave_modelo AND m.modelo_fabricante = f.fabricante_id ", "T", new List<SqlParameter>());
 
             if (lector.HasRows)
             {
@@ -195,8 +196,10 @@ namespace AerolineaFrba.Models.DAO
                     Aeronave aeRonave = new Aeronave();
                     aeRonave.matricula = (string)lector["aeronave_matricula"];
                     aeRonave.peso_disponible = (int)(decimal)lector["aeronave_kg_disponibles"];
-                    aeRonave.modelo = (string)lector["aeronave_modelo"];
-                    aeRonave.fabricante = (string)lector["aeronave_fabricante"];
+                    aeRonave.modelo = (int?)(decimal)lector["aeronave_modelo"];
+                    aeRonave.modeloNombre = (string)lector["aeronave_matricula"];
+                    aeRonave.fabricante = (int?)(decimal)lector["fabricante_id"];
+                    aeRonave.fabricanteNombre = (string)lector["fabricante_nombre"];
                    aeRonave.cant_butacas_pas = (int)(decimal)lector["aeronave_but_pasill"];
                    aeRonave.cant_butacas_vent = (int)(decimal)lector["aeronave_but_vent"];
                     aeRonave.aeronave_tipo_servicio = (int)(decimal)lector["aeronave_tipo_servicio"];

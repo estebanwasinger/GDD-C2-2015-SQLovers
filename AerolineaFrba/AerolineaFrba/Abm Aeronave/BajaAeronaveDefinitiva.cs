@@ -67,8 +67,8 @@ namespace AerolineaFrba.Abm_Aeronave
         private void cargarDatosAeronave()
         {
             txtmatricula.Text = aeronave.matricula;
-            txtModelo.Text = aeronave.modelo;
-            txtFabri.Text = aeronave.fabricante;
+            txtModelo.Text = aeronave.modelo.ToString();
+            txtFabri.Text = aeronave.fabricante.ToString();
             txtPeso.Text = aeronave.peso_disponible.ToString();
 
             string serv = (string)aeronave.get_service();

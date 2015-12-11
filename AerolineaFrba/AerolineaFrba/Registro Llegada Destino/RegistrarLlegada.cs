@@ -34,8 +34,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
 
             //txtMatricula.Text = ((Aeronave)cmbMatricula.SelectedItem).matricula;
-            txtFabricante.Text = ((Aeronave)cmbMatricula.SelectedItem).fabricante;
-            txtModelo.Text = ((Aeronave)cmbMatricula.SelectedItem).modelo;
+            txtFabricante.Text = ((Aeronave)cmbMatricula.SelectedItem).fabricante.ToString();
+            txtModelo.Text = ((Aeronave)cmbMatricula.SelectedItem).modelo.ToString();
             txtCarga.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).peso_disponible);
             txtServicio.Text = ((Aeronave)cmbMatricula.SelectedItem).get_service();
             txtButacasPasillo.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacasPasillo());

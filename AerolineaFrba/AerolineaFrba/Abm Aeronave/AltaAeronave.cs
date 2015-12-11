@@ -9,37 +9,26 @@ using System.Windows.Forms;
 using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DAO;
 using AerolineaFrba.Models.Utils;
+using AerolineaFrba.ValildationUtils;
 
 namespace AerolineaFrba.Abm_Aeronave
 {
     public partial class AltaAeronave : Form
     {
-        private Aeronave aeronave{ get; set; }       
-        private DAOAeronave daoaeronave = new DAOAeronave(); 
-        private bool update=false;
-       
+        private Aeronave aeronave { get; set; }
+        private DAOAeronave daoaeronave = new DAOAeronave();
+        private bool update = false;
+        private List<FabricanteAeronave> fabricanteList;
+        private List<ModeloAeronave> modeloList;
+
 
         public AltaAeronave(Aeronave aero)
         {
             aeronave = aero;
             InitializeComponent();
             cargarCombos();
-            
-        }
-
-        private void cargarDatosClientes()
-        {
-            txtMatricula.Text = aeronave.matricula;
-            txtModelo.Text = aeronave.modelo;
-            txtCarga.Text = aeronave.peso_disponible.ToString();
-            txtFabricante.Text = aeronave.fabricante;
-            txtButacasVentanilla.Text = aeronave.cant_butacas_vent.ToString();
-            txtButPasillo.Text = aeronave.cant_butacas_pas.ToString();
-
-
 
         }
-
 
         private void txtNum_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -49,148 +38,63 @@ namespace AerolineaFrba.Abm_Aeronave
             }
         }
 
-        private bool validateCamps()
-        {
-            if (txtMatricula.Text == "" || txtModelo.Text == "" || txtCarga.Text == "" || txtFabricante.Text == "" || txtButacasVentanilla.Text == "" || ((Servicio)cmbServicio.SelectedItem == null))
-                
-            {
-                MessageBox.Show("Hay campos vacios");
-                return false;
-            }
-            return true;
-        }
-
         private void btnAlta_Click_1(object sender, EventArgs e)
         {
-            if (validateCamps())
+            aeronave.matricula = txtMatricula.Text;
+            aeronave.modelo = ((ModeloAeronave)comboBoxModelo.SelectedItem).id;
+
+            aeronave.peso_disponible = (int?)numericUpDownKg.Value;
+            aeronave.cant_butacas_vent = (int?)numericUpDownVentana.Value;
+            aeronave.cant_butacas_pas = (int?)numericUpDownPasillo.Value;
+
+            aeronave.aeronave_tipo_servicio = ((Servicio)cmbServicio.SelectedItem).tipo_servicio_id;
+            DateTime fecha_alta = new DateTime(dateTimeFA.Value.Year, dateTimeFA.Value.Month, dateTimeFA.Value.Day, dateTimeFA.Value.Hour, dateTimeFA.Value.Minute, dateTimeFA.Value.Second);
+
+            if (validar_fecha_Alta() >= 0)
             {
-               
-                aeronave.matricula = txtMatricula.Text;
-                aeronave.modelo = txtModelo.Text;
-                try
-                {
-                    aeronave.peso_disponible = (int?)Convert.ToInt32(txtCarga.Text);
-                }
-                catch (Exception h)
-                {
-                    MessageBox.Show("Ingresar un Numero en KG de Carga");
-                }
-                aeronave.fabricante = txtFabricante.Text;
+                aeronave.fecha_alta = fecha_alta;
+            }
+            else { MessageBox.Show("fecha de Alta invalida"); }
 
-                try
+            if (update)
+            {
+                if (daoaeronave.create(aeronave))
                 {
-                    aeronave.cant_butacas_vent = (int?)Convert.ToInt32(txtButacasVentanilla.Text);
-                    aeronave.cant_butacas_pas = (int?)Convert.ToInt32(txtButPasillo.Text);
-                    
-                }
-                catch (Exception h)
-                {
-                    MessageBox.Show("Ingresar un Numero en Cantidad Butacas");
-                }
-                aeronave.aeronave_tipo_servicio = ((Servicio)cmbServicio.SelectedItem).tipo_servicio_id;
-                DateTime fecha_alta = new DateTime(dateTimeFA.Value.Year, dateTimeFA.Value.Month, dateTimeFA.Value.Day, dateTimeFA.Value.Hour, dateTimeFA.Value.Minute, dateTimeFA.Value.Second);
-              
-
-
-                if (validar_fecha_Alta() >= 0)
-                {
-                    aeronave.fecha_alta = fecha_alta;
-                }
-                else { MessageBox.Show("fecha de Alta invalida"); }
-
-                if (update)
-                {
-                    if (daoaeronave.create(aeronave))
-                    {
-                        MessageBox.Show("Aeronave actualizado correctamente");
-                        this.Close();
-                        return;
-                    }
-                    else
-                    {
-                        throw new Exception("Datos no se cargaron correctamente");
-                    }
+                    MessageBox.Show("Aeronave actualizado correctamente");
+                    this.Close();
+                    return;
                 }
                 else
                 {
-                    if (daoaeronave.create(aeronave))
-                    {
-                        DAOButaca.createButacas(aeronave.cant_butacas_pas, aeronave.cant_butacas_vent, aeronave.matricula);
-                        MessageBox.Show("Aeronave creada correctamente");
-                        this.Close();
-                        return;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Datos no se cargaron correctamente");
-                        return;
-                    }
+                    throw new Exception("Datos no se cargaron correctamente");
                 }
             }
-             
+            else
+            {
+                if (daoaeronave.create(aeronave))
+                {
+                    DAOButaca.createButacas(aeronave.cant_butacas_pas, aeronave.cant_butacas_vent, aeronave.matricula);
+                    MessageBox.Show("Aeronave creada correctamente");
+                    this.Close();
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Datos no se cargaron correctamente");
+                    return;
+                }
+            }
+
+
         }
 
         public int validar_fecha_Alta()
         {
-
-
-            //DateTime fecha_alta = new DateTime(dateTimeFA.Value.Year, dateTimeFA.Value.Month, dateTimeFA.Value.Day, dateTimeFA.Value.Hour, dateTimeFA.Value.Minute, dateTimeFA.Value.Second);
-            
-            //int result = DateTime.Compare(fecha_alta, DateTime.Now);
             int result = 1;
 
             return result;
 
         }
-
-
-        /*private void cargarGrilla()
-        {
-
-            DataGridViewTextBoxColumn colNumero = new DataGridViewTextBoxColumn();
-            colNumero.DataPropertyName = "numeroMostrable";
-            colNumero.HeaderText = "Numero";
-            colNumero.Width = 120;
-            DataGridViewTextBoxColumn colEmision = new DataGridViewTextBoxColumn();
-            colEmision.DataPropertyName = "fecha_emision";
-            colEmision.HeaderText = "Fecha Emision";
-            colEmision.Width = 120;
-            DataGridViewTextBoxColumn colVencimiento = new DataGridViewTextBoxColumn();
-            colVencimiento.DataPropertyName = "fecha_vencimiento";
-            colVencimiento.HeaderText = "Fecha de Vencimiento";
-            colVencimiento.Width = 120;
-            DataGridViewTextBoxColumn colSeguridad = new DataGridViewTextBoxColumn();
-            colSeguridad.DataPropertyName = "cod_seguridad";
-            colSeguridad.HeaderText = "Codigo de Seguridad";
-            colSeguridad.Width = 120;
-
-            dtgTarjetas.Columns.Add(colNumero);
-            dtgTarjetas.Columns.Add(colEmision);
-            dtgTarjetas.Columns.Add(colVencimiento);
-            dtgTarjetas.Columns.Add(colSeguridad);
-        }*/
-
-
-        /*public void actualizarGrilla()
-        {
-            if (txtNombre.Text != "")
-                lstTarjetas = cliente.get_tarjetas();
-            if (lstTarjetas.Count == 0)
-            {
-            }
-            else {
-                Tarjeta tarjeta = new Tarjeta();
-                tarjeta = lstTarjetas[0];
-            }
-
-            dtgTarjetas.DataSource = lstTarjetas;
-
-        }*/
-
-        /*private void btnActualizar_Click_1(object sender, EventArgs e)
-        {
-            actualizarGrilla();
-        }*/
 
         private void btnCancelar_Click_1(object sender, EventArgs e)
         {
@@ -202,70 +106,54 @@ namespace AerolineaFrba.Abm_Aeronave
             cmbServicio.Items.AddRange(new DAOServicio().retrieveBase().ToArray());
         }
 
-       /* private void FormAltaCliente_Load(object sender, EventArgs e)
-        {                       
-            cargarCombos();
-            if (cliente.id != null)
-            {
-                txtUsuario.Enabled = false;
-                update = true;
-                cargarDatosClientes();
-                dtgTarjetas.AutoGenerateColumns = false;
-                dtgTarjetas.MultiSelect = false;
-                cargarGrilla();
-                actualizarGrilla();
-                btnCrear.Text = "Modificar";
-                this.Text = "FormModifCliente";
-            }
-        }*/
-
-      /*  private void btnDesvinc_Click(object sender, EventArgs e)
-        {
-            if (dtgTarjetas.CurrentRow != null) {
-                Tarjeta delete = (Tarjeta)dtgTarjetas.CurrentRow.DataBoundItem;
-                daoTarjeta.delete((long)(decimal)delete.numero);
-            } 
-            
-            actualizarGrilla();
-        }*/
-
-      /*  private void btnMod_Click(object sender, EventArgs e)
-        {
-            Tarjeta tarjeta = (Tarjeta)dtgTarjetas.CurrentRow.DataBoundItem;
-            FormModifTarjet fmt = new FormModifTarjet(tarjeta);
-            fmt.Show();
-        }*/
-
-     /*   private void btnAlta_Click(object sender, EventArgs e)
-        {
-            Tarjeta tarjeta = new Tarjeta();
-            if (cliente.id == null) { MessageBox.Show("El cliente al que quiere vincular tarjetas no existe"); return; }
-            else tarjeta.cli_cod = cliente.id;
-            FormModifTarjet fmt = new FormModifTarjet(tarjeta);
-            fmt.Show();
-        }*/
-
-       /* public AltaAeronave()
-        {
-            InitializeComponent();
-        }*/
-
         private void AltaAeronave_Load(object sender, EventArgs e)
         {
-        
+            BAlta.Enabled = false;
+            comboBoxModelo.Enabled = false;
+            fabricanteList = DAOFabricanteAeronave.retrieveAll();
+            comboBoxFabricante.DataSource = fabricanteList;
+            comboBoxFabricante.DisplayMember = "nombre";
+
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private bool validarDatosCargados()
         {
 
+            if (!Validation.isFilled(comboBoxFabricante) || !Validation.isFilled(comboBoxModelo) || !Validation.isFilled(cmbServicio))
+            {
+                return false;
+            }
+
+            if (!Validation.isFilled(txtMatricula))
+            {
+                return false;
+            }
+
+            if (!(numericUpDownKg.Value > 0) || !(numericUpDownPasillo.Value > 0) || !(numericUpDownVentana.Value > 0))
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
 
+
+        private void validar(object sender, EventArgs e)
+        {
+            BAlta.Enabled = validarDatosCargados();
+        }
+
+        private void comboBoxFabricante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            validar(sender, e);
+            modeloList = DAOModeloAeronave.getFromFabricante(((FabricanteAeronave)comboBoxFabricante.SelectedItem).id);
+            comboBoxModelo.DataSource = modeloList;
+            comboBoxModelo.DisplayMember = "nombre";
+            comboBoxModelo.Enabled = true;
         }
 
     }
 
-    
+
 }

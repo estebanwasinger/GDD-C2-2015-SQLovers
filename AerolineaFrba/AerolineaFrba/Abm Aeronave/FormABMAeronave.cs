@@ -57,7 +57,7 @@ namespace AerolineaFrba.Abm_Aeronave
             colMatricula.HeaderText = "Matricula";
             colMatricula.Width = 120;
             DataGridViewTextBoxColumn colModelo = new DataGridViewTextBoxColumn();
-            colModelo.DataPropertyName = "Modelo";
+            colModelo.DataPropertyName = "modeloNombre";
             colModelo.HeaderText = "Modelo";
             colModelo.Width = 120;
             DataGridViewTextBoxColumn colKGDisp = new DataGridViewTextBoxColumn();
@@ -65,7 +65,7 @@ namespace AerolineaFrba.Abm_Aeronave
             colKGDisp.HeaderText = "KG Disponibles";
             colKGDisp.Width = 120;
             DataGridViewTextBoxColumn colFabricante = new DataGridViewTextBoxColumn();
-            colFabricante.DataPropertyName = "Fabricante";
+            colFabricante.DataPropertyName = "fabricanteNombre";
             colFabricante.HeaderText = "Fabricante";
             colFabricante.Width = 120;
 
@@ -135,8 +135,10 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            try { actualizarGrilla(); }
-            catch { MessageBox.Show("No existe Aeronave con esas caracteristicas", "Error!", MessageBoxButtons.OK); }
+          //  try { 
+                actualizarGrilla();
+          //  }
+//catch { MessageBox.Show("No existe Aeronave con esas caracteristicas", "Error!", MessageBoxButtons.OK); }
         }
 
         private void Cancelar_Click(object sender, EventArgs e)

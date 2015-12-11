@@ -70,9 +70,9 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             txtmatricula.Text = aeronave.matricula;
 
-            txtModelo.Text = aeronave.modelo;
+            txtModelo.Text = aeronave.modelo.ToString();
 
-            txtFabri.Text = aeronave.fabricante;
+            txtFabri.Text = aeronave.fabricante.ToString();
 
             txtPeso.Text = aeronave.peso_disponible.ToString();
 

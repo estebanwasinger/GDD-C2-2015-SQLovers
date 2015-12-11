@@ -12,11 +12,11 @@ IF NOT EXISTS (SELECT schema_name
 DROP ALL THE TABLES!!!              
 */ 
 
+
 IF Object_id('SQLOVERS.TARJETAS_DE_CREDITO') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.TARJETAS_DE_CREDITO; 
   END;
-
 
 IF Object_id('SQLOVERS.MILLAS') IS NOT NULL 
   BEGIN 
@@ -123,6 +123,16 @@ IF Object_id('SQLOVERS.aeronave') IS NOT NULL
       DROP TABLE sqlovers.AERONAVE; 
   END; 
 
+IF Object_id('SQLOVERS.MODELO') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.MODELO; 
+  END;
+
+IF Object_id('SQLOVERS.FABRICANTE') IS NOT NULL 
+  BEGIN 
+      DROP TABLE sqlovers.FABRICANTE; 
+  END;
+
 IF Object_id('SQLOVERS.tipo_servicio') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.TIPO_SERVICIO; 
@@ -196,9 +206,6 @@ IF Object_id('SQLOVERS.pasajeroYaTieneVueloEntre') IS NOT NULL
 CREATE TABLES              
 */ 
 
-
-
-
 CREATE TABLE sqlovers.ROL 
   ( 
      rol_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
@@ -240,13 +247,26 @@ CREATE TABLE sqlovers.TIPO_BAJA
      tipo_baja_detalle NVARCHAR(255), 
   ) 
 
+  
+CREATE TABLE SQLOVERS.FABRICANTE
+	(
+		fabricante_id NUMERIC(18,0) PRIMARY KEY IDENTITY,
+		fabricante_nombre NVARCHAR(255)
+	)
+
+CREATE TABLE SQLOVERS.MODELO
+	(
+		modelo_id NUMERIC(18,0) PRIMARY KEY IDENTITY,
+		modelo_nombre NVARCHAR(255),
+		modelo_fabricante NUMERIC(18,0) FOREIGN KEY REFERENCES SQLOVERS.FABRICANTE(fabricante_id)
+	)
+
 CREATE TABLE sqlovers.AERONAVE 
   ( 
      aeronave_matricula            NVARCHAR(255) PRIMARY KEY NOT NULL, 
-     aeronave_modelo               NVARCHAR(255), 
+     aeronave_modelo               NUMERIC(18,0) FOREIGN KEY REFERENCES SQLOVERS.MODELO(modelo_id), 
      aeronave_kg_disponibles       NUMERIC(18, 0), 
      aeronave_fecha_alta           DATETIME NULL, 
-     aeronave_fabricante           NVARCHAR(255), 
      aeronave_tipo_servicio        NUMERIC(3, 0) FOREIGN KEY REFERENCES 
      sqlovers.TIPO_SERVICIO(tipo_servicio_id), 
      aeronave_but_vent             NUMERIC(18, 0), 
@@ -495,15 +515,26 @@ SELECT DISTINCT m.tipo_servicio, (SELECT CASE m.tipo_servicio WHEN 'Ejecutivo' T
 FROM   gd_esquema.MAESTRA m
 WHERE Pasaje_Precio != 0
 
+INSERT INTO SQLOVERS.FABRICANTE
+	(fabricante_nombre) 
+	SELECT DISTINCT Aeronave_Fabricante FROM gd_esquema.Maestra
+
+INSERT INTO SQLOVERS.MODELO
+	(modelo_fabricante,
+	modelo_nombre)
+	SELECT DISTINCT f.fabricante_id, m.Aeronave_Modelo FROM gd_esquema.Maestra m, SQLOVERS.FABRICANTE f
+	WHERE m.Aeronave_Fabricante = f.fabricante_nombre
+
 INSERT INTO sqlovers.AERONAVE 
             (aeronave_matricula, 
-             aeronave_modelo, 
-             aeronave_fabricante, 
+             aeronave_modelo,
              aeronave_kg_disponibles, 
              aeronave_tipo_servicio) 
 SELECT DISTINCT aeronave_matricula, 
-                aeronave_modelo, 
-                aeronave_fabricante, 
+                (SELECT m.modelo_id FROM SQLOVERS.MODELO m, SQLOVERS.FABRICANTE f
+				WHERE m.modelo_nombre = Aeronave_Modelo 
+				AND f.fabricante_nombre = Aeronave_Fabricante
+				AND m.modelo_fabricante = f.fabricante_id ),
                 aeronave_kg_disponibles, 
                 ts.tipo_servicio_id 
 FROM   [GD2C2015].[gd_esquema].[MAESTRA], 
