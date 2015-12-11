@@ -238,13 +238,13 @@ namespace AerolineaFrba.Models.DAO
         {
 
             string comando =
-"DECLARE @var1 nvarchar(255);DECLARE @var2 nvarchar(30);DECLARE @var3 numeric(3,0);" +
+"DECLARE @var1 numeric(18,0);DECLARE @var2 nvarchar(30);DECLARE @var3 numeric(3,0);" +
 
-"SELECT @var1 = aeronave_modelo, @var2=aeronave_fabricante, @var3=aeronave_tipo_servicio " +
-"FROM SQLOVERS.AERONAVE WHERE" + String.Format(" aeronave_matricula like '{0}%' ", aeronave) +
+"SELECT @var1 = aeronave_modelo, @var2=(select sqlovers.obtenerFabricante(aeronave_modelo)), @var3=aeronave_tipo_servicio " +
+"FROM SQLOVERS.AERONAVE WHERE" + String.Format(" aeronave_id = {0} ", aeronave) +
 
-"SELECT aeronave_matricula,aeronave_modelo,aeronave_fabricante,aeronave_tipo_servicio from SQLOVERS.AERONAVE " +
-"where aeronave_modelo=@var1 and aeronave_fabricante=@var2 and aeronave_tipo_servicio=@var3 and  " + String.Format(" aeronave_matricula not like '{0}%' and SQLOVERS.validar_fechaSalida(aeronave_matricula,{1}) = 1 ", aeronave, fechaQuereable(fecha_salida));
+"SELECT aeronave_matricula,aeronave_modelo,(select sqlovers.obtenerFabricante(aeronave_modelo)) as Fabricante,aeronave_tipo_servicio from SQLOVERS.AERONAVE " +
+"where aeronave_modelo=@var1 and (select sqlovers.obtenerFabricante(aeronave_modelo))=@var2 and aeronave_tipo_servicio=@var3 and  " + String.Format(" aeronave_id not like '{0}' and SQLOVERS.validar_fechaSalida(aeronave_matricula,{1}) = 1 ", aeronave, fechaQuereable(fecha_salida));
 
             return DB.ExecuteReader<Aeronave>(comando);
         }

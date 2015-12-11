@@ -1,5 +1,6 @@
 ﻿using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DataBase;
+using AerolineaFrba.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -93,6 +94,16 @@ namespace AerolineaFrba.Models.DAO
                     ciudadList.Add(ciudad);
                 }
             }
+            return ciudadList;
+        }
+
+        public  List<Ciudad> getOrigenes(string matricula) {
+
+            List<Ciudad> ciudadList = new List<Ciudad>();
+
+            string comando = String.Format("select ciudad_nombre from sqlovers.ciudad join  sqlovers.ruta on ruta_ciudad_origen = ciudad_id join  sqlovers.vuelo on vuelo_ruta_id = ruta_id where vuelo_aeronave_id like '{0}' group by ciudad_nombre", matricula);
+            ciudadList = DB.ExecuteReader<Ciudad>(comando);
+
             return ciudadList;
         }
 

@@ -29,11 +29,11 @@ namespace AerolineaFrba.Models.DAO
             try
             {
                 int bit = 0;
-                string comando = "INSERT INTO SQLOVERS.VUELO(vuelo_fecha_salida, vuelo_fecha_llegada, vuelo_fecha_llegada_estimada, vuelo_aeronave_id, vuelo_ruta_id, vuelo_cancelado)"
-                                    + "VALUES ({0},{1},{2},{3},{4},{5});"
+                string comando = "INSERT INTO SQLOVERS.VUELO(vuelo_fecha_salida, vuelo_fecha_llegada_estimada, vuelo_aeronave_id, vuelo_ruta_id, vuelo_cancelado)"
+                                    + "VALUES ({0},{1},{2},{3},{4});"
                                     + "SELECT SCOPE_IDENTITY();";
                 
-                comando = String.Format(comando, fechaQuereable(_Vuelo.fechaSalida), fechaQuereable(_Vuelo.fechaLlegada), fechaQuereable(_Vuelo.fechaLlegada), _Vuelo.aeronave,_Vuelo.ruta ,0);
+                comando = String.Format(comando, fechaQuereable(_Vuelo.fechaSalida), fechaQuereable(_Vuelo.fechaLlegada), _Vuelo.aeronave,_Vuelo.ruta ,0);
                 int insertado = DB.ExecuteCardinal(comando);
                 return true;
 

@@ -1,5 +1,6 @@
 ﻿using AerolineaFrba.Models.BO;
 using AerolineaFrba.Models.DataBase;
+using AerolineaFrba.Models.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -162,5 +163,22 @@ namespace AerolineaFrba.Models.DAO
             }
             catch { return false; }
         }
+
+        public string getNombreCiudad(int ruta_id) {
+
+            
+
+            string command = String.Format(" select ruta_ciudad_origen from sqlovers.ruta where ruta_id = {0} ", ruta_id);
+
+            Ruta rut = DB.ExecuteReaderSingle<Ruta>(command);
+
+            string command_2 = String.Format(" select ciudad_nombre from sqlovers.ciudad where ciudad_id ={0} ", rut.ciudadOrigenId);
+            Ciudad ciudad = DB.ExecuteReaderSingle<Ciudad>(command_2);
+
+            string nombre = ciudad.nombre;
+            return nombre;
+
+        }
+
     }
 }

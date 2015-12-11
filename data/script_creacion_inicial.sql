@@ -48,10 +48,6 @@ IF Object_id('SQLOVERS.encomienda') IS NOT NULL
       DROP TABLE sqlovers.ENCOMIENDA; 
   END; 
 
-IF Object_id('SQLOVERS.LLEGADA_DESTINO') IS NOT NULL 
-  BEGIN 
-      DROP TABLE sqlovers.LLEGADA_DESTINO; 
-  END; 
 
 IF Object_id('SQLOVERS.Vuelo') IS NOT NULL 
   BEGIN 
@@ -350,7 +346,9 @@ CREATE TABLE sqlovers.VUELO
      vuelo_aeronave_id            NUMERIC(18,0) FOREIGN KEY REFERENCES 
      sqlovers.AERONAVE(aeronave_id), 
      vuelo_ruta_id                NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.RUTA(ruta_id) 
+     sqlovers.RUTA(ruta_id),
+	 vuelo_ciudad_de_llegada      NUMERIC(6, 0) FOREIGN KEY REFERENCES 
+     sqlovers.CIUDAD(ciudad_id), 
   ) 
   
 CREATE TABLE sqlovers.COMPRA
@@ -401,19 +399,7 @@ CREATE TABLE sqlovers.PASAJE
 	 sqlovers.COMPRA(compra_id)
   ) 
 
-CREATE TABLE sqlovers.LLEGADA_DESTINO 
-  ( 
-     llegada_codigo     NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
-     llegada_matricula  NUMERIC(18,0) FOREIGN KEY REFERENCES 
-     sqlovers.AERONAVE(aeronave_id), 
-     llegada_horaarrivo DATETIME, 
-     llegada_origen     NUMERIC(6, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CIUDAD(ciudad_id), 
-     llegada_destino    NUMERIC(6, 0) FOREIGN KEY REFERENCES 
-     sqlovers.CIUDAD(ciudad_id), 
-     llegada_vuelo_id   NUMERIC(18, 0) FOREIGN KEY REFERENCES 
-     sqlovers.VUELO(vuelo_id), 
-  )
+
 
 CREATE TABLE sqlovers.CANJE 
   ( 

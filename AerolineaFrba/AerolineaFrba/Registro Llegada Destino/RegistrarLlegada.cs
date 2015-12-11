@@ -17,6 +17,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         Aeronave aer = new Aeronave();
         DAOCiudad daoCiudad = new DAOCiudad();
         DAOAeronave daoAeronave = new DAOAeronave();
+        DAORuta daoRuta = new DAORuta();
 
         public RegistrarLlegada()
         {
@@ -27,6 +28,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
 
             cargarCombos();
+            btnRegist.Enabled = false;
 
         }
 
@@ -34,8 +36,8 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
 
             //txtMatricula.Text = ((Aeronave)cmbMatricula.SelectedItem).matricula;
-            txtFabricante.Text = ((Aeronave)cmbMatricula.SelectedItem).fabricante.ToString();
-            txtModelo.Text = ((Aeronave)cmbMatricula.SelectedItem).modelo.ToString();
+            //txtFabricante.Text = ((Aeronave)cmbMatricula.SelectedItem).fabricante;
+            //txtModelo.Text = ((Aeronave)cmbMatricula.SelectedItem).modelo;
             txtCarga.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).peso_disponible);
             txtServicio.Text = ((Aeronave)cmbMatricula.SelectedItem).get_service();
             txtButacasPasillo.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacasPasillo());
@@ -54,7 +56,12 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         public void cargarCombos()
         {
 
-            cmbAOrigen.Items.AddRange(daoCiudad.retrieveBase().ToArray());
+            //cmbAOrigen.Items.AddRange(daoCiudad.retrieveBase().ToArray());
+            /*Aeronave aer = new Aeronave();
+            aer = ((Aeronave)cmbMatricula.SelectedItem);
+            string matricula = aer.matricula;
+            cmbAOrigen.Items.AddRange(daoCiudad.getOrigenes(matricula).ToArray());*/
+
             cmbASalia.Items.AddRange(daoCiudad.retrieveBase().ToArray());
             cmbMatricula.Items.AddRange(daoAeronave.retrieveBase().ToArray());
 
@@ -71,6 +78,9 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             // matricula, hora de llegada y ruta 
 
             string matricula = ((Aeronave)cmbMatricula.SelectedItem).matricula;
+
+            
+
             bool existe = false;
 
             DAOVuelo daoVuelo = new DAOVuelo();
@@ -174,26 +184,36 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
         }
 
+        private void elegirMa_click(object sender, EventArgs e)
+        {
+            Aeronave aer = new Aeronave();
+                aer = ((Aeronave)cmbMatricula.SelectedItem);
+                string matricula = aer.matricula;
+                cmbAOrigen.Items.Clear();
+                cmbAOrigen.Items.AddRange(daoCiudad.getOrigenes(matricula).ToArray());
+        }
+
         private void ValidarLLegada_click(object sender, EventArgs e)
         {
 
-            if (!validarMatricula()) { MessageBox.Show("¡La Aeronave no tenia vuelo planificado, Call 911!", "Error", MessageBoxButtons.OK);
-            //btnRegist.Enabled = false;
+            if (!validarMatricula()) { MessageBox.Show("¡La Aeronave no tenia vuelo planificado!", "Error", MessageBoxButtons.OK);
+            
             }
             else
             {
 
-                if (!validarRuta()) { MessageBox.Show("¡La Aeronave no tenia esta Ruta planificada!", "Error", MessageBoxButtons.OK);
-             //   btnRegist.Enabled = false;
+                if (!validarRuta()) { MessageBox.Show("¡EL vuelo no registra ese Destino, No se puede registrar!", "Atencion", MessageBoxButtons.OK);
+                //MessageBox.Show("¡Presione Registrar", "Notificacion", MessageBoxButtons.OK);
+                //btnRegist.Enabled = true;
                 }
                 else
                 {
                     if (!validarFechadeArribo()) { MessageBox.Show("¡La fecha de Llegada tiene que ser mayor a la fecha de Salida!", "Error", MessageBoxButtons.OK);
-               //     btnRegist.Enabled = false;
+               
                     }
 
-                    else { MessageBox.Show("¡La Aeronave llego al destino y en el horario correcto, presione Registrar", "Notificacion", MessageBoxButtons.OK);
-                                                                                                                                              };
+                    else { MessageBox.Show("¡Presione Registrar", "Notificacion", MessageBoxButtons.OK);
+                                                          btnRegist.Enabled = true;       };
                 }
 
 
@@ -213,7 +233,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
             llegada.destino_id = ((Ciudad)cmbASalia.SelectedItem).id;
             llegada.vuelo_id = this.obtener_vueloID();
 
-            if (daoll.create(llegada))
+            if (daoll.registrarLlegada(llegada)<0)
             {
                 List<Pasaje> pasajeList = DAOPasaje.getFromVuelo(llegada.vuelo_id);
 

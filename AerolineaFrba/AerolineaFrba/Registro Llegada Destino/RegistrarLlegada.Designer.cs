@@ -269,6 +269,7 @@
             this.cmbMatricula.Name = "cmbMatricula";
             this.cmbMatricula.Size = new System.Drawing.Size(100, 21);
             this.cmbMatricula.TabIndex = 38;
+            this.cmbMatricula.SelectedIndexChanged += new System.EventHandler(this.elegirMa_click);
             // 
             // btnValidar
             // 

@@ -126,7 +126,10 @@ namespace AerolineaFrba.Abm_Aeronave
             int cant_aeronaves;
 
             if (txtVuelo.Text != "")
-                lstAer = daoAeronave.listaAero(txtAeron.Text,vuelo.fechaSalida);
+               
+                //lstAer = daoAeronave.listaAero(txtAeron.Text,vuelo.fechaSalida);
+                lstAer = daoAeronave.listaAero(vuelo.aeronave, vuelo.fechaSalida);
+
             // else
             //    lstAeronaves = dao.retrieveAll();
             //Vuelo vuelo = new Vuelo();
