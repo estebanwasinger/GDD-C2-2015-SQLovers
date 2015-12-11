@@ -62,6 +62,7 @@
             this.textBoxNombrePasajero.Name = "textBoxNombrePasajero";
             this.textBoxNombrePasajero.Size = new System.Drawing.Size(229, 20);
             this.textBoxNombrePasajero.TabIndex = 1;
+            this.textBoxNombrePasajero.TextChanged += new System.EventHandler(this.validar);
             // 
             // textBoxDNI
             // 
@@ -70,6 +71,7 @@
             this.textBoxDNI.Size = new System.Drawing.Size(229, 20);
             this.textBoxDNI.TabIndex = 3;
             this.textBoxDNI.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBoxDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDNI_KeyPress);
             // 
             // label2
             // 
@@ -86,6 +88,7 @@
             this.textBoxDireccionpasajero.Name = "textBoxDireccionpasajero";
             this.textBoxDireccionpasajero.Size = new System.Drawing.Size(229, 20);
             this.textBoxDireccionpasajero.TabIndex = 5;
+            this.textBoxDireccionpasajero.TextChanged += new System.EventHandler(this.validar);
             // 
             // label3
             // 
@@ -102,6 +105,8 @@
             this.textBoxTelefonoPasajero.Name = "textBoxTelefonoPasajero";
             this.textBoxTelefonoPasajero.Size = new System.Drawing.Size(229, 20);
             this.textBoxTelefonoPasajero.TabIndex = 7;
+            this.textBoxTelefonoPasajero.TextChanged += new System.EventHandler(this.validar);
+            this.textBoxTelefonoPasajero.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDNI_KeyPress);
             // 
             // label4
             // 
@@ -118,6 +123,7 @@
             this.textBoxMailPasajero.Name = "textBoxMailPasajero";
             this.textBoxMailPasajero.Size = new System.Drawing.Size(229, 20);
             this.textBoxMailPasajero.TabIndex = 9;
+            this.textBoxMailPasajero.TextChanged += new System.EventHandler(this.validar);
             // 
             // label5
             // 
@@ -150,6 +156,7 @@
             this.textBoxApellidoPasajero.Name = "textBoxApellidoPasajero";
             this.textBoxApellidoPasajero.Size = new System.Drawing.Size(229, 20);
             this.textBoxApellidoPasajero.TabIndex = 13;
+            this.textBoxApellidoPasajero.TextChanged += new System.EventHandler(this.validar);
             // 
             // label7
             // 

@@ -43,12 +43,12 @@ namespace AerolineaFrba.Compra
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-
+            this.validar(null, null);
         }
 
         private void DatosPasajero_Load(object sender, EventArgs e)
         {
-
+            this.buttonConfirmar.Enabled = false;
         }
 
         private void buttonConfirmar_Click(object sender, EventArgs e)
@@ -75,6 +75,7 @@ namespace AerolineaFrba.Compra
                     this.cliente = cliente;
                     this.Close();
                     DAOCliente.create(cliente);
+                    this.cliente = DAOCliente.getClienteWithDNI(cliente.dni);
                 }
                 else
                 {
@@ -101,6 +102,25 @@ namespace AerolineaFrba.Compra
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void textBoxDNI_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Validation.AcceptOnlyNumbers(e);
+        }
+
+        private bool isValidConfig() {
+            return (Validation.isFilled(textBoxApellidoPasajero) &&
+                    Validation.isFilled(textBoxDireccionpasajero) &&
+                    Validation.isFilled(textBoxDNI) &&
+                    Validation.isFilled(textBoxNombrePasajero) &&
+                    Validation.isFilled(textBoxMailPasajero) &&
+                    Validation.isFilled(textBoxTelefonoPasajero));
+        }
+
+        private void validar(object sender, EventArgs e)
+        {
+            buttonConfirmar.Enabled = this.isValidConfig();
         }
     }
 }

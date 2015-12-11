@@ -18,5 +18,15 @@ namespace AerolineaFrba.ValildationUtils
         {
             return cmbBox.SelectedItem == null ? false : true;
         }
+
+        public static void AcceptOnlyNumbers(KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
     }
 }

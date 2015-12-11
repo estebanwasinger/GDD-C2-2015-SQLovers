@@ -48,7 +48,6 @@ IF Object_id('SQLOVERS.encomienda') IS NOT NULL
       DROP TABLE sqlovers.ENCOMIENDA; 
   END; 
 
-
 IF Object_id('SQLOVERS.Vuelo') IS NOT NULL 
   BEGIN 
       DROP TABLE sqlovers.VUELO; 
@@ -362,6 +361,7 @@ CREATE TABLE sqlovers.COMPRA
      compra_cliente           NUMERIC(18, 0) NOT NULL FOREIGN KEY REFERENCES
      sqlovers.CLIENTE(cli_id),
 	 compra_pasajeOEncomienda NUMERIC(18,0),
+	 compra_tipo              CHAR DEFAULT 'e' CHECK (compra_tipo IN('e', 't')),
      compra_fecha             DATETIME NOT NULL,
   ) 
 
@@ -971,13 +971,13 @@ AS
   BEGIN 
       DECLARE @kg_disponibles INT; 
 
-      SET @kg_disponibles = (SELECT ( a.aeronave_kg_disponibles - 
-                                      Sum(e.encomienda_kg) ) 
+      SET @kg_disponibles = (SELECT  (a.aeronave_kg_disponibles - 
+                                      Sum(e.encomienda_kg))  
                              FROM   gd2c2015.sqlovers.VUELO v, 
                                     sqlovers.AERONAVE a, 
                                     sqlovers.ENCOMIENDA e 
-                             WHERE  v.vuelo_aeronave_id = a.aeronave_matricula 
-                                    AND e.encomienda_vuelo_id = @vuelo_id 
+                             WHERE  v.vuelo_aeronave_id = a.aeronave_id 
+                                    AND e.encomienda_vuelo_id = @vuelo_id
                                     AND v.vuelo_id = @vuelo_id
 									AND e.encomienda_cancelado = 0 
                              GROUP  BY v.vuelo_id, 
@@ -986,6 +986,7 @@ AS
       RETURN @kg_disponibles 
   END;
   GO
+
 CREATE FUNCTION sqlovers.Butacasdisponibles(@vuelo_id INT) 
 returns @butacasDisponibles TABLE ( 
   butaca_nro  NUMERIC(18, 0), 

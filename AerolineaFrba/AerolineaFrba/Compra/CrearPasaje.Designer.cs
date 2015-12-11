@@ -36,8 +36,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBoxDni = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBoxUsuario = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.textBoxApellidoCliente = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxNombreCliente = new System.Windows.Forms.TextBox();
@@ -91,7 +89,7 @@
             // 
             // buttonBuscarCliente
             // 
-            this.buttonBuscarCliente.Location = new System.Drawing.Point(18, 125);
+            this.buttonBuscarCliente.Location = new System.Drawing.Point(18, 99);
             this.buttonBuscarCliente.Name = "buttonBuscarCliente";
             this.buttonBuscarCliente.Size = new System.Drawing.Size(260, 32);
             this.buttonBuscarCliente.TabIndex = 6;
@@ -104,22 +102,20 @@
             this.groupBox3.Controls.Add(this.buttonBuscarCliente);
             this.groupBox3.Controls.Add(this.textBoxDni);
             this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.textBoxUsuario);
-            this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.textBoxApellidoCliente);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.textBoxNombreCliente);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Location = new System.Drawing.Point(309, 45);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(293, 165);
+            this.groupBox3.Size = new System.Drawing.Size(293, 148);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos Cliente";
             // 
             // textBoxDni
             // 
-            this.textBoxDni.Location = new System.Drawing.Point(98, 99);
+            this.textBoxDni.Location = new System.Drawing.Point(98, 73);
             this.textBoxDni.Name = "textBoxDni";
             this.textBoxDni.ReadOnly = true;
             this.textBoxDni.Size = new System.Drawing.Size(180, 20);
@@ -128,28 +124,11 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 102);
+            this.label11.Location = new System.Drawing.Point(15, 76);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 13);
             this.label11.TabIndex = 16;
             this.label11.Text = "DNI:";
-            // 
-            // textBoxUsuario
-            // 
-            this.textBoxUsuario.Location = new System.Drawing.Point(98, 73);
-            this.textBoxUsuario.Name = "textBoxUsuario";
-            this.textBoxUsuario.ReadOnly = true;
-            this.textBoxUsuario.Size = new System.Drawing.Size(180, 20);
-            this.textBoxUsuario.TabIndex = 15;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 76);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(46, 13);
-            this.label10.TabIndex = 14;
-            this.label10.Text = "Usuario:";
             // 
             // textBoxApellidoCliente
             // 
@@ -227,8 +206,6 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox textBoxDni;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBoxUsuario;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxApellidoCliente;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxNombreCliente;

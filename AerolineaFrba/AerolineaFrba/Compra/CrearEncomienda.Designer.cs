@@ -38,13 +38,12 @@
             this.buttonBuscarCliente = new System.Windows.Forms.Button();
             this.textBoxDni = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBoxUsuario = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.textBoxApellidoCliente = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxNombreCliente = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPeso)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -55,7 +54,7 @@
             this.numericUpDownPeso.Location = new System.Drawing.Point(115, 20);
             this.numericUpDownPeso.Name = "numericUpDownPeso";
             this.numericUpDownPeso.ReadOnly = true;
-            this.numericUpDownPeso.Size = new System.Drawing.Size(121, 20);
+            this.numericUpDownPeso.Size = new System.Drawing.Size(163, 20);
             this.numericUpDownPeso.TabIndex = 0;
             this.numericUpDownPeso.ValueChanged += new System.EventHandler(this.numericUpDownPeso_ValueChanged);
             // 
@@ -83,14 +82,14 @@
             this.textBoxPrecioTotal.Enabled = false;
             this.textBoxPrecioTotal.Location = new System.Drawing.Point(115, 50);
             this.textBoxPrecioTotal.Name = "textBoxPrecioTotal";
-            this.textBoxPrecioTotal.Size = new System.Drawing.Size(121, 20);
+            this.textBoxPrecioTotal.Size = new System.Drawing.Size(163, 20);
             this.textBoxPrecioTotal.TabIndex = 3;
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(6, 142);
+            this.buttonCancelar.Location = new System.Drawing.Point(14, 286);
             this.buttonCancelar.Name = "buttonCancelar";
-            this.buttonCancelar.Size = new System.Drawing.Size(129, 35);
+            this.buttonCancelar.Size = new System.Drawing.Size(141, 35);
             this.buttonCancelar.TabIndex = 4;
             this.buttonCancelar.Text = "Cancelar";
             this.buttonCancelar.UseVisualStyleBackColor = true;
@@ -98,9 +97,9 @@
             // 
             // buttonComprar
             // 
-            this.buttonComprar.Location = new System.Drawing.Point(141, 142);
+            this.buttonComprar.Location = new System.Drawing.Point(161, 286);
             this.buttonComprar.Name = "buttonComprar";
-            this.buttonComprar.Size = new System.Drawing.Size(129, 35);
+            this.buttonComprar.Size = new System.Drawing.Size(146, 35);
             this.buttonComprar.TabIndex = 5;
             this.buttonComprar.Text = "Agregar Compra";
             this.buttonComprar.UseVisualStyleBackColor = true;
@@ -111,22 +110,20 @@
             this.groupBox3.Controls.Add(this.buttonBuscarCliente);
             this.groupBox3.Controls.Add(this.textBoxDni);
             this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.textBoxUsuario);
-            this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.textBoxApellidoCliente);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.textBoxNombreCliente);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Location = new System.Drawing.Point(276, 12);
+            this.groupBox3.Location = new System.Drawing.Point(14, 140);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(293, 165);
+            this.groupBox3.Size = new System.Drawing.Size(293, 140);
             this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos Cliente";
             // 
             // buttonBuscarCliente
             // 
-            this.buttonBuscarCliente.Location = new System.Drawing.Point(18, 125);
+            this.buttonBuscarCliente.Location = new System.Drawing.Point(18, 99);
             this.buttonBuscarCliente.Name = "buttonBuscarCliente";
             this.buttonBuscarCliente.Size = new System.Drawing.Size(260, 32);
             this.buttonBuscarCliente.TabIndex = 6;
@@ -136,7 +133,7 @@
             // 
             // textBoxDni
             // 
-            this.textBoxDni.Location = new System.Drawing.Point(98, 99);
+            this.textBoxDni.Location = new System.Drawing.Point(98, 73);
             this.textBoxDni.Name = "textBoxDni";
             this.textBoxDni.ReadOnly = true;
             this.textBoxDni.Size = new System.Drawing.Size(180, 20);
@@ -145,28 +142,11 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 102);
+            this.label11.Location = new System.Drawing.Point(15, 76);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(29, 13);
             this.label11.TabIndex = 16;
             this.label11.Text = "DNI:";
-            // 
-            // textBoxUsuario
-            // 
-            this.textBoxUsuario.Location = new System.Drawing.Point(98, 73);
-            this.textBoxUsuario.Name = "textBoxUsuario";
-            this.textBoxUsuario.ReadOnly = true;
-            this.textBoxUsuario.Size = new System.Drawing.Size(180, 20);
-            this.textBoxUsuario.TabIndex = 15;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 76);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(46, 13);
-            this.label10.TabIndex = 14;
-            this.label10.Text = "Usuario:";
             // 
             // textBoxApellidoCliente
             // 
@@ -208,18 +188,29 @@
             this.groupBox1.Controls.Add(this.labelKgs);
             this.groupBox1.Controls.Add(this.labelPrecio);
             this.groupBox1.Controls.Add(this.textBoxPrecioTotal);
-            this.groupBox1.Location = new System.Drawing.Point(6, 12);
+            this.groupBox1.Location = new System.Drawing.Point(14, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(264, 124);
+            this.groupBox1.Size = new System.Drawing.Size(293, 89);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encomienda";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.label1.Location = new System.Drawing.Point(67, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(183, 25);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Nueva Encomienda";
             // 
             // CrearEncomienda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 184);
+            this.ClientSize = new System.Drawing.Size(319, 332);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.buttonComprar);
@@ -233,6 +224,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -248,12 +240,11 @@
         private System.Windows.Forms.Button buttonBuscarCliente;
         private System.Windows.Forms.TextBox textBoxDni;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBoxUsuario;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxApellidoCliente;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxNombreCliente;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
