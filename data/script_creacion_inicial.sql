@@ -1029,8 +1029,6 @@ AS
   END; 
   GO
 
-  SELECT SQLOVERS.pasajeroYaTieneVueloEntre(2594,'02/29/2016 5:00:00', '02/29/2016 17:00:00')
-
   /****** Object:  UserDefinedFunction [SQLOVERS].[obtenerFabricante]    Script Date: 12/11/2015 2:01:30 PM ******/
 SET ANSI_NULLS ON
 GO
