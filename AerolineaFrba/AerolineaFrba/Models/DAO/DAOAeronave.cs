@@ -134,19 +134,63 @@ namespace AerolineaFrba.Models.DAO
             DB.ExecuteNonQuery(update);
         }
 
-        public int retrieveButacasVentanilla(string matricula)
+        public int retrieveButacasVentanilla(int matricula)
         {
 
-            string command = "select count(*) from SQLOVERS.BUTACA where " + String.Format("  butaca_aeronave like '{0}%' and butaca_tipo like 'Ventanilla' ", matricula);
+            string command = "select count(*) from SQLOVERS.BUTACA where " + String.Format("  butaca_aeronave = {0} and butaca_tipo like 'Ventanilla' ", matricula);
             return DB.ExecuteCardinal(command);
         }
 
-        public int retrieveButacasPasillo(string matricula)
+        public int retrieveButacasPasillo(int matricula)
         {
 
-            string command = "select count(*) from SQLOVERS.BUTACA where " + String.Format("  butaca_aeronave like '{0}%' and butaca_tipo like 'Pasillo' ", matricula);
+            string command = "select count(*) from SQLOVERS.BUTACA where " + String.Format("  butaca_aeronave = {0} and butaca_tipo like 'Pasillo' ", matricula);
             return DB.ExecuteCardinal(command);
         }
+
+       
+            public static ModeloAeronave getNombreModelo(int modelo)
+        {
+
+
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@modelo_id", modelo));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.MOdelo where modelo_id=@modelo_id", "T", parameterList);
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    ModeloAeronave mA = new ModeloAeronave();
+                    mA.nombre = (string)lector["modelo_nombre"];
+                    mA.fabricante = (int)(decimal)lector["modelo_fabricante"];
+                    return mA;
+                }
+            }
+            return new ModeloAeronave();
+
+        }
+
+            public static FabricanteAeronave getNombreFabricante(int fabricante)
+            {
+
+                List<SqlParameter> parameterList = new List<SqlParameter>();
+                parameterList.Add(new SqlParameter("@fabricante_id", fabricante));
+                SqlDataReader lector = DBAcess.GetDataReader("SELECT * from SQLOVERS.FABRICANTE where fabricante_id=@fabricante_id", "T", parameterList);
+
+                if (lector.HasRows)
+                {
+                    while (lector.Read())
+                    {
+                        FabricanteAeronave Fa = new FabricanteAeronave();
+                        Fa.nombre = (string)lector["fabricante_nombre"];
+                        Fa.id = (int)(decimal)lector["fabricante_id"];
+                        return Fa;
+                    }
+                }
+                return new FabricanteAeronave();
+            
+            }
 
 
         public List<Aeronave> search(string matricula, string fabricante, string modelo, string peso)

@@ -97,11 +97,11 @@ namespace AerolineaFrba.Models.DAO
             return ciudadList;
         }
 
-        public  List<Ciudad> getOrigenes(string matricula) {
+        public  List<Ciudad> getOrigenes(int id) {
 
             List<Ciudad> ciudadList = new List<Ciudad>();
 
-            string comando = String.Format("select ciudad_nombre from sqlovers.ciudad join  sqlovers.ruta on ruta_ciudad_origen = ciudad_id join  sqlovers.vuelo on vuelo_ruta_id = ruta_id where vuelo_aeronave_id like '{0}' group by ciudad_nombre", matricula);
+            string comando = String.Format("select ciudad_nombre from sqlovers.ciudad join  sqlovers.ruta on ruta_ciudad_origen = ciudad_id join  sqlovers.vuelo on vuelo_ruta_id = ruta_id where vuelo_aeronave_id = {0} group by ciudad_nombre", id);
             ciudadList = DB.ExecuteReader<Ciudad>(comando);
 
             return ciudadList;

@@ -37,20 +37,34 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
             //txtMatricula.Text = ((Aeronave)cmbMatricula.SelectedItem).matricula;
             //txtFabricante.Text = ((Aeronave)cmbMatricula.SelectedItem).fabricante;
-            //txtModelo.Text = ((Aeronave)cmbMatricula.SelectedItem).modelo;
-            txtCarga.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).peso_disponible);
-            txtServicio.Text = ((Aeronave)cmbMatricula.SelectedItem).get_service();
-            txtButacasPasillo.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacasPasillo());
-            txtButacasVent.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacasVentanilla());
+
+            if ((Aeronave)cmbMatricula.SelectedItem != null)
+            {
+                int modelo_id = (int)((Aeronave)cmbMatricula.SelectedItem).modelo;
+
+
+                txtModelo.Text = DAOAeronave.getNombreModelo(modelo_id).nombre;
+
+                int fabricante_id = DAOAeronave.getNombreModelo(modelo_id).fabricante;
+                txtFabricante.Text = DAOAeronave.getNombreFabricante(fabricante_id).nombre;
+
+
+                txtCarga.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).peso_disponible);
+                txtServicio.Text = ((Aeronave)cmbMatricula.SelectedItem).get_service();
+                txtButacasPasillo.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacasPasillo());
+                txtButacasVent.Text = Convert.ToString(((Aeronave)cmbMatricula.SelectedItem).getCantidadButacasVentanilla());
 
 
 
-            txtButacasVent.Enabled = false;
-            txtFabricante.Enabled = false;
-            txtModelo.Enabled = false;
-            txtButacasPasillo.Enabled = false;
-            txtServicio.Enabled = false;
-            txtCarga.Enabled = false;
+                txtButacasVent.Enabled = false;
+                txtFabricante.Enabled = false;
+                txtModelo.Enabled = false;
+                txtButacasPasillo.Enabled = false;
+                txtServicio.Enabled = false;
+                txtCarga.Enabled = false;
+            }
+            else { MessageBox.Show("¡Elija una Aeronave para cargar datos!", "Atencion", MessageBoxButtons.OK); }
+
         }
 
         public void cargarCombos()
@@ -188,36 +202,50 @@ namespace AerolineaFrba.Registro_Llegada_Destino
         {
             Aeronave aer = new Aeronave();
                 aer = ((Aeronave)cmbMatricula.SelectedItem);
-                string matricula = aer.matricula;
+                int id = (int)aer.id;
+                
                 cmbAOrigen.Items.Clear();
-                cmbAOrigen.Items.AddRange(daoCiudad.getOrigenes(matricula).ToArray());
+                cmbAOrigen.Items.AddRange(daoCiudad.getOrigenes(id).ToArray());
         }
 
         private void ValidarLLegada_click(object sender, EventArgs e)
         {
-
-            if (!validarMatricula()) { MessageBox.Show("¡La Aeronave no tenia vuelo planificado!", "Error", MessageBoxButtons.OK);
-            
-            }
-            else
+            if ((Aeronave)cmbMatricula.SelectedItem != null && (Ciudad)cmbAOrigen.SelectedItem != null && (Ciudad)cmbASalia.SelectedItem != null)
             {
 
-                if (!validarRuta()) { MessageBox.Show("¡EL vuelo no registra ese Destino, No se puede registrar!", "Atencion", MessageBoxButtons.OK);
-                //MessageBox.Show("¡Presione Registrar", "Notificacion", MessageBoxButtons.OK);
-                //btnRegist.Enabled = true;
+                if (!validarMatricula())
+                {
+                    MessageBox.Show("¡La Aeronave no tenia vuelo planificado!", "Error", MessageBoxButtons.OK);
+
                 }
                 else
                 {
-                    if (!validarFechadeArribo()) { MessageBox.Show("¡La fecha de Llegada tiene que ser mayor a la fecha de Salida!", "Error", MessageBoxButtons.OK);
-               
+
+                    if (!validarRuta())
+                    {
+                        MessageBox.Show("¡EL vuelo no registra ese Destino, No se puede registrar!", "Atencion", MessageBoxButtons.OK);
+                        //MessageBox.Show("¡Presione Registrar", "Notificacion", MessageBoxButtons.OK);
+                        //btnRegist.Enabled = true;
+                    }
+                    else
+                    {
+                        if (!validarFechadeArribo())
+                        {
+                            MessageBox.Show("¡La fecha de Llegada tiene que ser mayor a la fecha de Salida!", "Error", MessageBoxButtons.OK);
+
+                        }
+
+                        else
+                        {
+                            MessageBox.Show("¡Presione Registrar", "Notificacion", MessageBoxButtons.OK);
+                            btnRegist.Enabled = true;
+                        };
                     }
 
-                    else { MessageBox.Show("¡Presione Registrar", "Notificacion", MessageBoxButtons.OK);
-                                                          btnRegist.Enabled = true;       };
+
                 }
-
-
             }
+        else{ MessageBox.Show("¡No debe haber campos vacios", "Notificacion", MessageBoxButtons.OK);}
 
         }
 

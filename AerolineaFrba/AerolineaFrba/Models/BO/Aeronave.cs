@@ -107,7 +107,7 @@ namespace AerolineaFrba.Models.BO
 
             DAOAeronave daoAer = new DAOAeronave();
             int cant_butacas_totales;
-            cant_butacas_totales = daoAer.retrieveButacasPasillo(this.matricula);
+            cant_butacas_totales = daoAer.retrieveButacasPasillo((int)this.id);
             return (int)cant_butacas_totales;
 
         }
@@ -117,7 +117,7 @@ namespace AerolineaFrba.Models.BO
 
             DAOAeronave daoAer = new DAOAeronave();
             int cant_butacas_totales;
-            cant_butacas_totales = daoAer.retrieveButacasVentanilla(this.matricula);
+            cant_butacas_totales = daoAer.retrieveButacasVentanilla((int)this.id);
             return (int)cant_butacas_totales;
 
         }
