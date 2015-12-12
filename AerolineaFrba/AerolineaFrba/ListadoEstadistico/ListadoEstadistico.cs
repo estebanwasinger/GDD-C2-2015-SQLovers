@@ -17,6 +17,7 @@ namespace AerolineaFrba.Listado_Estadistico
         {
             fillCmbSemestre();
             fillCmbAnio();
+            cmbAnio.SelectedIndex = 0;
             fillCmbListado();
         }
 
