@@ -616,7 +616,9 @@ VALUES      ('Login y Seguridad'),
             ('Cancelación / devolución de pasaje'), 
             ('Consulta de millas'), 
             ('Canje de millas'), 
-            ('Listado estadístico') 
+            ('Listado estadístico'),
+            ('ABM Roles')
+            
 
 INSERT INTO SQLOVERS.FUNCIONALIDAD_ROL (funcionalidad_id, rol_id)
 VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1)
@@ -652,7 +654,8 @@ VALUES      ('admin',
              'E6B87050BFCB8143FCB8DB0170A4DC9ED00D904DDD3E2A4AD1B1E8DC0FDC9BE7', 
              0, 
              1, 
-             1); 
+             1),
+             ('user',CONVERT(NVARCHAR(64),HashBytes('MD5', '123'),2),0,1,2);
 
 go 
 
