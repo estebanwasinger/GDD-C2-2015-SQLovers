@@ -169,6 +169,7 @@
             this.Controls.Add(this.btnListadoEstadistico);
             this.Name = "FormPrincipal";
             this.Text = "Welcome!";
+            this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.ResumeLayout(false);
 
         }

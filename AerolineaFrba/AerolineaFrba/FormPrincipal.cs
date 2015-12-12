@@ -19,19 +19,34 @@ using AerolineaFrba.Generacion_Viaje;
 using AerolineaFrba.Registro_Llegada_Destino;
 using AerolineaFrba.Consulta_Millas;
 using AerolineaFrba.Devolucion;
+using AerolineaFrba.Models.DAO;
+using AerolineaFrba.Models.BO;
 
 
 namespace AerolineaFrba
 {
     public partial class FormPrincipal : Form
     {
-        public FormPrincipal(Usuario invoker)
+        public FormPrincipal(Usuario user)
         {
             InitializeComponent();
-            user = invoker;
+            this.user = user;
         }
 
         public Usuario user { get; set; }
+        private Dictionary<Int32, String> dictionary;
+        private const int LOGIN_Y_SEGURIDAD = 1;
+        private const int REGISTRO_USUARIO = 2;
+        private const int ABM_CIUDAD = 3;
+        private const int ABM_RUTA = 4;
+        private const int ABM_AERONAVE = 5;
+        private const int GENERAR_VIAJE = 6;
+        private const int REGISTRO_LLEGADA = 7;
+        private const int COMPRA = 8;
+        private const int CANCELACION_DEVOLUCION = 9;
+        private const int CONSULTA_MILLAS = 10;
+        private const int CANJE_MILLAS = 11;
+        private const int LISTADO_ESTADISTICO = 12;
 
         private void buttonAeronaves_Click(object sender, EventArgs e)
         {
@@ -97,6 +112,17 @@ namespace AerolineaFrba
         {
             FormDevolucion devolucion = new FormDevolucion();
             devolucion.ShowDialog();
+        }
+
+        private void FormPrincipal_Load(object sender, EventArgs e)
+        {
+            user.Name = "admin";
+            dictionary = DAOFuncionalidad.getFuncionalidadFromUsuarioAsMap(user.Name);
+
+            if (!dictionary.ContainsKey(ABM_CIUDAD)) {
+                buttonCiudades.Enabled = false;
+            }
+
         }
 
     }

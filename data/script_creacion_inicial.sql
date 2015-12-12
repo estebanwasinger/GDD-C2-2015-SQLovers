@@ -216,7 +216,7 @@ CREATE TABLE sqlovers.ROL
   ( 
      rol_id     NUMERIC(3, 0) IDENTITY NOT NULL PRIMARY KEY, 
      rol_name   NVARCHAR(255), 
-     rol_activo BINARY 
+     rol_activo BIT 
   ) 
 
 CREATE TABLE sqlovers.FUNCIONALIDAD 
@@ -634,6 +634,9 @@ VALUES      ('Login y Seguridad'),
             ('Consulta de millas'), 
             ('Canje de millas'), 
             ('Listado estadístico') 
+
+INSERT INTO SQLOVERS.FUNCIONALIDAD_ROL (funcionalidad_id, rol_id)
+VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1)
 
 --INSERT INTO sqlovers.usuario(cli_dni, cli_usuario, cli_password)         
 --VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')   
