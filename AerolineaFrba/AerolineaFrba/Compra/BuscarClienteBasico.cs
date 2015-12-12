@@ -34,7 +34,7 @@ namespace AerolineaFrba.Compra
                     buttonModificarCliente.Enabled = true;
                 }
                 else {
-                    MessageBox.Show("Error", "No se econtro cliente con ese DNI",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se econtro cliente con ese DNI", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             

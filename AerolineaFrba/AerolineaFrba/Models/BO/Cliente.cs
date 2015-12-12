@@ -20,7 +20,6 @@ namespace AerolineaFrba.Models.BO
         public DateTime fechaNacimiento { get; set; }
         public Int32 telefono { get; set; }
         public Int32 dni { get; set; }
-        public Int32 millas { get; set; }
 
 
     }

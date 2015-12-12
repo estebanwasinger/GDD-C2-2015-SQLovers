@@ -19,28 +19,30 @@ namespace AerolineaFrba
             InitializeComponent();
         }
 
-        public void btnCliente_Click(object sender, EventArgs e) {
-            Session.Instance(false);
-                PantallaCliente pantallaCliente = new PantallaCliente(null);
-                pantallaCliente.Show();
+        public void btnCliente_Click(object sender, EventArgs e)
+        {
+            Session.overrideInstance(false);
+            PantallaCliente pantallaCliente = new PantallaCliente(null);
+            pantallaCliente.Show();
 
             //this.Hide();       
         }
 
-        public void btnAdministrador_Click(object sender, EventArgs e) {
-           // FormLogin login = new FormLogin();
-           // login.ShowDialog();
-           // if (login.userRegistrado != null) {
-                Session.Instance(true);
+        public void btnAdministrador_Click(object sender, EventArgs e)
+        {
+            // FormLogin login = new FormLogin();
+            // login.ShowDialog();
+            // if (login.userRegistrado != null) {
+            Session.overrideInstance(true);
 
-                Usuario user = new Usuario();
-                FormPrincipal formPrinicipal = new FormPrincipal(user);
-                formPrinicipal.Show();
-                this.Hide();
+            Usuario user = new Usuario();
+            FormPrincipal formPrinicipal = new FormPrincipal(user);
+            formPrinicipal.Show();
+            this.Hide();
             //}
-           
+
         }
-        
+
 
     }
 }

@@ -289,7 +289,7 @@ CREATE TABLE sqlovers.AERONAVE_BAJAS
      PRIMARY KEY, 
      aeronave_baja_fecha_vueltafs    DATETIME, 
      aeronave_baja_fecha_bajatecnica DATETIME, 
-     aeronave_matricula              NUMERIC(18,0) FOREIGN KEY REFERENCES 
+     aeronave_id             NUMERIC(18,0) FOREIGN KEY REFERENCES 
      sqlovers.AERONAVE(aeronave_id) 
   ) 
 
@@ -328,8 +328,7 @@ CREATE TABLE sqlovers.CLIENTE
      cli_dir       NVARCHAR(255), 
      cli_telefono  NUMERIC(18, 0), 
      cli_mail      NVARCHAR(255), 
-     cli_fecha_nac DATETIME, 
-	 cli_millas NUMERIC(18,0)
+     cli_fecha_nac DATETIME
   ); 
 
 CREATE TABLE sqlovers.RUTA 
@@ -434,20 +433,6 @@ CREATE TABLE sqlovers.CANJE
      
      devolucion_dinero_total int
  )
- 
-CREATE TABLE sqlovers.MILLAS 
-  ( 
-     millas_id     NUMERIC(18, 0) IDENTITY NOT NULL PRIMARY KEY, 
-     millas_cliente  NUMERIC(18, 0)FOREIGN KEY REFERENCES 
-     sqlovers.CLIENTE(cli_id),
-	 millas_fecha DATETIME,
-	 millas_pasaje_id NUMERIC(18, 0) FOREIGN KEY REFERENCES
-	 sqlovers.pasaje(pasaje_codigo),
-	 millas_encomienda_id int FOREIGN KEY REFERENCES
-	 sqlovers.encomienda(encomienda_id),
-	 millas_cantidad NUMERIC(5, 0)
-
-  )
 
 CREATE TABLE sqlovers.DEV_PASAJE 
   ( 
@@ -595,16 +580,14 @@ INSERT INTO sqlovers.CLIENTE
              cli_dir, 
              cli_telefono, 
              cli_mail, 
-             cli_fecha_nac,
-			 cli_millas) 
+             cli_fecha_nac) 
 SELECT cli_nombre, 
        cli_apellido, 
        cli_dni, 
        cli_dir, 
        cli_telefono, 
        cli_mail, 
-       cli_fecha_nac, 
-	   99999 
+       cli_fecha_nac
 FROM   (SELECT cli_nombre, 
                cli_apellido, 
                cli_dni, 
@@ -642,14 +625,12 @@ VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1
 --VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')   
 
 INSERT INTO sqlovers.VUELO 
-            (vuelo_fecha_llegada, 
-             vuelo_fecha_llegada_estimada, 
+            (vuelo_fecha_llegada_estimada, 
              vuelo_fecha_salida, 
              vuelo_aeronave_id, 
              vuelo_ruta_id, 
              vuelo_cancelado) 
-SELECT DISTINCT fechallegada, 
-                fecha_llegada_estimada, 
+SELECT DISTINCT fecha_llegada_estimada, 
                 m.fechasalida, 
                 (SELECT a.aeronave_id FROM SQLOVERS.AERONAVE a WHERE a.aeronave_matricula = m.Aeronave_Matricula), 
                 r.ruta_id, 

@@ -47,14 +47,40 @@ namespace AerolineaFrba.Models.DAO
             return lector.GetBoolean(0);
         }
 
-        public void darBaja(int vueloId)
+        public static void darBaja(int vueloId)
         {
 
             List<SqlParameter> parameterList = new List<SqlParameter>();
             parameterList.Add(new SqlParameter("@vueloId", vueloId));
 
             DBAcess.WriteInBase("UPDATE SQLOVERS.PASAJE SET pasaje_cancelado = 1 FROM SQLOVERS.VUELO WHERE pasaje_vuelo_id = @vueloId AND vuelo_fecha_salida > GETDATE()", "T", parameterList);
+
+            parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@vueloId", vueloId));
+
             DBAcess.WriteInBase("UPDATE SQLOVERS.VUELO SET vuelo_cancelado = 1 WHERE vuelo_id = @vueloId AND vuelo_fecha_salida > GETDATE()", "T", parameterList);
+        }
+
+        public static List<Vuelo> getVuelosEntreDosFechas(int aeronaveId, DateTime fechaInicio, DateTime fechaFin) {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@fechaSalida", fechaInicio.ToString("MM/dd/yyyy hh:mm:ss")));
+            listaParametros.Add(new SqlParameter("@fechaLlegada", fechaFin.ToString("MM/dd/yyyy hh:mm:ss")));
+            listaParametros.Add(new SqlParameter("@aeronave_id", aeronaveId));
+
+            SqlDataReader lector = DBAcess.GetDataReader("select * FROM SQLOVERS.VUELO v WHERE vuelo_aeronave_id = @aeronave_id AND v.vuelo_cancelado=0 AND ((v.vuelo_fecha_salida >= @fechaSalida AND v.vuelo_fecha_salida <=  @fechaLlegada) OR (v.vuelo_fecha_llegada_estimada >= @fechaSalida AND v.vuelo_fecha_llegada_estimada <=  @fechaLlegada) OR (v.vuelo_fecha_salida <= @fechaSalida AND v.vuelo_fecha_llegada_estimada >=  @fechaLlegada))", "T", listaParametros);
+            return getVuelosFromResult(lector);
+        }
+
+      
+
+        public static List<Vuelo> getVuelosDesdeFecha(int aeronaveId, DateTime fechaInicio)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@fechaSalida", fechaInicio.ToString("MM/dd/yyyy hh:mm:ss")));
+            listaParametros.Add(new SqlParameter("@aeronave_id", aeronaveId));
+
+            SqlDataReader lector = DBAcess.GetDataReader("select * FROM SQLOVERS.VUELO v WHERE vuelo_aeronave_id = @aeronave_id AND v.vuelo_cancelado=0 AND (v.vuelo_fecha_salida >= @fechaSalida OR v.vuelo_fecha_llegada_estimada >= @fechaSalida)", "T", listaParametros);
+            return getVuelosFromResult(lector);
         }
 
         public List<Vuelo> search(int? matricula)
@@ -166,6 +192,5 @@ namespace AerolineaFrba.Models.DAO
             }
             return l;
         }
-
     }
 }

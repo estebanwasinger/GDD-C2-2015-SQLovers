@@ -31,17 +31,6 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void frmABMAeronave_Load(object sender, EventArgs e)
         {
-            //lstTipos = TipoDocumento.ObtenerTiposDocumento();
-
-            /*if (lstTipos.Count > 0)
-            {
-                cmbTipoID.Visible = true;
-                cmbTipoID.DataSource = lstTipos;
-                cmbTipoID.DisplayMember = "descripcion";
-                cmbTipoID.ValueMember = "id";
-                cmbTipoID.SelectedIndex = -1;
-
-            }*/
 
             dtgAeoronave.AutoGenerateColumns = false;
             dtgAeoronave.MultiSelect = false;
@@ -89,7 +78,8 @@ namespace AerolineaFrba.Abm_Aeronave
         private void btnAlta_Click(object sender, EventArgs e)
         {
             AltaAeronave aa = new AltaAeronave(new Aeronave());
-            aa.Show();
+            aa.ShowDialog();
+            actualizarGrilla();
         }
 
         private void btn_bTecnica_Click(object sender, EventArgs e)
@@ -101,16 +91,9 @@ namespace AerolineaFrba.Abm_Aeronave
                 {
                     fechaVS = (DateTime)aer.fecha_vueltaFS;
                 }
-                
-                
 
-                if(dao.estaDisponible(aer.matricula) == 3){
                 BajaFueraServicio bafs = new BajaFueraServicio(aer);
-                bafs.Show();}
-                else{  
-                    int i= dao.estaDisponible(aer.matricula);
-                    if (i == 2) { MessageBox.Show("Aeronave fue dada de baja Definitivamente", "Error!", MessageBoxButtons.OK); } else { MessageBox.Show("Aeronave Fuera de Servicio hasta: " + fechaVS.ToString("dd/MM/yyyy"), "Error!", MessageBoxButtons.OK); }
-                }
+                bafs.Show();
 
         }
         

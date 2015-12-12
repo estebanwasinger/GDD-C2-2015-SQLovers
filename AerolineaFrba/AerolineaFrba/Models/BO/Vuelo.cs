@@ -21,7 +21,7 @@ namespace AerolineaFrba.Models.BO
         }
 
         public int? id { get; set; }
-        public int? aeronave { get; set; }   
+        public int? aeronave { get; set; }
         public DateTime? fechaLlegada { get; set; }
         public DateTime fechaSalida { get; set; }
         public DateTime fechaLlegadaEstimada { get; set; }
@@ -47,7 +47,7 @@ namespace AerolineaFrba.Models.BO
                 fechaSalida = Convert.ToDateTime(dr["vuelo_fecha_salida"]);
 
             if (dcc.Contains("vuelo_fecha_llegada"))
-                fechaLlegada = Convert.ToDateTime(dr["vuelo_fecha_llegada"]);
+                fechaLlegada = dr["vuelo_fecha_llegada"] == DBNull.Value ? null : (DateTime?)(dr["vuelo_fecha_llegada"]);
 
             if (dcc.Contains("vuelo_fecha_llegada_estimada"))
                 fechaLlegadaEstimada = Convert.ToDateTime(dr["vuelo_fecha_llegada_estimada"]);

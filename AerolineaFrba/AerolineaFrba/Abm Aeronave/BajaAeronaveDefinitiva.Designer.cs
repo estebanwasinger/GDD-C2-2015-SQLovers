@@ -49,11 +49,9 @@
             this.horaBD = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBoxDatosBaja = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgVuelos)).BeginInit();
             this.groupBox2.SuspendLayout();
-            this.groupBoxDatosBaja.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtmatricula
@@ -105,7 +103,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 20);
+            this.label4.Location = new System.Drawing.Point(16, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(61, 13);
             this.label4.TabIndex = 9;
@@ -140,10 +138,11 @@
             // 
             // dateBaja
             // 
-            this.dateBaja.Location = new System.Drawing.Point(82, 14);
+            this.dateBaja.Location = new System.Drawing.Point(92, 20);
             this.dateBaja.Name = "dateBaja";
             this.dateBaja.Size = new System.Drawing.Size(199, 20);
             this.dateBaja.TabIndex = 13;
+            this.dateBaja.ValueChanged += new System.EventHandler(this.dateBaja_ValueChanged);
             // 
             // cmbServicio
             // 
@@ -155,12 +154,16 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.dateBaja);
             this.groupBox1.Controls.Add(this.dtgVuelos);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.btnReempV);
             this.groupBox1.Controls.Add(this.btnCancelarV);
-            this.groupBox1.Location = new System.Drawing.Point(15, 115);
+            this.groupBox1.Controls.Add(this.horaBD);
+            this.groupBox1.Location = new System.Drawing.Point(15, 129);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(517, 257);
+            this.groupBox1.Size = new System.Drawing.Size(517, 316);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Vuelos de la Aeronave";
@@ -168,15 +171,15 @@
             // dtgVuelos
             // 
             this.dtgVuelos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgVuelos.Location = new System.Drawing.Point(6, 19);
+            this.dtgVuelos.Location = new System.Drawing.Point(6, 46);
             this.dtgVuelos.Name = "dtgVuelos";
             this.dtgVuelos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgVuelos.Size = new System.Drawing.Size(505, 188);
+            this.dtgVuelos.Size = new System.Drawing.Size(505, 217);
             this.dtgVuelos.TabIndex = 0;
             // 
             // btnReempV
             // 
-            this.btnReempV.Location = new System.Drawing.Point(263, 213);
+            this.btnReempV.Location = new System.Drawing.Point(263, 269);
             this.btnReempV.Name = "btnReempV";
             this.btnReempV.Size = new System.Drawing.Size(248, 34);
             this.btnReempV.TabIndex = 16;
@@ -186,7 +189,7 @@
             // 
             // btnCancelarV
             // 
-            this.btnCancelarV.Location = new System.Drawing.Point(6, 213);
+            this.btnCancelarV.Location = new System.Drawing.Point(6, 269);
             this.btnCancelarV.Name = "btnCancelarV";
             this.btnCancelarV.Size = new System.Drawing.Size(251, 34);
             this.btnCancelarV.TabIndex = 17;
@@ -196,9 +199,9 @@
             // 
             // btnBaja
             // 
-            this.btnBaja.Location = new System.Drawing.Point(423, 10);
+            this.btnBaja.Location = new System.Drawing.Point(278, 451);
             this.btnBaja.Name = "btnBaja";
-            this.btnBaja.Size = new System.Drawing.Size(88, 57);
+            this.btnBaja.Size = new System.Drawing.Size(248, 44);
             this.btnBaja.TabIndex = 18;
             this.btnBaja.Text = "Confirmar Baja";
             this.btnBaja.UseVisualStyleBackColor = true;
@@ -206,9 +209,9 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(15, 474);
+            this.btnCancelar.Location = new System.Drawing.Point(24, 451);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(148, 39);
+            this.btnCancelar.Size = new System.Drawing.Size(248, 44);
             this.btnCancelar.TabIndex = 19;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -217,7 +220,7 @@
             // horaBD
             // 
             this.horaBD.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.horaBD.Location = new System.Drawing.Point(82, 43);
+            this.horaBD.Location = new System.Drawing.Point(381, 20);
             this.horaBD.Name = "horaBD";
             this.horaBD.Size = new System.Drawing.Size(87, 20);
             this.horaBD.TabIndex = 20;
@@ -225,7 +228,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 45);
+            this.label3.Location = new System.Drawing.Point(308, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 13);
             this.label3.TabIndex = 21;
@@ -250,26 +253,12 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos Aeronave";
             // 
-            // groupBoxDatosBaja
-            // 
-            this.groupBoxDatosBaja.Controls.Add(this.label4);
-            this.groupBoxDatosBaja.Controls.Add(this.dateBaja);
-            this.groupBoxDatosBaja.Controls.Add(this.label3);
-            this.groupBoxDatosBaja.Controls.Add(this.btnBaja);
-            this.groupBoxDatosBaja.Controls.Add(this.horaBD);
-            this.groupBoxDatosBaja.Location = new System.Drawing.Point(15, 379);
-            this.groupBoxDatosBaja.Name = "groupBoxDatosBaja";
-            this.groupBoxDatosBaja.Size = new System.Drawing.Size(517, 73);
-            this.groupBoxDatosBaja.TabIndex = 23;
-            this.groupBoxDatosBaja.TabStop = false;
-            this.groupBoxDatosBaja.Text = "Datos Baja";
-            // 
             // BajaAeronaveD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 528);
-            this.Controls.Add(this.groupBoxDatosBaja);
+            this.ClientSize = new System.Drawing.Size(548, 501);
+            this.Controls.Add(this.btnBaja);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.groupBox1);
@@ -277,11 +266,10 @@
             this.Text = "Baja Definitiva Aeronave";
             this.Load += new System.EventHandler(this.FormBajaDefinitiva_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgVuelos)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBoxDatosBaja.ResumeLayout(false);
-            this.groupBoxDatosBaja.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -309,7 +297,6 @@
         private System.Windows.Forms.DateTimePicker horaBD;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBoxDatosBaja;
 
     }
 }

@@ -62,7 +62,6 @@ namespace AerolineaFrba.Models.DAO
             try
             {
                 List<SqlParameter> ListaParametros = new List<SqlParameter>();
-                //  ListaParametros.Add(new SqlParameter("@id", (int)aero.id));
 
                 ListaParametros.Add(new SqlParameter("@aeronave_matricula", aero.matricula));
                 ListaParametros.Add(new SqlParameter("@aeronave_modelo", aero.modelo));
@@ -78,11 +77,13 @@ namespace AerolineaFrba.Models.DAO
             catch { return false; }
         }
 
-        public void bajaDef(string matricula, DateTime fechaBajaDef)
+        public bool bajaDef(int id, DateTime fechaBajaDef)
         {
-            List<SqlParameter> ListaParametros = new List<SqlParameter>();
-            string comando = "update SQLOVERS.AERONAVE set aeronave_estado = 2, " + String.Format("aeronave_fecha_bajaDefinitiva = {0} where aeronave_matricula like '{1}%' ", fechaQuereable(fechaBajaDef), matricula);
-            DB.ExecuteNonQuery(comando);
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@aeronave_id", id));
+            listaParametros.Add(new SqlParameter("@fecha_baja", fechaBajaDef.ToString("MM/dd/yyyy hh:mm:ss")));
+
+            return DBAcess.WriteInBase("update SQLOVERS.AERONAVE set aeronave_estado = 2, aeronave_fecha_bajaDefinitiva = @fecha_baja where aeronave_id = @aeronave_id ", "T", listaParametros);
         }
 
         public int estaDisponible(string matricula)
@@ -96,13 +97,19 @@ namespace AerolineaFrba.Models.DAO
             return estado;
         }
 
-        public void bajaFueraServicio(string matricula, DateTime fechaRegreso, DateTime fechaBajaFS)
+        public void bajaFueraServicio(int id, DateTime fechaRegreso, DateTime fechaBajaFS)
         {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@aeronave_id", id));
+            DBAcess.WriteInBase("UPDATE sqlovers.AERONAVE SET aeronave_estado = 1 WHERE aeronave_id = @aeronave_id ", "T", listaParametros);
 
-            string comando = String.Format(" EXECUTE sqlovers.darBajaTecnica '{1}',{2},{0} ", fechaQuereable(fechaRegreso), matricula, fechaQuereable(fechaBajaFS));
+            listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@aeronave_id", id));
+            listaParametros.Add(new SqlParameter("@fechaRegreso", fechaRegreso.ToString("MM/dd/yyyy hh:mm:ss")));
+            listaParametros.Add(new SqlParameter("@fechaBajaFS", fechaBajaFS.ToString("MM/dd/yyyy hh:mm:ss")));
+            DBAcess.WriteInBase("INSERT sqlovers.AERONAVE_BAJAS (aeronave_id,aeronave_baja_fecha_vueltafs,aeronave_baja_fecha_bajatecnica) VALUES (@aeronave_id, CONVERT(DATETIME,@fechaRegreso,121), CONVERT(DATETIME,@fechaBajaFS,121)) ", "T", listaParametros);
+                
 
-
-            DB.ExecuteNonQuery(comando);
         }
 
         public List<Aeronave> aeronave_servicio()

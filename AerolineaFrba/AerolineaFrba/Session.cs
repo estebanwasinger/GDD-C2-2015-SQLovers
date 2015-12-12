@@ -25,5 +25,10 @@ namespace AerolineaFrba
         }
 
         public static Session Instance() { return instance; }
+
+        internal static void overrideInstance(bool admin)
+        {
+            instance = new Session(admin);
+        }
     }
 }

@@ -38,22 +38,23 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void FormBajaDefinitiva_Load(object sender, EventArgs e)
         {
-            
-            
+
+
             int NO_tiene_vuelos;
             cargarCombos();
             if (aeronave.matricula != null)
             {
                 txtmatricula.Enabled = false;
-                
+
                 update = true;
-                cargarDatosAeronave();                
-                          }
+                cargarDatosAeronave();
+            }
 
             cargarGrilla();
-            NO_tiene_vuelos=actualizarGrilla();
-            if (dtgVuelos.RowCount > 0) { groupBoxDatosBaja.Enabled = false; }
-            if (NO_tiene_vuelos==1) {
+            NO_tiene_vuelos = actualizarGrilla();
+            if (dtgVuelos.RowCount > 0) { btnBaja.Enabled = false; }
+            if (NO_tiene_vuelos == 1)
+            {
 
                 txtFabri.Enabled = false;
                 txtModelo.Enabled = false;
@@ -61,7 +62,7 @@ namespace AerolineaFrba.Abm_Aeronave
                 btnReempV.Enabled = false;
                 btnCancelarV.Enabled = false;
                 cmbServicio.Enabled = false;
-               
+
             }
 
         }
@@ -110,23 +111,24 @@ namespace AerolineaFrba.Abm_Aeronave
             dtgVuelos.Columns.Add(colID);
             dtgVuelos.Columns.Add(colAeronave);
             dtgVuelos.Columns.Add(colRuta);
-            
+
         }
 
         public int actualizarGrilla()
         {
 
-            int var=0;
+            int var = 0;
             if (txtmatricula.Text != "")
-                lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(txtmatricula.Text).id);
+                lstVuelo = DAOVuelo.getVuelosDesdeFecha((int)DAOAeronave.getAeronaveFromMatricula(txtmatricula.Text).id, getFechaBaja());
             dtgVuelos.DataSource = lstVuelo;
 
             if (lstVuelo.Count == 0) { var = 1; }
             return var;
-            
+
         }
 
-        public void actualizarGrilla_X_vueloCancelado() {
+        public void actualizarGrilla_X_vueloCancelado()
+        {
 
             lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(txtmatricula.Text).id);
             dtgVuelos.DataSource = lstVuelo;
@@ -137,50 +139,71 @@ namespace AerolineaFrba.Abm_Aeronave
         {
 
             Vuelo vue = (Vuelo)dtgVuelos.CurrentRow.DataBoundItem;
-            Reemplazar rem = new Reemplazar(vue,this);
-            rem.Show();
-                                }
+            Reemplazar rem = new Reemplazar(vue, this);
+            rem.ShowDialog();
+            actualizarGrilla();
+        }
 
-        private void btn_Cancelar_Vuelo(object sender, EventArgs e) {
+        private void btn_Cancelar_Vuelo(object sender, EventArgs e)
+        {
 
             Vuelo vuelo = (Vuelo)dtgVuelos.CurrentRow.DataBoundItem;
-            int cancelo=daoVuelo.cancelarVuelo((int)vuelo.id);
-
-            if (cancelo ==1) {
-
-                actualizarGrilla_X_vueloCancelado();
-                if (dtgVuelos.RowCount == 0) {
-                    groupBoxDatosBaja.Enabled = true;
-                }
-            }
-
-           
-
+            DAOVuelo.darBaja((int)vuelo.id);
+            actualizarGrilla();
+            actualizarEstadoBotonBaja();
             MessageBox.Show("Vuelo Cancelado", "Notificacion", MessageBoxButtons.OK);
 
         }
 
-        private void btn_darBajaDefinitiva(object sender, EventArgs e) {
+        private void actualizarEstadoBotonBaja()
+        {
+            if (dtgVuelos.RowCount == 0)
+            {
+                btnBaja.Enabled = true;
+                btnCancelarV.Enabled = false;
+                btnReempV.Enabled = false;
+            }
+            else
+            {
+                btnBaja.Enabled = false;
+                btnCancelarV.Enabled = true;
+                btnReempV.Enabled = true;
+            }
+        }
+
+        private void btn_darBajaDefinitiva(object sender, EventArgs e)
+        {
 
             DAOAeronave daoA = new DAOAeronave();
-            DateTime fecha_bajaDef = new DateTime(dateBaja.Value.Year,dateBaja.Value.Month,dateBaja.Value.Day,horaBD.Value.Hour,horaBD.Value.Minute,horaBD.Value.Second);
+            DateTime fecha_bajaDef = getFechaBaja();
 
-            if (DateTime.Compare(fecha_bajaDef, DateTime.Now) >= 0)
+            if (DateTime.Compare(fecha_bajaDef, DateTime.Today) >= 0)
             {
 
-            if(tieneVuelos(txtmatricula.Text)){
-                MessageBox.Show("La Aeronave tiene Vuelos asignados", "Notificacion", MessageBoxButtons.OK);
-            }else{
-            daoA.bajaDef(txtmatricula.Text,fecha_bajaDef);
-            MessageBox.Show("Baja Definitiva completa", "Notificacion", MessageBoxButtons.OK);}
-            this.Close();
-            }else{ MessageBox.Show("Verifique la fecha/hora", "Notificacion", MessageBoxButtons.OK);} 
+                if (dtgVuelos.RowCount > 0)
+                {
+                    MessageBox.Show("La Aeronave tiene Vuelos asignados", "Notificacion", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    daoA.bajaDef((int)aeronave.id, fecha_bajaDef);
+                    MessageBox.Show("Baja Definitiva completa", "Notificacion", MessageBoxButtons.OK);
+                }
+                this.Close();
+            }
+            else { MessageBox.Show("Verifique la fecha/hora", "Notificacion", MessageBoxButtons.OK); }
 
         }
 
-        public bool tieneVuelos(string matricula){
+        private DateTime getFechaBaja()
+        {
+            return new DateTime(dateBaja.Value.Year, dateBaja.Value.Month, dateBaja.Value.Day, horaBD.Value.Hour, horaBD.Value.Minute, horaBD.Value.Second);
+        }
 
-            bool tieneVuelos=false;
+        public bool tieneVuelos(string matricula)
+        {
+
+            bool tieneVuelos = false;
             lstVuelo = daoVuelo.search(DAOAeronave.getAeronaveFromMatricula(matricula).id);
             if (lstVuelo.Count > 0) { tieneVuelos = true; }
 
@@ -195,6 +218,12 @@ namespace AerolineaFrba.Abm_Aeronave
 
         private void btnCancelar_Click(object sender, EventArgs e)
         { this.Close(); }
+
+        private void dateBaja_ValueChanged(object sender, EventArgs e)
+        {
+            actualizarGrilla();
+            actualizarEstadoBotonBaja();
+        }
 
     }
 }

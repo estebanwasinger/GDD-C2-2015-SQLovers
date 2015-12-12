@@ -84,7 +84,7 @@ namespace AerolineaFrba.Compra
             foreach (Vuelo vuelo in vueloList)
             {
                 Ruta ruta = getRuta((int)vuelo.ruta);
-                string[] row1 = new string[] { vuelo.id.ToString(), vuelo.fechaSalida.ToString(), vuelo.fechaLlegada.ToString(), ruta.ciudadOrigenNombre, ruta.ciudadDestinoNombre, ruta.tipoServicioNombre };
+                string[] row1 = new string[] { vuelo.id.ToString(), vuelo.fechaSalida.ToString(), vuelo.fechaLlegadaEstimada.ToString(), ruta.ciudadOrigenNombre, ruta.ciudadDestinoNombre, ruta.tipoServicioNombre };
 
                 dataGridViewVuelos.Rows.Add(row1);
             }
