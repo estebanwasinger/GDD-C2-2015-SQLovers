@@ -1074,10 +1074,3 @@ create function [SQLOVERS].[obtenerIdAeronave] (@id numeric(18,0))
  end;
 
 GO
-
-SELECT p.pasaje_codigo, CEILING(p.pasaje_precio / 10) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v WHERE p.pasaje_cliente_id = 7 AND p.pasaje_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
-
-SELECT p.encomienda_id, CEILING(p.encomienda_precio_total / 10) FROM SQLOVERS.ENCOMIENDA p, SQLOVERS.VUELO v WHERE p.encomienda_cliente_id = 7 AND p.encomienda_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
-
-SELECT ISNULL(SUM(CEILING(p.encomienda_precio_total / 10)),0) FROM SQLOVERS.ENCOMIENDA p, SQLOVERS.VUELO v WHERE p.encomienda_cliente_id = 3 AND p.encomienda_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
-
