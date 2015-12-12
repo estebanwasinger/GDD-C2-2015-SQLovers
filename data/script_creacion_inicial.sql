@@ -465,25 +465,25 @@ iNSERT INTO SQLOVERS.productos
 			(producto_nombre,
 			producto_cantMillas,
 			producto_stock)
-values		('bicicleta',
-			25000,
-			10000)
+values		('Bicicleta',
+			1000,
+			100)
 
 iNSERT INTO SQLOVERS.productos
 			(producto_nombre,
 			producto_cantMillas,
 			producto_stock)
-values		('tablet',
-			28000,
-			10000)
+values		('Tablet',
+			6000,
+			100)
 
 iNSERT INTO SQLOVERS.productos
 			(producto_nombre,
 			producto_cantMillas,
 			producto_stock)
-values		('notebook',
-			99000,
-			10000)
+values		('Notebook',
+			10000,
+			100)
 
 iNSERT INTO SQLOVERS.productos
 			(producto_nombre,
@@ -1077,5 +1077,7 @@ GO
 
 SELECT p.pasaje_codigo, CEILING(p.pasaje_precio / 10) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v WHERE p.pasaje_cliente_id = 7 AND p.pasaje_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
 
-SELECT ISNULL(SUM(CEILING(p.pasaje_precio / 10)),0) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v WHERE p.pasaje_cliente_id = 2594 AND p.pasaje_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
+SELECT p.encomienda_id, CEILING(p.encomienda_precio_total / 10) FROM SQLOVERS.ENCOMIENDA p, SQLOVERS.VUELO v WHERE p.encomienda_cliente_id = 7 AND p.encomienda_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
+
+SELECT ISNULL(SUM(CEILING(p.encomienda_precio_total / 10)),0) FROM SQLOVERS.ENCOMIENDA p, SQLOVERS.VUELO v WHERE p.encomienda_cliente_id = 3 AND p.encomienda_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
 
