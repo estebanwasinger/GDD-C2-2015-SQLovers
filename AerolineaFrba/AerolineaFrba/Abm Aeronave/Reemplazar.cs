@@ -79,15 +79,6 @@ namespace AerolineaFrba.Abm_Aeronave
             txtVuelo.Text = vuelo.id.ToString();
 
             txtAeron.Text = vuelo.aeronave.ToString();
-
-            /*txtModelo.Text = aeronave.modelo;
-
-            txtFabri.Text = aeronave.fabricante;
-
-            txtPeso.Text = aeronave.peso_disponible.ToString();
-
-            string serv = (string)aeronave.get_service();
-            cmbServicio.SelectedIndex = cmbServicio.FindStringExact(serv);*/
             
         }
 
@@ -125,19 +116,9 @@ namespace AerolineaFrba.Abm_Aeronave
         {
             int cant_aeronaves;
 
-            if (txtVuelo.Text != "")
-               
-                //lstAer = daoAeronave.listaAero(txtAeron.Text,vuelo.fechaSalida);
-                lstAer = daoAeronave.listaAero(vuelo.aeronave, vuelo.fechaSalida);
-
-            // else
-            //    lstAeronaves = dao.retrieveAll();
-            //Vuelo vuelo = new Vuelo();
-            //vuelo = lstVuelo[0];
+            if (txtVuelo.Text != "") lstAer = daoAeronave.listaAero(vuelo.aeronave, vuelo.fechaSalida);
 
             if (lstAer.Count == 0) {
-
-                //MessageBox.Show("no hay aeronaves para reemplazo", "Notificacion", MessageBoxButtons.OK);
                 btnReemp.Enabled = false;
             }
 
@@ -149,7 +130,7 @@ namespace AerolineaFrba.Abm_Aeronave
         public void btnReemp_click(object sender, EventArgs e)
         {
             Aeronave aer = (Aeronave)dtgAeronaves.CurrentRow.DataBoundItem;
-            int i = daoAeronave.reemplazoAeronave(aer.matricula, (int)vuelo.id);
+            int i = daoAeronave.reemplazoAeronave((int) aer.id, (int)vuelo.id);
             if (i == 1)
             {
                 if (this.bD == null) { bFS.actualizarGrilla_X_vueloCancelado(); }
@@ -158,7 +139,6 @@ namespace AerolineaFrba.Abm_Aeronave
             }
             else { MessageBox.Show("Aeronave NO disponible en esa Hora de Salida", "Error", MessageBoxButtons.OK); }
 
-           //MessageBox.Show("Aeronave asignada", "Notificacion", MessageBoxButtons.OK);
            this.Close();
         }
 
@@ -166,6 +146,17 @@ namespace AerolineaFrba.Abm_Aeronave
 
             AltaAeronave aa = new AltaAeronave(new Aeronave());
             aa.Show();
+        }
+
+        public void validarEstadoBotones() {
+
+            if (dtgAeronaves.RowCount == 0)
+            {
+                btnReemp.Enabled = false;
+            }
+            else {
+                btnReemp.Enabled = true;
+            }
         }
 
 

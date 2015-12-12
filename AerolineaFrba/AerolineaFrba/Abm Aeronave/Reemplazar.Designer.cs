@@ -38,16 +38,21 @@
             this.btn_nvAer = new System.Windows.Forms.Button();
             this.btnRefrescar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAeronaves)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dtgAeronaves);
-            this.groupBox1.Location = new System.Drawing.Point(56, 83);
+            this.groupBox1.Controls.Add(this.btnReemp);
+            this.groupBox1.Controls.Add(this.btn_nvAer);
+            this.groupBox1.Location = new System.Drawing.Point(12, 97);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(551, 200);
+            this.groupBox1.Size = new System.Drawing.Size(551, 230);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Posibles Aeronaves";
@@ -55,14 +60,15 @@
             // dtgAeronaves
             // 
             this.dtgAeronaves.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgAeronaves.Location = new System.Drawing.Point(20, 19);
+            this.dtgAeronaves.Location = new System.Drawing.Point(6, 19);
             this.dtgAeronaves.Name = "dtgAeronaves";
-            this.dtgAeronaves.Size = new System.Drawing.Size(514, 158);
+            this.dtgAeronaves.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgAeronaves.Size = new System.Drawing.Size(539, 158);
             this.dtgAeronaves.TabIndex = 0;
             // 
             // txtVuelo
             // 
-            this.txtVuelo.Location = new System.Drawing.Point(120, 36);
+            this.txtVuelo.Location = new System.Drawing.Point(63, 20);
             this.txtVuelo.Name = "txtVuelo";
             this.txtVuelo.Size = new System.Drawing.Size(100, 20);
             this.txtVuelo.TabIndex = 2;
@@ -70,7 +76,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(64, 43);
+            this.label1.Location = new System.Drawing.Point(23, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 13);
             this.label1.TabIndex = 3;
@@ -78,9 +84,9 @@
             // 
             // btnReemp
             // 
-            this.btnReemp.Location = new System.Drawing.Point(76, 304);
+            this.btnReemp.Location = new System.Drawing.Point(278, 183);
             this.btnReemp.Name = "btnReemp";
-            this.btnReemp.Size = new System.Drawing.Size(99, 23);
+            this.btnReemp.Size = new System.Drawing.Size(267, 41);
             this.btnReemp.TabIndex = 4;
             this.btnReemp.Text = "Reemplazar";
             this.btnReemp.UseVisualStyleBackColor = true;
@@ -89,7 +95,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(253, 43);
+            this.label2.Location = new System.Drawing.Point(192, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
             this.label2.TabIndex = 5;
@@ -97,16 +103,16 @@
             // 
             // txtAeron
             // 
-            this.txtAeron.Location = new System.Drawing.Point(312, 36);
+            this.txtAeron.Location = new System.Drawing.Point(251, 20);
             this.txtAeron.Name = "txtAeron";
             this.txtAeron.Size = new System.Drawing.Size(100, 20);
             this.txtAeron.TabIndex = 6;
             // 
             // btn_nvAer
             // 
-            this.btn_nvAer.Location = new System.Drawing.Point(207, 304);
+            this.btn_nvAer.Location = new System.Drawing.Point(6, 183);
             this.btn_nvAer.Name = "btn_nvAer";
-            this.btn_nvAer.Size = new System.Drawing.Size(99, 23);
+            this.btn_nvAer.Size = new System.Drawing.Size(266, 41);
             this.btn_nvAer.TabIndex = 7;
             this.btn_nvAer.Text = "Nueva Aeronave";
             this.btn_nvAer.UseVisualStyleBackColor = true;
@@ -114,9 +120,9 @@
             // 
             // btnRefrescar
             // 
-            this.btnRefrescar.Location = new System.Drawing.Point(341, 304);
+            this.btnRefrescar.Location = new System.Drawing.Point(152, 333);
             this.btnRefrescar.Name = "btnRefrescar";
-            this.btnRefrescar.Size = new System.Drawing.Size(99, 23);
+            this.btnRefrescar.Size = new System.Drawing.Size(132, 35);
             this.btnRefrescar.TabIndex = 8;
             this.btnRefrescar.Text = "Refrescar";
             this.btnRefrescar.UseVisualStyleBackColor = true;
@@ -124,33 +130,54 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(476, 304);
+            this.btnCancel.Location = new System.Drawing.Point(18, 333);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(99, 23);
+            this.btnCancel.Size = new System.Drawing.Size(128, 35);
             this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancelar_click);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.txtVuelo);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.txtAeron);
+            this.groupBox2.Location = new System.Drawing.Point(12, 41);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(551, 50);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Datos Vuelo";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.label3.Location = new System.Drawing.Point(181, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(206, 25);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Reemplazar Aeronave";
+            // 
             // Reemplazar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 361);
+            this.ClientSize = new System.Drawing.Size(573, 376);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnRefrescar);
-            this.Controls.Add(this.btn_nvAer);
-            this.Controls.Add(this.txtAeron);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnReemp);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtVuelo);
             this.Controls.Add(this.groupBox1);
             this.Name = "Reemplazar";
             this.Text = "Reemplazar";
             this.Load += new System.EventHandler(this.FormReemplazar_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgAeronaves)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,5 +195,7 @@
         private System.Windows.Forms.Button btn_nvAer;
         private System.Windows.Forms.Button btnRefrescar;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
     }
 }

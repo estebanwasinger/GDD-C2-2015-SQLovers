@@ -294,15 +294,15 @@ namespace AerolineaFrba.Models.DAO
 "SELECT @var1 = aeronave_modelo, @var2=(select sqlovers.obtenerFabricante(aeronave_modelo)), @var3=aeronave_tipo_servicio " +
 "FROM SQLOVERS.AERONAVE WHERE" + String.Format(" aeronave_id = {0} ", aeronave) +
 
-"SELECT aeronave_matricula,aeronave_modelo,(select sqlovers.obtenerFabricante(aeronave_modelo)) as Fabricante,aeronave_tipo_servicio from SQLOVERS.AERONAVE " +
+"SELECT aeronave_matricula,aeronave_id,aeronave_modelo,(select sqlovers.obtenerFabricante(aeronave_modelo)) as Fabricante,aeronave_tipo_servicio from SQLOVERS.AERONAVE " +
 "where aeronave_modelo=@var1 and (select sqlovers.obtenerFabricante(aeronave_modelo))=@var2 and aeronave_tipo_servicio=@var3 and  " + String.Format(" aeronave_id not like '{0}' and SQLOVERS.validar_fechaSalida(aeronave_matricula,{1}) = 1 ", aeronave, fechaQuereable(fecha_salida));
 
             return DB.ExecuteReader<Aeronave>(comando);
         }
 
-        public int reemplazoAeronave(string matriculaReemplazo, int vuelo_id)
+        public int reemplazoAeronave(int aeronaveId, int vuelo_id)
         {
-            int cant_filas_actual = DB.ExecuteNonQuery(String.Format("EXECUTE SQLOVERS.reemplazar_vuelo '{0}',{1}", matriculaReemplazo, vuelo_id));
+            int cant_filas_actual = DB.ExecuteNonQuery(String.Format("EXECUTE SQLOVERS.reemplazar_vuelo '{0}',{1}", aeronaveId, vuelo_id));
             return cant_filas_actual;
         }
 
