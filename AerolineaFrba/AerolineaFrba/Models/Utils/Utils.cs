@@ -8,8 +8,8 @@ namespace AerolineaFrba.Models.Utils
 {
     public static class Utils
     {
-        public static DateTime fechaSistema = 
-            Convert.ToDateTime(@System.Configuration.ConfigurationSettings.AppSettings["Fecha"]);
+        /*public static DateTime fechaSistema = 
+            Convert.ToDateTime(@System.Configuration.ConfigurationSettings.AppSettings["Fecha"]);*/
 
         public static int mapBoolToBit(bool bit) {
             return bit ? 1 : 0;
