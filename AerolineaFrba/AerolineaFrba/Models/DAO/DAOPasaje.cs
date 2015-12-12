@@ -48,9 +48,9 @@ namespace AerolineaFrba.Models.DAO
             return LPasajes;
         }
 
-        public List<Pasaje> buscarPasaje(string codigoPasaje)
+        public List<Pasaje> buscarPasaje(string codigoCompra)
         {
-            string comando = String.Format("select * from sqlovers.pasaje where pasaje_codigo ={0}",codigoPasaje);
+            string comando = String.Format("select * from sqlovers.pasaje where pasaje_compra_id = {0}", codigoCompra);
 
             List<Pasaje> LPasajes = DB.ExecuteReader<Pasaje>(comando);
 

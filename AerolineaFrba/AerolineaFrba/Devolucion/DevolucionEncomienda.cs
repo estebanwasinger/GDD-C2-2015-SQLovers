@@ -41,13 +41,13 @@ namespace AerolineaFrba.Devolucion
             ColCodEncomienda.DataPropertyName = "id";
             ColCodEncomienda.HeaderText = "Codigo";
             ColCodEncomienda.Width = 120;
-            DataGridViewTextBoxColumn ColCliente = new DataGridViewTextBoxColumn();
+           /* DataGridViewTextBoxColumn ColCliente = new DataGridViewTextBoxColumn();
             ColCliente.DataPropertyName = "dniCliente";
             ColCliente.HeaderText = "Cliente ";
-            ColCliente.Width = 120;
+            ColCliente.Width = 120;*/
 
             dtgEncomienda.Columns.Add(ColCodEncomienda);
-            dtgEncomienda.Columns.Add(ColCliente);
+            //dtgEncomienda.Columns.Add(ColCliente);
 
         }
 
@@ -74,9 +74,9 @@ namespace AerolineaFrba.Devolucion
                 {
                     dtgEncomienda.DataSource = lstEnco;
                 }
-                else { MessageBox.Show("No Existe el Codigo de Encomienda", "Error", MessageBoxButtons.OK); }
+                else { MessageBox.Show("No Existe el Codigo de Compra", "Error", MessageBoxButtons.OK); }
             }
-            else { MessageBox.Show("Ingrese el codigo de una Encomienda y presione buscar", "Error", MessageBoxButtons.OK); }
+            else { MessageBox.Show("Ingrese el codigo de una Compra y presione buscar", "Error", MessageBoxButtons.OK); }
         }
 
         private void btnContinuar_Click(object sender, EventArgs e)

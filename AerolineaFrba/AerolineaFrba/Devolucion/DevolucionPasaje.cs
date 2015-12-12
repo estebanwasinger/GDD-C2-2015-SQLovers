@@ -41,13 +41,14 @@ namespace AerolineaFrba.Devolucion
             ColCodPasaje.DataPropertyName = "codigo";
             ColCodPasaje.HeaderText = "Pasaje";
             ColCodPasaje.Width = 120;
-            DataGridViewTextBoxColumn ColCliente = new DataGridViewTextBoxColumn();
+
+            /*DataGridViewTextBoxColumn ColCliente = new DataGridViewTextBoxColumn();
             ColCliente.DataPropertyName = "CliDNI";
             ColCliente.HeaderText = "Cliente";
-            ColCliente.Width = 120;
+            ColCliente.Width = 120;*/
 
             dtgPasaje.Columns.Add(ColCodPasaje);
-            dtgPasaje.Columns.Add(ColCliente);
+            //dtgPasaje.Columns.Add(ColCliente);
 
         }
 
@@ -65,24 +66,30 @@ namespace AerolineaFrba.Devolucion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (txtCodPasa.Text != "" && Char.IsDigit(txtCodPasa.Text,0))
+            if (txtCompra.Text != "" && Char.IsDigit(txtCompra.Text,0))
             {
-                lstPasajes = daoPasaje.buscarPasaje(txtCodPasa.Text);
+                lstPasajes = daoPasaje.buscarPasaje(txtCompra.Text);
                 if(lstPasajes.Count>0){
                     dtgPasaje.DataSource = lstPasajes;
                 }
-                else { MessageBox.Show("No Existe el Pasaje", "Error", MessageBoxButtons.OK); }
+                else { MessageBox.Show("No Existe el Codigo de Compra", "Error", MessageBoxButtons.OK); }
             }
-            else { MessageBox.Show("Ingrese el codigo de un Pasaje y presione buscar", "Error", MessageBoxButtons.OK); }
+            else { MessageBox.Show("Ingrese el codigo de un Compra y presione buscar", "Error", MessageBoxButtons.OK); }
         }
 
         private void btnContinuar_Click(object sender, EventArgs e)
         {
-            FormDevolucion fdevolucion = new FormDevolucion();
+                
+                FormDevolucion fdevolucion = new FormDevolucion();
 
-            Pasaje aer = (Pasaje)dtgPasaje.CurrentRow.DataBoundItem;
-            fdev.agregarPasaje(aer);
-            this.Close();
+                Pasaje aer = (Pasaje)dtgPasaje.CurrentRow.DataBoundItem;
+                bool seAgrego=fdev.agregarPasaje(aer);
+                if (seAgrego)
+                {
+                    this.Close();
+                }
+            
+            
         }
 
 

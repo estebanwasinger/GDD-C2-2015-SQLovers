@@ -57,10 +57,10 @@ namespace AerolineaFrba.Models.DAO
             return LEncomiendas;
         }
 
-        public List<Encomienda> buscarEncomienda(string codigoEncomienda)
+        public List<Encomienda> buscarEncomienda(string codigoCompra)
         {
 
-            string comando = String.Format("select *  from sqlovers.ENCOMIENDA where encomienda_id ={0}", codigoEncomienda);
+            string comando = String.Format("select *  from sqlovers.ENCOMIENDA where encomienda_compra_id ={0}", codigoCompra);
 
             List<Encomienda> Lenco = DB.ExecuteReader<Encomienda>(comando);
 

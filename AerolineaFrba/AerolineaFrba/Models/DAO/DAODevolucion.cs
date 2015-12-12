@@ -28,16 +28,26 @@ namespace AerolineaFrba.Models.DAO
             
                 List<SqlParameter> ListaParametros = new List<SqlParameter>();
 
-                ListaParametros.Add(new SqlParameter("@devolucion_fecha", fechaDEV));
-                ListaParametros.Add(new SqlParameter("@devolucion_detalle", detalle));
-
-                /*ListaParametros.Add(new SqlParameter("@llegada_origen", LlDestino.origen_id));
-                ListaParametros.Add(new SqlParameter("@llegada_destino", LlDestino.destino_id));
-                ListaParametros.Add(new SqlParameter("@llegada_vuelo_id", LlDestino.vuelo_id));*/
+                int compra_id;                          
 
 
-                 DBAcess.WriteInBase("insert into SQLOVERS.DEVOLUCION (devolucion_fecha, devolucion_detalle) VALUES(convert(datetime,@devolucion_fecha, @devolucion_detalle)", "T", ListaParametros);
+                if (lstPasajes.Count>0)
+                {
+                    compra_id = lstPasajes[0].compraId;    
+                    ListaParametros.Add(new SqlParameter("@devolucion_fecha", fechaDEV));
+                    ListaParametros.Add(new SqlParameter("@devolucion_detalle", detalle));
+                    ListaParametros.Add(new SqlParameter("@devolucion_compra", compra_id));
+                    DBAcess.WriteInBase("insert into SQLOVERS.DEVOLUCION (devolucion_fecha, devolucion_detalle,devolucion_compra) VALUES(@devolucion_fecha, @devolucion_detalle,@devolucion_compra)", "T", ListaParametros);
+                }
+                else {
 
+                    compra_id = lstEncom[0].compraId;
+                    ListaParametros.Add(new SqlParameter("@devolucion_fecha", fechaDEV));
+                    ListaParametros.Add(new SqlParameter("@devolucion_detalle", detalle));
+                    ListaParametros.Add(new SqlParameter("@devolucion_compra", compra_id));
+                    DBAcess.WriteInBase("insert into SQLOVERS.DEVOLUCION (devolucion_fecha, devolucion_detalle,devolucion_compra) VALUES(@devolucion_fecha, @devolucion_detalle,@devolucion_compra)", "T", ListaParametros);
+                
+                }
                  string command = String.Format(" select * from sqlovers.devolucion where devolucion_detalle like  '{0}' ", detalle);
 
                  Devolver dev= DB.ExecuteReaderSingle<Devolver>(command);

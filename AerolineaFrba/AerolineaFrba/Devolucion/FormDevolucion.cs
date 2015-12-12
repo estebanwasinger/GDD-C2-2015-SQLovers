@@ -76,27 +76,65 @@ namespace AerolineaFrba.Devolucion
         }
 
 
-        public void agregarPasaje(Pasaje pasaje) {
+        public bool agregarPasaje(Pasaje pasaje) {
 
+            bool seAgrego = true;
             if (pasajeNoElegido(pasaje))
             {
                 string[] row1 = new string[] { ((Int32)pasaje.codigo).ToString(), ((Int32)pasaje.compraId).ToString() };
-                dtgPasajes.Rows.Add(row1);
-                lstPasajes.Add(pasaje);
+
+                if(lstPasajes.Count >0){
+                foreach (Pasaje pas in lstPasajes) {
+
+                    if (pas.compraId != pasaje.compraId) { MessageBox.Show("La Compra no coincide", "Error", MessageBoxButtons.OK);
+                    seAgrego = false;
+                    }
+                }
+            }
+                if (seAgrego == true)
+                {
+                    dtgPasajes.Rows.Add(row1);
+                    lstPasajes.Add(pasaje);
+                }
                 
             }
-            else { MessageBox.Show("El pasaje ya fue seleccionado", "Error", MessageBoxButtons.OK); }
-                   
+            else { MessageBox.Show("El pasaje ya fue seleccionado", "Error", MessageBoxButtons.OK);
+            seAgrego = false;
+            }
+
+            return seAgrego;
         }
 
         public void agregarEncomienda(Encomienda encomienda)
         {
+            bool seAgrego = true;
 
             if (encomiendaNoElegido(encomienda))
             {
                 string[] row1 = new string[] { ((Int32)encomienda.id).ToString(), ((Int32)encomienda.compraId).ToString() };
-                dtgEncomiendas.Rows.Add(row1);
-                lstEncom.Add(encomienda);
+
+                if (lstEncom.Count > 0)
+                {
+                    foreach (Encomienda enco in lstEncom)
+                    {
+                        
+                        if (enco.compraId != encomienda.compraId)
+                        {
+                            MessageBox.Show("La Compra no coincide", "Error", MessageBoxButtons.OK);
+                            seAgrego = false;
+                        }
+                    }
+                }
+
+             
+
+                if (seAgrego == true)
+                {                    
+                    dtgEncomiendas.Rows.Add(row1);
+                    lstEncom.Add(encomienda);
+                }
+
+               
             }
             else { MessageBox.Show("La encomienda ya fue seleccionado", "Error", MessageBoxButtons.OK); }
 
@@ -135,19 +173,45 @@ namespace AerolineaFrba.Devolucion
                 //new DateTime(DateTime.Now.Value.Year, dateDev.Value.Month, dateDev.Value.Day, dateDev.Value.Hour, dateDev.Value.Minute, dateDev.Value.Second);
             string detalle = txtDetalle.Text;
 
+            
             if (detalle != "" )
             {
                 if (lstEncom.Count > 0 || lstPasajes.Count > 0)
                 {
-                float dinero = daoDev.guardar(fechaDev, detalle, lstPasajes, lstEncom);
-                MessageBox.Show("Se Devolvio en $: " + dinero, "Error", MessageBoxButtons.OK);
-                this.Close();
+
+                    if (lstEncom.Count > 0 && lstPasajes.Count > 0)
+                    {
+                        if (lstPasajes[0].compraId == lstEncom[0].compraId)
+                        {
+                            float dinero = daoDev.guardar(fechaDev, detalle, lstPasajes, lstEncom);
+                            MessageBox.Show("Se Devolvio en $: " + dinero, "Error", MessageBoxButtons.OK);
+                            this.Close();
+                        }
+                        else { MessageBox.Show("los items no pertenecen a la misma compra", "Error", MessageBoxButtons.OK); this.Close(); }
+                    }
+                    else
+                    {
+                        float dinero = daoDev.guardar(fechaDev, detalle, lstPasajes, lstEncom);
+                        MessageBox.Show("Se Devolvio en $: " + dinero, "Error", MessageBoxButtons.OK);
+                        this.Close();
+                    }
                 }
                 else { MessageBox.Show("Elija algun Item a Cancelar ", "Error", MessageBoxButtons.OK); }
             }
             else { MessageBox.Show("Ingrese el Detalle ", "Error", MessageBoxButtons.OK); }
 
         }
+
+       /* public bool coincideCompra() {
+
+            bool coincide = false;
+
+            if (lstPasajes.Count > 0 && lstEncom.Count >0) {
+
+                if (lstPasajes[0].compraId == lstEncom[0].compraId) { coincide = true; }
+            }
+            return coincide;
+        }*/
 
         private void btnCancelar_Click(object sender, EventArgs e) {
             this.Close();
