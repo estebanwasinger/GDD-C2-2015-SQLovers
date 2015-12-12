@@ -35,9 +35,10 @@ namespace AerolineaFrba.Consulta_Millas
             if (buscarCliente.cliente != null) {
                 this.cliente = buscarCliente.cliente;
                 textBoxDni.Text = this.cliente.dni.ToString();
-                textBoxMillas.Text = (DAOMillas.getMillasTotalesDeCliente(this.cliente.dni) - DAOCanje.getMillasGastadas(this.cliente.dni)).ToString();
+                textBoxMillas.Text = (DAOMillas.getMillasTotalesDeCliente(this.cliente.id) - DAOCanje.getMillasGastadas(this.cliente.dni)).ToString();
                 List<Canje> canjeList = DAOCanje.getCanjes(this.cliente.dni);
-                List<Millas> millasList = DAOMillas.getMillasDeCliente(this.cliente.dni);
+                List<Tuple<int, int>> pasajesConMillas = DAOMillas.getPasajesConMillas(this.cliente.id);
+                List<Tuple<int, int>> encomiendasConMillas = DAOMillas.getPasajesConMillas(this.cliente.id);
 
                 foreach (Canje canje in canjeList)
                 {
@@ -46,12 +47,20 @@ namespace AerolineaFrba.Consulta_Millas
                     dataGridViewCanjes.Rows.Add(row1);
                 }
 
-                foreach (Millas millas in millasList)
+                foreach (Tuple<int, int> millas in pasajesConMillas)
                 {
-                    string[] row1 = new string[] { millas.cantidad.ToString(), millas.fecha.ToString() , millas.encomienda == 0 ? "Pasaje" : "Encomienda" };
+                    string[] row1 = new string[] { millas.Item1.ToString(), millas.Item2.ToString() , "Pasaje" };
 
                     dataGridViewMillas.Rows.Add(row1);
                 }
+
+                foreach (Tuple<int, int> millas in encomiendasConMillas)
+                {
+                    string[] row1 = new string[] { millas.Item1.ToString(), millas.Item2.ToString(), "Encomienda" };
+
+                    dataGridViewMillas.Rows.Add(row1);
+                }
+
             }
         }
 
@@ -61,8 +70,8 @@ namespace AerolineaFrba.Consulta_Millas
             dataGridViewCanjes.Columns.Add(Utils.crearColumna("", "Precio", 100, true));
             dataGridViewCanjes.Columns.Add(Utils.crearColumna("", "Producto", 100, true));
 
+            dataGridViewMillas.Columns.Add(Utils.crearColumna("", "Codigo", 100, true));
             dataGridViewMillas.Columns.Add(Utils.crearColumna("", "Cantidad", 100, true));
-            dataGridViewMillas.Columns.Add(Utils.crearColumna("", "Fecha", 100, true));
             dataGridViewMillas.Columns.Add(Utils.crearColumna("", "Tipo", 100, true));
         }
     }

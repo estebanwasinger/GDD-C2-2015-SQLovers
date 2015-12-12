@@ -627,12 +627,14 @@ VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1
 --VALUES (00000000, 'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7')   
 
 INSERT INTO sqlovers.VUELO 
-            (vuelo_fecha_llegada_estimada, 
+            (vuelo_fecha_llegada,
+			 vuelo_fecha_llegada_estimada, 
              vuelo_fecha_salida, 
              vuelo_aeronave_id, 
              vuelo_ruta_id, 
              vuelo_cancelado) 
-SELECT DISTINCT fecha_llegada_estimada, 
+SELECT DISTINCT FechaLLegada,
+			    fecha_llegada_estimada, 
                 m.fechasalida, 
                 (SELECT a.aeronave_id FROM SQLOVERS.AERONAVE a WHERE a.aeronave_matricula = m.Aeronave_Matricula), 
                 r.ruta_id, 
@@ -1072,3 +1074,8 @@ create function [SQLOVERS].[obtenerIdAeronave] (@id numeric(18,0))
  end;
 
 GO
+
+SELECT p.pasaje_codigo, CEILING(p.pasaje_precio / 10) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v WHERE p.pasaje_cliente_id = 7 AND p.pasaje_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
+
+SELECT ISNULL(SUM(CEILING(p.pasaje_precio / 10)),0) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v WHERE p.pasaje_cliente_id = 2594 AND p.pasaje_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())
+

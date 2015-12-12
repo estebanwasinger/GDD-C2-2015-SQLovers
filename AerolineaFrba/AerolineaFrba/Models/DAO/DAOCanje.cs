@@ -41,7 +41,6 @@ namespace AerolineaFrba.Models.DAO
             SqlDataReader lector = DBAcess.GetDataReader("  SELECT c.canje_cantidad, c.canje_cliente, c.canje_fecha, c.canje_id, c.canje_producto, p.producto_cantMillas * c.canje_cantidad AS canje_precio FROM SQLOVERS.CANJE c, SQLOVERS.productos p" +
             " WHERE c.canje_cliente=@dniCliente AND c.canje_producto = p.producto_id", "T", parameterList);
 
-            lector.Read();
             List<Canje> compraList = new List<Canje>();
             if (lector.HasRows)
             {

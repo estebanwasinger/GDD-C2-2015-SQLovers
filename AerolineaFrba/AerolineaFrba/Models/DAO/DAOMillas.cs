@@ -11,57 +11,57 @@ namespace AerolineaFrba.Models.DAO
 {
     class DAOMillas
     {
-        public static bool create(Millas millas)
+        public static int getMillasTotalesDeCliente(int idCliente)
         {
 
+            int millasPasajes;
+            int millasEncomiendas;
+
             List<SqlParameter> parameterList = new List<SqlParameter>();
-            parameterList.Add(new SqlParameter("@millas_pasaje_id", millas.pasaje.Equals(0) ? (object)DBNull.Value : millas.pasaje));
-            parameterList.Add(new SqlParameter("@millas_encomienda_id", millas.encomienda.Equals(0) ? (object)DBNull.Value : millas.encomienda));
-            parameterList.Add(new SqlParameter("@millas_cliente", millas.cliente));
-            parameterList.Add(new SqlParameter("@millas_cantidad", millas.cantidad));
-            parameterList.Add(new SqlParameter("@millas_fecha", millas.fecha));
-
-
-            return DBAcess.WriteInBase("INSERT INTO sqlovers.MILLAS (millas_pasaje_id, millas_encomienda_id, millas_cliente, millas_cantidad, millas_fecha) " +
-                                                " VALUES (@millas_pasaje_id, @millas_encomienda_id, @millas_cliente, @millas_cantidad, @millas_fecha)", "T", parameterList);
-
-        }
-
-        public static int getMillasTotalesDeCliente(int dniCliente) {
-            List<SqlParameter> parameterList = new List<SqlParameter>();
-            parameterList.Add(new SqlParameter("@dniCliente", dniCliente));
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT SUM(millas_cantidad) FROM SQLOVERS.MILLAS WHERE millas_cliente = @dniCliente AND millas_fecha > DATEADD(Year,-1,GETDATE()) ", "T", parameterList);
-
+            parameterList.Add(new SqlParameter("@idCliente", idCliente));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT ISNULL(SUM(CEILING(p.pasaje_precio / 10)),0) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v WHERE p.pasaje_cliente_id = @idCliente AND p.pasaje_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())", "T", parameterList);
             lector.Read();
+            millasPasajes = (int)(decimal)lector[0];
 
-            return lector[0] == DBNull.Value ? 0 : (int)(decimal)lector[0];
+            parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@idCliente", idCliente));
+            lector = DBAcess.GetDataReader("SELECT ISNULL(SUM(CEILING(p.encomienda_precio_total / 10)),0) FROM SQLOVERS.ENCOMIENDA p, SQLOVERS.VUELO v WHERE p.encomienda_cliente_id = @idCliente AND p.encomienda_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())", "T", parameterList);
+            lector.Read();
+            millasEncomiendas = (int)lector[0];
+
+            return millasPasajes + millasEncomiendas;
         }
 
-        public static List<Millas> getMillasDeCliente(int dniCliente)
+        public static List<Tuple<int, int>> getPasajesConMillas(int idCliente)
         {
+            List<Tuple<int, int>> list = new List<Tuple<int, int>>();
             List<SqlParameter> parameterList = new List<SqlParameter>();
-            parameterList.Add(new SqlParameter("@dniCliente", dniCliente));
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT * FROM SQLOVERS.MILLAS WHERE millas_cliente = @dniCliente AND millas_fecha > DATEADD(Year,-1,GETDATE()) ", "T", parameterList);
-
-            List<Millas> compraList = new List<Millas>();
+            parameterList.Add(new SqlParameter("@idCliente", idCliente));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT p.pasaje_codigo, CEILING(p.pasaje_precio / 10) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v WHERE p.pasaje_cliente_id = @idCliente AND p.pasaje_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())", "T", parameterList);
             if (lector.HasRows)
             {
                 while (lector.Read())
                 {
-                    Millas compra = new Millas();
-                    compra.id = (int)(decimal)lector["millas_id"];
-                    compra.cliente = (int)(decimal)lector["millas_cliente"];
-                    compra.fecha = (DateTime)lector["millas_fecha"];
-                    compra.encomienda = lector["millas_encomienda_id"] == DBNull.Value ? 0 : (int)(decimal)lector["millas_encomienda_id"];
-                    compra.pasaje = lector["millas_pasaje_id"] == DBNull.Value ? 0 : (int)(decimal)lector["millas_pasaje_id"];
-                    compra.cantidad = (int)(decimal)lector["millas_cantidad"];
-
-                    compraList.Add(compra);
+                    list.Add(new Tuple<int, int>((int)(decimal)lector[0], (int)(decimal)lector[1]));
                 }
             }
-            return compraList;
-
+            return list;
         }
 
+        public static List<Tuple<int, int>> getEncomiendasConMillas(int idCliente)
+        {
+            List<Tuple<int, int>> list = new List<Tuple<int, int>>();
+            List<SqlParameter> parameterList = new List<SqlParameter>();
+            parameterList.Add(new SqlParameter("@idCliente", idCliente));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT p.encomienda_id, CEILING(p.encomienda_precio_total / 10) FROM SQLOVERS.ENCOMIENDA p, SQLOVERS.VUELO v WHERE p.encomienda_cliente_id = @idCliente AND p.encomienda_vuelo_id = v.vuelo_id AND v.vuelo_fecha_llegada >= DATEADD(Year,-1,GETDATE())", "T", parameterList);
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    list.Add(new Tuple<int, int>(lector.GetInt32(0), lector.GetInt32(1)));
+                }
+            }
+            return list;
+        }
     }
 }
