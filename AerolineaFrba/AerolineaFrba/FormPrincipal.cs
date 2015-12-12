@@ -47,6 +47,7 @@ namespace AerolineaFrba
         private const int CONSULTA_MILLAS = 10;
         private const int CANJE_MILLAS = 11;
         private const int LISTADO_ESTADISTICO = 12;
+         private const int ABM_ROL= 13;
 
         private void buttonAeronaves_Click(object sender, EventArgs e)
         {
@@ -121,6 +122,35 @@ namespace AerolineaFrba
 
             if (!dictionary.ContainsKey(ABM_CIUDAD)) {
                 buttonCiudades.Enabled = false;
+                if (!dictionary.ContainsKey(ABM_RUTA))
+                buttonRutas.Enabled = false;
+
+            if (!dictionary.ContainsKey(ABM_AERONAVE))
+                buttonAeronaves.Enabled = false;
+
+            if (!dictionary.ContainsKey(GENERAR_VIAJE))
+                buttonViajes.Enabled = false;
+
+            if (!dictionary.ContainsKey(REGISTRO_LLEGADA))
+                buttonRegistroDeLlegada.Enabled = false;
+
+            if (!dictionary.ContainsKey(COMPRA))
+                buttonCompra.Enabled = false;
+
+            if (!dictionary.ContainsKey(CANCELACION_DEVOLUCION))
+                buttonDevolucion.Enabled = false;
+
+            if (!dictionary.ContainsKey(CONSULTA_MILLAS))
+                buttonConsultaMillas.Enabled = false;
+
+            if (!dictionary.ContainsKey(CANJE_MILLAS))
+                buttonMillas.Enabled = false;
+
+            if (!dictionary.ContainsKey(LISTADO_ESTADISTICO))
+                btnListadoEstadistico.Enabled = false;
+
+            if (!dictionary.ContainsKey(ABM_ROL))
+                buttonRoles.Enabled = false;
             }
 
         }
