@@ -263,7 +263,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
 
             if (daoll.registrarLlegada(llegada)<0)
             {
-                List<Pasaje> pasajeList = DAOPasaje.getFromVuelo(llegada.vuelo_id);
+               /* List<Pasaje> pasajeList = DAOPasaje.getFromVuelo(llegada.vuelo_id);
 
                 foreach( Pasaje pasaje in pasajeList) {
                     Millas millas = new Millas();
@@ -284,7 +284,7 @@ namespace AerolineaFrba.Registro_Llegada_Destino
                     millas.encomienda = encomienda.id;
                     millas.fecha = DateTime.Now;
                     DAOMillas.create(millas);
-                }
+                }*/
 
                 MessageBox.Show("Llegada de Aeronave Registrada", "Notificacion", MessageBoxButtons.OK);
             }
