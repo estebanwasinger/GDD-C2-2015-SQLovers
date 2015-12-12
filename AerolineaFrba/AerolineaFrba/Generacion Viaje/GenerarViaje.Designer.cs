@@ -78,6 +78,7 @@
             this.dateSalida.Name = "dateSalida";
             this.dateSalida.Size = new System.Drawing.Size(200, 20);
             this.dateSalida.TabIndex = 7;
+            this.dateSalida.ValueChanged += new System.EventHandler(this.dateLlegada_ValueChanged);
             // 
             // dateLlegada
             // 
@@ -85,6 +86,7 @@
             this.dateLlegada.Name = "dateLlegada";
             this.dateLlegada.Size = new System.Drawing.Size(200, 20);
             this.dateLlegada.TabIndex = 9;
+            this.dateLlegada.ValueChanged += new System.EventHandler(this.dateLlegada_ValueChanged);
             // 
             // horaSalida
             // 
@@ -244,6 +246,7 @@
             this.groupBox3.Size = new System.Drawing.Size(511, 335);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // GenerarViaje
             // 

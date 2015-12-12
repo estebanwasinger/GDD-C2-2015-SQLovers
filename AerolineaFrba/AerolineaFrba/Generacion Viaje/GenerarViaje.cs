@@ -101,7 +101,7 @@ namespace AerolineaFrba.Generacion_Viaje
         public void actualizarGrilla()
         {
 
-            lstAeronaves = daoAeronave.aeronave_servicio();
+            lstAeronaves = DAOAeronave.getDisponiblesEntre(dateSalida.Value, dateLlegada.Value);
             dtgAeronavesPosibles.DataSource = lstAeronaves;
 
         }
@@ -120,7 +120,6 @@ namespace AerolineaFrba.Generacion_Viaje
 
         public double getHorasDeViaje()
         {
-            //new DateTime(1192,12,13,1,2,1)
             DateTime fechaSalida = getFechaSalida();
             DateTime fechaLlegada = getFechaLlegada();
 
@@ -213,6 +212,15 @@ namespace AerolineaFrba.Generacion_Viaje
             this.Close();
         }
 
+        private void dateLlegada_ValueChanged(object sender, EventArgs e)
+        {
+            dtgAeronavesPosibles.DataSource = DAOAeronave.getDisponiblesEntre(dateSalida.Value, dateLlegada.Value);
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }
