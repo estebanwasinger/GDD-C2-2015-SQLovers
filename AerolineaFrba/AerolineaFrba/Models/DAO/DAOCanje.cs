@@ -24,10 +24,10 @@ namespace AerolineaFrba.Models.DAO
         }
 
 
-        public static int getMillasGastadas(int dniCliente) {
+        public static int getMillasGastadas(int clienteId) {
             List<SqlParameter> parameterList = new List<SqlParameter>();
-            parameterList.Add(new SqlParameter("@dniCliente", dniCliente));
-            SqlDataReader lector = DBAcess.GetDataReader("SELECT SUM(c.canje_cantidad * p.producto_cantMillas) FROM  SQLOVERS.CANJE c, SQLOVERS.productos p WHERE c.canje_producto = p.producto_id AND c.canje_cliente = @dniCliente", "T", parameterList);
+            parameterList.Add(new SqlParameter("@clienteId", clienteId));
+            SqlDataReader lector = DBAcess.GetDataReader("SELECT SUM(c.canje_cantidad * p.producto_cantMillas) FROM  SQLOVERS.CANJE c, SQLOVERS.productos p WHERE c.canje_producto = p.producto_id AND c.canje_cliente = @clienteId", "T", parameterList);
 
             lector.Read();
 

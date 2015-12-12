@@ -45,6 +45,7 @@ namespace AerolineaFrba.Canje_Millas
             this.producto = (Producto)comboBoxProducto.SelectedItem;
             this.millasproducto = this.producto.millas;
             this.numericUpDown_cant.Enabled = true;
+            textBoxCostoUnitario.Text = millasproducto.ToString();
             numericUpDown_cant.Value = 0;
             buttonCanjear.Enabled = validarDatosCargados();
         }
@@ -79,6 +80,8 @@ namespace AerolineaFrba.Canje_Millas
                     return;
                 }
             }
+            textBoxCostoTotal.Text = cantidadTotal.ToString();
+            textBoxBalance.Text = (millasCliente - cantidadTotal - millasGastadas).ToString();
             buttonCanjear.Enabled = validarDatosCargados();
         }
 
@@ -89,7 +92,7 @@ namespace AerolineaFrba.Canje_Millas
 
             Canje canje = new Canje();
             canje.cantidad = cantidad;
-            canje.cliente = cliente.dni;
+            canje.cliente = cliente.id;
             canje.fecha = DateTime.Now;
             canje.producto = producto.id;
             DAOCanje.create(canje);
@@ -127,8 +130,10 @@ namespace AerolineaFrba.Canje_Millas
             if (buscarForm.cliente != null) {
                 this.cliente = buscarForm.cliente;
                 textBoxDNI.Text = this.cliente.dni.ToString();
-                millasCliente = DAOMillas.getMillasTotalesDeCliente(this.cliente.dni);
-                millasGastadas = DAOCanje.getMillasGastadas(this.cliente.dni);
+                millasCliente = DAOMillas.getMillasTotalesDeCliente(this.cliente.id);
+                
+                millasGastadas = DAOCanje.getMillasGastadas(this.cliente.id);
+                textBoxMillasDisponibles.Text = (millasCliente - millasGastadas).ToString();
                 validarDatosCargados();
             }
 
