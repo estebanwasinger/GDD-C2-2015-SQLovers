@@ -22,7 +22,26 @@ namespace AerolineaFrba.Models.DAO
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             listaParametros.Add(new SqlParameter("@ciudad_id", key));
             listaParametros.Add(new SqlParameter("@ciudad_estado", false));
-           
+
+            List<SqlParameter> listaParametrosRuta = new List<SqlParameter>();
+            listaParametrosRuta.Add(new SqlParameter("@ciudad_id", key));
+            SqlDataReader lector = DBAcess.GetDataReader("select * from SQLOVERS.RUTA where ruta_ciudad_destino = @ciudad_id or ruta_ciudad_origen = @ciudad_id", "T", listaParametrosRuta);
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    Ruta ruta = new Ruta();
+                    ruta.tipoServicioId = (int)(decimal)lector["ruta_tipo_servicio"];
+                    ruta.id = (int)(decimal)lector["ruta_id"];
+                    ruta.estado = (Boolean)lector["ruta_estado"];
+                    ruta.ciudadDestinoId = (int)(decimal)lector["ruta_ciudad_destino"];
+                    ruta.ciudadOrigenId = (int)(decimal)lector["ruta_ciudad_origen"];
+                    ruta.precioBaseKg = (int)(decimal)lector["ruta_precio_basekg"];
+                    ruta.precioBasePasaje = (int)(decimal)lector["ruta_precio_basepasaje"];
+
+                    DAORuta.baja(ruta);
+                }
+            }
             return Convert.ToInt32(DBAcess.WriteInBase("update SQLOVERS.ciudad set ciudad_estado=@ciudad_estado where ciudad_id=@ciudad_id","T", listaParametros));
         }
 

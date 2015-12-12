@@ -86,6 +86,7 @@
             this.dataGridViewRuta.Size = new System.Drawing.Size(533, 290);
             this.dataGridViewRuta.TabIndex = 4;
             this.dataGridViewRuta.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRuta_CellClick);
+            this.dataGridViewRuta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRuta_CellContentClick);
             // 
             // comboBoxFiltros
             // 

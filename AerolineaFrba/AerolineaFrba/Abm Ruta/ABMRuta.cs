@@ -146,5 +146,10 @@ namespace AerolineaFrba.Abm_Ruta
 
             }
         }
+
+        private void dataGridViewRuta_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

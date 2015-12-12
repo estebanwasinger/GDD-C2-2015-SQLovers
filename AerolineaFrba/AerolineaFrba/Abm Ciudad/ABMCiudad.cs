@@ -77,7 +77,7 @@ namespace AerolineaFrba.Abm_Ciudad
         private void borrarButton_Click(object sender, EventArgs e)
         {
             selectedCiudad = (Ciudad)dataGridViewCiudad.CurrentRow.DataBoundItem;
-            System.Windows.Forms.MessageBox.Show("Ciudad Nombre: " + selectedCiudad.nombre + " Ciudad Id: " + selectedCiudad.id);
+            System.Windows.Forms.MessageBox.Show("La ciudad" + selectedCiudad.nombre + " ha sido borrada ");
             daoCiudad.deleteCiudad((int) selectedCiudad.id);
             fillDataGridView();
         }
