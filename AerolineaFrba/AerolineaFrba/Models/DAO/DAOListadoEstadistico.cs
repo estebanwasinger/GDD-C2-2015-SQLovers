@@ -10,18 +10,18 @@ namespace AerolineaFrba.Models.DAO
     {
         public DataTable DestMasPasajComp(string fechaIni, string fechaFin)
         {
-            string query = @"SELECT TOP 5 c.ciudad_id,
-				            (SELECT c2.ciudad_nombre FROM SQLOVERS.CIUDAD c2 WHERE c2.ciudad_id=c.ciudad_id) AS ciudad_nombre,
-				            COUNT(c.ciudad_id) as cantidad_pasajes
-                FROM SQLOVERS.CIUDAD c
-                INNER JOIN SQLOVERS.LLEGADA_DESTINO l on c.ciudad_id=l.llegada_destino
-                INNER JOIN SQLOVERS.RUTA r on r.ruta_ciudad_destino=l.llegada_destino
-                INNER JOIN SQLOVERS.VUELO v on v.vuelo_ruta_id=r.ruta_id
-                INNER JOIN SQLOVERS.PASAJE p on p.pasaje_vuelo_id=v.vuelo_id
-                WHERE v.vuelo_fecha_salida between CONVERT(datetime, '"+ fechaIni +"', 120)" +
-                " and CONVERT(datetime, '"+ fechaFin +"', 120)" +
+            string query = @"select top 5 c.ciudad_id,
+				(select c2.ciudad_nombre from SQLOVERS.CIUDAD c2 where c2.ciudad_id=c.ciudad_id) as ciudad_nombre,
+				count(c.ciudad_id) as cantidad_pasajes
+                from sqlovers.CIUDAD c
+                inner join SQLOVERS.RUTA r on r.ruta_ciudad_destino=c.ciudad_id
+                inner join SQLOVERS.VUELO v on v.vuelo_ruta_id=r.ruta_id
+                inner join SQLOVERS.PASAJE p on p.pasaje_vuelo_id=v.vuelo_id
+                where v.vuelo_fecha_salida between CONVERT(datetime, '" + fechaIni + "', 120)" +
+                " and  CONVERT(datetime, '" + fechaFin + "', 120)" +
                 @" and v.vuelo_cancelado=0 and p.pasaje_cancelado=0
-                GROUP BY c.ciudad_id ORDER BY cantidad_pasajes desc";
+                GROUP BY c.ciudad_id
+                order by cantidad_pasajes desc" ;
             SqlDataReader lector = DBAcess.GetDataReader(query, "T", new List<SqlParameter>());
             DataTable dt = new DataTable("listado");
             dt.Load(lector);
@@ -32,19 +32,18 @@ namespace AerolineaFrba.Models.DAO
 
         public DataTable DestAeroMasVacias(string fechaIni, string fechaFin)
         {
-            string query = @"select top 5 c.ciudad_id,
+            string query =@"select top 5 c.ciudad_id,
 				(select c2.ciudad_nombre from SQLOVERS.CIUDAD c2 where c2.ciudad_id=c.ciudad_id) as ciudad_nombre,
-				count(c.ciudad_id) as cantidad_aeronaves
+				count(c.ciudad_id) as cantidad_pasajes
                 from sqlovers.CIUDAD c
-                inner join SQLOVERS.LLEGADA_DESTINO l on c.ciudad_id=l.llegada_destino
-                inner join SQLOVERS.RUTA r on r.ruta_ciudad_destino=l.llegada_destino
+                inner join SQLOVERS.RUTA r on r.ruta_ciudad_destino=c.ciudad_id
                 inner join SQLOVERS.VUELO v on v.vuelo_ruta_id=r.ruta_id
                 inner join SQLOVERS.PASAJE p on p.pasaje_vuelo_id=v.vuelo_id
-                inner join SQLOVERS.aeronave a on a.aeronave_matricula=v.vuelo_aeronave_id
-                WHERE v.vuelo_fecha_salida between CONVERT(datetime, '" + fechaIni + "', 120)" +
+                where v.vuelo_fecha_salida between CONVERT(datetime, '" + fechaIni + "', 120)" +
                 " and  CONVERT(datetime, '" + fechaFin + "', 120)" +
                 @" and v.vuelo_cancelado=0 and p.pasaje_cancelado=0
-                GROUP BY c.ciudad_id ORDER BY cantidad_aeronaves  asc";
+                GROUP BY c.ciudad_id
+                order by cantidad_pasajes asc";
             SqlDataReader lector = DBAcess.GetDataReader(query, "T", new List<SqlParameter>());
             DataTable dt = new DataTable("listado");
             dt.Load(lector);
@@ -74,12 +73,11 @@ namespace AerolineaFrba.Models.DAO
         public DataTable DestPasCancel(string fechaIni, string fechaFin)
         {
 
-            string query = @"SELECT TOP 5 c.ciudad_id,
+            string query =@"SELECT TOP 5 c.ciudad_id,
 				            (SELECT c2.ciudad_nombre FROM SQLOVERS.CIUDAD c2 WHERE c2.ciudad_id=c.ciudad_id) AS ciudad_nombre,
 				            COUNT(c.ciudad_id) as cantidad_pasajes
                 FROM SQLOVERS.CIUDAD c
-                INNER JOIN SQLOVERS.LLEGADA_DESTINO l on c.ciudad_id=l.llegada_destino
-                INNER JOIN SQLOVERS.RUTA r on r.ruta_ciudad_destino=l.llegada_destino
+                INNER JOIN SQLOVERS.RUTA r on r.ruta_ciudad_destino=c.ciudad_id
                 INNER JOIN SQLOVERS.VUELO v on v.vuelo_ruta_id=r.ruta_id
                 INNER JOIN SQLOVERS.PASAJE p on p.pasaje_vuelo_id=v.vuelo_id
                 WHERE p.pasaje_cancelado=1 and  v.vuelo_fecha_salida between CONVERT(datetime, '" + fechaIni + "', 120)" +
