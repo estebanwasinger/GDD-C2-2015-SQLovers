@@ -972,29 +972,30 @@ AS
 
       RETURN @resultado 
   END; 
+go 
 
-GO
 CREATE FUNCTION sqlovers.Cantidadkgdisponibles(@vuelo_id INT) 
 returns INT 
 AS 
   BEGIN 
       DECLARE @kg_disponibles INT; 
 
-      SET @kg_disponibles = (SELECT  (a.aeronave_kg_disponibles - 
-                                      Sum(e.encomienda_kg))  
-                             FROM   gd2c2015.sqlovers.VUELO v, 
-                                    sqlovers.AERONAVE a, 
-                                    sqlovers.ENCOMIENDA e 
-                             WHERE  v.vuelo_aeronave_id = a.aeronave_id 
-                                    AND e.encomienda_vuelo_id = @vuelo_id
-                                    AND v.vuelo_id = @vuelo_id
-									AND e.encomienda_cancelado = 0 
-                             GROUP  BY v.vuelo_id, 
-                                       a.aeronave_kg_disponibles) 
+      SET @kg_disponibles = (SELECT 
+      Isnull(( a.aeronave_kg_disponibles - 
+              Sum(e.encomienda_kg) ), a.aeronave_kg_disponibles) 
+       FROM   sqlovers.aeronave a, 
+              sqlovers.vuelo v 
+              LEFT JOIN sqlovers.encomienda e 
+                     ON v.vuelo_id = e.encomienda_vuelo_id 
+                        AND e.encomienda_cancelado = 0 
+       WHERE  a.aeronave_id = v.vuelo_aeronave_id 
+              AND v.vuelo_id = @vuelo_id 
+       GROUP  BY a.aeronave_kg_disponibles) 
 
       RETURN @kg_disponibles 
-  END;
-  GO
+  END; 
+
+go 
 
 CREATE FUNCTION sqlovers.Butacasdisponibles(@vuelo_id INT) 
 returns @butacasDisponibles TABLE ( 
@@ -1031,9 +1032,9 @@ AS
       SET @cantidad = (SELECT COUNT(*) FROM SQLOVERS.PASAJE p, SQLOVERS.VUELO v
   WHERE p.pasaje_cliente_id = @pasajeroId
   AND p.pasaje_vuelo_id = v.vuelo_id
-  AND ((v.vuelo_fecha_salida > @fechaSalida AND v.vuelo_fecha_salida <  @fechaLlegada) OR 
-	   (v.vuelo_fecha_llegada_estimada > @fechaSalida AND v.vuelo_fecha_llegada_estimada <  @fechaLlegada) OR
-	   (v.vuelo_fecha_salida <@fechaSalida AND v.vuelo_fecha_llegada_estimada >  @fechaLlegada)))
+  AND ((v.vuelo_fecha_salida >= @fechaSalida AND v.vuelo_fecha_salida <=  @fechaLlegada) OR 
+	   (v.vuelo_fecha_llegada_estimada >= @fechaSalida AND v.vuelo_fecha_llegada_estimada <=  @fechaLlegada) OR
+	   (v.vuelo_fecha_salida <= @fechaSalida AND v.vuelo_fecha_llegada_estimada >=  @fechaLlegada)))
 	   if(@cantidad > 0)
 		SET @return = 1;
 		else
@@ -1042,6 +1043,7 @@ AS
   END; 
   GO
 
+  SELECT SQLOVERS.pasajeroYaTieneVueloEntre(2594,'02/29/2016 5:00:00', '02/29/2016 17:00:00')
 
   /****** Object:  UserDefinedFunction [SQLOVERS].[obtenerFabricante]    Script Date: 12/11/2015 2:01:30 PM ******/
 SET ANSI_NULLS ON

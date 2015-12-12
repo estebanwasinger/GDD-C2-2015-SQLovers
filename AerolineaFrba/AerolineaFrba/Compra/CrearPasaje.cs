@@ -73,7 +73,7 @@ namespace AerolineaFrba.Compra
             clienteForm.ShowDialog();
             this.cliente = clienteForm.cliente;
             if (cliente != null) {
-                if (!DAOVuelo.tieneVueloEntre(cliente.dni, this.pasajePrivate.vuelo.fechaSalida, this.pasajePrivate.vuelo.fechaLlegadaEstimada) && !pasajeroYaEstaEnList(cliente.dni))
+                if (!DAOVuelo.tieneVueloEntre(cliente.id, this.pasajePrivate.vuelo.fechaSalida, this.pasajePrivate.vuelo.fechaLlegadaEstimada) && !pasajeroYaEstaEnList(cliente.dni))
                 {
                     textBoxApellidoCliente.Text = cliente.apellido;
                     textBoxDni.Text = cliente.dni.ToString();

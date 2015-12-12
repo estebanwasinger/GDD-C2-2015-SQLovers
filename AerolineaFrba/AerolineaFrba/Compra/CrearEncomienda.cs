@@ -88,7 +88,7 @@ namespace AerolineaFrba.Compra
 
         private void habilitarBotonAceptar()
         {
-            buttonComprar.Enabled = cliente != null && kgSeleccionados <= kgDisponibles;
+            buttonComprar.Enabled = cliente != null && kgSeleccionados <= kgDisponibles && kgSeleccionados > 0;
         }
     }
 }

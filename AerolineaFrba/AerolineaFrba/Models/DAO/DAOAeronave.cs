@@ -80,7 +80,7 @@ namespace AerolineaFrba.Models.DAO
 
         public void bajaDef(string matricula, DateTime fechaBajaDef)
         {
-
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
             string comando = "update SQLOVERS.AERONAVE set aeronave_estado = 2, " + String.Format("aeronave_fecha_bajaDefinitiva = {0} where aeronave_matricula like '{1}%' ", fechaQuereable(fechaBajaDef), matricula);
             DB.ExecuteNonQuery(comando);
         }

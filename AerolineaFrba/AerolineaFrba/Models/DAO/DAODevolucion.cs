@@ -36,7 +36,7 @@ namespace AerolineaFrba.Models.DAO
                 ListaParametros.Add(new SqlParameter("@llegada_vuelo_id", LlDestino.vuelo_id));*/
 
 
-                 DBAcess.WriteInBase("insert into SQLOVERS.DEVOLUCION (devolucion_fecha, devolucion_detalle) VALUES(@devolucion_fecha, @devolucion_detalle)", "T", ListaParametros);
+                 DBAcess.WriteInBase("insert into SQLOVERS.DEVOLUCION (devolucion_fecha, devolucion_detalle) VALUES(convert(datetime,@devolucion_fecha, @devolucion_detalle)", "T", ListaParametros);
 
                  string command = String.Format(" select * from sqlovers.devolucion where devolucion_detalle like  '{0}' ", detalle);
 
