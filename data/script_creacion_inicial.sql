@@ -855,23 +855,22 @@ AS
 go 
 
 --FUNCIONES   
-/****** Object:  UserDefinedFunction [SQLOVERS].[validar_fechaSalida]    Script Date: 11/26/2015 10:04:28 PM ******/ 
-SET ansi_nulls ON 
+/****** Object:  UserDefinedFunction [SQLOVERS].[Validar_fechasalida]    Script Date: 12/12/2015 3:35:58 PM ******/
+SET ANSI_NULLS ON
+GO
 
-go 
+SET QUOTED_IDENTIFIER ON
+GO
 
-SET quoted_identifier ON 
 
-go 
-
-CREATE FUNCTION [SQLOVERS].[Validar_fechasalida](@aeronave_id NVARCHAR(255), 
+CREATE FUNCTION [SQLOVERS].[Validar_fechasalida](@aeronave_id numeric(18,0), 
                                                  @fechaSalida DATETIME) 
 returns BIT 
 AS 
   BEGIN 
       DECLARE @retorno NUMERIC(3, 0)= (SELECT Count(*) 
          FROM   sqlovers.VUELO 
-         WHERE  vuelo_aeronave_id LIKE @aeronave_id 
+         WHERE  vuelo_aeronave_id = @aeronave_id 
                 AND vuelo_fecha_salida = @fechaSalida) 
 
       IF( @retorno = 0 ) 
@@ -884,7 +883,8 @@ AS
       RETURN @retorno 
   END; 
 
-go 
+
+GO
 
 /****** Object:  UserDefinedFunction [SQLOVERS].[estadoAeronave]    Script Date: 11/26/2015 10:05:15 PM ******/ 
 SET ansi_nulls ON 
